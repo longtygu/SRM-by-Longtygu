@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="SRM_by_Longtygu.Tools.RamTest.RamTestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+
+    <UserControl.Resources>
+
+        <!-- Dòng kết quả 1 bước test: chấm trạng thái + tên + chi tiết + thời gian -->
+        <Style x:Key="StepRowBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#232323"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style x:Key="StepDotStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Height" Value="10"/>
+            <Setter Property="Fill" Value="#505050"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Background="#1E1E1E" Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ===== HEADER ===== -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,18">
+            <Border Background="#2A2A2A" Width="44" Height="44" CornerRadius="10" Margin="0,0,14,0">
+                <iconPacks:PackIconMaterial Kind="Memory" Width="22" Height="22" Foreground="#60CDFF"
+                                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="RAM Test" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Cấp phát, ghi mẫu, đọc lại và xác minh CRC để phát hiện lỗi bộ nhớ"
+                           FontSize="12.5" Foreground="#A0A0A0" Margin="0,2,0,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- ===== ĐIỀU KHIỂN: chọn dung lượng + nút bắt đầu/hủy ===== -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Dung lượng kiểm tra:" Foreground="#D0D0D0"
+                       VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+            <ComboBox x:Name="SizeComboBox" Grid.Column="1" Width="120" SelectedIndex="2" VerticalContentAlignment="Center">
+                <ComboBoxItem Content="128 MB" Tag="128"/>
+                <ComboBoxItem Content="256 MB" Tag="256"/>
+                <ComboBoxItem Content="512 MB" Tag="512"/>
+                <ComboBoxItem Content="1 GB" Tag="1024"/>
+                <ComboBoxItem Content="2 GB" Tag="2048"/>
+                <ComboBoxItem Content="4 GB" Tag="4096"/>
+            </ComboBox>
+
+            <Button Grid.Column="3" x:Name="StartButton" Content="Bắt đầu kiểm tra"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Background="#60CDFF" Foreground="#202020"
+                    Click="StartButton_Click" Margin="0,0,10,0"/>
+
+            <Button Grid.Column="4" x:Name="CancelButton" Content="Hủy"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Background="#3A3A3A" Foreground="White"
+                    Click="CancelButton_Click" IsEnabled="False"/>
+        </Grid>
+
+        <!-- ===== TIẾN TRÌNH TỔNG ===== -->
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <ProgressBar x:Name="OverallProgressBar" Height="8" Minimum="0" Maximum="100" Value="0"
+                         Background="#2A2A2A" Foreground="#60CDFF" BorderThickness="0"/>
+            <TextBlock x:Name="StatusText" Text="Sẵn sàng — chọn dung lượng rồi bấm &quot;Bắt đầu kiểm tra&quot;"
+                       Foreground="#909090" FontSize="12" Margin="0,6,0,0"/>
+        </StackPanel>
+
+        <!-- ===== 4 BƯỚC KIỂM TRA ===== -->
+        <StackPanel Grid.Row="3" Margin="0,0,0,16">
+
+            <!-- Bước 1: Allocate RAM -->
+            <Border Style="{StaticResource StepRowBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Grid.Column="0" x:Name="Row1Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="Allocate RAM" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" x:Name="Row1Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="3" x:Name="Row1Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </Grid>
+            </Border>
+
+            <!-- Bước 2: Write Pattern -->
+            <Border Style="{StaticResource StepRowBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Grid.Column="0" x:Name="Row2Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="Write Pattern" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" x:Name="Row2Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="3" x:Name="Row2Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </Grid>
+            </Border>
+
+            <!-- Bước 3: Read Back -->
+            <Border Style="{StaticResource StepRowBorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Grid.Column="0" x:Name="Row3Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="Read Back" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" x:Name="Row3Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="3" x:Name="Row3Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </Grid>
+            </Border>
+
+            <!-- Bước 4: CRC Verify -->
+            <Border Style="{StaticResource StepRowBorderStyle}" Margin="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Grid.Column="0" x:Name="Row4Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="CRC Verify" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" x:Name="Row4Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="3" x:Name="Row4Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+
+        <!-- ===== NHẬT KÝ CHI TIẾT ===== -->
+        <Border Grid.Row="4" Background="#161616" CornerRadius="8" Padding="12" MinHeight="120">
+            <ScrollViewer x:Name="LogScrollViewer" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="LogText" FontFamily="Consolas" FontSize="11.5" Foreground="#B8E0C0" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Border>
+
+    </Grid>
+</UserControl>

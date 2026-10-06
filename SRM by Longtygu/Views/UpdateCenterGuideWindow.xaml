@@ -1,0 +1,188 @@
+﻿<Window x:Class="SRM_by_Longtygu.Views.UpdateCenterGuideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Hướng dẫn Trung tâm cập nhật" Height="700" Width="620"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="CloseButtonStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="0,8,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E81123"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DarkThumbStyle" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border Background="#555555" CornerRadius="4" Margin="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Track x:Name="PART_Track" IsDirectionReversed="true">
+                            <Track.Thumb>
+                                <Thumb Style="{StaticResource DarkThumbStyle}"/>
+                            </Track.Thumb>
+                        </Track>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="SectionTitleStyle">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#60CDFF"/>
+            <Setter Property="Margin" Value="0,18,0,8"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="BodyTextStyle">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="20"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="SourceCardStyle">
+            <Setter Property="Background" Value="#242424"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14,12"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#202020" CornerRadius="8" BorderBrush="#333333" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title bar -->
+            <Grid Grid.Row="0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                    <iconPacks:PackIconMaterial Kind="HelpCircleOutline" Foreground="#60CDFF" Width="14" Height="14" Margin="0,0,8,0"/>
+                    <TextBlock Text="Hướng dẫn sử dụng Trung tâm cập nhật" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13"/>
+                </StackPanel>
+                <Button Grid.Column="1" Style="{StaticResource CloseButtonStyle}" Width="45" Click="CloseButton_Click">
+                    <iconPacks:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
+                </Button>
+            </Grid>
+
+            <!-- Content -->
+            <Grid Grid.Row="1" Margin="24,0,24,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+
+                        <TextBlock Text="Trang này giúp bạn kiểm tra xem phần mềm trong thư viện có bản mới hay không, và tự động tải/cài bản mới đó." Style="{StaticResource BodyTextStyle}" Margin="0,16,0,0"/>
+
+                        <TextBlock Text="1. Ba loại nguồn kiểm tra cập nhật" Style="{StaticResource SectionTitleStyle}"/>
+
+                        <Border Style="{StaticResource SourceCardStyle}">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                    <iconPacks:PackIconMaterial Kind="Star" Width="14" Height="14" Foreground="#FCD34D" Margin="0,0,6,0"/>
+                                    <TextBlock Text="Winget (khuyên dùng trước tiên)" FontWeight="Bold" Foreground="#FFFFFF" FontSize="13"/>
+                                </StackPanel>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Text="Dùng catalog cộng đồng có sẵn của Windows Package Manager. Chỉ cần biết đúng 1 'ID gói' (VD: VideoLAN.VLC), không cần tự tra link. Phủ hầu hết phần mềm phổ biến. Cần máy có cài Winget + có mạng lúc quét."/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SourceCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="GitHub Releases" FontWeight="Bold" Foreground="#FFFFFF" FontSize="13" Margin="0,0,0,4"/>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Text="Dùng cho phần mềm mã nguồn mở có repo GitHub (VLC, Notepad++, OBS...). Chỉ cần nhập 'owner/repo'. App tự gọi GitHub API để lấy phiên bản + link tải mới nhất."/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SourceCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Quét trang web + Regex" FontWeight="Bold" Foreground="#FFFFFF" FontSize="13" Margin="0,0,0,4"/>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Text="Cách chữa cháy khi 2 cách trên không có (phần mềm không rõ nguồn gốc, không có trên Winget). Cần tự viết regex trích số phiên bản từ HTML trang download — dễ vỡ khi trang đổi giao diện, chỉ nên dùng khi thật sự cần."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="2. Tự động cấu hình, đỡ phải setup tay từng app" Style="{StaticResource SectionTitleStyle}"/>
+                        <TextBlock Style="{StaticResource BodyTextStyle}">
+                            Nút <Run FontWeight="Bold" Foreground="#FFFFFF">"Tự động cấu hình"</Run> trên toolbar sẽ quét tên toàn bộ phần mềm chưa cấu hình, so khớp với 1 danh sách gợi ý sẵn (VLC, Chrome, Zalo, Notepad++, Discord...) và tự lưu cấu hình cho những app khớp được — không cần mở dialog từng cái. App nào không có trong danh sách gợi ý thì vẫn cần cấu hình tay qua icon ⚙.
+                        </TextBlock>
+
+                        <TextBlock Text="3. Các nút thao tác trên từng dòng" Style="{StaticResource SectionTitleStyle}"/>
+                        <StackPanel Margin="0,0,0,4">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <iconPacks:PackIconMaterial Kind="Cog" Width="16" Height="16" Foreground="#AAAAAA" Margin="0,2,10,0"/>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Text="Cấu hình nguồn kiểm tra cập nhật cho riêng phần mềm này." Width="440"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <iconPacks:PackIconMaterial Kind="Refresh" Width="16" Height="16" Foreground="#AAAAAA" Margin="0,2,10,0"/>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Text="Quét riêng phần mềm này ngay (không cần chờ quét cả thư viện)." Width="440"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <iconPacks:PackIconMaterial Kind="TrayArrowDown" Width="16" Height="16" Foreground="#0284C7" Margin="0,2,10,0"/>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Width="440">
+                                    <Run FontWeight="Bold" Foreground="#FFFFFF">Tải về:</Run> tải bản mới và <Run FontWeight="Bold">thêm vào thư viện</Run> (thư mục Data/ + DB), KHÔNG đụng gì tới máy đang chạy app.
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <iconPacks:PackIconMaterial Kind="Rocket" Width="16" Height="16" Foreground="#16A34A" Margin="0,2,10,0"/>
+                                <TextBlock Style="{StaticResource BodyTextStyle}" Width="440">
+                                    <Run FontWeight="Bold" Foreground="#FFFFFF">Cài ngay:</Run> tải bản mới, thêm vào thư viện, rồi <Run FontWeight="Bold">cài luôn lên máy này</Run>. Với nguồn Winget, bước cài dùng thẳng lệnh Winget (không thêm được vào thư viện Data/, vì Winget tự quản lý cache riêng).
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <TextBlock Text="4. Lọc và nhóm danh sách" Style="{StaticResource SectionTitleStyle}"/>
+                        <TextBlock Style="{StaticResource BodyTextStyle}" Text="Dùng các chip 'Tất cả / Có bản mới / Đã cấu hình / Chưa cấu hình' để lọc nhanh. Bật/tắt 'Nhóm theo danh mục' để gom phần mềm theo Category, dễ nhìn hơn khi thư viện có nhiều app."/>
+
+                        <TextBlock Text="5. Lưu ý khi dùng USB portable" Style="{StaticResource SectionTitleStyle}"/>
+                        <TextBlock Style="{StaticResource BodyTextStyle}" Text="Bản thân app không cần mạng để chạy. Chỉ cần mạng đúng lúc bấm 'Quét' hoặc 'Tải/Cài'. Nếu máy đang cắm USB không có mạng hoặc không có Winget, các thao tác này sẽ báo lỗi rõ ràng thay vì bị treo — bạn có thể bỏ qua và làm sau trên máy khác."/>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Button Grid.Row="1" Click="CloseButton_Click" Background="#7C3AED" Foreground="#FFFFFF" BorderThickness="0"
+                        Padding="0,12" Margin="0,16,0,0" Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border"><Setter Property="CornerRadius" Value="6"/></Style>
+                    </Button.Resources>
+                    <TextBlock Text="Đã hiểu" FontWeight="SemiBold" FontSize="14" HorizontalAlignment="Center"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

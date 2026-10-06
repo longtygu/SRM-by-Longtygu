@@ -1,0 +1,346 @@
+﻿<UserControl x:Class="SRM_by_Longtygu.Views.ToolsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:SRM_by_Longtygu.Converters">
+
+    <UserControl.Resources>
+
+        <converters:IsBuiltInConverter x:Key="IsBuiltInConverter"/>
+        <converters:NotBuiltInToVisibilityConverter x:Key="NotBuiltInToVisibilityConverter"/>
+        <converters:BuiltInStatusTextConverter x:Key="BuiltInStatusTextConverter"/>
+
+        <!-- ============ CARD CÔNG CỤ (chế độ duyệt): icon phóng to, hover hiện tên + mô tả ============ -->
+        <Style x:Key="ToolCardStyle" TargetType="Button">
+            <Setter Property="Background" Value="#282828"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="160"/>
+            <Setter Property="Margin" Value="0,0,16,16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBg" Background="{TemplateBinding Background}"
+                                CornerRadius="12" ClipToBounds="True">
+                            <Grid>
+
+                                <!-- LỚP NỀN: icon phóng to lấp gần đầy ô -->
+                                <iconPacks:PackIconMaterial x:Name="BigIcon"
+                                    Kind="{Binding IconKind}"
+                                    Width="76" Height="76"
+                                    Foreground="#60CDFF"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Opacity="0.95"/>
+
+                                <!-- LỚP PHỦ MỜ: xuất hiện khi hover để làm nền cho chữ -->
+                                <Border x:Name="TextScrim" Background="#000000" Opacity="0" CornerRadius="12"/>
+
+                                <!-- LỚP CHỮ: ẩn mặc định, hiện khi hover — tên lớn, mô tả nhỏ -->
+                                <StackPanel x:Name="TextOverlay" Opacity="0"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Margin="14">
+                                    <TextBlock Text="{Binding Name}" FontSize="17" FontWeight="Bold"
+                                               Foreground="White" TextWrapping="Wrap"
+                                               TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="11.5" Foreground="#D0D0D0"
+                                               TextWrapping="Wrap" TextAlignment="Center"
+                                               Margin="0,8,0,0" MaxHeight="52"/>
+                                </StackPanel>
+
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBg" Property="Background" Value="#333333"/>
+                                <Setter TargetName="BigIcon" Property="Opacity" Value="0.10"/>
+                                <Setter TargetName="TextScrim" Property="Opacity" Value="0.30"/>
+                                <Setter TargetName="TextOverlay" Property="Opacity" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ============ NÚT HÀNH ĐỘNG NHỎ (Xuất / Xóa) TRONG BẢNG QUẢN LÝ ============ -->
+        <Style x:Key="RowActionButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="6,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="32">
+
+        <!-- ============ DANH SÁCH TOOL (dạng lưới card / bảng quản lý) ============ -->
+        <Grid x:Name="ListGrid">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsToolOpen}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ===== HEADER: tiêu đề + 2 nút Quản lý / Thêm công cụ ===== -->
+            <Grid Grid.Row="0" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Công cụ mở rộng" FontSize="24" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock FontSize="13" Foreground="#A0A0A0" Margin="0,4,0,0" TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="Di chuột vào công cụ để xem mô tả, bấm &quot;Thêm công cụ&quot; để cài đặt bản mới"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsManageMode}" Value="True">
+                                        <Setter Property="Text" Value="Xuất công cụ để backup/chia sẻ, hoặc xóa công cụ không còn dùng. Công cụ tích hợp sẵn không thể xuất/xóa."/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Button Content="{Binding ManageButtonLabel}" Command="{Binding ToggleManageModeCommand}"
+                            Background="#3A3A3A" Foreground="White" FontWeight="SemiBold"
+                            Padding="16,8" BorderThickness="0" Cursor="Hand" Margin="0,0,10,0"/>
+
+                    <Button Content="+ Thêm công cụ" Command="{Binding AddToolCommand}"
+                            Background="#60CDFF" Foreground="#202020" FontWeight="SemiBold"
+                            Padding="16,8" BorderThickness="0" Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ===== NỘI DUNG: 2 chế độ hiển thị tách biệt theo IsManageMode ===== -->
+            <Grid Grid.Row="1">
+
+                <!-- ===== CHẾ ĐỘ DUYỆT: lưới card ===== -->
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsManageMode}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding AvailableTools}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource ToolCardStyle}"
+                                            Command="{Binding DataContext.OpenToolCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- Thông báo khi chưa có tool nào -->
+                    <TextBlock Text="Chưa có công cụ nào. Bấm &quot;Thêm công cụ&quot; để cài đặt file .dll đầu tiên."
+                               Foreground="#666666" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="Collapsed">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasNoTools}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <!-- ===== CHẾ ĐỘ QUẢN LÝ: bảng danh sách với Xuất / Xóa ===== -->
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsManageMode}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+
+                            <!-- Header cột -->
+                            <Grid Margin="14,0,14,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="180"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1" Text="Tên công cụ" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="2" Text="Version" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="3" Text="Trạng thái" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="4" Text="Thao tác" FontSize="12" Foreground="#808080" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <ItemsControl ItemsSource="{Binding AvailableTools}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#232323" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="90"/>
+                                                    <ColumnDefinition Width="110"/>
+                                                    <ColumnDefinition Width="180"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Icon -->
+                                                <Border Grid.Column="0" Background="#333333" Width="32" Height="32"
+                                                        CornerRadius="7" HorizontalAlignment="Left">
+                                                    <iconPacks:PackIconMaterial Kind="{Binding IconKind}" Width="16" Height="16"
+                                                                                 Foreground="#60CDFF"
+                                                                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <!-- Tên + Id + mô tả -->
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0,10,0">
+                                                    <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold" Foreground="White"/>
+                                                    <TextBlock Text="{Binding Description}" FontSize="11" Foreground="#909090"
+                                                               TextWrapping="Wrap" MaxHeight="30" TextTrimming="CharacterEllipsis" Margin="0,2,0,0"/>
+                                                </StackPanel>
+
+                                                <!-- Version -->
+                                                <TextBlock Grid.Column="2" Text="{Binding Version}" FontSize="12"
+                                                           Foreground="#B0B0B0" VerticalAlignment="Center"/>
+
+                                                <!-- Trạng thái (badge) -->
+                                                <Border Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                        CornerRadius="10" Padding="10,3">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Background" Value="#2A4A63"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Id, Converter={StaticResource IsBuiltInConverter}}" Value="True">
+                                                                    <Setter Property="Background" Value="#3A3A3A"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <TextBlock Text="{Binding Id, Converter={StaticResource BuiltInStatusTextConverter}}"
+                                                               FontSize="10.5" Foreground="White"/>
+                                                </Border>
+
+                                                <!-- Thao tác: Xuất / Xóa -->
+                                                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                    <Button Content="Xuất" Style="{StaticResource RowActionButtonStyle}"
+                                                            Background="#3A6FA0" Foreground="White"
+                                                            Visibility="{Binding Id, Converter={StaticResource NotBuiltInToVisibilityConverter}}"
+                                                            Command="{Binding DataContext.ExportToolCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"/>
+                                                    <Button Content="Xóa" Style="{StaticResource RowActionButtonStyle}"
+                                                            Background="#B02A37" Foreground="White"
+                                                            Visibility="{Binding Id, Converter={StaticResource NotBuiltInToVisibilityConverter}}"
+                                                            Command="{Binding DataContext.DeleteToolCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"/>
+                                                </StackPanel>
+
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBlock Text="Chưa có công cụ nào để quản lý."
+                               Foreground="#666666" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="Collapsed">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasNoTools}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+        <!-- ============ CHI TIẾT / GIAO DIỆN CỦA TOOL ĐANG MỞ ============ -->
+        <Grid x:Name="DetailGrid">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsToolOpen}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="← Quay lại danh sách" Command="{Binding BackToListCommand}"
+                    Background="Transparent" Foreground="#60CDFF" BorderThickness="0"
+                    HorizontalAlignment="Left" Margin="0,0,0,16" Cursor="Hand"/>
+
+            <ContentControl Grid.Row="1" Content="{Binding ActiveToolView}"/>
+        </Grid>
+    </Grid>
+</UserControl>

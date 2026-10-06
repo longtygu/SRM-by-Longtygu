@@ -1,0 +1,468 @@
+﻿<UserControl x:Class="SRM_by_Longtygu.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:conv="clr-namespace:SRM_by_Longtygu.Converters"
+             xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
+             Background="Transparent" Foreground="White">
+
+    <UserControl.Resources>
+
+        <!-- ============ CONVERTER ============ -->
+        <conv:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+        <conv:NullOrEmptyToVisibilityConverter x:Key="NullOrEmptyToVisibilityConverter"/>
+        <helpers:ImagePathConverter x:Key="ImagePathConverter"/>
+
+        <!-- ============ BẢNG MÀU TRUNG TÂM ============ -->
+        <SolidColorBrush x:Key="CardBg" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="CardBorder" Color="#333333"/>
+        <SolidColorBrush x:Key="ItemBg" Color="#252526"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#888888"/>
+        <SolidColorBrush x:Key="AccentBlue" Color="#007ACC"/>
+        <SolidColorBrush x:Key="AccentGreen" Color="#4CAF50"/>
+        <SolidColorBrush x:Key="AccentOrange" Color="#FF9800"/>
+        <SolidColorBrush x:Key="AccentRed" Color="#FF5252"/>
+
+        <!-- ============ STYLE CARD DÙNG CHUNG ============ -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBg}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource CardBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+        </Style>
+
+        <Style x:Key="CardTitleStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <!-- Style item trong ListBox (card nhỏ bên trong) -->
+        <Style x:Key="ListItemCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource ItemBg}"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style TargetType="ListBoxItem" x:Key="TransparentListBoxItem">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <!-- Style dùng cho TextBlock hiển thị màu Sức khỏe ổ đĩa động theo nội dung -->
+        <Style x:Key="DriveHealthStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentGreen}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DriveHealth}" Value="Cảnh báo">
+                    <Setter Property="Foreground" Value="{StaticResource AccentOrange}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding DriveHealth}" Value="Nguy hiểm">
+                    <Setter Property="Foreground" Value="{StaticResource AccentRed}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding DriveHealth}" Value="Lỗi">
+                    <Setter Property="Foreground" Value="{StaticResource AccentRed}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- TextBlock "trống dữ liệu" dùng khi list rỗng -->
+        <Style x:Key="EmptyStateStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+        </Style>
+
+        <!-- ============ SCROLLBAR TỐI MÀU ============ -->
+        <Style x:Key="DarkScrollBarThumb" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border Background="#4A4A4A" CornerRadius="4" x:Name="ThumbBorder"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ThumbBorder" Property="Background" Value="#666666"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="ThumbBorder" Property="Background" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="Transparent">
+                            <Track Name="PART_Track" IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource DarkScrollBarThumb}" Width="6" Margin="2,0,2,0"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="THÔNG TIN TỔNG QUÁT" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextPrimary}" Margin="0,0,0,20"/>
+
+        <!-- ================= HÀNG 1: KPI + STORAGE ================= -->
+        <Grid Grid.Row="1" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="0,0,15,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Ô 1: Tổng phần mềm -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <iconPacks:PackIconMaterial Grid.RowSpan="3" Kind="PackageVariant" Foreground="{StaticResource AccentBlue}" 
+                                                    Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                    Opacity="0.1" IsHitTestVisible="False"/>
+
+                        <TextBlock Grid.Row="0" Text="Tổng phần mềm" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+
+                        <TextBlock Grid.Row="1" Text="{Binding TotalSoftwares}" Foreground="White" FontSize="56" FontWeight="Bold" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10"/>
+
+                        <TextBlock Grid.Row="2" Foreground="{StaticResource TextSecondary}" FontSize="12">
+                            <Run Text="Tổng phiên bản, phần mềm : "/>
+                            <Run Text="{Binding TotalVersions}" FontWeight="Bold" Foreground="{StaticResource AccentBlue}"/>
+                            <Run Text=" File"/>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
+                <!-- Ô 2: Cấu trúc Thư viện -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <iconPacks:PackIconMaterial Grid.RowSpan="3" Kind="FolderMultiple" Foreground="{StaticResource AccentOrange}" 
+                                                    Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                    Opacity="0.1" IsHitTestVisible="False"/>
+
+                        <TextBlock Grid.Row="0" Text="Cấu trúc Thư viện" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+
+                        <TextBlock Grid.Row="1" Text="{Binding TotalCategories}" Foreground="White" FontSize="56" FontWeight="Bold" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10"/>
+
+                        <TextBlock Grid.Row="2" Text="{Binding CategorySubtitle}" Foreground="{StaticResource TextSecondary}" FontSize="12" FontStyle="Italic"/>
+                    </Grid>
+                </Border>
+
+                <!-- Ô 3: Thông tin Ổ cứng (Đã chỉnh sửa fill đều 4 góc và căn giữa) -->
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Tiêu đề -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <iconPacks:PackIconMaterial Kind="Harddisk" Foreground="#E91E63" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Thông tin Ổ cứng" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Model Ổ cứng (Nằm chính giữa) -->
+                        <TextBlock Grid.Row="1" Text="{Binding DriveModel}" Foreground="White" FontSize="16" FontWeight="Bold" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" 
+                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" ToolTip="{Binding DriveModel}"/>
+
+                        <!-- Chi tiết phần cứng (Nằm dưới cùng, căn giữa) -->
+                        <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Loại:" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,10,3"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DriveType}" Foreground="{StaticResource AccentGreen}" FontSize="12" FontWeight="SemiBold"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="FW:" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,10,3"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DriveFirmware}" Foreground="{StaticResource TextPrimary}" FontSize="12"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Sức khỏe:" Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DriveHealth}" Style="{StaticResource DriveHealthStyle}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- TRẠNG THÁI LƯU TRỮ -->
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Trạng Thái Lưu Trữ (Storage)" Style="{StaticResource CardTitleStyle}"/>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,15,0,5">
+
+                        <Grid>
+                            <ProgressBar Value="{Binding UsedPercentage}" Minimum="0" Maximum="100" Height="26" BorderThickness="0">
+                                <ProgressBar.Template>
+                                    <ControlTemplate TargetType="ProgressBar">
+                                        <Grid>
+                                            <Border x:Name="PART_Track" Background="{StaticResource AccentGreen}" CornerRadius="13"/>
+                                            <Border x:Name="PART_Indicator" Background="{StaticResource AccentRed}" CornerRadius="13" HorizontalAlignment="Left"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ProgressBar.Template>
+                            </ProgressBar>
+                            <TextBlock Text="{Binding UsedPercentage, StringFormat={}{0:0}%}"
+                                       Foreground="White" FontWeight="Bold" FontSize="12"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,15">
+                            <TextBlock Text="{Binding UsedStorageText}" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text=" / "/>
+                            <TextBlock Text="{Binding TotalStorageText}" Foreground="#AAAAAA" FontSize="16" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding FreeStorageText}" Foreground="{StaticResource AccentGreen}" FontSize="16" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Ellipse Width="12" Height="12" Fill="{StaticResource AccentRed}" Margin="0,0,8,0"/>
+                            <TextBlock Text="Đã sử dụng" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold" Margin="0,0,25,0"/>
+
+                            <Ellipse Width="12" Height="12" Fill="{StaticResource AccentGreen}" Margin="0,0,8,0"/>
+                            <TextBlock Text="Còn trống" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ================= HÀNG 2: RECENT + CATEGORY STORAGE + CATEGORY CHART ================= -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <!-- Phần mềm thêm gần đây -->
+                <ColumnDefinition Width="3*"/>
+                <!-- Ô MỚI: Thống kê dung lượng danh mục -->
+                <ColumnDefinition Width="4*"/>
+                <!-- Thống kê danh mục (Giữ nguyên 40% diện tích) -->
+            </Grid.ColumnDefinitions>
+
+            <!-- 1. Phần mềm thêm gần đây -->
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,15,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Phần Mềm Thêm Gần Đây" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,15"/>
+
+                    <Grid Grid.Row="1">
+                        <ListBox ItemsSource="{Binding RecentSoftwares}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource ListItemCardStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Width="28" Height="28" VerticalAlignment="Center" Margin="0,0,15,0">
+                                                <iconPacks:PackIconMaterial Kind="Application" Foreground="#AAAAAA" Width="24" Height="24"
+                                                                            Visibility="{Binding IconPath, Converter={StaticResource NullOrEmptyToVisibilityConverter}}"/>
+                                                <Image Source="{Binding IconPath, Converter={StaticResource ImagePathConverter}}"
+                                                       Width="28" Height="28" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            </Grid>
+
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                                                <TextBlock Text="{Binding Category}" Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource TransparentListBoxItem}"/>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+
+                        <TextBlock Text="Chưa có phần mềm nào được thêm gần đây."
+                                   Style="{StaticResource EmptyStateStyle}"
+                                   Visibility="{Binding RecentSoftwares.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- 2. Ô MỚI: Thống kê dung lượng danh mục -->
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}" Margin="0,0,15,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Dung Lượng Danh Mục" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,15"/>
+
+                    <!-- Tổng dung lượng tài nguyên -->
+                    <Border Grid.Row="1" Background="{StaticResource ItemBg}" CornerRadius="6" Padding="12" Margin="0,0,0,15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <iconPacks:PackIconMaterial Kind="Database" Foreground="{StaticResource AccentOrange}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Tổng tài nguyên" Foreground="{StaticResource TextSecondary}" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Text="{Binding TotalResourceSize}" Foreground="White" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Danh sách dung lượng từng danh mục -->
+                    <Grid Grid.Row="2">
+                        <ListBox ItemsSource="{Binding CategoryStorageStats}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource ListItemCardStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <iconPacks:PackIconMaterial Kind="Folder" Foreground="{StaticResource AccentBlue}" Width="16" Height="16" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CategoryName}" Foreground="White" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="1" Text="{Binding CategorySize}" Foreground="{StaticResource AccentGreen}" FontWeight="Bold" FontSize="13" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource TransparentListBoxItem}"/>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+
+                        <TextBlock Text="Chưa có dữ liệu dung lượng."
+                                   Style="{StaticResource EmptyStateStyle}"
+                                   Visibility="{Binding CategoryStorageStats.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- 3. Thống kê danh mục (Biểu đồ) -->
+            <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Thống Kê Danh Mục" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,10"/>
+
+                    <lvc:PieChart Grid.Row="1" Series="{Binding CategoryPieSeries}"
+                                  Height="210" Margin="0,0,0,10"
+                                  LegendLocation="Right"
+                                  Foreground="White"
+                                  Hoverable="True"
+                                  DataTooltip="{x:Null}"/>
+
+                    <Grid Grid.Row="2">
+                        <ListBox ItemsSource="{Binding CategoryStats}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{StaticResource ItemBg}" CornerRadius="4" Padding="15,10" Margin="0,0,0,8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal">
+                                                <iconPacks:PackIconMaterial Kind="Folder" Foreground="{StaticResource AccentBlue}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                                <TextBlock Text="{Binding CategoryName}" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="#333333" CornerRadius="12" Padding="12,3">
+                                                <TextBlock Text="{Binding Count}" Foreground="White" FontWeight="Bold" FontSize="12"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource TransparentListBoxItem}"/>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+
+                        <TextBlock Text="Chưa có danh mục nào."
+                                   Style="{StaticResource EmptyStateStyle}"
+                                   Visibility="{Binding CategoryStats.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ================= FOOTER ================= -->
+        <Border Grid.Row="3" Background="#152016" CornerRadius="6" Padding="12,6" BorderBrush="#2E7D32" BorderThickness="1" Margin="0,15,0,0" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="CheckDecagram" Foreground="{StaticResource AccentGreen}" VerticalAlignment="Center" Margin="0,0,8,0" Width="16" Height="16"/>
+                <TextBlock Text="v1.0.0 (Test) · DESIGN / DEV BY LONGTYGU  |  https://github.com/longtygu/SRM-by-Longtygu" Foreground="{StaticResource AccentGreen}" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

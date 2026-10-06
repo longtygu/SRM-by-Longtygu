@@ -1,0 +1,51 @@
+﻿<Window x:Class="SRM_by_Longtygu.SplashWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
+        Width="420" Height="260">
+
+    <Window.Resources>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.25"/>
+        </Storyboard>
+
+        <!-- Hiệu ứng "nháy nhẹ" mỗi khi dòng trạng thái đổi text, tạo cảm giác đang xử lý -->
+        <Storyboard x:Key="TextFadeStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.25" To="1" Duration="0:0:0.18"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border Background="#202020" CornerRadius="12" BorderBrush="#333333" BorderThickness="1">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            <Border Background="#282828" Width="72" Height="72" CornerRadius="16" HorizontalAlignment="Center">
+                <iconPacks:PackIconMaterial Kind="HexagonMultiple" Width="36" Height="36"
+                                             Foreground="#60CDFF"
+                                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <TextBlock Text="SRM by Longtygu" FontSize="20" FontWeight="Bold" Foreground="White"
+                       HorizontalAlignment="Center" Margin="0,16,0,4"/>
+
+            <TextBlock x:Name="StatusText" Text="Đang khởi động..." FontSize="12" Foreground="#A0A0A0"
+                       HorizontalAlignment="Center" Margin="0,0,0,12"/>
+
+            <!-- Progress bar dạng xác định (determinate) để chạy theo % thay vì indeterminate -->
+            <ProgressBar x:Name="LoadingProgressBar" Minimum="0" Maximum="100" Value="0"
+                         Width="220" Height="4"
+                         Foreground="#60CDFF" Background="#333333" BorderThickness="0"/>
+
+            <TextBlock x:Name="PercentText" Text="0%" FontSize="10" Foreground="#666666"
+                       HorizontalAlignment="Center" Margin="0,6,0,0"/>
+        </StackPanel>
+    </Border>
+</Window>

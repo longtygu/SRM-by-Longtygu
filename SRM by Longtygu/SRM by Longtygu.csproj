@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <Version>1.0.0</Version>
+	  <Authors>longtygu</Authors>
+	  <Product>SRM by Longtygu</Product>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.22000.0</TargetFramework>
+    <RootNamespace>SRM_by_Longtygu</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>SRMico.ico</ApplicationIcon>
+    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\author_portrait.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SRMico.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.79" />
+    <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.6" />
+    <PackageReference Include="LibreHardwareMonitorLibCore" Version="1.0.3" />
+    <PackageReference Include="LiveCharts.Core" Version="0.9.8" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf.Core" Version="0.9.8" />
+    <PackageReference Include="LLT.LibreHardwareMonitorLib" Version="0.9.7" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="6.2.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.10" />
+    <PackageReference Include="System.Management" Version="10.0.10" />
+    <PackageReference Include="System.Text.Json" Version="10.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\author_portrait.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Menu_Dashboard">BẢNG ĐIỀU KHIỂN</system:String>
+    <system:String x:Key="Menu_Library">THƯ VIỆN PHẦN MỀM</system:String>
+    <system:String x:Key="Menu_Deployment">CÀI ĐẶT TÙY CHỌN</system:String>
+    <system:String x:Key="Menu_Presets">CÀI ĐẶT THEO GÓI</system:String>
+    <system:String x:Key="Menu_Settings">CÀI ĐẶT HỆ THỐNG</system:String>
+
+</ResourceDictionary>

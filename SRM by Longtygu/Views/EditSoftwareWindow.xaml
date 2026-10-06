@@ -1,0 +1,252 @@
+﻿<Window x:Class="SRM_by_Longtygu.Views.EditSoftwareWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="Chỉnh sửa phần mềm" Height="580" Width="900"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="#202020" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+
+    <Window.Resources>
+        <!-- 1. STYLE Ô NHẬP LIỆU (TEXTBOX) -->
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#454545"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CaretBrush" Value="#FFFFFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="#333333"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#60CDFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 2. STYLE NÚT BẤM (BUTTON) -->
+        <Style TargetType="Button" x:Key="FluentButtonStyle">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 3. STYLE COMBOBOX ĐẶC BIỆT CHO ISEDITABLE="TRUE" -->
+        <Style TargetType="ComboBox" x:Key="FluentEditableComboBoxStyle">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#454545"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton" 
+                                          Background="{TemplateBinding Background}" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                          BorderThickness="{TemplateBinding BorderThickness}" 
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+                                            <Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="#AAAAAA" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#333333"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="#FFFFFF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <!-- Hộp TextBox cho phép nhập liệu tự do -->
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                     Background="Transparent" Foreground="#FFFFFF" BorderThickness="0"
+                                     VerticalAlignment="Center" Margin="2,0,30,0" Padding="10,8" CaretBrush="#FFFFFF"/>
+
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Border x:Name="DropDownBorder" Background="#282828" BorderBrush="#454545" BorderThickness="1" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="250" CornerRadius="4" Margin="0,4,0,0">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="Padding" Value="12,8"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border x:Name="ItemBorder" Background="{TemplateBinding Background}" CornerRadius="4" Margin="4,2">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="#3E3E3E"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="ItemBorder" Property="Background" Value="#60CDFF"/>
+                                            <Setter Property="Foreground" Value="#000000"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 4. STYLE THANH CUỘN (SCROLLBAR) -->
+        <Style x:Key="DarkThumbStyle" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border x:Name="ThumbBorder" Background="#555555" CornerRadius="4" Margin="2"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ThumbBorder" Property="Background" Value="#777777"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="ThumbBorder" Property="Background" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource DarkThumbStyle}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Border Margin="24" Background="#282828" CornerRadius="8" BorderBrush="#333333" BorderThickness="1" Padding="24">
+
+            <!-- BỐ CỤC CHIA 2 KHOANG NGANG (50% / 50%) -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <!-- Cột Trái (Cơ bản) -->
+                    <ColumnDefinition Width="30"/>
+                    <!-- Rãnh giữa -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Cột Phải (Bổ sung & Lưu) -->
+                </Grid.ColumnDefinitions>
+
+                <!-- ================= KHOANG TRÁI ================= -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Cập nhật thông tin" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,24" Foreground="#FFFFFF"/>
+
+                    <TextBlock Text="Tên phần mềm" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Nhà phát triển (Publisher)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                    <TextBox Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Danh mục (Category)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                    <ComboBox ItemsSource="{Binding Categories}" 
+                              SelectedItem="{Binding Category, UpdateSourceTrigger=PropertyChanged}" 
+                              IsEditable="True" 
+                              Style="{StaticResource FluentEditableComboBoxStyle}" 
+                              Height="42" Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Lệnh cài đặt ngầm (Silent Install Cmd)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                    <TextBox Text="{Binding SilentInstallCommand, UpdateSourceTrigger=PropertyChanged}" Foreground="#6CCB5F" FontFamily="Consolas" Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Lệnh gỡ cài đặt ngầm (Silent Uninstall Cmd)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                    <TextBox Text="{Binding SilentUninstallCommand, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF99A4" FontFamily="Consolas" Margin="0,0,0,16"/>
+                </StackPanel>
+
+                <!-- VÁCH NGĂN MỜ GIỮA 2 CỘT -->
+                <Rectangle Grid.Column="1" Width="1" Fill="#3E3E3E" Margin="14,10"/>
+
+                <!-- ================= KHOANG PHẢI ================= -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <!-- Nội dung -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Nút Lưu -->
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="Thông tin bổ sung" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,24" Foreground="#FFFFFF"/>
+
+                        <TextBlock Text="CD-Key / Giấy phép (License Key)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                        <TextBox Text="{Binding LicenseKey, UpdateSourceTrigger=PropertyChanged}" Foreground="#FCE100" FontWeight="Bold" Margin="0,0,0,16"/>
+
+                        <TextBlock Text="Mô tả ngắn" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,16" TextWrapping="Wrap" Height="60" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+
+                        <TextBlock Text="Ghi chú / Hướng dẫn cài đặt (Readme)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                        <TextBox Text="{Binding Readme, UpdateSourceTrigger=PropertyChanged}" Height="125" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="0,0,0,0"/>
+                    </StackPanel>
+
+                    <!-- Nút Lưu nằm gọn ở góc dưới bên phải -->
+                    <Button Grid.Row="1" Command="{Binding SaveCommand}" Style="{StaticResource FluentButtonStyle}" Background="#16A34A" Padding="15,12">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <iconPacks:PackIconMaterial Kind="ContentSave" Margin="0,0,10,0" VerticalAlignment="Center" Width="18" Height="18"/>
+                            <TextBlock Text="Lưu Cập Nhật" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,376 @@
+﻿<UserControl x:Class="SRM_by_Longtygu.Views.UninstallView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             Background="#202020" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+
+    <UserControl.Resources>
+        <!-- THIẾT KẾ CÔNG TẮC LỌC DẠNG NÚT BẤM -->
+        <Style x:Key="FluentToggleStyle" TargetType="CheckBox">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#454545"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3E3E3E"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#60CDFF"/>
+                                <Setter Property="Foreground" Value="#000000"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- CHECKBOX VUÔNG BO GÓC NHẸ TRONG LƯỚI DATA -->
+        <Style TargetType="CheckBox" x:Key="FluentGridCheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="CheckBorder" Width="20" Height="20" CornerRadius="4" BorderThickness="1" BorderBrush="#8A8A8A" Background="#282828">
+                            <iconPacks:PackIconMaterial x:Name="CheckIcon" Kind="Check" Foreground="#000000" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" FontWeight="Bold"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CheckBorder" Property="Background" Value="#333333"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckBorder" Property="Background" Value="#60CDFF"/>
+                                <Setter TargetName="CheckBorder" Property="BorderBrush" Value="#60CDFF"/>
+                                <Setter TargetName="CheckIcon" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding DataContext.IsUninstalling, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ========================================== -->
+        <!-- STYLE THANH CUỘN (SCROLLBAR) DARK MODE MỚI -->
+        <!-- ========================================== -->
+        <Style x:Key="DarkThumbStyle" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border x:Name="ThumbBorder" Background="#555555" CornerRadius="4" Margin="2"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ThumbBorder" Property="Background" Value="#777777"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="ThumbBorder" Property="Background" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="10"/>
+            <!-- Thanh dọc nhỏ gọn -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <!-- Chỉ giữ lại thanh chạy (Track), ẩn đi 2 nút mũi tên cũ -->
+                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource DarkThumbStyle}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="Width" Value="Auto"/>
+                    <Setter Property="Height" Value="10"/>
+                    <!-- Thanh ngang nhỏ gọn -->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ScrollBar">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Track x:Name="PART_Track" IsDirectionReversed="False">
+                                        <Track.Thumb>
+                                            <Thumb Style="{StaticResource DarkThumbStyle}"/>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Tiêu đề -->
+            <RowDefinition Height="Auto"/>
+            <!-- Hàng: Search & Filter -->
+            <RowDefinition Height="*"/>
+            <!-- Hàng: Nội dung -->
+        </Grid.RowDefinitions>
+
+        <!-- TIÊU ĐỀ -->
+        <TextBlock Grid.Row="0" Text="GỠ CÀI ĐẶT TÙY CHỌN" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,24"/>
+
+        <!-- HÀNG TÌM KIẾM & BỘ LỌC -->
+        <Grid Grid.Row="1" Margin="0,0,0,24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Thanh tìm kiếm Windows 11 -->
+            <Border Grid.Column="0" Background="#2D2D2D" CornerRadius="6" BorderBrush="#454545" BorderThickness="1" Padding="12,8" Width="350" Margin="0,0,24,0">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="Magnify" Foreground="#CCCCCC" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Foreground="#FFFFFF" BorderThickness="0" FontSize="14" VerticalAlignment="Center" Width="300" CaretBrush="#FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Các công tắc Filter -->
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowUserApps}" Content="App cá nhân"/>
+                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowComponentApps}" Content="Phần mềm hỗ trợ"/>
+                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowSystemApps}" Content="App hệ thống"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- BỐ CỤC CHIA LƯỚI (65 / 35) -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="35*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- BÊN TRÁI: DANH SÁCH ỨNG DỤNG -->
+            <Border Grid.Column="0" Background="#282828" CornerRadius="8" BorderBrush="#333333" BorderThickness="1" Padding="5,15,5,5" Margin="0,0,24,0">
+                <DataGrid ItemsSource="{Binding AppListView}" AutoGenerateColumns="False" CanUserAddRows="False" 
+                          Background="Transparent" RowBackground="Transparent" AlternatingRowBackground="Transparent"
+                          Foreground="#FFFFFF" GridLinesVisibility="None" HeadersVisibility="Column" BorderThickness="0"
+                          RowHeight="48">
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#CCCCCC"/>
+                            <Setter Property="Padding" Value="15,0,15,10"/>
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Padding" Value="15,0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Margin" Value="10,0,10,4"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#333333"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Columns>
+                        <!-- CỘT CHECKBOX: đặt CellStyle riêng, Padding=0 để checkbox không bị lệch/co -->
+                        <DataGridTemplateColumn Width="50">
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FluentGridCheckBox}" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- CỘT ICON: FIX LỖI ICON BỊ CẮT -->
+                        <!-- Nguyên nhân: style DataGridCell chung ở trên có Padding="15,0",
+                             làm cột icon rộng 40px chỉ còn ~10px chỗ trống để vẽ icon 28x28
+                             -> icon bị nén/cắt thành vệt mỏng.
+                             Cách sửa: gán CellStyle riêng cho cột này với Padding="0",
+                             đồng thời tăng nhẹ độ rộng cột để icon có đủ không gian. -->
+                        <DataGridTemplateColumn Width="44">
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid Width="30" Height="30">
+                                        <!-- Lớp 1: Icon mặc định (Hiển thị khi app không có icon) -->
+                                        <iconPacks:PackIconMaterial Kind="Application" Foreground="#555555" Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <!-- Lớp 2: Hình ảnh trích xuất (Nếu có ảnh, nó sẽ đè kín lớp 1) -->
+                                        <Image Source="{Binding AppIcon}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Tên ứng dụng" Binding="{Binding Name}" Width="3*" IsReadOnly="True" FontWeight="SemiBold" FontSize="14"/>
+                        <DataGridTextColumn Header="Dung lượng" Binding="{Binding EstimatedSize}" Width="1*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                        <DataGridTextColumn Header="Ngày cài" Binding="{Binding InstallDate}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
+
+                        <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="1*" IsReadOnly="True" FontWeight="SemiBold">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="Đã gỡ">
+                                            <Setter Property="Foreground" Value="#6CCB5F"/>
+                                        </Trigger>
+                                        <Trigger Property="Text" Value="Lỗi / Hủy">
+                                            <Setter Property="Foreground" Value="#FF99A4"/>
+                                        </Trigger>
+                                        <Trigger Property="Text" Value="Đang gỡ...">
+                                            <Setter Property="Foreground" Value="#FCE100"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- BÊN PHẢI: GIỎ HÀNG CHỜ GỠ -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- DANH SÁCH CHỜ GỠ -->
+                <Border Grid.Row="0" Background="#282828" CornerRadius="8" BorderBrush="#333333" BorderThickness="1" Padding="20" Margin="0,0,0,24">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Danh sách đã chọn" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16"/>
+
+                        <ListBox Grid.Row="1" ItemsSource="{Binding SelectedApps}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Focusable" Value="False"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#333333" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Icon trong giỏ hàng: không nằm trong DataGrid nên không bị ảnh hưởng bởi lỗi padding -->
+                                            <Grid Grid.Column="0" Width="24" Height="24" Margin="0,0,12,0">
+                                                <iconPacks:PackIconMaterial Kind="Application" Foreground="#555555" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <Image Source="{Binding AppIcon}" Stretch="Uniform"/>
+                                            </Grid>
+
+                                            <TextBlock Grid.Column="1" Text="{Binding Name}" FontWeight="SemiBold" Foreground="#FFFFFF" FontSize="13" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding EstimatedSize}" Foreground="#CCCCCC" FontSize="12" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Border>
+
+                <!-- KHU VỰC ĐIỀU KHIỂN & BUTTON -->
+                <Border Grid.Row="1" Background="#282828" CornerRadius="8" BorderBrush="#333333" BorderThickness="1" Padding="20">
+                    <StackPanel>
+                        <!-- Trạng thái -->
+                        <TextBlock Text="{Binding GlobalStatus}" Foreground="#CCCCCC" FontSize="13" Margin="0,0,0,16" FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center"/>
+
+                        <!-- Button Gỡ cài đặt -->
+                        <Button Command="{Binding StartUninstallCommand}" Background="#C42B1C" Foreground="#FFFFFF" BorderThickness="0" Padding="16,12" Cursor="Hand">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="6"/>
+                                </Style>
+                            </Button.Resources>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#B12619"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" Value="0.5"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <iconPacks:PackIconMaterial Kind="Delete" Margin="0,0,8,0" VerticalAlignment="Center" Width="18" Height="18"/>
+                                <TextBlock FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center">
+                                    <Run Text="Gỡ cài đặt"/>
+                                    <Run Text="{Binding SelectedCount, Mode=OneWay}"/>
+                                    <Run Text="phần mềm"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

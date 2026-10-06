@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SRM by Longtygu/SRM by Longtygu.csproj" />
+  <Project Path="SRMbyLongtygu/SRMbyLongtygu.vdproj" Type="Installer">
+    <Build />
+  </Project>
+</Solution>

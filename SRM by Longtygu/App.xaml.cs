@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SRM_by_Longtygu.Database;
 using SRM_by_Longtygu.Repositories;
 using SRM_by_Longtygu.Services;
+using SRM_by_Longtygu.Services.AppUpdate;
 using SRM_by_Longtygu.Services.UpdateChecking;
 using SRM_by_Longtygu.ViewModels;
 using System;
@@ -125,6 +126,9 @@ namespace SRM_by_Longtygu
             // MỚI: Dịch vụ kiểm tra + tải cập nhật ứng dụng (GitHub Releases / Regex trang web)
             services.AddTransient<IUpdateCheckService, UpdateCheckService>();
 
+            // MỚI: Kiểm tra cập nhật cho CHÍNH SRM (GitHub Releases) - khác hẳn IUpdateCheckService ở trên
+            services.AddSingleton<IAppSelfUpdateChecker, AppSelfUpdateChecker>();
+
             // Views
             services.AddTransient<MainWindow>();
             services.AddTransient<Views.AddSoftwareWindow>();
@@ -147,6 +151,7 @@ namespace SRM_by_Longtygu
             services.AddTransient<Views.AddMultipleSoftwareWindow>();
             services.AddTransient<ViewModels.AddMultipleSoftwareViewModel>();
             services.AddTransient<UpdateCenterViewModel>(); // MỚI: trang riêng "Trung tâm cập nhật"
+            services.AddSingleton<AppUpdateViewModel>(); // MỚI: card "Cập nhật ứng dụng" trong trang Cài đặt (Singleton để giữ kết quả khi chuyển trang)
             services.AddTransient<IDatabaseSchemaMigrator, DatabaseSchemaMigrator>();
             // (hoặc AddSingleton, tuỳ bản chất service - dùng đúng lifetime bạn từng khai báo trước đây)
         }

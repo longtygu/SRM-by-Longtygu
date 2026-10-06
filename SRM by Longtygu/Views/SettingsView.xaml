@@ -203,6 +203,66 @@
                     </Grid>
                 </Border>
 
+                <!-- ================= 2B. CẬP NHẬT ỨNG DỤNG (DataContext = AppUpdateViewModel, gán trong code-behind) ================= -->
+                <Border x:Name="AppUpdateCard" Background="#282828" CornerRadius="8" Padding="24" BorderBrush="#333333" BorderThickness="1" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                            <TextBlock Text="App update / Cập nhật ứng dụng" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
+                            <TextBlock Text="Kiểm tra phiên bản mới qua nguồn Github. Ứng dụng chỉ thông báo và mở trang tải về, không tự thay đổi file hay dữ liệu của bạn." FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
+                                <TextBlock FontSize="14" Foreground="#FFFFFF" Margin="0,0,0,4">
+                                    <Run Text="Phiên bản đang chạy: "/>
+                                    <Run Text="{Binding CurrentVersionText, Mode=OneWay}" FontWeight="SemiBold"/>
+                                </TextBlock>
+                                <TextBlock Text="{Binding LastCheckedText}" FontSize="13" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="1" Command="{Binding CheckForUpdateCommand}" Style="{StaticResource FluentSettingsButton}" Background="#0284C7" ToolTip="Gọi GitHub để xem có bản phát hành mới hơn bản đang chạy không">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Kind="Update" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CheckButtonText}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <!-- KẾT QUẢ KIỂM TRA -->
+                        <Border Grid.Row="2" Background="#222222" Padding="16" CornerRadius="6">
+                            <StackPanel>
+                                <TextBlock Text="{Binding StatusText}" Foreground="{Binding StatusBrush}" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap"/>
+
+                                <!-- Chỉ hiện khi có bản mới -->
+                                <StackPanel Margin="0,12,0,0" Visibility="{Binding HasUpdate, Converter={StaticResource BoolToVis}}">
+                                    <StackPanel Visibility="{Binding HasReleaseNotes, Converter={StaticResource BoolToVis}}" Margin="0,0,0,12">
+                                        <TextBlock Text="Ghi chú phát hành" FontSize="13" FontWeight="SemiBold" Foreground="#AAAAAA" Margin="0,0,0,6"/>
+                                        <TextBlock Text="{Binding ReleaseNotesPreview}" FontSize="13" Foreground="#CCCCCC" TextWrapping="Wrap"/>
+                                    </StackPanel>
+
+                                    <Button Command="{Binding OpenReleasePageCommand}" Style="{StaticResource FluentSettingsButton}" Background="#16A34A" HorizontalAlignment="Left" ToolTip="Mở trang Release của bản mới trên GitHub bằng trình duyệt">
+                                        <StackPanel Orientation="Horizontal">
+                                            <iconPacks:PackIconMaterial Kind="OpenInNew" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Xem trang tải về" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
                 <!-- ================= 3. PLACEHOLDER (COMING SOON) ================= -->
                 <Border Background="#282828" CornerRadius="8" Padding="24" BorderBrush="#333333" BorderThickness="1" Opacity="0.6">
                     <Grid>

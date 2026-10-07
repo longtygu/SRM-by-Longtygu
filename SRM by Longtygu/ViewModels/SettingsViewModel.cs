@@ -16,6 +16,8 @@ namespace SRM_by_Longtygu.ViewModels
     {
         private readonly ILogService _logService;
         private readonly IDatabaseSchemaMigrator _schemaMigrator; // MỚI: tự vá schema DB cũ sau khi restore
+        private readonly IBusyService _busy;   // MỚI: khóa toàn app khi đang chạy tiến trình
+        private IDisposable? _busyLease;       // khóa đang giữ của thao tác hiện tại
 
         // ================= CÁC BIẾN UI CHO THANH TIẾN ĐỘ & LOG =================
         private string _backupStatus = "Sẵn sàng";
@@ -45,22 +47,39 @@ namespace SRM_by_Longtygu.ViewModels
         public ICommand RestoreCommand { get; }
         public ICommand ResetCommand { get; }
 
-        public SettingsViewModel(ILogService logService, IDatabaseSchemaMigrator schemaMigrator)
+        public SettingsViewModel(ILogService logService, IDatabaseSchemaMigrator schemaMigrator, IBusyService busyService)
         {
             _logService = logService;
             _schemaMigrator = schemaMigrator; // MỚI
+            _busy = busyService;
 
             ToggleLanguageCommand = new RelayCommand(_ => ToggleLanguage());
 
-            BackupDbCommand = new RelayCommand(async _ => await ExecuteBackupDbAsync(), _ => !IsBackingUp);
-            FullBackupCommand = new RelayCommand(async _ => await ExecuteFullBackupAsync(), _ => !IsBackingUp);
-            RestoreCommand = new RelayCommand(async _ => await ExecuteRestoreAsync(), _ => !IsBackingUp);
-            ResetCommand = new RelayCommand(async _ => await ExecuteResetAsync(), _ => !IsBackingUp);
+            BackupDbCommand = new RelayCommand(async _ => await ExecuteBackupDbAsync(), _ => CanStartOperation());
+            FullBackupCommand = new RelayCommand(async _ => await ExecuteFullBackupAsync(), _ => CanStartOperation());
+            RestoreCommand = new RelayCommand(async _ => await ExecuteRestoreAsync(), _ => CanStartOperation());
+            ResetCommand = new RelayCommand(async _ => await ExecuteResetAsync(), _ => CanStartOperation());
         }
 
         private void ToggleLanguage()
         {
             MessageBox.Show("Chức năng chuyển đổi ngôn ngữ đang được phát triển!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // ================= KHÓA TOÀN APP KHI ĐANG CHẠY TIẾN TRÌNH =================
+        // Chỉ cho bắt đầu thao tác mới khi không có tiến trình nào (ở bất kỳ tab nào) đang chạy
+        private bool CanStartOperation() => !IsBackingUp && !_busy.IsBusy;
+
+        private void BeginBusy(string operationName)
+        {
+            _busyLease?.Dispose();
+            _busyLease = _busy.Begin(operationName);
+        }
+
+        private void EndBusy()
+        {
+            _busyLease?.Dispose();
+            _busyLease = null;
         }
 
         // ================= HÀM HỖ TRỢ: QUÉT TÌM DATABASE =================
@@ -110,6 +129,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
 
             IsBackingUp = true;
+            BeginBusy("Sao lưu cơ sở dữ liệu");
             UpdateProgress(40, $"Đã thấy DB: {Path.GetFileName(dbFile)}. Đang chuẩn bị...");
 
             try
@@ -138,6 +158,7 @@ namespace SRM_by_Longtygu.ViewModels
             finally
             {
                 IsBackingUp = false;
+                EndBusy();
             }
         }
 
@@ -167,6 +188,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             string zipPath = dialog.FileName;
             IsBackingUp = true;
+            BeginBusy("Xuất toàn bộ dữ liệu (Full Zip)");
 
             Application.Current.Dispatcher.Invoke(() => OperationLogs.Clear());
             IsLogExpanded = true; // Tự động mở khay Log
@@ -230,6 +252,7 @@ namespace SRM_by_Longtygu.ViewModels
             finally
             {
                 IsBackingUp = false;
+                EndBusy();
             }
         }
 
@@ -249,6 +272,7 @@ namespace SRM_by_Longtygu.ViewModels
             if (confirm != MessageBoxResult.Yes) return;
 
             IsBackingUp = true;
+            BeginBusy("Phục hồi dữ liệu (Restore)");
             Application.Current.Dispatcher.Invoke(() => OperationLogs.Clear());
             IsLogExpanded = true; // Tự động mở khay Log
 
@@ -347,6 +371,7 @@ namespace SRM_by_Longtygu.ViewModels
             finally
             {
                 IsBackingUp = false;
+                EndBusy();
             }
         }
 
@@ -357,6 +382,7 @@ namespace SRM_by_Longtygu.ViewModels
             if (confirm != MessageBoxResult.Yes) return;
 
             IsBackingUp = true;
+            BeginBusy("Làm sạch hệ thống (Reset)");
             Application.Current.Dispatcher.Invoke(() => OperationLogs.Clear());
             IsLogExpanded = true; // Tự động mở khay Log
 
@@ -426,6 +452,7 @@ namespace SRM_by_Longtygu.ViewModels
             finally
             {
                 IsBackingUp = false;
+                EndBusy();
             }
         }
 

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SRM_by_Longtygu.Commands;
 using SRM_by_Longtygu.Repositories;
+using SRM_by_Longtygu.Services;
 using System;
 using System.Windows.Input;
 
@@ -10,6 +11,10 @@ namespace SRM_by_Longtygu.ViewModels
     {
         private readonly IServiceProvider _serviceProvider;
         private ViewModelBase _currentViewModel;
+
+        // MỚI: trạng thái "đang bận" dùng chung toàn app; khi bận thì khóa mọi nút chuyển tab
+        private readonly IBusyService _busy;
+        public IBusyService Busy => _busy;
 
         public ViewModelBase CurrentViewModel
         {
@@ -44,20 +49,21 @@ namespace SRM_by_Longtygu.ViewModels
         public MainViewModel(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            _busy = _serviceProvider.GetRequiredService<IBusyService>();
 
-            NavigateDashboardCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<DashboardViewModel>());
-            NavigateLibraryCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<LibraryViewModel>());
+            NavigateDashboardCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<DashboardViewModel>(), CanNavigate);
+            NavigateLibraryCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<LibraryViewModel>(), CanNavigate);
 
             // ĐÃ THÊM: Khởi tạo Command gọi ResourceFileMainViewModel
-            NavigateResourceFileCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<ResourceFileMainViewModel>());
+            NavigateResourceFileCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<ResourceFileMainViewModel>(), CanNavigate);
 
-            NavigateDeploymentCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<DeploymentViewModel>());
-            NavigatePresetsCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<PresetMainViewModel>());
-            NavigateSettingsCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<SettingsViewModel>());
-            NavigateToolsCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<ToolsViewModel>());
+            NavigateDeploymentCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<DeploymentViewModel>(), CanNavigate);
+            NavigatePresetsCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<PresetMainViewModel>(), CanNavigate);
+            NavigateSettingsCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<SettingsViewModel>(), CanNavigate);
+            NavigateToolsCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<ToolsViewModel>(), CanNavigate);
 
             // MỚI: Điều hướng sang UpdateCenterViewModel (trang "Trung tâm cập nhật")
-            NavigateUpdateCenterCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<UpdateCenterViewModel>());
+            NavigateUpdateCenterCommand = new RelayCommand(_ => CurrentViewModel = _serviceProvider.GetRequiredService<UpdateCenterViewModel>(), CanNavigate);
 
             CurrentViewModel = _serviceProvider.GetRequiredService<DashboardViewModel>();
 
@@ -65,11 +71,14 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 CurrentViewModel = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions
                               .GetRequiredService<UninstallViewModel>(App.ServiceProvider);
-            });
+            }, CanNavigate);
             ShowAboutCommand = new RelayCommand(_ =>
             {
                 CurrentViewModel = _serviceProvider.GetRequiredService<AboutViewModel>();
-            });
+            }, CanNavigate);
         }
+
+        // MỚI: chỉ cho chuyển tab khi KHÔNG có tiến trình nào đang chạy
+        private bool CanNavigate(object? parameter) => !_busy.IsBusy;
     }
 }

@@ -19,6 +19,7 @@
     </WindowChrome.WindowChrome>
 
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <!-- STYLE NÚT TITLE BAR (Minimize / Maximize / Close) ĐỒNG BỘ MÀU APP -->
         <Storyboard x:Key="ContentFadeInStoryboard">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2"/>
@@ -91,6 +92,13 @@
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="BgBorder" Property="Background" Value="#2D2D2D"/>
                                 <Setter Property="Foreground" Value="#CCCCCC"/>
+                            </Trigger>
+                            <!-- MỚI: nút bị khóa (đang có tiến trình chạy) -> mờ đi, không phản ứng khi rê chuột. Đặt SAU các trigger trên để ưu tiên. -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="BgBorder" Property="Background" Value="Transparent"/>
+                                <Setter TargetName="BgBorder" Property="Opacity" Value="0.35"/>
+                                <Setter Property="Foreground" Value="#E0E0E0"/>
+                                <Setter Property="Cursor" Value="Arrow"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -247,7 +255,73 @@
 
             <!-- KHU VỰC HIỂN THỊ NỘI DUNG (MAIN CONTENT) -->
             <Border Grid.Column="1" Background="#202020">
-                <ContentControl x:Name="MainContentControl" Content="{Binding CurrentViewModel}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- MỚI: dải thông báo khi đang có tiến trình chạy: vòng xoay loading + lời nhắc không thao tác -->
+                    <Border Grid.Row="0" Background="#3B2F0B" BorderBrush="#7A5C0F" BorderThickness="0,0,0,1" Padding="16,12">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Busy.IsBusy}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Vòng xoay loading: animation chỉ chạy khi đang bận, tự dừng khi xong (giới hạn 30 khung hình/giây cho nhẹ máy) -->
+                            <Grid Grid.Column="0" Width="26" Height="26" Margin="0,0,14,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                <Grid.RenderTransform>
+                                    <RotateTransform Angle="0"/>
+                                </Grid.RenderTransform>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Busy.IsBusy}" Value="True">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Name="SpinnerStoryboard">
+                                                        <Storyboard Timeline.DesiredFrameRate="30">
+                                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                                                             From="0" To="360" Duration="0:0:1" RepeatBehavior="Forever"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <StopStoryboard BeginStoryboardName="SpinnerStoryboard"/>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Ellipse Stroke="#55FBBF24" StrokeThickness="3"/>
+                                <Path Data="M 13,1.5 A 11.5,11.5 0 0 1 24.5,13" Stroke="#FBBF24" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                            </Grid>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Foreground="#FBBF24" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
+                                           Text="Ứng dụng vẫn đang chạy - vui lòng KHÔNG thao tác và KHÔNG tắt ứng dụng."/>
+                                <TextBlock Foreground="#E6C566" FontSize="13" TextWrapping="Wrap" Margin="0,3,0,0">
+                                    <Run Text="Đang thực hiện: "/>
+                                    <Run Text="{Binding Busy.CurrentOperation, Mode=OneWay}" FontWeight="SemiBold"/>
+                                    <Run Text=". Với dữ liệu lớn quá trình này có thể mất vài phút. Các mục khác tạm khóa để tránh gián đoạn."/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <ContentControl Grid.Row="1" x:Name="MainContentControl" Content="{Binding CurrentViewModel}" />
+                </Grid>
             </Border>
         </Grid>
     </Grid>

@@ -123,6 +123,9 @@ namespace SRM_by_Longtygu
             services.AddTransient<IUninstallService, UninstallService>();
             services.AddSingleton<IPluginService, PluginService>();
 
+            // MỚI: Trạng thái "đang bận" dùng chung toàn app (khóa chuyển tab khi có tiến trình dài đang chạy)
+            services.AddSingleton<IBusyService, BusyService>();
+
             // MỚI: Dịch vụ kiểm tra + tải cập nhật ứng dụng (GitHub Releases / Regex trang web)
             services.AddTransient<IUpdateCheckService, UpdateCheckService>();
 

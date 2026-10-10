@@ -11,7 +11,7 @@ software library, deployment and system-tools manager !
 - Automatic update checking via GitHub Releases
 
 ## Requirements
-- Windows 11 or later
+- Windows 10 or later ( can't run on 7 :X )
 - [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)
 - Administrator rights may be required to read some hardware sensors
 

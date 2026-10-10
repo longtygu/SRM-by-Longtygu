@@ -214,7 +214,7 @@
 
                         <StackPanel Grid.Row="0" Margin="0,0,0,20">
                             <TextBlock Text="App update / Cập nhật ứng dụng" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
-                            <TextBlock Text="Kiểm tra phiên bản mới qua nguồn Github. Ứng dụng chỉ thông báo và mở trang tải về, không tự thay đổi file hay dữ liệu của bạn." FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                            <TextBlock Text="Kiểm tra xem SRM by Longtygu có phiên bản mới trên GitHub hay không. Ứng dụng chỉ thông báo và mở trang tải về, không tự thay đổi file hay dữ liệu của bạn." FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
                         </StackPanel>
 
                         <Grid Grid.Row="1" Margin="0,0,0,16">
@@ -251,12 +251,31 @@
                                         <TextBlock Text="{Binding ReleaseNotesPreview}" FontSize="13" Foreground="#CCCCCC" TextWrapping="Wrap"/>
                                     </StackPanel>
 
-                                    <Button Command="{Binding OpenReleasePageCommand}" Style="{StaticResource FluentSettingsButton}" Background="#16A34A" HorizontalAlignment="Left" ToolTip="Mở trang Release của bản mới trên GitHub bằng trình duyệt">
-                                        <StackPanel Orientation="Horizontal">
-                                            <iconPacks:PackIconMaterial Kind="OpenInNew" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Xem trang tải về" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                                        </StackPanel>
-                                    </Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Command="{Binding OpenReleasePageCommand}" Style="{StaticResource FluentSettingsButton}" Background="#16A34A" Margin="0,0,12,0" ToolTip="Mở trang Release của bản mới trên GitHub bằng trình duyệt">
+                                            <StackPanel Orientation="Horizontal">
+                                                <iconPacks:PackIconMaterial Kind="OpenInNew" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="Xem trang tải về" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                        </Button>
+
+                                        <!-- Chỉ hiện khi bản phát hành có file zip + mã SHA256 do GitHub công bố -->
+                                        <Button Command="{Binding DownloadUpdateCommand}" Style="{StaticResource FluentSettingsButton}" Background="#0284C7"
+                                                Visibility="{Binding CanAutoDownload, Converter={StaticResource BoolToVis}}"
+                                                ToolTip="Tải bản mới, kiểm tra SHA256, sao lưu library.db, thay file chương trình rồi tự khởi động lại (không đụng dữ liệu của bạn)">
+                                            <StackPanel Orientation="Horizontal">
+                                                <iconPacks:PackIconMaterial Kind="Download" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding DownloadButtonText}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <!-- Thanh tiến trình tải: phần trăm, dung lượng, tốc độ -->
+                                    <StackPanel Margin="0,14,0,0" Visibility="{Binding ShowDownloadPanel, Converter={StaticResource BoolToVis}}">
+                                        <ProgressBar Style="{StaticResource FluentProgressBar}" Value="{Binding DownloadProgressValue, Mode=OneWay}" Minimum="0" Maximum="100" Margin="0,0,0,8"/>
+                                        <TextBlock Text="{Binding DownloadStatusText}" Foreground="{Binding DownloadStatusBrush}" FontSize="13" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding DownloadLocationText}" Foreground="#888888" FontSize="12" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

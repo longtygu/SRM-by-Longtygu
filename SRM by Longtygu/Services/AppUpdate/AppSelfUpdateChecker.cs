@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -109,6 +110,11 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 bool hasUpdate = bestVersion.CompareTo(current) > 0;
                 SafeLogInfo($"[Cập nhật SRM] Bản mới nhất trên GitHub: {best.TagName} ({bestVersion}){(best.PreRelease ? " [pre-release]" : "")}. Có bản mới: {hasUpdate}");
 
+                // File gói cập nhật (asset zip) + mã SHA256 do GitHub công bố
+                GitHubAssetDto? asset = FindPackageAsset(best.Assets);
+                string? assetUrl = (asset != null && IsTrustedDownloadUrl(asset.DownloadUrl)) ? asset.DownloadUrl : null;
+                string? assetSha256 = ExtractSha256(asset?.Digest);
+
                 return new AppUpdateResult
                 {
                     Status = hasUpdate ? AppUpdateStatus.UpdateAvailable : AppUpdateStatus.UpToDate,
@@ -120,6 +126,10 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                     ReleaseUrl = IsTrustedReleaseUrl(best.HtmlUrl) ? best.HtmlUrl : ReleasesPageUrl,
                     ReleaseNotes = best.Body,
                     PublishedAt = best.PublishedAt,
+                    AssetName = asset?.Name,
+                    AssetDownloadUrl = assetUrl,
+                    AssetSize = asset?.Size ?? 0,
+                    AssetSha256 = assetSha256,
                     CheckedAt = DateTime.Now
                 };
             }
@@ -237,6 +247,50 @@ namespace SRM_by_Longtygu.Services.AppUpdate
         }
 
         // ====================================================================
+        // FILE GÓI CẬP NHẬT (ASSET)
+        // ====================================================================
+        private static readonly Regex PackageAssetRegex =
+            new Regex(@"^SRM-by-Longtygu-v.+-win-x64\.zip$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static readonly Regex Sha256HexRegex =
+            new Regex(@"^[0-9a-fA-F]{64}$", RegexOptions.Compiled);
+
+        private static GitHubAssetDto? FindPackageAsset(List<GitHubAssetDto>? assets)
+        {
+            if (assets == null) return null;
+
+            foreach (var asset in assets)
+            {
+                if (asset == null || string.IsNullOrEmpty(asset.Name)) continue;
+                if (!string.IsNullOrEmpty(asset.State) && !string.Equals(asset.State, "uploaded", StringComparison.OrdinalIgnoreCase)) continue;
+                if (PackageAssetRegex.IsMatch(asset.Name)) return asset;
+            }
+            return null;
+        }
+
+        /// <summary>"sha256:ABC..." -> "abc..." (64 ký tự hex viết thường), null nếu thiếu hoặc sai định dạng.</summary>
+        private static string? ExtractSha256(string? digest)
+        {
+            const string prefix = "sha256:";
+            if (string.IsNullOrWhiteSpace(digest)) return null;
+            if (!digest.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) return null;
+
+            string hex = digest.Substring(prefix.Length).Trim();
+            return Sha256HexRegex.IsMatch(hex) ? hex.ToLowerInvariant() : null;
+        }
+
+        /// <summary>Chỉ cho phép tải file từ mục Releases của repo SRM trên github.com (https).</summary>
+        public static bool IsTrustedDownloadUrl(string? url)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return false;
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var uri)) return false;
+            if (uri.Scheme != Uri.UriSchemeHttps) return false;
+            if (!uri.Host.Equals("github.com", StringComparison.OrdinalIgnoreCase)) return false;
+
+            return uri.AbsolutePath.StartsWith("/longtygu/SRM-by-Longtygu/releases/download/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        // ====================================================================
         // GHI LOG AN TOÀN (việc ghi log lỗi không được làm hỏng luồng kiểm tra)
         // ====================================================================
         private void SafeLogInfo(string message) { try { _logService?.LogInfo(message); } catch { } }
@@ -255,6 +309,16 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             [JsonPropertyName("html_url")] public string? HtmlUrl { get; set; }
             [JsonPropertyName("body")] public string? Body { get; set; }
             [JsonPropertyName("published_at")] public DateTimeOffset? PublishedAt { get; set; }
+            [JsonPropertyName("assets")] public List<GitHubAssetDto>? Assets { get; set; }
+        }
+
+        internal sealed class GitHubAssetDto
+        {
+            [JsonPropertyName("name")] public string? Name { get; set; }
+            [JsonPropertyName("state")] public string? State { get; set; }
+            [JsonPropertyName("size")] public long Size { get; set; }
+            [JsonPropertyName("digest")] public string? Digest { get; set; }
+            [JsonPropertyName("browser_download_url")] public string? DownloadUrl { get; set; }
         }
     }
 }

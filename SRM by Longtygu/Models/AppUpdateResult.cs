@@ -36,6 +36,21 @@ namespace SRM_by_Longtygu.Models
 
         public DateTimeOffset? PublishedAt { get; init; }
 
+        // ---- File gói cập nhật (asset .zip) của bản phát hành, dùng cho tính năng tự tải ----
+        public string? AssetName { get; init; }
+
+        /// <summary>Link tải file zip (đã kiểm tra thuộc repo của SRM), null nếu không hợp lệ.</summary>
+        public string? AssetDownloadUrl { get; init; }
+
+        public long AssetSize { get; init; }
+
+        /// <summary>SHA256 do GitHub công bố, 64 ký tự hex viết thường. Null nếu GitHub không cung cấp.</summary>
+        public string? AssetSha256 { get; init; }
+
+        /// <summary>Chỉ cho tự tải khi có đủ link hợp lệ, kích thước và mã SHA256 để xác minh.</summary>
+        public bool CanDownloadAutomatically =>
+            !string.IsNullOrEmpty(AssetDownloadUrl) && !string.IsNullOrEmpty(AssetSha256) && AssetSize > 0;
+
         /// <summary>Thông báo thân thiện bằng tiếng Việt khi thất bại.</summary>
         public string? ErrorMessage { get; init; }
 

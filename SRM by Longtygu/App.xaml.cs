@@ -92,6 +92,9 @@ namespace SRM_by_Longtygu
             Application.Current.MainWindow = mainWindow; // THÊM DÒNG NÀY để ấn định MainWindow
             mainWindow.Show();
             splash.Close();
+
+            // MỚI: dọn file cũ (.srm-old) và thư mục tạm còn sót sau lần cập nhật trước (chạy nền, không chặn giao diện)
+            AppUpdateCleanup.StartBackgroundCleanup(ServiceProvider.GetRequiredService<ILogService>());
         }
 
         // Delay giả lập — chỉ chạy khi SimulateSlowStartup = true, dùng để test hiệu ứng loading
@@ -131,6 +134,8 @@ namespace SRM_by_Longtygu
 
             // MỚI: Kiểm tra cập nhật cho CHÍNH SRM (GitHub Releases) - khác hẳn IUpdateCheckService ở trên
             services.AddSingleton<IAppSelfUpdateChecker, AppSelfUpdateChecker>();
+            services.AddSingleton<IAppUpdateDownloader, AppUpdateDownloader>(); // MỚI: tải + xác minh gói cập nhật
+            services.AddSingleton<IAppUpdateInstaller, AppUpdateInstaller>(); // MỚI: cài đặt gói cập nhật (thay file, hoàn tác khi lỗi)
 
             // Views
             services.AddTransient<MainWindow>();

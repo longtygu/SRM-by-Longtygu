@@ -21,7 +21,7 @@ namespace SRM_by_Longtygu
         // ĐỂ TEST HIỆU ỨNG SPLASH: bật/tắt delay giả lập ở đây.
         // Khi dự án đã có nhiều dữ liệu thật (khởi động tự nhiên đủ chậm để thấy splash),
         // chỉ cần đổi thành false — không cần xóa code delay bên dưới.
-        private const bool SimulateSlowStartup = true;
+        private const bool SimulateSlowStartup = false;
 
         protected override async void OnStartup(StartupEventArgs e)
         {

@@ -460,7 +460,7 @@
         <Border Grid.Row="3" Background="#152016" CornerRadius="6" Padding="12,6" BorderBrush="#2E7D32" BorderThickness="1" Margin="0,15,0,0" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <iconPacks:PackIconMaterial Kind="CheckDecagram" Foreground="{StaticResource AccentGreen}" VerticalAlignment="Center" Margin="0,0,8,0" Width="16" Height="16"/>
-                <TextBlock Text="v1.0.0 (Test) · DESIGN / DEV BY LONGTYGU  |  https://github.com/longtygu/SRM-by-Longtygu" Foreground="{StaticResource AccentGreen}" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
+                <TextBlock Text="v1.0.1 (Test) · DESIGN / DEV BY LONGTYGU  |  https://github.com/longtygu/SRM-by-Longtygu" Foreground="{StaticResource AccentGreen}" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
 

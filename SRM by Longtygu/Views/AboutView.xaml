@@ -184,7 +184,7 @@
                     </Border>
                     <StackPanel VerticalAlignment="Center" Margin="16,0,0,0">
                         <TextBlock Text="Software Repository Manager" FontSize="28" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,4"/>
-                        <TextBlock Text="Phiên bản 1.0.0 ( Test )" FontSize="14" Foreground="#888888" FontWeight="SemiBold"/>
+                        <TextBlock Text="Phiên bản 1.0.1 ( Test )" FontSize="14" Foreground="#888888" FontWeight="SemiBold"/>
                     </StackPanel>
                 </StackPanel>
 

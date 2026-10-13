@@ -188,7 +188,7 @@
                         <Button Style="{StaticResource FluentSidebarButtonStyle}" Command="{Binding NavigateResourceFileCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="FolderMultiple" Width="20" Height="20" Margin="0,0,16,0" Foreground="#FF9800"/>
-                                <TextBlock Text="THƯ VIỆN TÀI NGUYÊN" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Menu_Resources}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -196,7 +196,7 @@
                         <Button Style="{StaticResource FluentSidebarButtonStyle}" Command="{Binding NavigateUpdateCenterCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="CloudSyncOutline" Width="20" Height="20" Margin="0,0,16,0" Foreground="#7C3AED"/>
-                                <TextBlock Text="TRUNG TÂM CẬP NHẬT" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Menu_UpdateCenter}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -217,14 +217,14 @@
                         <Button Style="{StaticResource FluentSidebarButtonStyle}" Command="{Binding ShowUninstallCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="Delete" Width="20" Height="20" Margin="0,0,16,0" Foreground="#FF99A4"/>
-                                <TextBlock Text="GỠ CÀI ĐẶT TÙY CHỌN" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Menu_Uninstall}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource FluentSidebarButtonStyle}" Command="{Binding NavigateToolsCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="ToolboxOutline" Width="20" Height="20" Margin="0,0,16,0" Foreground="#FFB86C"/>
-                                <TextBlock Text="CÔNG CỤ MỞ RỘNG" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Menu_Tools}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -245,7 +245,7 @@
                         <Button Style="{StaticResource FluentSidebarButtonStyle}" Command="{Binding ShowAboutCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="InformationOutline" Width="20" Height="20" Margin="0,0,16,0" Foreground="#888888"/>
-                                <TextBlock Text="THÔNG TIN APP" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Menu_About}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -310,12 +310,8 @@
 
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Foreground="#FBBF24" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"
-                                           Text="Ứng dụng vẫn đang chạy - vui lòng KHÔNG thao tác và KHÔNG tắt ứng dụng."/>
-                                <TextBlock Foreground="#E6C566" FontSize="13" TextWrapping="Wrap" Margin="0,3,0,0">
-                                    <Run Text="Đang thực hiện: "/>
-                                    <Run Text="{Binding Busy.CurrentOperation, Mode=OneWay}" FontWeight="SemiBold"/>
-                                    <Run Text=". Với dữ liệu lớn quá trình này có thể mất vài phút. Các mục khác tạm khóa để tránh gián đoạn."/>
-                                </TextBlock>
+                                           Text="{DynamicResource Busy_Warning}"/>
+                                <TextBlock x:Name="BusyDetailTextBlock" Foreground="#E6C566" FontSize="13" TextWrapping="Wrap" Margin="0,3,0,0"/>
                             </StackPanel>
                         </Grid>
                     </Border>

@@ -107,16 +107,14 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
-                            <TextBlock Text="Language / Ngôn ngữ" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
-                            <TextBlock Text="Chuyển đổi ngôn ngữ hiển thị tức thời giữa Tiếng Anh và Tiếng Việt." FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Settings_LanguageTitle}" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource Settings_LanguageDesc}" FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Settings_LanguageNote}" FontSize="12" Foreground="#888888" TextWrapping="Wrap" Margin="0,6,0,0"/>
                         </StackPanel>
 
-                        <Button Grid.Column="1" Command="{Binding ToggleLanguageCommand}" Style="{StaticResource FluentSettingsButton}" Background="#0284C7">
-                            <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconMaterial Kind="Translate" Margin="0,0,10,0" VerticalAlignment="Center" Width="18" Height="18"/>
-                                <TextBlock Text="Toggle Language" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold"/>
-                            </StackPanel>
-                        </Button>
+                        <ComboBox Grid.Column="1" MinWidth="180" Padding="10,6" FontSize="14" VerticalAlignment="Center"
+                                  ItemsSource="{Binding SupportedLanguages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                                  DisplayMemberPath="NativeName"/>
                     </Grid>
                 </Border>
 
@@ -130,32 +128,32 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                            <TextBlock Text="Backup &amp; Restore / Bảo trì hệ thống" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
-                            <TextBlock Text="Quản lý toàn bộ dữ liệu ứng dụng, bao gồm sao lưu an toàn và khôi phục cài đặt gốc." FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Settings_MaintenanceTitle}" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource Settings_MaintenanceDesc}" FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
                         </StackPanel>
 
                         <WrapPanel Grid.Row="1" Margin="0,0,0,24">
                             <!-- Nút Sao Lưu -->
-                            <Button Command="{Binding FullBackupCommand}" Style="{StaticResource FluentSettingsButton}" Background="#D97706" Margin="0,0,12,12" ToolTip="Nén toàn bộ file cài đặt, hình ảnh và dữ liệu">
+                            <Button Command="{Binding FullBackupCommand}" Style="{StaticResource FluentSettingsButton}" Background="#D97706" Margin="0,0,12,12" ToolTip="{DynamicResource Settings_TipFullBackup}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="ArchiveArrowUp" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Xuất toàn bộ dữ liệu (Full Zip)" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{DynamicResource Settings_OpFullBackup}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Button>
 
                             <!-- Nút Phục Hồi -->
-                            <Button Command="{Binding RestoreCommand}" Style="{StaticResource FluentSettingsButton}" Background="#7E22CE" Margin="0,0,12,12" ToolTip="Nạp lại dữ liệu từ file Full Backup (.zip)">
+                            <Button Command="{Binding RestoreCommand}" Style="{StaticResource FluentSettingsButton}" Background="#7E22CE" Margin="0,0,12,12" ToolTip="{DynamicResource Settings_TipRestore}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="BackupRestore" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Phục hồi dữ liệu (Restore)" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{DynamicResource Settings_OpRestore}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Button>
 
                             <!-- Nút Xóa Sạch -->
-                            <Button Command="{Binding ResetCommand}" Style="{StaticResource FluentSettingsButton}" Background="#C42B1C" Margin="0,0,12,12" ToolTip="Xóa sạch toàn bộ cấu trúc và file cài đặt (Cảnh báo)">
+                            <Button Command="{Binding ResetCommand}" Style="{StaticResource FluentSettingsButton}" Background="#C42B1C" Margin="0,0,12,12" ToolTip="{DynamicResource Settings_TipReset}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="DeleteForever" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Làm sạch hệ thống (Reset)" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{DynamicResource Settings_OpReset}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                 </StackPanel>
                             </Button>
                         </WrapPanel>
@@ -171,7 +169,7 @@
                                 <ProgressBar Style="{StaticResource FluentProgressBar}" Value="{Binding BackupProgress}" Minimum="0" Maximum="100"/>
 
                                 <!-- NÚT BẤM THU GỌN/MỞ RỘNG KHAY LOG -->
-                                <ToggleButton Content="Nhật ký hệ thống (Log)" 
+                                <ToggleButton Content="{DynamicResource Settings_LogHeader}" 
                                               IsChecked="{Binding IsLogExpanded, Mode=TwoWay}" 
                                               Style="{StaticResource LogExpanderStyle}"/>
 
@@ -213,8 +211,8 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                            <TextBlock Text="App update / Cập nhật ứng dụng" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
-                            <TextBlock Text="Kiểm tra xem SRM by Longtygu có phiên bản mới trên GitHub hay không. Ứng dụng chỉ thông báo và mở trang tải về, không tự thay đổi file hay dữ liệu của bạn." FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Settings_UpdateTitle}" FontSize="18" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource Settings_UpdateDesc}" FontSize="14" Foreground="#AAAAAA" TextWrapping="Wrap"/>
                         </StackPanel>
 
                         <Grid Grid.Row="1" Margin="0,0,0,16">
@@ -225,13 +223,13 @@
 
                             <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
                                 <TextBlock FontSize="14" Foreground="#FFFFFF" Margin="0,0,0,4">
-                                    <Run Text="Phiên bản đang chạy: "/>
+                                    <Run Text="{DynamicResource Settings_RunningVersion}"/>
                                     <Run Text="{Binding CurrentVersionText, Mode=OneWay}" FontWeight="SemiBold"/>
                                 </TextBlock>
                                 <TextBlock Text="{Binding LastCheckedText}" FontSize="13" Foreground="#AAAAAA" TextWrapping="Wrap"/>
                             </StackPanel>
 
-                            <Button Grid.Column="1" Command="{Binding CheckForUpdateCommand}" Style="{StaticResource FluentSettingsButton}" Background="#0284C7" ToolTip="Gọi GitHub để xem có bản phát hành mới hơn bản đang chạy không">
+                            <Button Grid.Column="1" Command="{Binding CheckForUpdateCommand}" Style="{StaticResource FluentSettingsButton}" Background="#0284C7" ToolTip="{DynamicResource Settings_TipCheck}">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterial Kind="Update" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                     <TextBlock Text="{Binding CheckButtonText}" VerticalAlignment="Center" FontWeight="SemiBold"/>
@@ -247,22 +245,22 @@
                                 <!-- Chỉ hiện khi có bản mới -->
                                 <StackPanel Margin="0,12,0,0" Visibility="{Binding HasUpdate, Converter={StaticResource BoolToVis}}">
                                     <StackPanel Visibility="{Binding HasReleaseNotes, Converter={StaticResource BoolToVis}}" Margin="0,0,0,12">
-                                        <TextBlock Text="Ghi chú phát hành" FontSize="13" FontWeight="SemiBold" Foreground="#AAAAAA" Margin="0,0,0,6"/>
+                                        <TextBlock Text="{DynamicResource Settings_ReleaseNotes}" FontSize="13" FontWeight="SemiBold" Foreground="#AAAAAA" Margin="0,0,0,6"/>
                                         <TextBlock Text="{Binding ReleaseNotesPreview}" FontSize="13" Foreground="#CCCCCC" TextWrapping="Wrap"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Command="{Binding OpenReleasePageCommand}" Style="{StaticResource FluentSettingsButton}" Background="#16A34A" Margin="0,0,12,0" ToolTip="Mở trang Release của bản mới trên GitHub bằng trình duyệt">
+                                        <Button Command="{Binding OpenReleasePageCommand}" Style="{StaticResource FluentSettingsButton}" Background="#16A34A" Margin="0,0,12,0" ToolTip="{DynamicResource Settings_TipOpenRelease}">
                                             <StackPanel Orientation="Horizontal">
                                                 <iconPacks:PackIconMaterial Kind="OpenInNew" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="Xem trang tải về" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{DynamicResource Settings_ViewDownload}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                             </StackPanel>
                                         </Button>
 
                                         <!-- Chỉ hiện khi bản phát hành có file zip + mã SHA256 do GitHub công bố -->
                                         <Button Command="{Binding DownloadUpdateCommand}" Style="{StaticResource FluentSettingsButton}" Background="#0284C7"
                                                 Visibility="{Binding CanAutoDownload, Converter={StaticResource BoolToVis}}"
-                                                ToolTip="Tải bản mới, kiểm tra SHA256, sao lưu library.db, thay file chương trình rồi tự khởi động lại (không đụng dữ liệu của bạn)">
+                                                ToolTip="{DynamicResource Settings_TipInstall}">
                                             <StackPanel Orientation="Horizontal">
                                                 <iconPacks:PackIconMaterial Kind="Download" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding DownloadButtonText}" VerticalAlignment="Center" FontWeight="SemiBold"/>
@@ -293,8 +291,8 @@
                         <iconPacks:PackIconMaterial Grid.Column="0" Kind="ApplicationCog" Foreground="#888888" Width="36" Height="36" VerticalAlignment="Center" Margin="0,0,16,0"/>
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock Text="System Preferences (Coming soon)" FontSize="18" FontWeight="SemiBold" Foreground="#CCCCCC" Margin="0,0,0,6"/>
-                            <TextBlock Text="Cấu hình nâng cao: Theme Mode, Tự động tạo Restore Point, Đường dẫn dữ liệu mặc định..." FontSize="14" Foreground="#777777" TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Settings_PrefsTitle}" FontSize="18" FontWeight="SemiBold" Foreground="#CCCCCC" Margin="0,0,0,6"/>
+                            <TextBlock Text="{DynamicResource Settings_PrefsDesc}" FontSize="14" Foreground="#777777" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Grid>
                 </Border>

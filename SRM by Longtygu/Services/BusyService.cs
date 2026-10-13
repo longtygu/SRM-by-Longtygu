@@ -33,6 +33,14 @@ namespace SRM_by_Longtygu.Services
         private bool _isBusy;
         private string _currentOperation = string.Empty;
 
+        // MỚI: dùng để lấy tên mặc định theo ngôn ngữ hiện tại
+        private readonly ILocalizationService _loc;
+
+        public BusyService(ILocalizationService localization)
+        {
+            _loc = localization;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public bool IsBusy
@@ -47,7 +55,7 @@ namespace SRM_by_Longtygu.Services
 
         public IDisposable Begin(string operationName)
         {
-            var lease = new Lease(this, string.IsNullOrWhiteSpace(operationName) ? "Tiến trình đang chạy" : operationName);
+            var lease = new Lease(this, string.IsNullOrWhiteSpace(operationName) ? _loc.GetString("Busy_DefaultOperation") : operationName);
             lock (_sync)
             {
                 _leases.Add(lease);

@@ -36,7 +36,7 @@
             <TextBlock Text="SRM by Longtygu" FontSize="20" FontWeight="Bold" Foreground="White"
                        HorizontalAlignment="Center" Margin="0,16,0,4"/>
 
-            <TextBlock x:Name="StatusText" Text="Đang khởi động..." FontSize="12" Foreground="#A0A0A0"
+            <TextBlock x:Name="StatusText" Text="{DynamicResource Splash_Starting}" FontSize="12" Foreground="#A0A0A0"
                        HorizontalAlignment="Center" Margin="0,0,0,12"/>
 
             <!-- Progress bar dạng xác định (determinate) để chạy theo % thay vì indeterminate -->

@@ -23,6 +23,9 @@ namespace SRM_by_Longtygu
         // chỉ cần đổi thành false — không cần xóa code delay bên dưới.
         private const bool SimulateSlowStartup = false;
 
+        // MỚI: dịch vụ đa ngôn ngữ, tạo ngay đầu OnStartup (trước splash) rồi đăng ký vào DI bằng chính instance này
+        private ILocalizationService? _loc;
+
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -36,6 +39,19 @@ namespace SRM_by_Longtygu
             // 3. Bắt lỗi từ các Task bất đồng bộ (async/await)
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
+            // ============ BƯỚC 0.5: NẠP NGÔN NGỮ TRƯỚC KHI HIỆN SPLASH ============
+            // Splash và các thông báo khởi động đều dùng chuỗi đa ngôn ngữ nên phải nạp từ điển trước (rất nhẹ, vài mili giây).
+            try
+            {
+                var startupConfig = Helpers.SettingsManager.LoadSettings();
+                _loc = new LocalizationService();
+                _loc.SetLanguage(startupConfig.Language, persist: false);
+            }
+            catch (Exception langEx)
+            {
+                LogException(langEx, "Nạp ngôn ngữ khi khởi động");
+            }
+
             // ============ BƯỚC 1: HIỆN SPLASH SCREEN NGAY LẬP TỨC ============
             var splash = new SplashWindow();
             splash.Show();
@@ -44,13 +60,13 @@ namespace SRM_by_Longtygu
             Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
 
             // ============ BƯỚC 2: KHỞI TẠO DATABASE ============
-            splash.SetStatus("Đang khởi tạo cơ sở dữ liệu...");
+            splash.SetStatus(L("Splash_Database"));
             splash.SetProgress(15);
             await SimulatedDelay(500);
             DatabaseBootstrapper.InitializeDatabase();
 
             // ============ BƯỚC 3: CẤU HÌNH DEPENDENCY INJECTION ============
-            splash.SetStatus("Đang nạp các dịch vụ hệ thống...");
+            splash.SetStatus(L("Splash_Services"));
             splash.SetProgress(40);
             await SimulatedDelay(600);
 
@@ -62,29 +78,27 @@ namespace SRM_by_Longtygu
             // trước khi bất kỳ ViewModel/Repository nào được lấy ra và query DB bên dưới.
             // Thiếu bước này là nguyên nhân lỗi "no such column" khi thêm cột mới vào code
             // nhưng DB thật của người dùng (đặc biệt các bản backup cũ) chưa có cột đó.
-            splash.SetStatus("Đang đồng bộ cấu trúc cơ sở dữ liệu...");
+            splash.SetStatus(L("Splash_Schema"));
             splash.SetProgress(50);
             var schemaMigrator = ServiceProvider.GetRequiredService<IDatabaseSchemaMigrator>();
             await schemaMigrator.EnsureSchemaAsync();
 
             // ============ BƯỚC 4: ĐỌC CẤU HÌNH & NẠP NGÔN NGỮ ============
-            splash.SetStatus("Đang nạp cấu hình & ngôn ngữ...");
+            splash.SetStatus(L("Splash_Config"));
             splash.SetProgress(65);
             await SimulatedDelay(500);
 
-            var config = Helpers.SettingsManager.LoadSettings();
-            var locService = ServiceProvider.GetRequiredService<ILocalizationService>();
-            locService.SetLanguage(config.Language);
+            // (Ngôn ngữ đã được nạp ở BƯỚC 0.5 trước splash; bước này chỉ còn là mốc tiến trình.)
 
             // ============ BƯỚC 5: CHUẨN BỊ GIAO DIỆN CHÍNH ============
-            splash.SetStatus("Đang chuẩn bị giao diện...");
+            splash.SetStatus(L("Splash_UI"));
             splash.SetProgress(85);
             await SimulatedDelay(500);
 
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 
             // ============ BƯỚC 6: HOÀN TẤT ============
-            splash.SetStatus("Hoàn tất!");
+            splash.SetStatus(L("Splash_Done"));
             splash.SetProgress(100);
             await SimulatedDelay(400);
 
@@ -95,6 +109,20 @@ namespace SRM_by_Longtygu
 
             // MỚI: dọn file cũ (.srm-old) và thư mục tạm còn sót sau lần cập nhật trước (chạy nền, không chặn giao diện)
             AppUpdateCleanup.StartBackgroundCleanup(ServiceProvider.GetRequiredService<ILogService>());
+        }
+
+        // MỚI: lấy chuỗi đa ngôn ngữ; nếu dịch vụ chưa nạp được (lỗi rất sớm) thì dùng chuỗi dự phòng (hoặc chính khóa)
+        private string L(string key, string? fallback = null)
+        {
+            return _loc != null ? _loc.GetString(key) : (fallback ?? key);
+        }
+
+        // MỚI: như L nhưng có tham số {0}; không bao giờ ném lỗi (hàm này chạy trong trình xử lý lỗi toàn cục)
+        private string LFormat(string key, string fallbackFormat, params object[] args)
+        {
+            if (_loc != null) return _loc.Format(key, args);
+            try { return string.Format(fallbackFormat, args); }
+            catch (FormatException) { return fallbackFormat; }
         }
 
         // Delay giả lập — chỉ chạy khi SimulateSlowStartup = true, dùng để test hiệu ứng loading
@@ -120,7 +148,8 @@ namespace SRM_by_Longtygu
             services.AddTransient<ISystemService, SystemService>();
             services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IFileProcessingService, FileProcessingService>();
-            services.AddSingleton<ILocalizationService, LocalizationService>();
+            // Dùng đúng instance đã nạp ngôn ngữ từ đầu OnStartup (splash đã dùng nó)
+            services.AddSingleton<ILocalizationService>(_loc ?? new LocalizationService());
             services.AddSingleton<IDialogService, DialogService>();
             services.AddTransient<IDeploymentService, DeploymentService>();
             services.AddTransient<IUninstallService, UninstallService>();
@@ -171,7 +200,8 @@ namespace SRM_by_Longtygu
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             LogException(e.Exception, "UI Thread Exception");
-            MessageBox.Show($"Lỗi thao tác: {e.Exception.Message}\nĐã ghi log vào error_log.txt", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(LFormat("Error_UiMessage", "Lỗi thao tác: {0}", e.Exception.Message) + "\n" + L("Error_LogHint", "Đã ghi log vào error_log.txt"),
+                L("Error_UiTitle", "Lỗi hệ thống"), MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
         }
 
@@ -179,7 +209,8 @@ namespace SRM_by_Longtygu
         {
             Exception ex = e.ExceptionObject as Exception;
             LogException(ex, "Background Thread Exception");
-            MessageBox.Show("Lỗi nghiêm trọng ở luồng ngầm. Ứng dụng có thể phải đóng lại.\nVui lòng kiểm tra file error_log.txt", "Lỗi nghiêm trọng", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(L("Error_BackgroundMessage", "Lỗi nghiêm trọng ở luồng ngầm. Ứng dụng có thể phải đóng lại.") + "\n" + L("Error_CheckLogHint", "Vui lòng kiểm tra file error_log.txt"),
+                L("Error_FatalTitle", "Lỗi nghiêm trọng"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

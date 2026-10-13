@@ -2,10 +2,146 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <system:String x:Key="Menu_Dashboard">Dashboard</system:String>
-    <system:String x:Key="Menu_Library">Software Library</system:String>
-    <system:String x:Key="Menu_Deployment">Deployment Center</system:String>
-    <system:String x:Key="Menu_Presets">Presets</system:String>
-    <system:String x:Key="Menu_Settings">Settings</system:String>
+    <!-- Menu (thanh ben) -->
+    <system:String x:Key="Menu_Dashboard">DASHBOARD</system:String>
+    <system:String x:Key="Menu_Library">SOFTWARE LIBRARY</system:String>
+    <system:String x:Key="Menu_Resources">RESOURCE LIBRARY</system:String>
+    <system:String x:Key="Menu_UpdateCenter">UPDATE CENTER</system:String>
+    <system:String x:Key="Menu_Deployment">DEPLOYMENT CENTER</system:String>
+    <system:String x:Key="Menu_Presets">PRESETS</system:String>
+    <system:String x:Key="Menu_Uninstall">UNINSTALL</system:String>
+    <system:String x:Key="Menu_Tools">EXTRA TOOLS</system:String>
+    <system:String x:Key="Menu_Settings">SETTINGS</system:String>
+    <system:String x:Key="Menu_About">ABOUT</system:String>
+
+    <!-- Busy (dải vàng + hộp thoại khi đóng cửa sổ) -->
+    <system:String x:Key="Busy_Warning">The app is still working - please DO NOT interact with it and DO NOT close it.</system:String>
+    <system:String x:Key="Busy_Detail">In progress: {0}. With large amounts of data this may take a few minutes. Other sections are temporarily locked to avoid interruptions.</system:String>
+    <system:String x:Key="Busy_DefaultOperation">Operation in progress</system:String>
+    <system:String x:Key="Busy_CloseTitle">Operation in progress</system:String>
+    <system:String x:Key="Busy_CloseInProgress">In progress: {0}.</system:String>
+    <system:String x:Key="Busy_CloseWarning">Closing the app now may interrupt the operation and cause data errors.</system:String>
+    <system:String x:Key="Busy_CloseQuestion">Do you still want to close the app?</system:String>
+
+    <!-- Splash (màn hình khởi động) -->
+    <system:String x:Key="Splash_Starting">Starting...</system:String>
+    <system:String x:Key="Splash_Database">Initializing database...</system:String>
+    <system:String x:Key="Splash_Services">Loading system services...</system:String>
+    <system:String x:Key="Splash_Schema">Synchronizing database structure...</system:String>
+    <system:String x:Key="Splash_Config">Loading settings &amp; language...</system:String>
+    <system:String x:Key="Splash_UI">Preparing the interface...</system:String>
+    <system:String x:Key="Splash_Done">Done!</system:String>
+
+    <!-- Error (hộp thoại lỗi toàn cục) -->
+    <system:String x:Key="Error_UiTitle">System error</system:String>
+    <system:String x:Key="Error_UiMessage">Operation error: {0}</system:String>
+    <system:String x:Key="Error_LogHint">The error was logged to error_log.txt</system:String>
+    <system:String x:Key="Error_FatalTitle">Critical error</system:String>
+    <system:String x:Key="Error_BackgroundMessage">A critical error occurred in a background thread. The app may need to close.</system:String>
+    <system:String x:Key="Error_CheckLogHint">Please check the error_log.txt file</system:String>
+
+    <!-- Settings (thao tác sao lưu / phục hồi / reset) -->
+    <system:String x:Key="Settings_Ready">Ready</system:String>
+    <system:String x:Key="Settings_DbNotFound">Error: SQLite database file not found in the system!</system:String>
+    <system:String x:Key="Settings_OpBackupDb">Back up database</system:String>
+    <system:String x:Key="Settings_BackupFound">Found DB: {0}. Preparing...</system:String>
+    <system:String x:Key="Settings_BackupDirCreated">Created backup folder at: {0}</system:String>
+    <system:String x:Key="Settings_BackupCopying">Copying: {0}</system:String>
+    <system:String x:Key="Settings_BackupCopied">Copy successful. Destination: {0}</system:String>
+    <system:String x:Key="Settings_BackupDone">Success! Backed up at: Backups/{0}</system:String>
+    <system:String x:Key="Settings_BackupFailed">Backup error: {0}</system:String>
+    <system:String x:Key="Settings_FatalError">[CRITICAL ERROR] {0}</system:String>
+    <system:String x:Key="Settings_DbNotFoundForPack">Error: SQLite database file not found for packaging!</system:String>
+    <system:String x:Key="Settings_FullBackupSaveTitle">Choose where to save the full backup</system:String>
+    <system:String x:Key="Settings_OpFullBackup">Export all data (Full Zip)</system:String>
+    <system:String x:Key="Settings_FullInit">Preparing the packaging environment...</system:String>
+    <system:String x:Key="Settings_FullTempDir">Created temporary workspace at: {0}</system:String>
+    <system:String x:Key="Settings_FullCopyDb">Copying database ({0})...</system:String>
+    <system:String x:Key="Settings_FullCopyDbDone">Database file copied.</system:String>
+    <system:String x:Key="Settings_FullCopyData">Copying installers and images (Data)...</system:String>
+    <system:String x:Key="Settings_ProcessingFolder">Processing folder: {0}</system:String>
+    <system:String x:Key="Settings_DataMissingSkip">Data folder not found, skipping this step.</system:String>
+    <system:String x:Key="Settings_FullCopyLibrary">Copying resource library (Library)...</system:String>
+    <system:String x:Key="Settings_LibraryMissingSkip">Library folder not found, skipping this step.</system:String>
+    <system:String x:Key="Settings_FullZipping">Compressing data into a Zip file (please wait)...</system:String>
+    <system:String x:Key="Settings_FullOverwroteZip">Old zip file overwritten.</system:String>
+    <system:String x:Key="Settings_FullZipStart">Starting optimized ZIP compression. Destination: {0}</system:String>
+    <system:String x:Key="Settings_FullZipDone">Data compressed successfully.</system:String>
+    <system:String x:Key="Settings_FullCleaning">Cleaning up temporary files...</system:String>
+    <system:String x:Key="Settings_FullCleaned">Temporary files cleaned up.</system:String>
+    <system:String x:Key="Settings_FullDone">Export complete! Saved at: {0}</system:String>
+    <system:String x:Key="Settings_FullFailed">Export error: {0}</system:String>
+    <system:String x:Key="Settings_RestoreOpenTitle">Choose a Full Backup (.zip) file to restore</system:String>
+    <system:String x:Key="Settings_RestoreTitle">Restore data</system:String>
+    <system:String x:Key="Settings_RestoreConfirm">WARNING: Restoring will OVERWRITE all current data. The app will need to restart. Continue?</system:String>
+    <system:String x:Key="Settings_OpRestore">Restore data (Restore)</system:String>
+    <system:String x:Key="Settings_RestorePrepare">Preparing to extract and load data...</system:String>
+    <system:String x:Key="Settings_RestoreTempDir">Created temporary extraction folder at: {0}</system:String>
+    <system:String x:Key="Settings_RestoreExtracting">Extracting the backup package...</system:String>
+    <system:String x:Key="Settings_RestoreReadZip">Reading Zip structure: {0}</system:String>
+    <system:String x:Key="Settings_RestoreExtracted">Installer files extracted.</system:String>
+    <system:String x:Key="Settings_RestoreLoadDb">Loading database...</system:String>
+    <system:String x:Key="Settings_RestoreDisableOldDb">Disabling the old DB as: {0}</system:String>
+    <system:String x:Key="Settings_RestoreDbLoaded">Database loaded successfully.</system:String>
+    <system:String x:Key="Settings_RestoreSchemaCheck">Checking &amp; syncing data structure (schema)...</system:String>
+    <system:String x:Key="Settings_RestoreSchemaDone">Data structure synced to the latest version.</system:String>
+    <system:String x:Key="Settings_RestoreSchemaFailed">[ERROR] Schema sync failed: {0}</system:String>
+    <system:String x:Key="Settings_RestoreLoadData">Loading installers and images (Data)...</system:String>
+    <system:String x:Key="Settings_RestoreDisableOldData">Disabling the old Data folder...</system:String>
+    <system:String x:Key="Settings_RestoreSyncData">Syncing new Data...</system:String>
+    <system:String x:Key="Settings_RestoreLoadLibrary">Loading resource library (Library)...</system:String>
+    <system:String x:Key="Settings_RestoreDisableOldLibrary">Disabling the old Library folder...</system:String>
+    <system:String x:Key="Settings_RestoreSyncLibrary">Syncing new Library...</system:String>
+    <system:String x:Key="Settings_RestoreCleanup">Cleaning up extraction leftovers...</system:String>
+    <system:String x:Key="Settings_RestoreCleaned">Working environment cleaned.</system:String>
+    <system:String x:Key="Settings_RestoreSuccess">Restore successful!</system:String>
+    <system:String x:Key="Settings_RestoreDoneMsg">Data restored successfully! Please RESTART the app to load the new data.</system:String>
+    <system:String x:Key="Settings_RestoreFailed">Restore error: {0}</system:String>
+    <system:String x:Key="Settings_ResetTitle">System Reset</system:String>
+    <system:String x:Key="Settings_ResetConfirm">RED WARNING: The entire software list, resource files and images will be PERMANENTLY ERASED. Are you sure?</system:String>
+    <system:String x:Key="Settings_OpReset">Clean up system (Reset)</system:String>
+    <system:String x:Key="Settings_ResetPrepare">Preparing to clean up the system...</system:String>
+    <system:String x:Key="Settings_ResetDeletingDb">Deleting database...</system:String>
+    <system:String x:Key="Settings_ResetDbFound">Database found at: {0}</system:String>
+    <system:String x:Key="Settings_ResetReleasePools">Releasing SQLite connection pools in memory...</system:String>
+    <system:String x:Key="Settings_ResetOldDbRemoved">Old DB file removed.</system:String>
+    <system:String x:Key="Settings_ResetCreatingDb">Creating a new database...</system:String>
+    <system:String x:Key="Settings_ResetDeletingData">Deleting installer Data folder...</system:String>
+    <system:String x:Key="Settings_ResetDisableData">Disabling Data folder...</system:String>
+    <system:String x:Key="Settings_ResetDataCleaned">Data structure cleaned.</system:String>
+    <system:String x:Key="Settings_ResetDeletingLibrary">Deleting resource library (Library)...</system:String>
+    <system:String x:Key="Settings_ResetDisableLibrary">Disabling Library folder...</system:String>
+    <system:String x:Key="Settings_ResetLibraryCleaned">Library structure cleaned.</system:String>
+    <system:String x:Key="Settings_ResetSuccess">Reset successful!</system:String>
+    <system:String x:Key="Settings_ResetFinished">Process 100% complete. Ready to use.</system:String>
+    <system:String x:Key="Settings_ResetDoneMsg">The system has been completely cleaned! A new database is ready to use.</system:String>
+    <system:String x:Key="Settings_ResetFailed">Reset error: {0}</system:String>
+    <system:String x:Key="Settings_RestoreLockedMsg">The restore failed or a file is locked. Please try again after restarting the app.</system:String>
+    <system:String x:Key="Settings_Details">Details: {0}</system:String>
+
+    <!-- Common (dùng chung) -->
+    <system:String x:Key="Common_Error">Error</system:String>
+    <system:String x:Key="Common_Done">Done</system:String>
+
+    <!-- Settings (giao diện trang Cài đặt) -->
+    <system:String x:Key="Settings_LanguageTitle">Language / Ngôn ngữ</system:String>
+    <system:String x:Key="Settings_LanguageDesc">Choose the display language of the app. The change takes effect immediately, no restart needed.</system:String>
+    <system:String x:Key="Settings_MaintenanceTitle">Backup &amp; Restore / System maintenance</system:String>
+    <system:String x:Key="Settings_MaintenanceDesc">Manage all application data, including safe backup and restoring factory settings.</system:String>
+    <system:String x:Key="Settings_TipFullBackup">Compress all installer files, images and data</system:String>
+    <system:String x:Key="Settings_TipRestore">Reload data from a Full Backup file (.zip)</system:String>
+    <system:String x:Key="Settings_TipReset">Erase all structure and installer files (Warning)</system:String>
+    <system:String x:Key="Settings_LogHeader">System log</system:String>
+    <system:String x:Key="Settings_UpdateTitle">App update / Cập nhật ứng dụng</system:String>
+    <system:String x:Key="Settings_UpdateDesc">Check whether SRM by Longtygu has a new version on GitHub. You can open the download page, or let the app download it, verify the SHA256 and install it; your data is kept.</system:String>
+    <system:String x:Key="Settings_RunningVersion" xml:space="preserve">Running version: </system:String>
+    <system:String x:Key="Settings_TipCheck">Contact GitHub to see whether a newer release than the running version exists</system:String>
+    <system:String x:Key="Settings_ReleaseNotes">Release notes</system:String>
+    <system:String x:Key="Settings_TipOpenRelease">Open the new version's Release page on GitHub in your browser</system:String>
+    <system:String x:Key="Settings_ViewDownload">View download page</system:String>
+    <system:String x:Key="Settings_TipInstall">Download the new version, verify SHA256, back up library.db, replace program files, then restart automatically (your data is untouched)</system:String>
+    <system:String x:Key="Settings_PrefsTitle">System Preferences (Coming soon)</system:String>
+    <system:String x:Key="Settings_PrefsDesc">Advanced configuration: Theme Mode, automatic Restore Point creation, default data path...</system:String>
+    <system:String x:Key="Settings_LanguageNote">Note: some screens are still being translated.</system:String>
 
 </ResourceDictionary>

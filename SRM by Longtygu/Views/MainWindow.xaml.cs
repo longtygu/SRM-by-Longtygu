@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Animation;
+using SRM_by_Longtygu.Services;
 using SRM_by_Longtygu.ViewModels;
 
 namespace SRM_by_Longtygu
@@ -8,17 +9,32 @@ namespace SRM_by_Longtygu
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _viewModel;
+        private readonly ILocalizationService _loc;
 
-        public MainWindow(MainViewModel viewModel)
+        public MainWindow(MainViewModel viewModel, ILocalizationService localization)
         {
             InitializeComponent();
             _viewModel = viewModel;
+            _loc = localization;
 
             // Gắn ViewModel vào View để hệ thống Data Binding hoạt động
             DataContext = viewModel;
 
             // Lắng nghe khi CurrentViewModel đổi (chuyển tab) để phát hiệu ứng fade
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+            // MỚI: dòng mô tả tiến trình ở dải vàng - làm mới khi tên tiến trình đổi hoặc khi đổi ngôn ngữ
+            _viewModel.Busy.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(IBusyService.CurrentOperation)) RefreshBusyDetail();
+            };
+            _loc.LanguageChanged += (s, e) => RefreshBusyDetail();
+            RefreshBusyDetail();
+        }
+
+        private void RefreshBusyDetail()
+        {
+            BusyDetailTextBlock.Text = _loc.Format("Busy_Detail", _viewModel.Busy.CurrentOperation);
         }
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -43,10 +59,10 @@ namespace SRM_by_Longtygu
             if (_viewModel.Busy.IsBusy)
             {
                 var result = MessageBox.Show(
-                    $"Đang thực hiện: {_viewModel.Busy.CurrentOperation}.\n\n" +
-                    "Đóng ứng dụng lúc này có thể làm gián đoạn tiến trình và gây lỗi dữ liệu.\n" +
-                    "Bạn vẫn muốn đóng ứng dụng?",
-                    "Tiến trình đang chạy",
+                    _loc.Format("Busy_CloseInProgress", _viewModel.Busy.CurrentOperation) + "\n\n" +
+                    _loc.GetString("Busy_CloseWarning") + "\n" +
+                    _loc.GetString("Busy_CloseQuestion"),
+                    _loc.GetString("Busy_CloseTitle"),
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning,
                     MessageBoxResult.No);

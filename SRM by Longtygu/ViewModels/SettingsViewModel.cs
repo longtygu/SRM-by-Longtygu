@@ -18,9 +18,11 @@ namespace SRM_by_Longtygu.ViewModels
         private readonly IDatabaseSchemaMigrator _schemaMigrator; // MỚI: tự vá schema DB cũ sau khi restore
         private readonly IBusyService _busy;   // MỚI: khóa toàn app khi đang chạy tiến trình
         private IDisposable? _busyLease;       // khóa đang giữ của thao tác hiện tại
+        private readonly ILocalizationService _loc; // MỚI: đổi ngôn ngữ ngay trong app
+        private bool _statusIsDefault = true;       // true = đang hiện chữ "Sẵn sàng" mặc định (được dịch lại khi đổi ngôn ngữ)
 
         // ================= CÁC BIẾN UI CHO THANH TIẾN ĐỘ & LOG =================
-        private string _backupStatus = "Sẵn sàng";
+        private string _backupStatus = Loc.T("Settings_Ready");
         public string BackupStatus { get => _backupStatus; set => SetProperty(ref _backupStatus, value); }
 
         private double _backupProgress = 0;
@@ -40,6 +42,24 @@ namespace SRM_by_Longtygu.ViewModels
             set => SetProperty(ref _operationLogs, value);
         }
 
+        // ================= NGÔN NGỮ (ComboBox ở trang Cài đặt) =================
+        public System.Collections.Generic.IReadOnlyList<LanguageOption> SupportedLanguages => _loc.SupportedLanguages;
+
+        private LanguageOption? _selectedLanguage;
+        public LanguageOption? SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (value == null || ReferenceEquals(value, _selectedLanguage)) return;
+                SetProperty(ref _selectedLanguage, value);
+                if (!string.Equals(value.Code, _loc.CurrentLanguage, StringComparison.OrdinalIgnoreCase))
+                {
+                    _loc.SetLanguage(value.Code); // đổi ngay + lưu settings.json
+                }
+            }
+        }
+
         // ================= KHAI BÁO LỆNH =================
         public ICommand ToggleLanguageCommand { get; }
         public ICommand BackupDbCommand { get; }
@@ -47,13 +67,18 @@ namespace SRM_by_Longtygu.ViewModels
         public ICommand RestoreCommand { get; }
         public ICommand ResetCommand { get; }
 
-        public SettingsViewModel(ILogService logService, IDatabaseSchemaMigrator schemaMigrator, IBusyService busyService)
+        public SettingsViewModel(ILogService logService, IDatabaseSchemaMigrator schemaMigrator, IBusyService busyService, ILocalizationService localization)
         {
             _logService = logService;
             _schemaMigrator = schemaMigrator; // MỚI
             _busy = busyService;
+            _loc = localization;
 
             ToggleLanguageCommand = new RelayCommand(_ => ToggleLanguage());
+
+            // MỚI: chọn sẵn ngôn ngữ đang dùng và đồng bộ khi ngôn ngữ đổi từ nơi khác
+            _selectedLanguage = _loc.SupportedLanguages.FirstOrDefault(l => string.Equals(l.Code, _loc.CurrentLanguage, StringComparison.OrdinalIgnoreCase));
+            _loc.LanguageChanged += OnLanguageChanged;
 
             BackupDbCommand = new RelayCommand(async _ => await ExecuteBackupDbAsync(), _ => CanStartOperation());
             FullBackupCommand = new RelayCommand(async _ => await ExecuteFullBackupAsync(), _ => CanStartOperation());
@@ -63,7 +88,21 @@ namespace SRM_by_Longtygu.ViewModels
 
         private void ToggleLanguage()
         {
-            MessageBox.Show("Chức năng chuyển đổi ngôn ngữ đang được phát triển!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            _loc.ToggleLanguage();
+        }
+
+        private void OnLanguageChanged(object? sender, EventArgs e)
+        {
+            var current = _loc.SupportedLanguages.FirstOrDefault(l => string.Equals(l.Code, _loc.CurrentLanguage, StringComparison.OrdinalIgnoreCase));
+            if (current != null && !ReferenceEquals(current, _selectedLanguage))
+            {
+                SetProperty(ref _selectedLanguage, current);
+            }
+            // Chữ trạng thái mặc định "Sẵn sàng" được dịch lại; thông báo của lần chạy trước giữ nguyên
+            if (_statusIsDefault)
+            {
+                BackupStatus = Loc.T("Settings_Ready");
+            }
         }
 
         // ================= KHÓA TOÀN APP KHI ĐANG CHẠY TIẾN TRÌNH =================
@@ -124,13 +163,13 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (string.IsNullOrEmpty(dbFile))
             {
-                MessageBox.Show("Lỗi: Không tìm thấy tệp cơ sở dữ liệu SQLite trong hệ thống!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Loc.T("Settings_DbNotFound"), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             IsBackingUp = true;
-            BeginBusy("Sao lưu cơ sở dữ liệu");
-            UpdateProgress(40, $"Đã thấy DB: {Path.GetFileName(dbFile)}. Đang chuẩn bị...");
+            BeginBusy(Loc.T("Settings_OpBackupDb"));
+            UpdateProgress(40, Loc.F("Settings_BackupFound", Path.GetFileName(dbFile)));
 
             try
             {
@@ -138,22 +177,22 @@ namespace SRM_by_Longtygu.ViewModels
                 if (!Directory.Exists(backupDir))
                 {
                     Directory.CreateDirectory(backupDir);
-                    WriteLog($"Đã tạo thư mục lưu trữ tại: {backupDir}");
+                    WriteLog(Loc.F("Settings_BackupDirCreated", backupDir));
                 }
 
                 string dbName = Path.GetFileNameWithoutExtension(dbFile);
                 string backupPath = Path.Combine(backupDir, $"{dbName}_Backup_{DateTime.Now:yyyyMMdd_HHmmss}{Path.GetExtension(dbFile)}");
 
-                WriteLog($"Tiến hành sao chép: {dbFile}");
+                WriteLog(Loc.F("Settings_BackupCopying", dbFile));
                 await Task.Run(() => File.Copy(dbFile, backupPath, true));
-                WriteLog($"Sao chép thành công. Đích đến: {backupPath}");
+                WriteLog(Loc.F("Settings_BackupCopied", backupPath));
 
-                UpdateProgress(100, $"Thành công! Đã sao lưu tại: Backups/{Path.GetFileName(backupPath)}");
+                UpdateProgress(100, Loc.F("Settings_BackupDone", Path.GetFileName(backupPath)));
             }
             catch (Exception ex)
             {
-                UpdateProgress(BackupProgress, $"Lỗi sao lưu: {ex.Message}");
-                WriteLog($"[LỖI NGHIÊM TRỌNG] {ex.Message}");
+                UpdateProgress(BackupProgress, Loc.F("Settings_BackupFailed", ex.Message));
+                WriteLog(Loc.F("Settings_FatalError", ex.Message), true);
             }
             finally
             {
@@ -170,7 +209,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (string.IsNullOrEmpty(dbFile))
             {
-                MessageBox.Show("Lỗi: Không tìm thấy tệp cơ sở dữ liệu SQLite để đóng gói!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Loc.T("Settings_DbNotFoundForPack"), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -181,19 +220,19 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 Filter = "Zip File (*.zip)|*.zip",
                 FileName = $"{appName}_FullBackup_{DateTime.Now:yyyyMMdd_HHmmss}.zip",
-                Title = "Chọn nơi lưu bản sao lưu toàn bộ"
+                Title = Loc.T("Settings_FullBackupSaveTitle")
             };
 
             if (dialog.ShowDialog() != true) return;
 
             string zipPath = dialog.FileName;
             IsBackingUp = true;
-            BeginBusy("Xuất toàn bộ dữ liệu (Full Zip)");
+            BeginBusy(Loc.T("Settings_OpFullBackup"));
 
             Application.Current.Dispatcher.Invoke(() => OperationLogs.Clear());
             IsLogExpanded = true; // Tự động mở khay Log
 
-            UpdateProgress(5, "Đang khởi tạo môi trường đóng gói...");
+            UpdateProgress(5, Loc.T("Settings_FullInit"));
 
             try
             {
@@ -201,53 +240,53 @@ namespace SRM_by_Longtygu.ViewModels
                 {
                     string tempDir = Path.Combine(Path.GetTempPath(), "SRM_Backup_" + Guid.NewGuid().ToString());
                     Directory.CreateDirectory(tempDir);
-                    WriteLog($"Tạo thư mục Workspace tạm thời tại: {tempDir}");
+                    WriteLog(Loc.F("Settings_FullTempDir", tempDir));
 
-                    UpdateProgress(10, $"Đang sao chép Database ({Path.GetFileName(dbFile)})...");
+                    UpdateProgress(10, Loc.F("Settings_FullCopyDb", Path.GetFileName(dbFile)));
                     File.Copy(dbFile, Path.Combine(tempDir, Path.GetFileName(dbFile)), true);
-                    WriteLog("Đã sao chép file Database.");
+                    WriteLog(Loc.T("Settings_FullCopyDbDone"));
 
-                    UpdateProgress(30, "Đang sao chép các bộ cài và hình ảnh (Data)...");
+                    UpdateProgress(30, Loc.T("Settings_FullCopyData"));
                     string sourceDataDir = Path.Combine(baseDir, "Data");
                     if (Directory.Exists(sourceDataDir))
                     {
                         string destDataDir = Path.Combine(tempDir, "Data");
-                        WriteLog($"Đang xử lý thư mục: {sourceDataDir}");
+                        WriteLog(Loc.F("Settings_ProcessingFolder", sourceDataDir));
                         CopyDirectoryRecursively(sourceDataDir, destDataDir);
                     }
-                    else WriteLog("Không tìm thấy thư mục Data, bỏ qua bước này.");
+                    else WriteLog(Loc.T("Settings_DataMissingSkip"));
 
-                    UpdateProgress(60, "Đang sao chép thư viện tài nguyên (Library)...");
+                    UpdateProgress(60, Loc.T("Settings_FullCopyLibrary"));
                     string sourceLibraryDir = Path.Combine(baseDir, "Library");
                     if (Directory.Exists(sourceLibraryDir))
                     {
                         string destLibraryDir = Path.Combine(tempDir, "Library");
-                        WriteLog($"Đang xử lý thư mục: {sourceLibraryDir}");
+                        WriteLog(Loc.F("Settings_ProcessingFolder", sourceLibraryDir));
                         CopyDirectoryRecursively(sourceLibraryDir, destLibraryDir);
                     }
-                    else WriteLog("Không tìm thấy thư mục Library, bỏ qua bước này.");
+                    else WriteLog(Loc.T("Settings_LibraryMissingSkip"));
 
-                    UpdateProgress(85, "Đang nén dữ liệu thành file Zip (Vui lòng chờ)...");
+                    UpdateProgress(85, Loc.T("Settings_FullZipping"));
                     if (File.Exists(zipPath))
                     {
                         File.Delete(zipPath);
-                        WriteLog("Đã ghi đè file zip cũ.");
+                        WriteLog(Loc.T("Settings_FullOverwroteZip"));
                     }
-                    WriteLog($"Bắt đầu thuật toán nén ZIP tối ưu. Đích đến: {zipPath}");
+                    WriteLog(Loc.F("Settings_FullZipStart", zipPath));
                     ZipFile.CreateFromDirectory(tempDir, zipPath, CompressionLevel.Fastest, false);
-                    WriteLog("Nén dữ liệu thành công.");
+                    WriteLog(Loc.T("Settings_FullZipDone"));
 
-                    UpdateProgress(95, "Đang dọn dẹp bộ nhớ tạm...");
+                    UpdateProgress(95, Loc.T("Settings_FullCleaning"));
                     Directory.Delete(tempDir, true);
-                    WriteLog("Hoàn tất dọn rác bộ nhớ.");
+                    WriteLog(Loc.T("Settings_FullCleaned"));
                 });
 
-                UpdateProgress(100, $"Hoàn tất xuất dữ liệu! Đã lưu tại: {Path.GetFileName(zipPath)}");
+                UpdateProgress(100, Loc.F("Settings_FullDone", Path.GetFileName(zipPath)));
             }
             catch (Exception ex)
             {
-                UpdateProgress(BackupProgress, $"Lỗi xuất dữ liệu: {ex.Message}");
-                WriteLog($"[LỖI NGHIÊM TRỌNG] {ex.StackTrace}");
+                UpdateProgress(BackupProgress, Loc.F("Settings_FullFailed", ex.Message));
+                WriteLog(Loc.F("Settings_FatalError", ex.StackTrace), true);
             }
             finally
             {
@@ -262,21 +301,21 @@ namespace SRM_by_Longtygu.ViewModels
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 Filter = "Zip File (*.zip)|*.zip",
-                Title = "Chọn file Full Backup (.zip) để phục hồi"
+                Title = Loc.T("Settings_RestoreOpenTitle")
             };
 
             if (dialog.ShowDialog() != true) return;
             string zipPath = dialog.FileName;
 
-            var confirm = MessageBox.Show("CẢNH BÁO: Quá trình phục hồi sẽ GHI ĐÈ mọi dữ liệu hiện tại. Ứng dụng sẽ cần khởi động lại. Tiếp tục?", "Phục hồi dữ liệu", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var confirm = MessageBox.Show(Loc.T("Settings_RestoreConfirm"), Loc.T("Settings_RestoreTitle"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (confirm != MessageBoxResult.Yes) return;
 
             IsBackingUp = true;
-            BeginBusy("Phục hồi dữ liệu (Restore)");
+            BeginBusy(Loc.T("Settings_OpRestore"));
             Application.Current.Dispatcher.Invoke(() => OperationLogs.Clear());
             IsLogExpanded = true; // Tự động mở khay Log
 
-            UpdateProgress(5, "Đang chuẩn bị giải nén và nạp dữ liệu...");
+            UpdateProgress(5, Loc.T("Settings_RestorePrepare"));
 
             try
             {
@@ -284,14 +323,14 @@ namespace SRM_by_Longtygu.ViewModels
                 {
                     string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                     string tempDir = Path.Combine(Path.GetTempPath(), "SRM_Restore_" + Guid.NewGuid().ToString());
-                    WriteLog($"Tạo thư mục giải nén tạm tại: {tempDir}");
+                    WriteLog(Loc.F("Settings_RestoreTempDir", tempDir));
 
-                    UpdateProgress(20, "Đang giải nén gói Backup...");
-                    WriteLog($"Bắt đầu đọc cấu trúc Zip: {zipPath}");
+                    UpdateProgress(20, Loc.T("Settings_RestoreExtracting"));
+                    WriteLog(Loc.F("Settings_RestoreReadZip", zipPath));
                     ZipFile.ExtractToDirectory(zipPath, tempDir, true);
-                    WriteLog("Đã bung nén xong file cài đặt.");
+                    WriteLog(Loc.T("Settings_RestoreExtracted"));
 
-                    UpdateProgress(60, "Đang nạp Database...");
+                    UpdateProgress(60, Loc.T("Settings_RestoreLoadDb"));
                     string extractedDb = Directory.GetFiles(tempDir, "*.db").FirstOrDefault();
                     if (extractedDb != null)
                     {
@@ -299,74 +338,74 @@ namespace SRM_by_Longtygu.ViewModels
                         Directory.CreateDirectory(Path.GetDirectoryName(currentDb));
 
                         string deadDb = currentDb + ".dead";
-                        WriteLog($"Đang vô hiệu hóa DB cũ thành: {deadDb}");
+                        WriteLog(Loc.F("Settings_RestoreDisableOldDb", deadDb));
                         if (File.Exists(deadDb)) File.Delete(deadDb);
                         if (File.Exists(currentDb)) File.Move(currentDb, deadDb);
 
                         File.Copy(extractedDb, currentDb, true);
-                        WriteLog("Nạp Database thành công.");
+                        WriteLog(Loc.T("Settings_RestoreDbLoaded"));
 
                         // MỚI: DB vừa restore có thể là backup CŨ, thiếu bảng/cột mới nhất
                         // (ví dụ: chưa có tính năng đính kèm tài nguyên) -> tự động vá lại ngay tại đây
-                        WriteLog("Đang kiểm tra & đồng bộ cấu trúc dữ liệu (schema)...");
+                        WriteLog(Loc.T("Settings_RestoreSchemaCheck"));
                         try
                         {
                             _schemaMigrator.EnsureSchemaAsync().GetAwaiter().GetResult();
-                            WriteLog("Đã đồng bộ cấu trúc dữ liệu lên phiên bản mới nhất.");
+                            WriteLog(Loc.T("Settings_RestoreSchemaDone"));
                         }
                         catch (Exception schemaEx)
                         {
-                            WriteLog($"[LỖI] Đồng bộ schema thất bại: {schemaEx.Message}");
+                            WriteLog(Loc.F("Settings_RestoreSchemaFailed", schemaEx.Message), true);
                             // Không throw tiếp — vẫn giữ nguyên DB đã restore, chỉ cảnh báo,
                             // để người dùng không mất dữ liệu vừa phục hồi chỉ vì bước vá schema lỗi.
                         }
                     }
 
-                    UpdateProgress(70, "Đang nạp các bộ cài và hình ảnh (Data)...");
+                    UpdateProgress(70, Loc.T("Settings_RestoreLoadData"));
                     string extractedData = Path.Combine(tempDir, "Data");
                     if (Directory.Exists(extractedData))
                     {
                         string currentData = Path.Combine(baseDir, "Data");
                         string deadData = currentData + "_dead";
 
-                        WriteLog("Vô hiệu hóa thư mục Data cũ...");
+                        WriteLog(Loc.T("Settings_RestoreDisableOldData"));
                         if (Directory.Exists(deadData)) Directory.Delete(deadData, true);
                         if (Directory.Exists(currentData)) Directory.Move(currentData, deadData);
 
-                        WriteLog("Đang đồng bộ Data mới...");
+                        WriteLog(Loc.T("Settings_RestoreSyncData"));
                         CopyDirectoryRecursively(extractedData, currentData);
                         if (Directory.Exists(deadData)) Directory.Delete(deadData, true);
                     }
 
-                    UpdateProgress(85, "Đang nạp thư viện tài nguyên (Library)...");
+                    UpdateProgress(85, Loc.T("Settings_RestoreLoadLibrary"));
                     string extractedLibrary = Path.Combine(tempDir, "Library");
                     if (Directory.Exists(extractedLibrary))
                     {
                         string currentLibrary = Path.Combine(baseDir, "Library");
                         string deadLibrary = currentLibrary + "_dead";
 
-                        WriteLog("Vô hiệu hóa thư viện Library cũ...");
+                        WriteLog(Loc.T("Settings_RestoreDisableOldLibrary"));
                         if (Directory.Exists(deadLibrary)) Directory.Delete(deadLibrary, true);
                         if (Directory.Exists(currentLibrary)) Directory.Move(currentLibrary, deadLibrary);
 
-                        WriteLog("Đang đồng bộ Library mới...");
+                        WriteLog(Loc.T("Settings_RestoreSyncLibrary"));
                         CopyDirectoryRecursively(extractedLibrary, currentLibrary);
                         if (Directory.Exists(deadLibrary)) Directory.Delete(deadLibrary, true);
                     }
 
-                    UpdateProgress(95, "Dọn dẹp rác giải nén...");
+                    UpdateProgress(95, Loc.T("Settings_RestoreCleanup"));
                     Directory.Delete(tempDir, true);
-                    WriteLog("Đã làm sạch môi trường hoạt động.");
+                    WriteLog(Loc.T("Settings_RestoreCleaned"));
                 });
 
-                UpdateProgress(100, "Phục hồi thành công!");
-                MessageBox.Show("Đã phục hồi dữ liệu thành công! Vui lòng KHỞI ĐỘNG LẠI phần mềm để nhận dữ liệu mới.", "Hoàn tất", MessageBoxButton.OK, MessageBoxImage.Information);
+                UpdateProgress(100, Loc.T("Settings_RestoreSuccess"));
+                MessageBox.Show(Loc.T("Settings_RestoreDoneMsg"), Loc.T("Common_Done"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                UpdateProgress(BackupProgress, $"Lỗi phục hồi: {ex.Message}");
-                WriteLog($"[LỖI NGHIÊM TRỌNG] {ex.StackTrace}");
-                MessageBox.Show($"Quá trình phục hồi gặp lỗi hoặc file đang bị khóa. Vui lòng thử lại sau khi tắt mở lại app.\nChi tiết: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                UpdateProgress(BackupProgress, Loc.F("Settings_RestoreFailed", ex.Message));
+                WriteLog(Loc.F("Settings_FatalError", ex.StackTrace), true);
+                MessageBox.Show(Loc.T("Settings_RestoreLockedMsg") + "\n" + Loc.F("Settings_Details", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -378,15 +417,15 @@ namespace SRM_by_Longtygu.ViewModels
         // ================= THUẬT TOÁN 4: RESET HỆ THỐNG (LÀM SẠCH) =================
         private async Task ExecuteResetAsync()
         {
-            var confirm = MessageBox.Show("CẢNH BÁO ĐỎ: Toàn bộ danh sách phần mềm, file tài nguyên và hình ảnh sẽ bị XÓA SẠCH VĨNH VIỄN. Bạn có chắc chắn không?", "Reset Hệ Thống", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            var confirm = MessageBox.Show(Loc.T("Settings_ResetConfirm"), Loc.T("Settings_ResetTitle"), MessageBoxButton.YesNo, MessageBoxImage.Error);
             if (confirm != MessageBoxResult.Yes) return;
 
             IsBackingUp = true;
-            BeginBusy("Làm sạch hệ thống (Reset)");
+            BeginBusy(Loc.T("Settings_OpReset"));
             Application.Current.Dispatcher.Invoke(() => OperationLogs.Clear());
             IsLogExpanded = true; // Tự động mở khay Log
 
-            UpdateProgress(10, "Đang chuẩn bị dọn dẹp hệ thống...");
+            UpdateProgress(10, Loc.T("Settings_ResetPrepare"));
 
             try
             {
@@ -394,60 +433,60 @@ namespace SRM_by_Longtygu.ViewModels
                 {
                     string baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
-                    UpdateProgress(30, "Đang xóa Database...");
+                    UpdateProgress(30, Loc.T("Settings_ResetDeletingDb"));
                     string dbFile = FindDatabaseFile(baseDir);
                     if (!string.IsNullOrEmpty(dbFile))
                     {
                         string deadDb = dbFile + ".dead";
-                        WriteLog($"Phát hiện Database tại: {dbFile}");
+                        WriteLog(Loc.F("Settings_ResetDbFound", dbFile));
                         if (File.Exists(deadDb)) File.Delete(deadDb);
 
-                        WriteLog("Giải phóng kết nối SQLite Pools trong RAM...");
+                        WriteLog(Loc.T("Settings_ResetReleasePools"));
                         System.Data.SQLite.SQLiteConnection.ClearAllPools();
                         GC.Collect();
                         GC.WaitForPendingFinalizers();
 
                         File.Move(dbFile, deadDb);
                         if (File.Exists(deadDb)) File.Delete(deadDb);
-                        WriteLog("Đã hủy file DB cũ.");
+                        WriteLog(Loc.T("Settings_ResetOldDbRemoved"));
 
-                        WriteLog("Đang chạy luồng tạo Database mới...");
+                        WriteLog(Loc.T("Settings_ResetCreatingDb"));
                         Database.DatabaseBootstrapper.InitializeDatabase(_logService);
                     }
 
-                    UpdateProgress(50, "Đang xóa thư mục Data bộ cài...");
+                    UpdateProgress(50, Loc.T("Settings_ResetDeletingData"));
                     string dataDir = Path.Combine(baseDir, "Data");
                     if (Directory.Exists(dataDir))
                     {
                         string deadData = dataDir + "_dead";
-                        WriteLog("Vô hiệu hóa thư mục Data...");
+                        WriteLog(Loc.T("Settings_ResetDisableData"));
                         if (Directory.Exists(deadData)) Directory.Delete(deadData, true);
                         Directory.Move(dataDir, deadData);
                         Directory.Delete(deadData, true);
-                        WriteLog("Đã làm sạch cấu trúc Data.");
+                        WriteLog(Loc.T("Settings_ResetDataCleaned"));
                     }
 
-                    UpdateProgress(75, "Đang xóa thư viện tài nguyên (Library)...");
+                    UpdateProgress(75, Loc.T("Settings_ResetDeletingLibrary"));
                     string libraryDir = Path.Combine(baseDir, "Library");
                     if (Directory.Exists(libraryDir))
                     {
                         string deadLibrary = libraryDir + "_dead";
-                        WriteLog("Vô hiệu hóa thư mục Library...");
+                        WriteLog(Loc.T("Settings_ResetDisableLibrary"));
                         if (Directory.Exists(deadLibrary)) Directory.Delete(deadLibrary, true);
                         Directory.Move(libraryDir, deadLibrary);
                         Directory.Delete(deadLibrary, true);
-                        WriteLog("Đã làm sạch cấu trúc Library.");
+                        WriteLog(Loc.T("Settings_ResetLibraryCleaned"));
                     }
                 });
 
-                UpdateProgress(100, "Đã Reset thành công!");
-                WriteLog("Quy trình hoàn tất 100%. Sẵn sàng phục vụ.");
-                MessageBox.Show("Hệ thống đã được dọn sạch hoàn toàn! Database mới đã sẵn sàng để sử dụng ngay.", "Hoàn tất", MessageBoxButton.OK, MessageBoxImage.Information);
+                UpdateProgress(100, Loc.T("Settings_ResetSuccess"));
+                WriteLog(Loc.T("Settings_ResetFinished"));
+                MessageBox.Show(Loc.T("Settings_ResetDoneMsg"), Loc.T("Common_Done"), MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                UpdateProgress(BackupProgress, $"Lỗi Reset: {ex.Message}");
-                WriteLog($"[LỖI NGHIÊM TRỌNG] {ex.StackTrace}");
+                UpdateProgress(BackupProgress, Loc.F("Settings_ResetFailed", ex.Message));
+                WriteLog(Loc.F("Settings_FatalError", ex.StackTrace), true);
             }
             finally
             {
@@ -458,7 +497,7 @@ namespace SRM_by_Longtygu.ViewModels
 
         // ================= HÀM HỖ TRỢ ĐỒNG BỘ LOG & TIẾN ĐỘ =================
 
-        private void WriteLog(string message)
+        private void WriteLog(string message, bool isError = false)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -466,7 +505,7 @@ namespace SRM_by_Longtygu.ViewModels
             });
 
             // Ghi song song xuống file log để tab "Nhật ký hoạt động" đọc được
-            if (message.StartsWith("[LỖI", StringComparison.OrdinalIgnoreCase))
+            if (isError)
                 _logService?.LogError(message);
             else
                 _logService?.LogInfo(message);
@@ -476,6 +515,7 @@ namespace SRM_by_Longtygu.ViewModels
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
+                _statusIsDefault = false;
                 BackupProgress = progress;
                 BackupStatus = status;
                 OperationLogs.Add($"[{DateTime.Now:HH:mm:ss}] {status}");

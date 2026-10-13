@@ -2,10 +2,146 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+    <!-- Menu (thanh ben) -->
     <system:String x:Key="Menu_Dashboard">BẢNG ĐIỀU KHIỂN</system:String>
     <system:String x:Key="Menu_Library">THƯ VIỆN PHẦN MỀM</system:String>
+    <system:String x:Key="Menu_Resources">THƯ VIỆN TÀI NGUYÊN</system:String>
+    <system:String x:Key="Menu_UpdateCenter">TRUNG TÂM CẬP NHẬT</system:String>
     <system:String x:Key="Menu_Deployment">CÀI ĐẶT TÙY CHỌN</system:String>
     <system:String x:Key="Menu_Presets">CÀI ĐẶT THEO GÓI</system:String>
+    <system:String x:Key="Menu_Uninstall">GỠ CÀI ĐẶT TÙY CHỌN</system:String>
+    <system:String x:Key="Menu_Tools">CÔNG CỤ MỞ RỘNG</system:String>
     <system:String x:Key="Menu_Settings">CÀI ĐẶT HỆ THỐNG</system:String>
+    <system:String x:Key="Menu_About">THÔNG TIN APP</system:String>
+
+    <!-- Busy (dải vàng + hộp thoại khi đóng cửa sổ) -->
+    <system:String x:Key="Busy_Warning">Ứng dụng vẫn đang chạy - vui lòng KHÔNG thao tác và KHÔNG tắt ứng dụng.</system:String>
+    <system:String x:Key="Busy_Detail">Đang thực hiện: {0}. Với dữ liệu lớn quá trình này có thể mất vài phút. Các mục khác tạm khóa để tránh gián đoạn.</system:String>
+    <system:String x:Key="Busy_DefaultOperation">Tiến trình đang chạy</system:String>
+    <system:String x:Key="Busy_CloseTitle">Tiến trình đang chạy</system:String>
+    <system:String x:Key="Busy_CloseInProgress">Đang thực hiện: {0}.</system:String>
+    <system:String x:Key="Busy_CloseWarning">Đóng ứng dụng lúc này có thể làm gián đoạn tiến trình và gây lỗi dữ liệu.</system:String>
+    <system:String x:Key="Busy_CloseQuestion">Bạn vẫn muốn đóng ứng dụng?</system:String>
+
+    <!-- Splash (màn hình khởi động) -->
+    <system:String x:Key="Splash_Starting">Đang khởi động...</system:String>
+    <system:String x:Key="Splash_Database">Đang khởi tạo cơ sở dữ liệu...</system:String>
+    <system:String x:Key="Splash_Services">Đang nạp các dịch vụ hệ thống...</system:String>
+    <system:String x:Key="Splash_Schema">Đang đồng bộ cấu trúc cơ sở dữ liệu...</system:String>
+    <system:String x:Key="Splash_Config">Đang nạp cấu hình &amp; ngôn ngữ...</system:String>
+    <system:String x:Key="Splash_UI">Đang chuẩn bị giao diện...</system:String>
+    <system:String x:Key="Splash_Done">Hoàn tất!</system:String>
+
+    <!-- Error (hộp thoại lỗi toàn cục) -->
+    <system:String x:Key="Error_UiTitle">Lỗi hệ thống</system:String>
+    <system:String x:Key="Error_UiMessage">Lỗi thao tác: {0}</system:String>
+    <system:String x:Key="Error_LogHint">Đã ghi log vào error_log.txt</system:String>
+    <system:String x:Key="Error_FatalTitle">Lỗi nghiêm trọng</system:String>
+    <system:String x:Key="Error_BackgroundMessage">Lỗi nghiêm trọng ở luồng ngầm. Ứng dụng có thể phải đóng lại.</system:String>
+    <system:String x:Key="Error_CheckLogHint">Vui lòng kiểm tra file error_log.txt</system:String>
+
+    <!-- Settings (thao tác sao lưu / phục hồi / reset) -->
+    <system:String x:Key="Settings_Ready">Sẵn sàng</system:String>
+    <system:String x:Key="Settings_DbNotFound">Lỗi: Không tìm thấy tệp cơ sở dữ liệu SQLite trong hệ thống!</system:String>
+    <system:String x:Key="Settings_OpBackupDb">Sao lưu cơ sở dữ liệu</system:String>
+    <system:String x:Key="Settings_BackupFound">Đã thấy DB: {0}. Đang chuẩn bị...</system:String>
+    <system:String x:Key="Settings_BackupDirCreated">Đã tạo thư mục lưu trữ tại: {0}</system:String>
+    <system:String x:Key="Settings_BackupCopying">Tiến hành sao chép: {0}</system:String>
+    <system:String x:Key="Settings_BackupCopied">Sao chép thành công. Đích đến: {0}</system:String>
+    <system:String x:Key="Settings_BackupDone">Thành công! Đã sao lưu tại: Backups/{0}</system:String>
+    <system:String x:Key="Settings_BackupFailed">Lỗi sao lưu: {0}</system:String>
+    <system:String x:Key="Settings_FatalError">[LỖI NGHIÊM TRỌNG] {0}</system:String>
+    <system:String x:Key="Settings_DbNotFoundForPack">Lỗi: Không tìm thấy tệp cơ sở dữ liệu SQLite để đóng gói!</system:String>
+    <system:String x:Key="Settings_FullBackupSaveTitle">Chọn nơi lưu bản sao lưu toàn bộ</system:String>
+    <system:String x:Key="Settings_OpFullBackup">Xuất toàn bộ dữ liệu (Full Zip)</system:String>
+    <system:String x:Key="Settings_FullInit">Đang khởi tạo môi trường đóng gói...</system:String>
+    <system:String x:Key="Settings_FullTempDir">Tạo thư mục Workspace tạm thời tại: {0}</system:String>
+    <system:String x:Key="Settings_FullCopyDb">Đang sao chép Database ({0})...</system:String>
+    <system:String x:Key="Settings_FullCopyDbDone">Đã sao chép file Database.</system:String>
+    <system:String x:Key="Settings_FullCopyData">Đang sao chép các bộ cài và hình ảnh (Data)...</system:String>
+    <system:String x:Key="Settings_ProcessingFolder">Đang xử lý thư mục: {0}</system:String>
+    <system:String x:Key="Settings_DataMissingSkip">Không tìm thấy thư mục Data, bỏ qua bước này.</system:String>
+    <system:String x:Key="Settings_FullCopyLibrary">Đang sao chép thư viện tài nguyên (Library)...</system:String>
+    <system:String x:Key="Settings_LibraryMissingSkip">Không tìm thấy thư mục Library, bỏ qua bước này.</system:String>
+    <system:String x:Key="Settings_FullZipping">Đang nén dữ liệu thành file Zip (Vui lòng chờ)...</system:String>
+    <system:String x:Key="Settings_FullOverwroteZip">Đã ghi đè file zip cũ.</system:String>
+    <system:String x:Key="Settings_FullZipStart">Bắt đầu thuật toán nén ZIP tối ưu. Đích đến: {0}</system:String>
+    <system:String x:Key="Settings_FullZipDone">Nén dữ liệu thành công.</system:String>
+    <system:String x:Key="Settings_FullCleaning">Đang dọn dẹp bộ nhớ tạm...</system:String>
+    <system:String x:Key="Settings_FullCleaned">Hoàn tất dọn rác bộ nhớ.</system:String>
+    <system:String x:Key="Settings_FullDone">Hoàn tất xuất dữ liệu! Đã lưu tại: {0}</system:String>
+    <system:String x:Key="Settings_FullFailed">Lỗi xuất dữ liệu: {0}</system:String>
+    <system:String x:Key="Settings_RestoreOpenTitle">Chọn file Full Backup (.zip) để phục hồi</system:String>
+    <system:String x:Key="Settings_RestoreTitle">Phục hồi dữ liệu</system:String>
+    <system:String x:Key="Settings_RestoreConfirm">CẢNH BÁO: Quá trình phục hồi sẽ GHI ĐÈ mọi dữ liệu hiện tại. Ứng dụng sẽ cần khởi động lại. Tiếp tục?</system:String>
+    <system:String x:Key="Settings_OpRestore">Phục hồi dữ liệu (Restore)</system:String>
+    <system:String x:Key="Settings_RestorePrepare">Đang chuẩn bị giải nén và nạp dữ liệu...</system:String>
+    <system:String x:Key="Settings_RestoreTempDir">Tạo thư mục giải nén tạm tại: {0}</system:String>
+    <system:String x:Key="Settings_RestoreExtracting">Đang giải nén gói Backup...</system:String>
+    <system:String x:Key="Settings_RestoreReadZip">Bắt đầu đọc cấu trúc Zip: {0}</system:String>
+    <system:String x:Key="Settings_RestoreExtracted">Đã bung nén xong file cài đặt.</system:String>
+    <system:String x:Key="Settings_RestoreLoadDb">Đang nạp Database...</system:String>
+    <system:String x:Key="Settings_RestoreDisableOldDb">Đang vô hiệu hóa DB cũ thành: {0}</system:String>
+    <system:String x:Key="Settings_RestoreDbLoaded">Nạp Database thành công.</system:String>
+    <system:String x:Key="Settings_RestoreSchemaCheck">Đang kiểm tra &amp; đồng bộ cấu trúc dữ liệu (schema)...</system:String>
+    <system:String x:Key="Settings_RestoreSchemaDone">Đã đồng bộ cấu trúc dữ liệu lên phiên bản mới nhất.</system:String>
+    <system:String x:Key="Settings_RestoreSchemaFailed">[LỖI] Đồng bộ schema thất bại: {0}</system:String>
+    <system:String x:Key="Settings_RestoreLoadData">Đang nạp các bộ cài và hình ảnh (Data)...</system:String>
+    <system:String x:Key="Settings_RestoreDisableOldData">Vô hiệu hóa thư mục Data cũ...</system:String>
+    <system:String x:Key="Settings_RestoreSyncData">Đang đồng bộ Data mới...</system:String>
+    <system:String x:Key="Settings_RestoreLoadLibrary">Đang nạp thư viện tài nguyên (Library)...</system:String>
+    <system:String x:Key="Settings_RestoreDisableOldLibrary">Vô hiệu hóa thư viện Library cũ...</system:String>
+    <system:String x:Key="Settings_RestoreSyncLibrary">Đang đồng bộ Library mới...</system:String>
+    <system:String x:Key="Settings_RestoreCleanup">Dọn dẹp rác giải nén...</system:String>
+    <system:String x:Key="Settings_RestoreCleaned">Đã làm sạch môi trường hoạt động.</system:String>
+    <system:String x:Key="Settings_RestoreSuccess">Phục hồi thành công!</system:String>
+    <system:String x:Key="Settings_RestoreDoneMsg">Đã phục hồi dữ liệu thành công! Vui lòng KHỞI ĐỘNG LẠI phần mềm để nhận dữ liệu mới.</system:String>
+    <system:String x:Key="Settings_RestoreFailed">Lỗi phục hồi: {0}</system:String>
+    <system:String x:Key="Settings_ResetTitle">Reset Hệ Thống</system:String>
+    <system:String x:Key="Settings_ResetConfirm">CẢNH BÁO ĐỎ: Toàn bộ danh sách phần mềm, file tài nguyên và hình ảnh sẽ bị XÓA SẠCH VĨNH VIỄN. Bạn có chắc chắn không?</system:String>
+    <system:String x:Key="Settings_OpReset">Làm sạch hệ thống (Reset)</system:String>
+    <system:String x:Key="Settings_ResetPrepare">Đang chuẩn bị dọn dẹp hệ thống...</system:String>
+    <system:String x:Key="Settings_ResetDeletingDb">Đang xóa Database...</system:String>
+    <system:String x:Key="Settings_ResetDbFound">Phát hiện Database tại: {0}</system:String>
+    <system:String x:Key="Settings_ResetReleasePools">Giải phóng kết nối SQLite Pools trong RAM...</system:String>
+    <system:String x:Key="Settings_ResetOldDbRemoved">Đã hủy file DB cũ.</system:String>
+    <system:String x:Key="Settings_ResetCreatingDb">Đang chạy luồng tạo Database mới...</system:String>
+    <system:String x:Key="Settings_ResetDeletingData">Đang xóa thư mục Data bộ cài...</system:String>
+    <system:String x:Key="Settings_ResetDisableData">Vô hiệu hóa thư mục Data...</system:String>
+    <system:String x:Key="Settings_ResetDataCleaned">Đã làm sạch cấu trúc Data.</system:String>
+    <system:String x:Key="Settings_ResetDeletingLibrary">Đang xóa thư viện tài nguyên (Library)...</system:String>
+    <system:String x:Key="Settings_ResetDisableLibrary">Vô hiệu hóa thư mục Library...</system:String>
+    <system:String x:Key="Settings_ResetLibraryCleaned">Đã làm sạch cấu trúc Library.</system:String>
+    <system:String x:Key="Settings_ResetSuccess">Đã Reset thành công!</system:String>
+    <system:String x:Key="Settings_ResetFinished">Quy trình hoàn tất 100%. Sẵn sàng phục vụ.</system:String>
+    <system:String x:Key="Settings_ResetDoneMsg">Hệ thống đã được dọn sạch hoàn toàn! Database mới đã sẵn sàng để sử dụng ngay.</system:String>
+    <system:String x:Key="Settings_ResetFailed">Lỗi Reset: {0}</system:String>
+    <system:String x:Key="Settings_RestoreLockedMsg">Quá trình phục hồi gặp lỗi hoặc file đang bị khóa. Vui lòng thử lại sau khi tắt mở lại app.</system:String>
+    <system:String x:Key="Settings_Details">Chi tiết: {0}</system:String>
+
+    <!-- Common (dùng chung) -->
+    <system:String x:Key="Common_Error">Lỗi</system:String>
+    <system:String x:Key="Common_Done">Hoàn tất</system:String>
+
+    <!-- Settings (giao diện trang Cài đặt) -->
+    <system:String x:Key="Settings_LanguageTitle">Language / Ngôn ngữ</system:String>
+    <system:String x:Key="Settings_LanguageDesc">Chọn ngôn ngữ hiển thị của ứng dụng. Thay đổi có hiệu lực ngay, không cần khởi động lại.</system:String>
+    <system:String x:Key="Settings_MaintenanceTitle">Backup &amp; Restore / Bảo trì hệ thống</system:String>
+    <system:String x:Key="Settings_MaintenanceDesc">Quản lý toàn bộ dữ liệu ứng dụng, bao gồm sao lưu an toàn và khôi phục cài đặt gốc.</system:String>
+    <system:String x:Key="Settings_TipFullBackup">Nén toàn bộ file cài đặt, hình ảnh và dữ liệu</system:String>
+    <system:String x:Key="Settings_TipRestore">Nạp lại dữ liệu từ file Full Backup (.zip)</system:String>
+    <system:String x:Key="Settings_TipReset">Xóa sạch toàn bộ cấu trúc và file cài đặt (Cảnh báo)</system:String>
+    <system:String x:Key="Settings_LogHeader">Nhật ký hệ thống (Log)</system:String>
+    <system:String x:Key="Settings_UpdateTitle">App update / Cập nhật ứng dụng</system:String>
+    <system:String x:Key="Settings_UpdateDesc">Kiểm tra xem SRM by Longtygu có phiên bản mới trên GitHub hay không. Bạn có thể mở trang tải về, hoặc để ứng dụng tự tải, kiểm tra SHA256 và cài đặt; dữ liệu của bạn được giữ nguyên.</system:String>
+    <system:String x:Key="Settings_RunningVersion" xml:space="preserve">Phiên bản đang chạy: </system:String>
+    <system:String x:Key="Settings_TipCheck">Gọi GitHub để xem có bản phát hành mới hơn bản đang chạy không</system:String>
+    <system:String x:Key="Settings_ReleaseNotes">Ghi chú phát hành</system:String>
+    <system:String x:Key="Settings_TipOpenRelease">Mở trang Release của bản mới trên GitHub bằng trình duyệt</system:String>
+    <system:String x:Key="Settings_ViewDownload">Xem trang tải về</system:String>
+    <system:String x:Key="Settings_TipInstall">Tải bản mới, kiểm tra SHA256, sao lưu library.db, thay file chương trình rồi tự khởi động lại (không đụng dữ liệu của bạn)</system:String>
+    <system:String x:Key="Settings_PrefsTitle">Tùy chọn hệ thống (Sắp ra mắt)</system:String>
+    <system:String x:Key="Settings_PrefsDesc">Cấu hình nâng cao: Theme Mode, Tự động tạo Restore Point, Đường dẫn dữ liệu mặc định...</system:String>
+    <system:String x:Key="Settings_LanguageNote">Lưu ý: một số màn hình vẫn đang được dịch dần.</system:String>
 
 </ResourceDictionary>

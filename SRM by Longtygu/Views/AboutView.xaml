@@ -132,7 +132,7 @@
                     </Button.Style>
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="InformationOutline" Width="18" Height="18" Margin="0,0,12,0" Foreground="#60CDFF"/>
-                        <TextBlock Text="Thông tin Ứng dụng" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource About_ApplicationInformation}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
@@ -149,7 +149,7 @@
                     </Button.Style>
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Cogs" Width="18" Height="18" Margin="0,0,12,0" Foreground="#FF9800"/>
-                        <TextBlock Text="Nguyên lý hoạt động" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource About_HowItWorks}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
@@ -166,7 +166,7 @@
                     </Button.Style>
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="TextBoxSearchOutline" Width="18" Height="18" Margin="0,0,12,0" Foreground="#6CCB5F"/>
-                        <TextBlock Text="Nhật ký hoạt động" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource About_ActivityLog}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
@@ -184,7 +184,7 @@
                     </Border>
                     <StackPanel VerticalAlignment="Center" Margin="16,0,0,0">
                         <TextBlock Text="Software Repository Manager" FontSize="28" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,4"/>
-                        <TextBlock Text="Phiên bản 1.0.1 ( Test )" FontSize="14" Foreground="#888888" FontWeight="SemiBold"/>
+                        <TextBlock Text="{DynamicResource About_VersionLabel}" FontSize="14" Foreground="#888888" FontWeight="SemiBold"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -195,23 +195,23 @@
                                 <Floater HorizontalAlignment="Left" Width="180" Margin="0,0,20,10">
                                     <BlockUIContainer>
                                         <Border CornerRadius="8" ClipToBounds="True" BorderBrush="#444444" BorderThickness="1">
-                                            <Image Source="pack://application:,,,/Resources/Images/author_portrait.png" Stretch="UniformToFill" Height="240" Width="180" ToolTip="Tác giả"/>
+                                            <Image Source="pack://application:,,,/Resources/Images/author_portrait.png" Stretch="UniformToFill" Height="240" Width="180" ToolTip="{DynamicResource About_Author}"/>
                                         </Border>
                                     </BlockUIContainer>
                                 </Floater>
-                                <Run Text="Software Repository Manager (SRM) chưa đến mức để coi là dự án mà là 1 sản phẩm cá nhân LÀM CHO VUI, xuất phát từ nhu cầu cần quản lý các bộ cài với yêu cầu phải đơn giản, nhẹ và đặc biệt có thể chạy độc lập và portable trên các thiết bị ngoại vi như usb, ổ cứng rời mà không cần phải sửa đổi quá nhiều."/>
+                                <Run Text="{DynamicResource About_SoftwareRepositoryManagerSRM}"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="70% code tạo ra bởi AI, cá nhân tôi chỉ mang tính định hướng, prom tính năng, fix các lỗi liên quan đến cấu trúc và tên biến, các lỗi có lượng văn bản lớn mà AI không thể đọc hết trong 1 phiên, testing, đóng gói cũng như publish công khai nên mã nguồn phần mềm đều được share cho bất kỳ ai muốn sửa đổi cũng như phát triển riêng dựa trên khung phần mềm này, tất nhiên yêu cầu khai báo tên phiên bản gốc :) ."/>
+                                <Run Text="{DynamicResource About_About70OfThe}"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="100% code sử dụng là C# trên nền tảng Visual Studio kết hợp với Blend để chỉnh sửa giao diện, sử dụng trình quản lý database SQLite, siêu gọn và đơn giản, tôn chỉ nhẹ nhất có thể, đơn giản tối đa nhưng phải đầy đủ tính năng."/>
+                                <Run Text="{DynamicResource About_100OfTheCode}"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="các tính năng chính hiện tại đã có trong phiên bản này bao gồm : quản lý các bộ cài | quản lý các tài nguyên | cài đặt đơn lẻ / hàng loạt / theo set | các bộ cài đính kèm nhiều phiên bản và tài nguyên đính kèm | bộ gỡ cài đặt cơ bản có thể phân biệt phần mềm hệ thống và cá nhân | hệ thống quét cập nhật tự động với 120 app đã được liệt kê sẵn và đánh dấu | tích hợp sẵn 5 tool cơ bản."/>
+                                <Run Text="{DynamicResource About_TheMainFeaturesCurrently}"/>
                                 <LineBreak/>
                                 <LineBreak/>
-                                <Run Text="do phần mềm phát triển cá nhân trong thời gian rảnh có thể xảy ra lỗi vô tình bỏ qua trong quá trình test nên nếu phát hiện bug, hãy liên hệ cho mình qua Facebook bằng nút bên dưới."/>
+                                <Run Text="{DynamicResource About_SinceThisIsPersonal}"/>
                             </Paragraph>
                             <BlockUIContainer>
                                 <Button x:Name="FacebookButton"
@@ -222,7 +222,7 @@
                                         ToolTip="https://www.facebook.com/longtygu/">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconMaterial Kind="OpenInNew" Width="16" Height="16" Margin="0,0,10,0" Foreground="#60CDFF" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Liên hệ qua Facebook" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{DynamicResource About_ContactViaFacebook}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                             </BlockUIContainer>
@@ -251,7 +251,7 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,24">
                     <iconPacks:PackIconMaterial Kind="LightbulbOnOutline" Width="28" Height="28" Foreground="#FF9800" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                    <TextBlock Text="Đặc tả Kiến trúc &amp; Nguyên lý Hoạt động" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource About_ArchitectureSpecificationHow}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Bọc nội dung trong Card có ScrollViewer -->
@@ -266,22 +266,22 @@
                             <StackPanel Margin="0,0,0,32">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                     <iconPacks:PackIconMaterial Kind="Database" Width="20" Height="20" Foreground="#6CCB5F" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <TextBlock Text="1. Kiến trúc Cơ sở Dữ liệu &amp; Quản lý Trạng thái" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource About_1DatabaseArchitectureState}" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <TextBlock Style="{StaticResource DetailTextStyle}">
-                                    <Run Text="Hệ thống lưu trữ được thiết kế hoàn toàn theo hướng phi tập trung (Serverless) thông qua engine SQLite. Lớp "/>
+                                    <Run Text="{DynamicResource About_TheStorageSystemIs}"/>
                                     <Run Text="DatabaseBootstrapper" FontWeight="Bold" Foreground="#6CCB5F"/>
-                                    <Run Text=" sẽ tự động tính toán thư mục gốc ("/>
+                                    <Run Text="{DynamicResource About_ClassWillAutomaticallyComput}"/>
                                     <Run Text="AppDomain.CurrentDomain.BaseDirectory" FontStyle="Italic"/>
-                                    <Run Text=") để sinh ra file "/>
+                                    <Run Text="{DynamicResource About_ToGenerateTheFile}"/>
                                     <Run Text="library.db" FontWeight="Bold"/>
-                                    <Run Text=". Điều này đảm bảo tính "/>
+                                    <Run Text="{DynamicResource About_ThisGuaranteesAbsolute}"/>
                                     <Run Text="Portable" FontWeight="Bold"/>
-                                    <Run Text=" tuyệt đối khi ứng dụng chạy từ USB. Tính toàn vẹn của cấu trúc dữ liệu nhiều chiều (như Software, Versions, Presets) được khóa chặt bằng cơ chế khóa ngoại "/>
+                                    <Run Text="{DynamicResource About_BehaviorWhenTheApp}"/>
                                     <Run Text="FOREIGN KEY" FontWeight="Bold"/>
-                                    <Run Text=" kết hợp với "/>
+                                    <Run Text="{DynamicResource About_CombinedWith}"/>
                                     <Run Text="ON DELETE CASCADE" FontWeight="Bold" Foreground="#FF5252"/>
-                                    <Run Text=". Khi một phần mềm gốc bị gỡ bỏ, Database tự động dọn sạch các phiên bản con và bản đồ cấu hình (Preset Mapping) liên quan, chống rác dữ liệu ở cấp độ thấp nhất. Ngoài ra, Domain Models tích hợp thuật toán quy đổi thời gian thực, tự động parse dữ liệu Byte khô khan thành định dạng GB/MB chuẩn UI."/>
+                                    <Run Text="{DynamicResource About_WhenAParentSoftware}"/>
                                 </TextBlock>
                             </StackPanel>
 
@@ -289,28 +289,28 @@
                             <StackPanel Margin="0,0,0,32">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                     <iconPacks:PackIconMaterial Kind="RocketLaunch" Width="20" Height="20" Foreground="#FF5252" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <TextBlock Text="2. Luồng Thực thi Cài đặt Cấp thấp (Deployment Service)" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource About_2LowLevelInstallation}" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <TextBlock Style="{StaticResource DetailTextStyle}">
-                                    <Run Text="Mô-đun điều phối (DeploymentViewModel) hoạt động độc lập với logic xử lý file. Trước bất kỳ chu trình cài đặt lô nào, hệ thống kích hoạt PowerShell ẩn với quyền cao nhất ("/>
+                                    <Run Text="{DynamicResource About_TheOrchestrationModuleDeploy}"/>
                                     <Run Text="Verb = 'runas'" FontStyle="Italic"/>
-                                    <Run Text=") để gọi hàm "/>
+                                    <Run Text="{DynamicResource About_ToCallTheFunction}"/>
                                     <Run Text="Enable-ComputerRestore" FontWeight="Bold" Foreground="#60CDFF"/>
-                                    <Run Text=" thông qua API Windows. Chốt chặn này đảm bảo hệ điều hành luôn có đường lui nếu bộ cài gây xung đột.&#x0a;&#x0a;"/>
+                                    <Run Text="{DynamicResource About_ThroughTheWindowsAPI}"/>
                                     
-                                    <Run Text="Đối với phần mềm Portable:" FontWeight="Bold" Foreground="#FFFFFF"/>
-                                    <Run Text=" Hệ thống sử dụng "/>
+                                    <Run Text="{DynamicResource About_ForPortableSoftware}" FontWeight="Bold" Foreground="#FFFFFF"/>
+                                    <Run Text="{DynamicResource About_TheSystemUses}"/>
                                     <Run Text="ZipFile.ExtractToDirectory" FontStyle="Italic"/>
-                                    <Run Text=" để giải nén trực tiếp vào thư mục đích (ví dụ C:\PortableApps), sau đó quét đệ quy tìm tệp (.exe) chính và đẩy Script PowerShell tự động tạo Shortcut ra Desktop.&#x0a;&#x0a;"/>
+                                    <Run Text="{DynamicResource About_ToExtractDirectlyInto}"/>
 
-                                    <Run Text="Đối với Silent Installers:" FontWeight="Bold" Foreground="#FFFFFF"/>
-                                    <Run Text=" Để giải quyết bài toán giao diện bị 'đóng băng' do tiến trình cài đặt không trả về dữ liệu luồng, "/>
+                                    <Run Text="{DynamicResource About_ForSilentInstallers}" FontWeight="Bold" Foreground="#FFFFFF"/>
+                                    <Run Text="{DynamicResource About_ToSolveTheProblem}"/>
                                     <Run Text="RunSilentInstallAsync" FontWeight="Bold"/>
-                                    <Run Text=" sử dụng thuật toán vòng lặp thăm dò ("/>
+                                    <Run Text="{DynamicResource About_UsesAPollingLoop}"/>
                                     <Run Text="!process.HasExited" FontStyle="Italic"/>
-                                    <Run Text="). Nó liên tục nạp các giá trị giả lập ngẫu nhiên ("/>
+                                    <Run Text="{DynamicResource About_ItContinuouslyFeedsRandom}"/>
                                     <Run Text="Random.Next" FontStyle="Italic"/>
-                                    <Run Text=") để đẩy thanh Progress Bar từ từ lên mốc 95% và neo lại đó chờ tiến trình hoàn tất. Đây là một thủ thuật UX cực kỳ tinh vi giúp phần mềm hoạt động mượt mà."/>
+                                    <Run Text="{DynamicResource About_ToSlowlyPushThe}"/>
                                 </TextBlock>
                             </StackPanel>
 
@@ -318,22 +318,22 @@
                             <StackPanel Margin="0,0,0,32">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                     <iconPacks:PackIconMaterial Kind="Brain" Width="20" Height="20" Foreground="#C381FD" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <TextBlock Text="3. Engine Phân tích Cấu trúc Đóng gói (Static Analyzer)" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource About_3PackageStructureAnalysis}" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <TextBlock Style="{StaticResource DetailTextStyle}">
-                                    <Run Text="Lõi "/>
+                                    <Run Text="{DynamicResource About_TheCore}"/>
                                     <Run Text="InstallerAnalyzer" FontWeight="Bold" Foreground="#C381FD"/>
-                                    <Run Text=" hoạt động như một máy quét nhị phân tĩnh (Static Binary Scanner). Thay vì nạp toàn bộ bộ cài vào RAM gây tràn bộ nhớ, hệ thống khởi tạo một Stream Buffer giới hạn nghiêm ngặt ở mức "/>
-                                    <Run Text="2MB dữ liệu đầu tiên (2048 * 1024 bytes)" FontWeight="Bold"/>
-                                    <Run Text=". Khối dữ liệu nhị phân này được giải mã sang bảng mã ASCII để dò tìm các dấu hiệu (Signatures) của trình biên dịch.&#x0a;&#x0a;Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setup ("/>
+                                    <Run Text="{DynamicResource About_WorksAsAStatic}"/>
+                                    <Run Text="{DynamicResource About_TheFirst2MBOf}" FontWeight="Bold"/>
+                                    <Run Text="{DynamicResource About_ThisBinaryBlockIs}"/>
                                     <Run Text="/VERYSILENT" FontStyle="Italic"/>
-                                    <Run Text="), bộ cài Nullsoft/NSIS ("/>
+                                    <Run Text="{DynamicResource About_NullsoftNSISInstallers}"/>
                                     <Run Text="/S" FontStyle="Italic"/>
-                                    <Run Text="), hay WiX Toolset ("/>
+                                    <Run Text="{DynamicResource About_OrWiXToolset}"/>
                                     <Run Text="-quiet" FontStyle="Italic"/>
-                                    <Run Text=") với tốc độ dưới 0.1 giây, từ đó tiêm chính xác các biến "/>
+                                    <Run Text="{DynamicResource About_InUnder01}"/>
                                     <Run Text="INSTALLDIR" FontWeight="Bold"/>
-                                    <Run Text=" điều hướng ổ đĩa mà không cần người dùng can thiệp."/>
+                                    <Run Text="{DynamicResource About_DriveRoutingVariablesWithout}"/>
                                 </TextBlock>
                             </StackPanel>
 
@@ -341,16 +341,16 @@
                             <StackPanel Margin="0,0,0,10">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                     <iconPacks:PackIconMaterial Kind="PuzzleOutline" Width="20" Height="20" Foreground="#FFB86C" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <TextBlock Text="4. Kiến trúc Mở &amp; Dependency Injection (Hệ sinh thái Plugin)" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource About_4OpenArchitectureDependency}" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <TextBlock Style="{StaticResource DetailTextStyle}">
-                                    <Run Text="Được xây dựng trên nền tảng Dependency Injection (DI) hiện đại, toàn bộ tính năng phụ trợ (như Check RAM, Disk Health) không bị nhồi nhét vào lõi chính. Thay vào đó, chúng bị cô lập thông qua giao thức "/>
+                                    <Run Text="{DynamicResource About_BuiltOnAModern}"/>
                                     <Run Text="IToolModule" FontWeight="Bold" Foreground="#FFB86C"/>
-                                    <Run Text=". Các DLL bên ngoài chỉ cần implements interface này để khai báo "/>
+                                    <Run Text="{DynamicResource About_ExternalDLLsOnlyNeed}"/>
                                     <Run Text="Id, IconKind" FontStyle="Italic"/>
-                                    <Run Text=" cho UI tự động render thẻ (card). Đặc biệt, thông qua hàm "/>
+                                    <Run Text="{DynamicResource About_SoTheUICan}"/>
                                     <Run Text="CreateView(IServiceProvider)" FontWeight="Bold"/>
-                                    <Run Text=", SRM truyền toàn bộ các Service nội bộ (Database, Logging) ngược vào các Plugin, cho phép chúng tương tác sâu với phần cứng hệ thống như một module nguyên bản."/>
+                                    <Run Text="{DynamicResource About_SRMPassesAllInternal}"/>
                                 </TextBlock>
                             </StackPanel>
 
@@ -381,7 +381,7 @@
                 <!-- Tiêu đề -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
                     <iconPacks:PackIconMaterial Kind="TextBoxSearchOutline" Width="28" Height="28" Foreground="#6CCB5F" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                    <TextBlock Text="Nhật ký hoạt động" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource About_ActivityLog}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Thanh công cụ: chọn ngày, làm mới, mở thư mục -->
@@ -395,7 +395,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="Ngày:" Foreground="#CCCCCC" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource About_Date}" Foreground="#CCCCCC" VerticalAlignment="Center" Margin="0,0,10,0"/>
 
                         <ComboBox Grid.Column="1"
                                   ItemsSource="{Binding AvailableLogDates}"
@@ -411,10 +411,10 @@
                         <TextBlock Grid.Column="2" Text="{Binding LogStatusText}" Foreground="#888888" FontStyle="Italic"
                                    VerticalAlignment="Center" Margin="16,0,0,0" TextTrimming="CharacterEllipsis"/>
 
-                        <Button Grid.Column="3" Content="Làm mới" Command="{Binding RefreshLogCommand}"
+                        <Button Grid.Column="3" Content="{DynamicResource Library_Refresh}" Command="{Binding RefreshLogCommand}"
                                 Style="{StaticResource FluentTabButtonStyle}" Margin="4,0" Padding="14,8"/>
 
-                        <Button Grid.Column="4" Content="Mở thư mục Log" Command="{Binding OpenLogFolderCommand}"
+                        <Button Grid.Column="4" Content="{DynamicResource About_OpenLogFolder}" Command="{Binding OpenLogFolderCommand}"
                                 Style="{StaticResource FluentTabButtonStyle}" Margin="4,0" Padding="14,8"/>
                     </Grid>
                 </Border>

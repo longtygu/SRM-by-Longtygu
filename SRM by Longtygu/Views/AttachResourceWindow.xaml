@@ -6,7 +6,7 @@
         Title="{DynamicResource Common_AttachResources}" Height="680" Width="820"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+        Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -324,7 +324,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTextColumn Header="Tên tài nguyên" Binding="{Binding Name}" Width="2.6*">
+                                <DataGridTextColumn Header="{Binding [Common_ResourceName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="2.6*">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Foreground" Value="#FFFFFF"/>
@@ -335,7 +335,7 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Danh mục" Binding="{Binding Category}" Width="1.6*">
+                                <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.6*">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Foreground" Value="#AAAAAA"/>
@@ -345,7 +345,7 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
 
-                                <DataGridTextColumn Header="Dung lượng" Binding="{Binding Size}" Width="1*">
+                                <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Size}" Width="1*">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Foreground" Value="#FCE100"/>

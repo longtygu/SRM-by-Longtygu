@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
-             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <UserControl.Resources>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
@@ -366,7 +366,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Tên phần mềm" Binding="{Binding Software.Name}" Width="1.5*" IsReadOnly="True" FontWeight="SemiBold"/>
+                        <DataGridTextColumn Header="{Binding [Common_SoftwareName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Software.Name}" Width="1.5*" IsReadOnly="True" FontWeight="SemiBold"/>
 
                         <DataGridTemplateColumn Width="40" CanUserSort="False" CanUserResize="False">
                             <DataGridTemplateColumn.CellStyle>
@@ -400,7 +400,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Phiên bản cài đặt" Width="160">
+                        <DataGridTemplateColumn Header="{Binding [Deployment_InstallationVersion], Source={x:Static srmloc:LocProxy.Instance}}" Width="160">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox ItemsSource="{Binding AvailableVersions}"
@@ -416,9 +416,9 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Danh mục" Binding="{Binding Software.Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                        <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Software.Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
 
-                        <DataGridTextColumn Header="Nhà phát triển" Binding="{Binding Software.Publisher}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                        <DataGridTextColumn Header="{Binding [Common_Developer], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Software.Publisher}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

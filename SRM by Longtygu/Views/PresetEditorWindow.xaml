@@ -6,7 +6,7 @@
         Title="{DynamicResource PresetEditor_DesignInstallPackagePreset}" Height="800" Width="1280"
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" 
-        FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+        FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <Window.Resources>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
@@ -352,7 +352,7 @@
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
 
-                                        <DataGridTextColumn Header="Tên phần mềm" Binding="{Binding Name}" Width="2*" IsReadOnly="True">
+                                        <DataGridTextColumn Header="{Binding [Common_SoftwareName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="2*" IsReadOnly="True">
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="Foreground" Value="#FFFFFF"/>
@@ -362,7 +362,7 @@
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
 
-                                        <DataGridTextColumn Header="Danh mục" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True">
+                                        <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True">
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="Foreground" Value="#CCCCCC"/>
@@ -371,7 +371,7 @@
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
 
-                                        <DataGridTextColumn Header="Nhà phát triển" Binding="{Binding Publisher}" Width="1.5*" IsReadOnly="True">
+                                        <DataGridTextColumn Header="{Binding [Common_Developer], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Publisher}" Width="1.5*" IsReadOnly="True">
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="Foreground" Value="#888888"/>
@@ -450,7 +450,7 @@
                                     </DataGridTemplateColumn>
 
                                     <!-- Tên phần mềm -->
-                                    <DataGridTextColumn Header="Tên phần mềm" Binding="{Binding Name}" Width="1.6*" IsReadOnly="True">
+                                    <DataGridTextColumn Header="{Binding [Common_SoftwareName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="1.6*" IsReadOnly="True">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Foreground" Value="#FFFFFF"/>
@@ -463,7 +463,7 @@
                                     </DataGridTextColumn>
 
                                     <!-- Combobox chọn phiên bản -->
-                                    <DataGridTemplateColumn Header="Phiên bản" Width="1.5*">
+                                    <DataGridTemplateColumn Header="{Binding [Common_Version], Source={x:Static srmloc:LocProxy.Instance}}" Width="1.5*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <ComboBox ItemsSource="{Binding Versions}"
@@ -478,7 +478,7 @@
                                     </DataGridTemplateColumn>
 
                                     <!-- Dung lượng của phiên bản đang chọn -->
-                                    <DataGridTextColumn Header="Dung lượng" Binding="{Binding SelectedVersion.Size, FallbackValue='—'}" Width="0.9*" IsReadOnly="True">
+                                    <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding SelectedVersion.Size, FallbackValue='—'}" Width="0.9*" IsReadOnly="True">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Foreground" Value="#FCE100"/>

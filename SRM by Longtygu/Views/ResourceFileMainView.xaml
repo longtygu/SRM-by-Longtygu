@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
-             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <UserControl.Resources>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
@@ -240,13 +240,13 @@
                         </DataGridTemplateColumn>
 
                         <!-- Cột Tên tài nguyên -->
-                        <DataGridTextColumn Header="Tên tài nguyên" Binding="{Binding Name}" Width="3*" ElementStyle="{StaticResource ColNameStyle}"/>
+                        <DataGridTextColumn Header="{Binding [Common_ResourceName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="3*" ElementStyle="{StaticResource ColNameStyle}"/>
 
                         <!-- Cột Loại -->
-                        <DataGridTextColumn Header="Loại" Binding="{Binding Category}" Width="2*" ElementStyle="{StaticResource ColCategoryStyle}"/>
+                        <DataGridTextColumn Header="{Binding [Common_Type], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="2*" ElementStyle="{StaticResource ColCategoryStyle}"/>
 
                         <!-- Cột Dung lượng -->
-                        <DataGridTextColumn Header="Dung lượng" Binding="{Binding Size}" Width="1.2*" ElementStyle="{StaticResource ColSizeStyle}"/>
+                        <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Size}" Width="1.2*" ElementStyle="{StaticResource ColSizeStyle}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

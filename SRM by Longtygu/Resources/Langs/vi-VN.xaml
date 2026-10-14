@@ -442,4 +442,60 @@
     <system:String x:Key="UpdateCenter_ProcessingViaWinget">Đang xử lý qua Winget...</system:String>
     <system:String x:Key="UpdateCenter_TheLibraryHasNo">Thư viện chưa có phần mềm nào</system:String>
 
+    <!-- Màn hình: About -->
+    <system:String x:Key="About_ApplicationInformation">Thông tin Ứng dụng</system:String>
+    <system:String x:Key="About_HowItWorks">Nguyên lý hoạt động</system:String>
+    <system:String x:Key="About_ActivityLog">Nhật ký hoạt động</system:String>
+    <system:String x:Key="About_VersionLabel">Phiên bản 1.0.1 ( Test )</system:String>
+    <system:String x:Key="About_Author">Tác giả</system:String>
+    <system:String x:Key="About_SoftwareRepositoryManagerSRM">Software Repository Manager (SRM) chưa đến mức để coi là dự án mà là 1 sản phẩm cá nhân LÀM CHO VUI, xuất phát từ nhu cầu cần quản lý các bộ cài với yêu cầu phải đơn giản, nhẹ và đặc biệt có thể chạy độc lập và portable trên các thiết bị ngoại vi như usb, ổ cứng rời mà không cần phải sửa đổi quá nhiều.</system:String>
+    <system:String x:Key="About_About70OfThe">70% code tạo ra bởi AI, cá nhân tôi chỉ mang tính định hướng, prom tính năng, fix các lỗi liên quan đến cấu trúc và tên biến, các lỗi có lượng văn bản lớn mà AI không thể đọc hết trong 1 phiên, testing, đóng gói cũng như publish công khai nên mã nguồn phần mềm đều được share cho bất kỳ ai muốn sửa đổi cũng như phát triển riêng dựa trên khung phần mềm này, tất nhiên yêu cầu khai báo tên phiên bản gốc :) .</system:String>
+    <system:String x:Key="About_100OfTheCode">100% code sử dụng là C# trên nền tảng Visual Studio kết hợp với Blend để chỉnh sửa giao diện, sử dụng trình quản lý database SQLite, siêu gọn và đơn giản, tôn chỉ nhẹ nhất có thể, đơn giản tối đa nhưng phải đầy đủ tính năng.</system:String>
+    <system:String x:Key="About_TheMainFeaturesCurrently">các tính năng chính hiện tại đã có trong phiên bản này bao gồm : quản lý các bộ cài | quản lý các tài nguyên | cài đặt đơn lẻ / hàng loạt / theo set | các bộ cài đính kèm nhiều phiên bản và tài nguyên đính kèm | bộ gỡ cài đặt cơ bản có thể phân biệt phần mềm hệ thống và cá nhân | hệ thống quét cập nhật tự động với 120 app đã được liệt kê sẵn và đánh dấu | tích hợp sẵn 5 tool cơ bản.</system:String>
+    <system:String x:Key="About_SinceThisIsPersonal">do phần mềm phát triển cá nhân trong thời gian rảnh có thể xảy ra lỗi vô tình bỏ qua trong quá trình test nên nếu phát hiện bug, hãy liên hệ cho mình qua Facebook bằng nút bên dưới.</system:String>
+    <system:String x:Key="About_ContactViaFacebook">Liên hệ qua Facebook</system:String>
+    <system:String x:Key="About_ArchitectureSpecificationHow">Đặc tả Kiến trúc &amp; Nguyên lý Hoạt động</system:String>
+    <system:String x:Key="About_1DatabaseArchitectureState">1. Kiến trúc Cơ sở Dữ liệu &amp; Quản lý Trạng thái</system:String>
+    <system:String x:Key="About_TheStorageSystemIs" xml:space="preserve">Hệ thống lưu trữ được thiết kế hoàn toàn theo hướng phi tập trung (Serverless) thông qua engine SQLite. Lớp </system:String>
+    <system:String x:Key="About_ClassWillAutomaticallyComput" xml:space="preserve"> sẽ tự động tính toán thư mục gốc (</system:String>
+    <system:String x:Key="About_ToGenerateTheFile" xml:space="preserve">) để sinh ra file </system:String>
+    <system:String x:Key="About_ThisGuaranteesAbsolute" xml:space="preserve">. Điều này đảm bảo tính </system:String>
+    <system:String x:Key="About_BehaviorWhenTheApp" xml:space="preserve"> tuyệt đối khi ứng dụng chạy từ USB. Tính toàn vẹn của cấu trúc dữ liệu nhiều chiều (như Software, Versions, Presets) được khóa chặt bằng cơ chế khóa ngoại </system:String>
+    <system:String x:Key="About_CombinedWith" xml:space="preserve"> kết hợp với </system:String>
+    <system:String x:Key="About_WhenAParentSoftware">. Khi một phần mềm gốc bị gỡ bỏ, Database tự động dọn sạch các phiên bản con và bản đồ cấu hình (Preset Mapping) liên quan, chống rác dữ liệu ở cấp độ thấp nhất. Ngoài ra, Domain Models tích hợp thuật toán quy đổi thời gian thực, tự động parse dữ liệu Byte khô khan thành định dạng GB/MB chuẩn UI.</system:String>
+    <system:String x:Key="About_2LowLevelInstallation">2. Luồng Thực thi Cài đặt Cấp thấp (Deployment Service)</system:String>
+    <system:String x:Key="About_TheOrchestrationModuleDeploy">Mô-đun điều phối (DeploymentViewModel) hoạt động độc lập với logic xử lý file. Trước bất kỳ chu trình cài đặt lô nào, hệ thống kích hoạt PowerShell ẩn với quyền cao nhất (</system:String>
+    <system:String x:Key="About_ToCallTheFunction" xml:space="preserve">) để gọi hàm </system:String>
+    <system:String x:Key="About_ThroughTheWindowsAPI" xml:space="preserve"> thông qua API Windows. Chốt chặn này đảm bảo hệ điều hành luôn có đường lui nếu bộ cài gây xung đột.
+
+</system:String>
+    <system:String x:Key="About_ForPortableSoftware">Đối với phần mềm Portable:</system:String>
+    <system:String x:Key="About_TheSystemUses" xml:space="preserve"> Hệ thống sử dụng </system:String>
+    <system:String x:Key="About_ToExtractDirectlyInto" xml:space="preserve"> để giải nén trực tiếp vào thư mục đích (ví dụ C:\PortableApps), sau đó quét đệ quy tìm tệp (.exe) chính và đẩy Script PowerShell tự động tạo Shortcut ra Desktop.
+
+</system:String>
+    <system:String x:Key="About_ForSilentInstallers">Đối với Silent Installers:</system:String>
+    <system:String x:Key="About_ToSolveTheProblem" xml:space="preserve"> Để giải quyết bài toán giao diện bị 'đóng băng' do tiến trình cài đặt không trả về dữ liệu luồng, </system:String>
+    <system:String x:Key="About_UsesAPollingLoop" xml:space="preserve"> sử dụng thuật toán vòng lặp thăm dò (</system:String>
+    <system:String x:Key="About_ItContinuouslyFeedsRandom">). Nó liên tục nạp các giá trị giả lập ngẫu nhiên (</system:String>
+    <system:String x:Key="About_ToSlowlyPushThe">) để đẩy thanh Progress Bar từ từ lên mốc 95% và neo lại đó chờ tiến trình hoàn tất. Đây là một thủ thuật UX cực kỳ tinh vi giúp phần mềm hoạt động mượt mà.</system:String>
+    <system:String x:Key="About_3PackageStructureAnalysis">3. Engine Phân tích Cấu trúc Đóng gói (Static Analyzer)</system:String>
+    <system:String x:Key="About_TheCore" xml:space="preserve">Lõi </system:String>
+    <system:String x:Key="About_WorksAsAStatic" xml:space="preserve"> hoạt động như một máy quét nhị phân tĩnh (Static Binary Scanner). Thay vì nạp toàn bộ bộ cài vào RAM gây tràn bộ nhớ, hệ thống khởi tạo một Stream Buffer giới hạn nghiêm ngặt ở mức </system:String>
+    <system:String x:Key="About_TheFirst2MBOf">2MB dữ liệu đầu tiên (2048 * 1024 bytes)</system:String>
+    <system:String x:Key="About_ThisBinaryBlockIs" xml:space="preserve">. Khối dữ liệu nhị phân này được giải mã sang bảng mã ASCII để dò tìm các dấu hiệu (Signatures) của trình biên dịch.
+
+Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setup (</system:String>
+    <system:String x:Key="About_NullsoftNSISInstallers">), bộ cài Nullsoft/NSIS (</system:String>
+    <system:String x:Key="About_OrWiXToolset">), hay WiX Toolset (</system:String>
+    <system:String x:Key="About_InUnder01" xml:space="preserve">) với tốc độ dưới 0.1 giây, từ đó tiêm chính xác các biến </system:String>
+    <system:String x:Key="About_DriveRoutingVariablesWithout" xml:space="preserve"> điều hướng ổ đĩa mà không cần người dùng can thiệp.</system:String>
+    <system:String x:Key="About_4OpenArchitectureDependency">4. Kiến trúc Mở &amp; Dependency Injection (Hệ sinh thái Plugin)</system:String>
+    <system:String x:Key="About_BuiltOnAModern" xml:space="preserve">Được xây dựng trên nền tảng Dependency Injection (DI) hiện đại, toàn bộ tính năng phụ trợ (như Check RAM, Disk Health) không bị nhồi nhét vào lõi chính. Thay vào đó, chúng bị cô lập thông qua giao thức </system:String>
+    <system:String x:Key="About_ExternalDLLsOnlyNeed" xml:space="preserve">. Các DLL bên ngoài chỉ cần implements interface này để khai báo </system:String>
+    <system:String x:Key="About_SoTheUICan" xml:space="preserve"> cho UI tự động render thẻ (card). Đặc biệt, thông qua hàm </system:String>
+    <system:String x:Key="About_SRMPassesAllInternal">, SRM truyền toàn bộ các Service nội bộ (Database, Logging) ngược vào các Plugin, cho phép chúng tương tác sâu với phần cứng hệ thống như một module nguyên bản.</system:String>
+    <system:String x:Key="About_Date">Ngày:</system:String>
+    <system:String x:Key="About_OpenLogFolder">Mở thư mục Log</system:String>
+
 </ResourceDictionary>

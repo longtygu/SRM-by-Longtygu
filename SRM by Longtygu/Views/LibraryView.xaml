@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"  
-             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <UserControl.Resources>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
@@ -260,11 +260,11 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="Tên phần mềm" Binding="{Binding Name}" Width="1.5*" IsReadOnly="True" FontWeight="SemiBold"/>
-                    <DataGridTextColumn Header="Nhà phát triển" Binding="{Binding Publisher}" Width="2*" IsReadOnly="True" Foreground="#CCCCCC"/>
-                    <DataGridTextColumn Header="Danh mục" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
-                    <DataGridTextColumn Header="Dung lượng" Binding="{Binding DisplaySize}" Width="100" Foreground="#888888"/>
-                    <DataGridTextColumn Header="Ngày thêm" Binding="{Binding CreatedDate}" Width="1.5*" IsReadOnly="True" Foreground="#888888"/>
+                    <DataGridTextColumn Header="{Binding [Common_SoftwareName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="1.5*" IsReadOnly="True" FontWeight="SemiBold"/>
+                    <DataGridTextColumn Header="{Binding [Common_Developer], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Publisher}" Width="2*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                    <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                    <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding DisplaySize}" Width="100" Foreground="#888888"/>
+                    <DataGridTextColumn Header="{Binding [Common_DateAdded], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding CreatedDate}" Width="1.5*" IsReadOnly="True" Foreground="#888888"/>
                 </DataGrid.Columns>
 
                 <!-- KHU VỰC HIỂN THỊ CHI TIẾT (ROW DETAILS) -->
@@ -398,7 +398,7 @@
                                                     </DataGrid.Resources>
 
                                                     <DataGrid.Columns>
-                                                        <DataGridTextColumn Header="Tên phiên bản" Binding="{Binding Version}" Width="1.35*" IsReadOnly="True">
+                                                        <DataGridTextColumn Header="{Binding [Library_VersionName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Version}" Width="1.35*" IsReadOnly="True">
                                                             <DataGridTextColumn.ElementStyle>
                                                                 <Style TargetType="TextBlock">
                                                                     <Setter Property="FontWeight" Value="SemiBold"/>
@@ -408,7 +408,7 @@
                                                             </DataGridTextColumn.ElementStyle>
                                                         </DataGridTextColumn>
 
-                                                        <DataGridTextColumn Header="Dung lượng" Binding="{Binding DisplaySize}" Width="1*" IsReadOnly="True">
+                                                        <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding DisplaySize}" Width="1*" IsReadOnly="True">
                                                             <DataGridTextColumn.ElementStyle>
                                                                 <Style TargetType="TextBlock">
                                                                     <Setter Property="Foreground" Value="#CCCCCC"/>
@@ -417,7 +417,7 @@
                                                             </DataGridTextColumn.ElementStyle>
                                                         </DataGridTextColumn>
 
-                                                        <DataGridTextColumn Header="Loại cài đặt" Binding="{Binding IsPortable, StringFormat='Portable: {0}'}" Width="1.2*" IsReadOnly="True">
+                                                        <DataGridTextColumn Header="{Binding [Library_InstallType], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding IsPortable, StringFormat='Portable: {0}'}" Width="1.2*" IsReadOnly="True">
                                                             <DataGridTextColumn.ElementStyle>
                                                                 <Style TargetType="TextBlock">
                                                                     <Setter Property="Foreground" Value="#CCCCCC"/>
@@ -427,7 +427,7 @@
                                                             </DataGridTextColumn.ElementStyle>
                                                         </DataGridTextColumn>
 
-                                                        <DataGridTemplateColumn Header="Thao tác" Width="92">
+                                                        <DataGridTemplateColumn Header="{Binding [Common_Actions], Source={x:Static srmloc:LocProxy.Instance}}" Width="92">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
                                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -544,7 +544,7 @@
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
 
-                                                            <DataGridTextColumn Header="Tên tài nguyên" Binding="{Binding Name}" Width="2*" IsReadOnly="True">
+                                                            <DataGridTextColumn Header="{Binding [Common_ResourceName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="2*" IsReadOnly="True">
                                                                 <DataGridTextColumn.ElementStyle>
                                                                     <Style TargetType="TextBlock">
                                                                         <Setter Property="FontWeight" Value="SemiBold"/>
@@ -554,7 +554,7 @@
                                                                 </DataGridTextColumn.ElementStyle>
                                                             </DataGridTextColumn>
 
-                                                            <DataGridTextColumn Header="Loại" Binding="{Binding Category}" Width="1.35*" IsReadOnly="True">
+                                                            <DataGridTextColumn Header="{Binding [Common_Type], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.35*" IsReadOnly="True">
                                                                 <DataGridTextColumn.ElementStyle>
                                                                     <Style TargetType="TextBlock">
                                                                         <Setter Property="Foreground" Value="#CCCCCC"/>
@@ -564,7 +564,7 @@
                                                                 </DataGridTextColumn.ElementStyle>
                                                             </DataGridTextColumn>
 
-                                                            <DataGridTemplateColumn Header="Thao tác" Width="92">
+                                                            <DataGridTemplateColumn Header="{Binding [Common_Actions], Source={x:Static srmloc:LocProxy.Instance}}" Width="92">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">

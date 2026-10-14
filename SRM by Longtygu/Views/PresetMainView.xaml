@@ -4,7 +4,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
              xmlns:converters="clr-namespace:SRM_by_Longtygu.Converters"
-             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
+             Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <UserControl.Resources>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
@@ -273,14 +273,14 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTextColumn Header="Tên phần mềm" Binding="{Binding Name}" Width="2*" IsReadOnly="True" FontWeight="SemiBold"/>
+                            <DataGridTextColumn Header="{Binding [Common_SoftwareName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="2*" IsReadOnly="True" FontWeight="SemiBold"/>
 
-                            <DataGridTextColumn Header="Phiên bản" Binding="{Binding SelectedVersion.Version, FallbackValue='Mặc định'}" Width="1.5*" IsReadOnly="True" Foreground="#FCE100" FontWeight="SemiBold"/>
+                            <DataGridTextColumn Header="{Binding [Common_Version], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding SelectedVersion.Version, FallbackValue='Mặc định'}" Width="1.5*" IsReadOnly="True" Foreground="#FCE100" FontWeight="SemiBold"/>
 
-                            <DataGridTextColumn Header="Danh mục" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                            <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
 
                             <!-- ĐÃ SỬA LỖI TRỐNG: Trả lại Binding="{Binding Size}" gốc của bạn -->
-                            <DataGridTextColumn Header="Dung lượng" Binding="{Binding Size, FallbackValue='N/A'}" Width="*" IsReadOnly="True" Foreground="#AAAAAA"/>
+                            <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Size, FallbackValue='N/A'}" Width="*" IsReadOnly="True" Foreground="#AAAAAA"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

@@ -144,4 +144,302 @@
     <system:String x:Key="Settings_PrefsDesc">Advanced configuration: Theme Mode, automatic Restore Point creation, default data path...</system:String>
     <system:String x:Key="Settings_LanguageNote">Note: some screens are still being translated.</system:String>
 
+    <!-- Màn hình: DiskHealth -->
+    <system:String x:Key="DiskHealth_QuickReadWriteSpeed">Quick read/write speed test</system:String>
+    <system:String x:Key="DiskHealth_ReadWriteSpeed">Read / write speed</system:String>
+    <system:String x:Key="DiskHealth_WriteSpeed">Write speed</system:String>
+    <system:String x:Key="DiskHealth_ReadSpeed">Read speed</system:String>
+    <system:String x:Key="DiskHealth_ReadResultsMayBe">Read results may be higher than reality because of Windows caching. This test is a quick reference and does not replace professional benchmarking tools.</system:String>
+    <system:String x:Key="DiskHealth_DiskHealthSMART">Disk health (SMART)</system:String>
+
+    <!-- Màn hình: Common -->
+    <system:String x:Key="Common_StartTest">Start test</system:String>
+    <system:String x:Key="Common_Cancel">Cancel</system:String>
+    <system:String x:Key="Common_Refresh">⟳ Refresh</system:String>
+    <system:String x:Key="Common_Delete">Delete</system:String>
+    <system:String x:Key="Common_AddMultipleSoftwareAt">Add multiple software at once</system:String>
+    <system:String x:Key="Common_EnableSilentInstallRecommend">Enable silent install (recommended OFF if the software bundles adware/ads)</system:String>
+    <system:String x:Key="Common_SoftwareName">Software name</system:String>
+    <system:String x:Key="Common_Version">Version</system:String>
+    <system:String x:Key="Common_DeveloperPublisher">Developer (Publisher)</system:String>
+    <system:String x:Key="Common_Category">Category</system:String>
+    <system:String x:Key="Common_SilentInstallCommand">Silent install command</system:String>
+    <system:String x:Key="Common_SilentUninstallCommand">Silent uninstall command</system:String>
+    <system:String x:Key="Common_ThisIsAPortable">This is a Portable version (runs directly, no installation needed)</system:String>
+    <system:String x:Key="Common_CDKeyLicenseKey">CD-Key / License key</system:String>
+    <system:String x:Key="Common_ShortDescription">Short description</system:String>
+    <system:String x:Key="Common_NotesInstructionsReadme">Notes / Instructions (Readme)</system:String>
+    <system:String x:Key="Common_PleaseDoNotClose">Please do not close the app</system:String>
+    <system:String x:Key="Common_InstallerFileExeMsi">Installer file (*.exe, *.msi, *.zip)</system:String>
+    <system:String x:Key="Common_AdditionalInformation">Additional information</system:String>
+    <system:String x:Key="Common_AttachResources">Attach resources</system:String>
+    <system:String x:Key="Common_ResourceName">Resource name</system:String>
+    <system:String x:Key="Common_Category2">Category</system:String>
+    <system:String x:Key="Common_Size">Size</system:String>
+    <system:String x:Key="Common_TotalSoftware">Total software</system:String>
+    <system:String x:Key="Common_HasAttachedResources">Has attached resources</system:String>
+    <system:String x:Key="Common_Developer">Developer</system:String>
+    <system:String x:Key="Common_Edit">Edit</system:String>
+    <system:String x:Key="Common_DateAdded">Date added</system:String>
+    <system:String x:Key="Common_Actions">Actions</system:String>
+    <system:String x:Key="Common_Type">Type</system:String>
+    <system:String x:Key="Common_Cancel2">Cancel</system:String>
+    <system:String x:Key="Common_Status">Status</system:String>
+
+    <!-- Màn hình: HardwareInfo -->
+    <system:String x:Key="HardwareInfo_HardwareInformation">Hardware information</system:String>
+    <system:String x:Key="HardwareInfo_RunAgainAsAdministrator">⚠ Run again as Administrator</system:String>
+    <system:String x:Key="HardwareInfo_Overview">Overview</system:String>
+    <system:String x:Key="HardwareInfo_RealTimeMonitoring">Real-time monitoring</system:String>
+    <system:String x:Key="HardwareInfo_DiskSMA">Disk S.M.A.R.T</system:String>
+    <system:String x:Key="HardwareInfo_SystemConfigurationDetails">System configuration details</system:String>
+    <system:String x:Key="HardwareInfo_ExportTXTFile">Export TXT file</system:String>
+    <system:String x:Key="HardwareInfo_SomeSensorsCPUGPU">Some sensors (CPU/GPU temperature, clock speed, power) require Administrator rights or may not be supported by drivers on older hardware.</system:String>
+    <system:String x:Key="HardwareInfo_RealTimeLoadMonitoring">Real-time load monitoring (%)</system:String>
+    <system:String x:Key="HardwareInfo_SelectDrive">Select drive:</system:String>
+
+    <!-- Màn hình: HashCalculator -->
+    <system:String x:Key="HashCalculator_CompareHash">Compare hash</system:String>
+    <system:String x:Key="HashCalculator_PasteTheHashMD5">Paste the hash (MD5 / SHA1 / SHA256 / SHA512 / CRC32) to verify here — the system will match it against each file below automatically.</system:String>
+    <system:String x:Key="HashCalculator_DragAndDropFiles">Drag and drop files here to calculate hashes</system:String>
+    <system:String x:Key="HashCalculator_DropMultipleFilesAt">Drop multiple files at once — files are read directly from their original location and are not copied to this computer.</system:String>
+    <system:String x:Key="HashCalculator_ClearAll">Clear all</system:String>
+    <system:String x:Key="HashCalculator_ChooseFiles">Choose files...</system:String>
+    <system:String x:Key="HashCalculator_NoFilesYetDrag">No files yet — drag and drop or click "Choose files..." to start</system:String>
+    <system:String x:Key="HashCalculator_CalculatingHash">Calculating hash...</system:String>
+    <system:String x:Key="HashCalculator_Copy">Copy</system:String>
+
+    <!-- Màn hình: RamTest -->
+    <system:String x:Key="RamTest_AllocateWriteAPattern">Allocate, write a pattern, read back and verify CRC to detect memory errors</system:String>
+    <system:String x:Key="RamTest_TestSize">Test size:</system:String>
+    <system:String x:Key="RamTest_ReadyChooseASize">Ready — choose a size, then click "Start test"</system:String>
+    <system:String x:Key="RamTest_Waiting">Waiting</system:String>
+
+    <!-- Màn hình: WindowsHealthCheck -->
+    <system:String x:Key="WindowsHealthCheck_TheAppIsRunning">The app is running without Administrator rights. DISM, SFC, CHKDSK and some checks (BitLocker...) may not work fully.</system:String>
+    <system:String x:Key="WindowsHealthCheck_RunAgainAsAdministrator">Run again as Administrator</system:String>
+    <system:String x:Key="WindowsHealthCheck_SystemStatus">System status</system:String>
+    <system:String x:Key="WindowsHealthCheck_SystemRepairTools">System repair tools</system:String>
+    <system:String x:Key="WindowsHealthCheck_CHKDSKDrive">CHKDSK drive:</system:String>
+    <system:String x:Key="WindowsHealthCheck_ScanReadOnly">Scan (read-only)</system:String>
+    <system:String x:Key="WindowsHealthCheck_Running" xml:space="preserve">Running: </system:String>
+    <system:String x:Key="WindowsHealthCheck_FollowTheDetailsIn">Follow the details in the log below. This may take a few minutes.</system:String>
+    <system:String x:Key="WindowsHealthCheck_CancelTask">Cancel task</system:String>
+    <system:String x:Key="WindowsHealthCheck_TheseToolsRequireAdministrat">These tools require Administrator rights. CHKDSK Scan + Fix on the system drive may schedule a check at the next restart.</system:String>
+    <system:String x:Key="WindowsHealthCheck_Log">Log</system:String>
+
+    <!-- Màn hình: AddMultipleSoftware -->
+    <system:String x:Key="AddMultipleSoftware_SoftwareQueue">Software queue</system:String>
+    <system:String x:Key="AddMultipleSoftware_ItemsWaitingToBe" xml:space="preserve"> items waiting to be processed</system:String>
+    <system:String x:Key="AddMultipleSoftware_AddFiles">Add files...</system:String>
+    <system:String x:Key="AddMultipleSoftware_ClearTheWholeQueue">Clear the whole queue</system:String>
+    <system:String x:Key="AddMultipleSoftware_CommonCategory">Common category</system:String>
+    <system:String x:Key="AddMultipleSoftware_ApplyThisCategoryTo">Apply this category to the whole queue</system:String>
+    <system:String x:Key="AddMultipleSoftware_Apply">Apply</system:String>
+    <system:String x:Key="AddMultipleSoftware_RemoveFromQueue">Remove from queue</system:String>
+    <system:String x:Key="AddMultipleSoftware_SaveAllProcess">Save all &amp; Process</system:String>
+    <system:String x:Key="AddMultipleSoftware_SelectASoftwareItem">Select a software item in the queue to edit its details,</system:String>
+    <system:String x:Key="AddMultipleSoftware_OrClickAddFiles">or click "Add files..." to start.</system:String>
+    <system:String x:Key="AddMultipleSoftware_SoftwareDetails">Software details</system:String>
+    <system:String x:Key="AddMultipleSoftware_InstallerFile">Installer file</system:String>
+    <system:String x:Key="AddMultipleSoftware_ChangeIcon">Change icon...</system:String>
+    <system:String x:Key="AddMultipleSoftware_RemoveThisItemFrom">Remove this item from the queue</system:String>
+
+    <!-- Màn hình: AddSoftware -->
+    <system:String x:Key="AddSoftware_AddNewSoftware">Add new software</system:String>
+    <system:String x:Key="AddSoftware_SoftwareInformation">Software information</system:String>
+    <system:String x:Key="AddSoftware_Browse">Browse...</system:String>
+    <system:String x:Key="AddSoftware_SaveProcessFile">Save &amp; Process file</system:String>
+    <system:String x:Key="AddSoftware_ProcessingFileCreatingClone">Processing file &amp; creating clone...</system:String>
+
+    <!-- Màn hình: AddVersion -->
+    <system:String x:Key="AddVersion_AddNewVersion">Add new version</system:String>
+    <system:String x:Key="AddVersion_AddSecondaryVersion">Add secondary version</system:String>
+    <system:String x:Key="AddVersion_AddingANewVersion" xml:space="preserve">Adding a new version for app: </system:String>
+    <system:String x:Key="AddVersion_BrowseFile">Browse file</system:String>
+    <system:String x:Key="AddVersion_SoftwareVersion">Software version</system:String>
+    <system:String x:Key="AddVersion_ThisIsAPortable">This is a Portable version (no installation needed)</system:String>
+    <system:String x:Key="AddVersion_SaveData">Save data</system:String>
+    <system:String x:Key="AddVersion_SaveVersion">Save version</system:String>
+    <system:String x:Key="AddVersion_ProcessingFile">Processing file...</system:String>
+
+    <!-- Màn hình: AttachResource -->
+    <system:String x:Key="AttachResource_AttachResourcesFor" xml:space="preserve">Attach resources for </system:String>
+    <system:String x:Key="AttachResource_ChooseOneOrMore">Choose one or more resources (ISO, DLL, drivers, scripts...) already in the Resource Library to attach.</system:String>
+    <system:String x:Key="AttachResource_ResourcesSelected" xml:space="preserve"> resources selected</system:String>
+    <system:String x:Key="AttachResource_SelectAll">Select all</system:String>
+    <system:String x:Key="AttachResource_Deselect">Deselect</system:String>
+    <system:String x:Key="AttachResource_NoSuitableResourcesLeft">No suitable resources left to attach</system:String>
+    <system:String x:Key="AttachResource_AttachSelected" xml:space="preserve">Attach selected ( </system:String>
+
+    <!-- Màn hình: ConfigureUpdateSource -->
+    <system:String x:Key="ConfigureUpdateSource_UpdateCheckConfiguration">Update check configuration</system:String>
+    <system:String x:Key="ConfigureUpdateSource_DetectAgain">Detect again</system:String>
+    <system:String x:Key="ConfigureUpdateSource_SourceType">Source type</system:String>
+    <system:String x:Key="ConfigureUpdateSource_WingetPackageID">Winget package ID</system:String>
+    <system:String x:Key="ConfigureUpdateSource_GitHubRepoOwnerRepo">GitHub repo (owner/repo format)</system:String>
+    <system:String x:Key="ConfigureUpdateSource_URLOfThePage">URL of the page to scan</system:String>
+    <system:String x:Key="ConfigureUpdateSource_RegexToExtractThe">Regex to extract the version number (1 capture group)</system:String>
+    <system:String x:Key="ConfigureUpdateSource_RegexToExtractThe2">Regex to extract the download link (optional, 1 capture group)</system:String>
+    <system:String x:Key="ConfigureUpdateSource_SaveConfiguration">Save configuration</system:String>
+    <system:String x:Key="ConfigureUpdateSource_Saving">Saving...</system:String>
+
+    <!-- Màn hình: Dashboard -->
+    <system:String x:Key="Dashboard_GENERALINFORMATION">GENERAL INFORMATION</system:String>
+    <system:String x:Key="Dashboard_TotalVersionsSoftware" xml:space="preserve">Total versions, software:  </system:String>
+    <system:String x:Key="Dashboard_Files" xml:space="preserve"> files</system:String>
+    <system:String x:Key="Dashboard_LibraryStructure">Library structure</system:String>
+    <system:String x:Key="Dashboard_DriveInformation">Drive information</system:String>
+    <system:String x:Key="Dashboard_Type">Type:</system:String>
+    <system:String x:Key="Dashboard_Health">Health:</system:String>
+    <system:String x:Key="Dashboard_StorageStatus">Storage status</system:String>
+    <system:String x:Key="Dashboard_Used">Used</system:String>
+    <system:String x:Key="Dashboard_Free">Free</system:String>
+    <system:String x:Key="Dashboard_RecentlyAddedSoftware">Recently added software</system:String>
+    <system:String x:Key="Dashboard_NoSoftwareHasBeen">No software has been added recently.</system:String>
+    <system:String x:Key="Dashboard_CategorySize">Category size</system:String>
+    <system:String x:Key="Dashboard_TotalResources">Total resources</system:String>
+    <system:String x:Key="Dashboard_NoSizeDataYet">No size data yet.</system:String>
+    <system:String x:Key="Dashboard_CategoryStatistics">Category statistics</system:String>
+    <system:String x:Key="Dashboard_NoCategoriesYet">No categories yet.</system:String>
+
+    <!-- Màn hình: Deployment -->
+    <system:String x:Key="Deployment_INSTALLBYSELECTION">INSTALL BY SELECTION</system:String>
+    <system:String x:Key="Deployment_EnterASoftwareName">Enter a software name, developer or category to search...</system:String>
+    <system:String x:Key="Deployment_InstallationVersion">Installation version</system:String>
+    <system:String x:Key="Deployment_STARTINSTALLATION" xml:space="preserve">START INSTALLATION ( </system:String>
+    <system:String x:Key="Deployment_InstallPortableToAnother">Install Portable to another drive</system:String>
+    <system:String x:Key="Deployment_ChooseFolder">Choose folder</system:String>
+    <system:String x:Key="Deployment_OpenExplorerAtThe">Open Explorer at the location of the attached resources</system:String>
+    <system:String x:Key="Deployment_OpenResourcesWhenInstallatio">Open resources when installation finishes</system:String>
+    <system:String x:Key="Deployment_DeploymentLogs">Deployment logs</system:String>
+
+    <!-- Màn hình: EditSoftware -->
+    <system:String x:Key="EditSoftware_EditSoftware">Edit software</system:String>
+    <system:String x:Key="EditSoftware_UpdateInformation">Update information</system:String>
+    <system:String x:Key="EditSoftware_SilentInstallCommand">Silent install command</system:String>
+    <system:String x:Key="EditSoftware_SilentUninstallCommand">Silent uninstall command</system:String>
+    <system:String x:Key="EditSoftware_NotesInstallationInstruction">Notes / Installation instructions (Readme)</system:String>
+    <system:String x:Key="EditSoftware_SaveChanges">Save changes</system:String>
+
+    <!-- Màn hình: Library -->
+    <system:String x:Key="Library_SOFTWARELIBRARY">SOFTWARE LIBRARY</system:String>
+    <system:String x:Key="Library_Refresh">Refresh</system:String>
+    <system:String x:Key="Library_CleanUpJunk">Clean up junk</system:String>
+    <system:String x:Key="Library_CleanUp">Clean up</system:String>
+    <system:String x:Key="Library_EditInfo">Edit info</system:String>
+    <system:String x:Key="Library_Remove">Remove</system:String>
+    <system:String x:Key="Library_AddNew">Add new</system:String>
+    <system:String x:Key="Library_AddSoftware">Add software</system:String>
+    <system:String x:Key="Library_AddMultiple">Add multiple</system:String>
+    <system:String x:Key="Library_SoftwareDescription">Software description</system:String>
+    <system:String x:Key="Library_LicenseCDKey">License / CD-Key</system:String>
+    <system:String x:Key="Library_NotesInstructions">Notes &amp; Instructions</system:String>
+    <system:String x:Key="Library_SavedVersions">Saved versions</system:String>
+    <system:String x:Key="Library_AddVersion">Add version</system:String>
+    <system:String x:Key="Library_VersionName">Version name</system:String>
+    <system:String x:Key="Library_InstallType">Install type</system:String>
+    <system:String x:Key="Library_RunInstall">Run / Install</system:String>
+    <system:String x:Key="Library_DeleteVersion">Delete version</system:String>
+    <system:String x:Key="Library_AttachedResources">Attached resources</system:String>
+    <system:String x:Key="Library_OpenResourceLocation">Open resource location</system:String>
+    <system:String x:Key="Library_Detach">Detach</system:String>
+    <system:String x:Key="Library_NoResourcesAttachedYet">No resources attached yet</system:String>
+    <system:String x:Key="Library_CollapseDetails">Collapse details</system:String>
+
+    <!-- Màn hình: PresetEditor -->
+    <system:String x:Key="PresetEditor_DesignInstallPackagePreset">Design install package (Preset)</system:String>
+    <system:String x:Key="PresetEditor_ClickToChangeIcon">Click to change icon</system:String>
+    <system:String x:Key="PresetEditor_InstallPackageNamePreset">Install package name (Preset name)</system:String>
+    <system:String x:Key="PresetEditor_SwitchView">Switch view</system:String>
+    <system:String x:Key="PresetEditor_Add">Add</system:String>
+    <system:String x:Key="PresetEditor_AddedToPackage">Added to package</system:String>
+    <system:String x:Key="PresetEditor_ChooseASpecificVersion">Choose a specific version for each software</system:String>
+    <system:String x:Key="PresetEditor_SAVEPRESET">SAVE PRESET</system:String>
+
+    <!-- Màn hình: PresetMain -->
+    <system:String x:Key="PresetMain_INSTALLBYCUSTOMPACKAGE">INSTALL BY CUSTOM PACKAGE</system:String>
+    <system:String x:Key="PresetMain_OpenIconLibraryFolder">Open icon library folder</system:String>
+    <system:String x:Key="PresetMain_IconLibrary">Icon library</system:String>
+    <system:String x:Key="PresetMain_CreateNewPreset">Create new preset</system:String>
+    <system:String x:Key="PresetMain_SavedPackages">Saved packages</system:String>
+    <system:String x:Key="PresetMain_DeletePreset">Delete preset</system:String>
+    <system:String x:Key="PresetMain_PackageContents" xml:space="preserve">Package contents:  </system:String>
+    <system:String x:Key="PresetMain_AfterEachSoftwareIn">After each software in the package finishes installing, automatically open Explorer at the location of the resources (license, keygen, instructions...) attached to it</system:String>
+    <system:String x:Key="PresetMain_OpenAttachedResourcesWhen">Open attached resources when installation finishes</system:String>
+    <system:String x:Key="PresetMain_TotalNumberOfSoftware">Total number of software</system:String>
+    <system:String x:Key="PresetMain_TotalInstallationSize">Total installation size</system:String>
+    <system:String x:Key="PresetMain_STARTINSTALLINGTHISPACKAGE">START INSTALLING THIS PACKAGE</system:String>
+
+    <!-- Màn hình: ResourceFileEditor -->
+    <system:String x:Key="ResourceFileEditor_EditResource">Edit resource</system:String>
+    <system:String x:Key="ResourceFileEditor_ResourceInformation">Resource information</system:String>
+    <system:String x:Key="ResourceFileEditor_Step1ChooseA">Step 1: Choose a file or folder on your device</system:String>
+    <system:String x:Key="ResourceFileEditor_TheSystemWillAutomatically">The system will automatically copy it into the app, scan its size and detect its icon</system:String>
+    <system:String x:Key="ResourceFileEditor_ChooseFile">Choose file</system:String>
+    <system:String x:Key="ResourceFileEditor_ChooseAFolderContaining">Choose a folder containing many small files (e.g. driver pack, toolset)</system:String>
+    <system:String x:Key="ResourceFileEditor_ChooseFolder">Choose folder</system:String>
+    <system:String x:Key="ResourceFileEditor_FOLDERModeAllFiles">FOLDER mode — all files inside will be copied intact (including subfolders).</system:String>
+    <system:String x:Key="ResourceFileEditor_ChangeIconManually">Change icon manually</system:String>
+    <system:String x:Key="ResourceFileEditor_RemoveCustomIconUse">Remove custom icon, use the automatic icon</system:String>
+    <system:String x:Key="ResourceFileEditor_DisplayNameYouCan">Display name (you can edit it to look nicer)</system:String>
+    <system:String x:Key="ResourceFileEditor_SizeAutomatic">Size (automatic)</system:String>
+    <system:String x:Key="ResourceFileEditor_OriginalFileNameUpdated">Original file name (updated automatically)</system:String>
+    <system:String x:Key="ResourceFileEditor_DescriptionDetailedNotes">Description / Detailed notes</system:String>
+    <system:String x:Key="ResourceFileEditor_SAVEDATA">SAVE DATA</system:String>
+
+    <!-- Màn hình: ResourceFileMain -->
+    <system:String x:Key="ResourceFileMain_ResourceLibraryISODLL">Resource Library (ISO / DLL / Configs)</system:String>
+    <system:String x:Key="ResourceFileMain_AddNewFile">Add new file</system:String>
+    <system:String x:Key="ResourceFileMain_SelectAResourceTo">Select a resource to view details</system:String>
+    <system:String x:Key="ResourceFileMain_FileName">File name</system:String>
+    <system:String x:Key="ResourceFileMain_DescriptionNotes">Description / Notes:</system:String>
+    <system:String x:Key="ResourceFileMain_OpenFolder">Open folder</system:String>
+    <system:String x:Key="ResourceFileMain_RemoveFromLibrary">Remove from library</system:String>
+
+    <!-- Màn hình: Tools -->
+    <system:String x:Key="Tools_ExtraTools">Extra tools</system:String>
+    <system:String x:Key="Tools_AddTool">+ Add tool</system:String>
+    <system:String x:Key="Tools_NoToolsYetClick">No tools yet. Click "Add tool" to install your first .dll file.</system:String>
+    <system:String x:Key="Tools_ToolName">Tool name</system:String>
+    <system:String x:Key="Tools_Export">Export</system:String>
+    <system:String x:Key="Tools_ThereAreNoTools">There are no tools to manage yet.</system:String>
+    <system:String x:Key="Tools_BackToList">← Back to list</system:String>
+
+    <!-- Màn hình: Uninstall -->
+    <system:String x:Key="Uninstall_PersonalApps">Personal apps</system:String>
+    <system:String x:Key="Uninstall_SupportSoftware">Support software</system:String>
+    <system:String x:Key="Uninstall_SystemApps">System apps</system:String>
+    <system:String x:Key="Uninstall_AppName">App name</system:String>
+    <system:String x:Key="Uninstall_InstallDate">Install date</system:String>
+    <system:String x:Key="Uninstall_SelectedList">Selected list</system:String>
+    <system:String x:Key="Uninstall_Uninstall">Uninstall</system:String>
+    <system:String x:Key="Uninstall_Items">items</system:String>
+
+    <!-- Màn hình: UpdateCenter -->
+    <system:String x:Key="UpdateCenter_ViewUserGuide">View user guide</system:String>
+    <system:String x:Key="UpdateCenter_AutomaticallyDetectAndApply">Automatically detect and apply the suggested configuration to all unconfigured software</system:String>
+    <system:String x:Key="UpdateCenter_AutoConfigure">Auto-configure</system:String>
+    <system:String x:Key="UpdateCenter_DownloadAllAvailableUpdates">Download all available updates into the library (Data/), without touching this computer</system:String>
+    <system:String x:Key="UpdateCenter_ScanAllSoftwareThat">Scan all software that has an update source configured</system:String>
+    <system:String x:Key="UpdateCenter_SourceConfigured">Source configured</system:String>
+    <system:String x:Key="UpdateCenter_UpdateAvailable">Update available</system:String>
+    <system:String x:Key="UpdateCenter_NotConfigured">Not configured</system:String>
+    <system:String x:Key="UpdateCenter_All">All</system:String>
+    <system:String x:Key="UpdateCenter_NewVersionAvailable">New version available</system:String>
+    <system:String x:Key="UpdateCenter_Configured">Configured</system:String>
+    <system:String x:Key="UpdateCenter_GroupByCategory">Group by category</system:String>
+    <system:String x:Key="UpdateCenter_SOFTWARE">SOFTWARE</system:String>
+    <system:String x:Key="UpdateCenter_VERSION">VERSION</system:String>
+    <system:String x:Key="UpdateCenter_UPDATESTATUS">UPDATE STATUS</system:String>
+    <system:String x:Key="UpdateCenter_ACTIONS">ACTIONS</system:String>
+    <system:String x:Key="UpdateCenter_ConfigureUpdateCheckSource">Configure update check source</system:String>
+    <system:String x:Key="UpdateCenter_ScanThisSoftwareOnly">Scan this software only</system:String>
+    <system:String x:Key="UpdateCenter_DownloadTheNewVersion">Download the new version and add it to the library (do not install)</system:String>
+    <system:String x:Key="UpdateCenter_Download">Download</system:String>
+    <system:String x:Key="UpdateCenter_DownloadTheNewVersion2">Download the new version, add it to the library, then install it on this computer</system:String>
+    <system:String x:Key="UpdateCenter_InstallNow">Install now</system:String>
+    <system:String x:Key="UpdateCenter_ProcessingViaWinget">Processing via Winget...</system:String>
+    <system:String x:Key="UpdateCenter_TheLibraryHasNo">The library has no software yet</system:String>
+
 </ResourceDictionary>

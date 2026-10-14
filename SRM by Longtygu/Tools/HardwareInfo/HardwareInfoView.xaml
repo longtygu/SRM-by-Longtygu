@@ -78,12 +78,12 @@
             </Border>
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBlock Text="Thông tin phần cứng" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="{DynamicResource HardwareInfo_HardwareInformation}" FontSize="20" FontWeight="Bold" Foreground="White"/>
                 <TextBlock x:Name="AdminHintText" Text="" FontSize="12" Foreground="#E8A23D" Margin="0,2,0,0" TextWrapping="Wrap"/>
             </StackPanel>
 
             <Button Grid.Column="2" x:Name="RestartAsAdminButton"
-                    Content="⚠ Chạy lại với quyền Admin"
+                    Content="{DynamicResource HardwareInfo_RunAgainAsAdministrator}"
                     Background="#E8A23D" Foreground="#202020" FontWeight="SemiBold"
                     Padding="14,8" BorderThickness="0" Cursor="Hand"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
@@ -92,11 +92,11 @@
 
         <!-- ===== TAB BUTTONS ===== -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,14">
-            <Button x:Name="TabOverviewButton" Content="Tổng quan" Style="{StaticResource TabButtonStyle}"
+            <Button x:Name="TabOverviewButton" Content="{DynamicResource HardwareInfo_Overview}" Style="{StaticResource TabButtonStyle}"
                     Click="TabOverview_Click" Margin="0,0,6,0"/>
-            <Button x:Name="TabMonitorButton" Content="Giám sát thời gian thực" Style="{StaticResource TabButtonStyle}"
+            <Button x:Name="TabMonitorButton" Content="{DynamicResource HardwareInfo_RealTimeMonitoring}" Style="{StaticResource TabButtonStyle}"
                     Click="TabMonitor_Click" Margin="0,0,6,0"/>
-            <Button x:Name="TabSmartButton" Content="S.M.A.R.T ổ đĩa" Style="{StaticResource TabButtonStyle}"
+            <Button x:Name="TabSmartButton" Content="{DynamicResource HardwareInfo_DiskSMA}" Style="{StaticResource TabButtonStyle}"
                     Click="TabSmart_Click"/>
         </StackPanel>
 
@@ -112,9 +112,9 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Chi tiết cấu hình hệ thống" FontSize="14" FontWeight="SemiBold"
+                        <TextBlock Grid.Column="0" Text="{DynamicResource HardwareInfo_SystemConfigurationDetails}" FontSize="14" FontWeight="SemiBold"
                                    Foreground="#909090" VerticalAlignment="Center"/>
-                        <Button Grid.Column="1" Content="Xuất file TXT" Style="{StaticResource ActionButtonStyle}"
+                        <Button Grid.Column="1" Content="{DynamicResource HardwareInfo_ExportTXTFile}" Style="{StaticResource ActionButtonStyle}"
                                 Background="#3A6FA0" Foreground="White" Click="ExportOverviewButton_Click"/>
                     </Grid>
 
@@ -130,7 +130,7 @@
                 <StackPanel>
 
                     <!-- Ghi chú về hạn chế cảm biến -->
-                    <TextBlock Text="Một số cảm biến (nhiệt độ/xung nhịp/công suất CPU-GPU) cần quyền Administrator hoặc có thể không được driver hỗ trợ trên phần cứng đời cũ."
+                    <TextBlock Text="{DynamicResource HardwareInfo_SomeSensorsCPUGPU}"
                                FontSize="12" Foreground="#707070" TextWrapping="Wrap" Margin="0,0,0,14"/>
 
                     <!-- Biểu đồ nhiều đường real-time: Tải % (Load) của từng linh kiện, mỗi đường 1 màu -->
@@ -142,7 +142,7 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                <TextBlock Text="Giám sát tải theo thời gian thực (%)" FontSize="13" Foreground="#909090"
+                                <TextBlock Text="{DynamicResource HardwareInfo_RealTimeLoadMonitoring}" FontSize="13" Foreground="#909090"
                                            VerticalAlignment="Center" Margin="0,0,18,0"/>
                                 <StackPanel x:Name="ChartLegendPanel" Orientation="Horizontal"/>
                             </StackPanel>
@@ -169,7 +169,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Chọn ổ đĩa:" FontSize="14" Foreground="#D0D0D0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource HardwareInfo_SelectDrive}" FontSize="14" Foreground="#D0D0D0" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <ComboBox Grid.Column="1" x:Name="DriveSelectorComboBox" Width="380" FontSize="14" HorizontalAlignment="Left"
                               SelectionChanged="DriveSelectorComboBox_SelectionChanged"/>
                 </Grid>

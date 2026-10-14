@@ -309,10 +309,10 @@
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
                     <iconPacks:PackIconMaterial Kind="AlertOutline" Width="16" Height="16" Foreground="#E3B341"
                                                  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <TextBlock Text="Ứng dụng đang chạy không có quyền Administrator. DISM, SFC, CHKDSK và một số mục kiểm tra (BitLocker...) có thể không hoạt động đầy đủ."
+                    <TextBlock Text="{DynamicResource WindowsHealthCheck_TheAppIsRunning}"
                                FontSize="12" Foreground="#E3B341" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 </StackPanel>
-                <Button Grid.Column="1" x:Name="RestartAdminButton" Content="Chạy lại với quyền Admin"
+                <Button Grid.Column="1" x:Name="RestartAdminButton" Content="{DynamicResource WindowsHealthCheck_RunAgainAsAdministrator}"
                         Click="RestartAsAdminButton_Click"
                         Style="{StaticResource FluentAccentButton}" Width="190"/>
             </Grid>
@@ -342,10 +342,10 @@
                                                                      Foreground="#60CDFF"
                                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <TextBlock Text="Tình trạng hệ thống" FontSize="15" FontWeight="SemiBold" Foreground="White"
+                                    <TextBlock Text="{DynamicResource WindowsHealthCheck_SystemStatus}" FontSize="15" FontWeight="SemiBold" Foreground="White"
                                                VerticalAlignment="Center" Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Content="⟳ Làm mới" Command="{Binding RefreshStatusCommand}"
+                                <Button Grid.Column="1" Content="{DynamicResource Common_Refresh}" Command="{Binding RefreshStatusCommand}"
                                         Style="{StaticResource FluentGhostButton}"/>
                             </Grid>
 
@@ -422,7 +422,7 @@
                                     <iconPacks:PackIconMaterial Kind="Wrench" Width="16" Height="16"
                                                                  Foreground="#60CDFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <TextBlock Text="Công cụ sửa lỗi hệ thống" FontSize="15" FontWeight="SemiBold" Foreground="White"
+                                <TextBlock Text="{DynamicResource WindowsHealthCheck_SystemRepairTools}" FontSize="15" FontWeight="SemiBold" Foreground="White"
                                            VerticalAlignment="Center" Margin="10,0,0,0"/>
                             </StackPanel>
 
@@ -452,12 +452,12 @@
                                 </WrapPanel>
 
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="CHKDSK ổ:" Foreground="#A0A0A0" FontSize="12.5"
+                                    <TextBlock Text="{DynamicResource WindowsHealthCheck_CHKDSKDrive}" Foreground="#A0A0A0" FontSize="12.5"
                                                VerticalAlignment="Center" Margin="0,0,10,0"/>
                                     <ComboBox Style="{StaticResource FluentComboBox}"
                                               ItemsSource="{Binding AvailableDrives}" SelectedItem="{Binding SelectedChkdskDrive}"
                                               Width="90" Margin="0,0,10,0"/>
-                                    <Button Content="Scan (chỉ đọc)" Command="{Binding RunChkdskScanCommand}"
+                                    <Button Content="{DynamicResource WindowsHealthCheck_ScanReadOnly}" Command="{Binding RunChkdskScanCommand}"
                                             Style="{StaticResource FluentAccentButton}" Width="150" Margin="0,0,10,0"/>
                                     <Button Content="Scan + Fix (/f)" Command="{Binding RunChkdskFixCommand}"
                                             Style="{StaticResource FluentDangerButton}" Width="150"/>
@@ -478,20 +478,20 @@
                                 </StackPanel.Style>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                    <TextBlock Text="Đang chạy: " FontSize="13.5" Foreground="#A0A0A0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource WindowsHealthCheck_Running}" FontSize="13.5" Foreground="#A0A0A0" VerticalAlignment="Center"/>
                                     <TextBlock Text="{Binding CurrentRepairName}" FontSize="13.5" FontWeight="SemiBold"
                                                Foreground="#60CDFF" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <TextBlock Text="Theo dõi chi tiết trong nhật ký bên dưới. Quá trình này có thể mất vài phút."
+                                <TextBlock Text="{DynamicResource WindowsHealthCheck_FollowTheDetailsIn}"
                                            FontSize="11.5" Foreground="#6E6E6E" Margin="0,0,0,14" TextWrapping="Wrap"/>
-                                <Button Content="Hủy tác vụ" Command="{Binding CancelRepairCommand}"
+                                <Button Content="{DynamicResource WindowsHealthCheck_CancelTask}" Command="{Binding CancelRepairCommand}"
                                         Style="{StaticResource FluentDangerButton}" Width="140" HorizontalAlignment="Left"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
                                 <iconPacks:PackIconMaterial Kind="InformationOutline" Width="13" Height="13" Foreground="#6E6E6E"
                                                              VerticalAlignment="Top" Margin="0,2,6,0"/>
-                                <TextBlock Text="Các công cụ này cần quyền Administrator. CHKDSK Scan + Fix trên ổ hệ thống có thể tự lên lịch kiểm tra vào lần khởi động lại tiếp theo."
+                                <TextBlock Text="{DynamicResource WindowsHealthCheck_TheseToolsRequireAdministrat}"
                                            FontSize="10.5" Foreground="#6E6E6E" TextWrapping="Wrap" Width="600"/>
                             </StackPanel>
                         </StackPanel>
@@ -516,10 +516,10 @@
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="ConsoleLine" Width="15" Height="15"
                                                          Foreground="#60CDFF" VerticalAlignment="Center"/>
-                            <TextBlock Text="Nhật ký" FontSize="13" FontWeight="SemiBold" Foreground="White"
+                            <TextBlock Text="{DynamicResource WindowsHealthCheck_Log}" FontSize="13" FontWeight="SemiBold" Foreground="White"
                                        VerticalAlignment="Center" Margin="6,0,0,0"/>
                         </StackPanel>
-                        <Button Grid.Column="1" Content="Xóa" Command="{Binding ClearLogCommand}"
+                        <Button Grid.Column="1" Content="{DynamicResource Common_Delete}" Command="{Binding ClearLogCommand}"
                                 Style="{StaticResource FluentGhostButton}" Padding="6,4" FontSize="11"/>
                     </Grid>
 

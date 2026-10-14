@@ -46,7 +46,7 @@
             </Border>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="RAM Test" FontSize="20" FontWeight="Bold" Foreground="White"/>
-                <TextBlock Text="Cấp phát, ghi mẫu, đọc lại và xác minh CRC để phát hiện lỗi bộ nhớ"
+                <TextBlock Text="{DynamicResource RamTest_AllocateWriteAPattern}"
                            FontSize="12.5" Foreground="#A0A0A0" Margin="0,2,0,0"/>
             </StackPanel>
         </StackPanel>
@@ -61,7 +61,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Dung lượng kiểm tra:" Foreground="#D0D0D0"
+            <TextBlock Grid.Column="0" Text="{DynamicResource RamTest_TestSize}" Foreground="#D0D0D0"
                        VerticalAlignment="Center" Margin="0,0,10,0"/>
 
             <ComboBox x:Name="SizeComboBox" Grid.Column="1" Width="120" SelectedIndex="2" VerticalContentAlignment="Center">
@@ -73,12 +73,12 @@
                 <ComboBoxItem Content="4 GB" Tag="4096"/>
             </ComboBox>
 
-            <Button Grid.Column="3" x:Name="StartButton" Content="Bắt đầu kiểm tra"
+            <Button Grid.Column="3" x:Name="StartButton" Content="{DynamicResource Common_StartTest}"
                     Style="{StaticResource ActionButtonStyle}"
                     Background="#60CDFF" Foreground="#202020"
                     Click="StartButton_Click" Margin="0,0,10,0"/>
 
-            <Button Grid.Column="4" x:Name="CancelButton" Content="Hủy"
+            <Button Grid.Column="4" x:Name="CancelButton" Content="{DynamicResource Common_Cancel}"
                     Style="{StaticResource ActionButtonStyle}"
                     Background="#3A3A3A" Foreground="White"
                     Click="CancelButton_Click" IsEnabled="False"/>
@@ -88,7 +88,7 @@
         <StackPanel Grid.Row="2" Margin="0,0,0,16">
             <ProgressBar x:Name="OverallProgressBar" Height="8" Minimum="0" Maximum="100" Value="0"
                          Background="#2A2A2A" Foreground="#60CDFF" BorderThickness="0"/>
-            <TextBlock x:Name="StatusText" Text="Sẵn sàng — chọn dung lượng rồi bấm &quot;Bắt đầu kiểm tra&quot;"
+            <TextBlock x:Name="StatusText" Text="{DynamicResource RamTest_ReadyChooseASize}"
                        Foreground="#909090" FontSize="12" Margin="0,6,0,0"/>
         </StackPanel>
 
@@ -106,7 +106,7 @@
                     </Grid.ColumnDefinitions>
                     <Ellipse Grid.Column="0" x:Name="Row1Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
                     <TextBlock Grid.Column="1" Text="Allocate RAM" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" x:Name="Row1Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="2" x:Name="Row1Detail" Text="{DynamicResource RamTest_Waiting}" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
                     <TextBlock Grid.Column="3" x:Name="Row1Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </Grid>
             </Border>
@@ -122,7 +122,7 @@
                     </Grid.ColumnDefinitions>
                     <Ellipse Grid.Column="0" x:Name="Row2Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
                     <TextBlock Grid.Column="1" Text="Write Pattern" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" x:Name="Row2Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="2" x:Name="Row2Detail" Text="{DynamicResource RamTest_Waiting}" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
                     <TextBlock Grid.Column="3" x:Name="Row2Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </Grid>
             </Border>
@@ -138,7 +138,7 @@
                     </Grid.ColumnDefinitions>
                     <Ellipse Grid.Column="0" x:Name="Row3Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
                     <TextBlock Grid.Column="1" Text="Read Back" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" x:Name="Row3Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="2" x:Name="Row3Detail" Text="{DynamicResource RamTest_Waiting}" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
                     <TextBlock Grid.Column="3" x:Name="Row3Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </Grid>
             </Border>
@@ -154,7 +154,7 @@
                     </Grid.ColumnDefinitions>
                     <Ellipse Grid.Column="0" x:Name="Row4Dot" Style="{StaticResource StepDotStyle}" Margin="0,0,12,0"/>
                     <TextBlock Grid.Column="1" Text="CRC Verify" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" x:Name="Row4Detail" Text="Đang chờ" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Grid.Column="2" x:Name="Row4Detail" Text="{DynamicResource RamTest_Waiting}" FontSize="12" Foreground="#A0A0A0" VerticalAlignment="Center" Margin="0,0,16,0"/>
                     <TextBlock Grid.Column="3" x:Name="Row4Duration" Text="" FontSize="12" Foreground="#707070" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </Grid>
             </Border>

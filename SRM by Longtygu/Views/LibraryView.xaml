@@ -117,41 +117,41 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Tiêu đề -->
-                <TextBlock Grid.Column="0" Text="KHO PHẦN MỀM" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="{DynamicResource Library_SOFTWARELIBRARY}" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
 
                 <!-- Nhóm nút công cụ -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Command="{Binding RefreshCommand}" Style="{StaticResource FluentActionButton}" Background="#333333" ToolTip="Làm mới">
+                    <Button Command="{Binding RefreshCommand}" Style="{StaticResource FluentActionButton}" Background="#333333" ToolTip="{DynamicResource Library_Refresh}">
                         <iconPacks:PackIconMaterial Kind="Refresh"/>
                     </Button>
-                    <Button Command="{Binding CleanUpCommand}" Style="{StaticResource FluentActionButton}" Background="#D97706" ToolTip="Dọn dẹp rác">
+                    <Button Command="{Binding CleanUpCommand}" Style="{StaticResource FluentActionButton}" Background="#D97706" ToolTip="{DynamicResource Library_CleanUpJunk}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="Broom" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Dọn dẹp" FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource Library_CleanUp}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding EditCommand}" Style="{StaticResource FluentActionButton}" Background="#0284C7" ToolTip="Sửa thông tin">
+                    <Button Command="{Binding EditCommand}" Style="{StaticResource FluentActionButton}" Background="#0284C7" ToolTip="{DynamicResource Library_EditInfo}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="Pencil" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Chỉnh sửa" FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource Common_Edit}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding DeleteCommand}" Style="{StaticResource FluentActionButton}" Background="#C42B1C" ToolTip="Xóa">
+                    <Button Command="{Binding DeleteCommand}" Style="{StaticResource FluentActionButton}" Background="#C42B1C" ToolTip="{DynamicResource Common_Delete}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="TrashCanOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Xóa bỏ" FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource Library_Remove}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding AddDummyCommand}" Style="{StaticResource FluentActionButton}" Background="#16A34A" ToolTip="Thêm mới">
+                    <Button Command="{Binding AddDummyCommand}" Style="{StaticResource FluentActionButton}" Background="#16A34A" ToolTip="{DynamicResource Library_AddNew}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="Plus" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Thêm phần mềm" FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource Library_AddSoftware}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Button>
-                    <Button Command="{Binding AddMultipleCommand}" Style="{StaticResource FluentActionButton}" Background="#0E9488" ToolTip="Thêm nhiều phần mềm cùng lúc">
+                    <Button Command="{Binding AddMultipleCommand}" Style="{StaticResource FluentActionButton}" Background="#0E9488" ToolTip="{DynamicResource Common_AddMultipleSoftwareAt}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="PlaylistPlus" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Thêm nhiều" FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource Library_AddMultiple}" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -296,10 +296,10 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Text="Mô tả phần mềm" FontWeight="SemiBold" Foreground="#888888" Margin="0,0,0,8"/>
+                                        <TextBlock Grid.Row="0" Text="{DynamicResource Library_SoftwareDescription}" FontWeight="SemiBold" Foreground="#888888" Margin="0,0,0,8"/>
                                         <TextBlock Grid.Row="1" Text="{Binding Description}" Foreground="#E0E0E0" TextWrapping="Wrap" Margin="0,0,0,20" LineHeight="20" VerticalAlignment="Top"/>
 
-                                        <TextBlock Grid.Row="2" Text="License / CD-Key" FontWeight="SemiBold" Foreground="#888888" Margin="0,0,0,8"/>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource Library_LicenseCDKey}" FontWeight="SemiBold" Foreground="#888888" Margin="0,0,0,8"/>
                                         <Border Grid.Row="3" Background="#2D2D2D" CornerRadius="4" Padding="12">
                                             <TextBox Text="{Binding LicenseKey}" IsReadOnly="True" Background="Transparent" Foreground="#FCE100" FontWeight="Bold" BorderThickness="0" FontSize="14"/>
                                         </Border>
@@ -312,7 +312,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Text="Ghi chú &amp; Hướng dẫn" FontWeight="SemiBold" Foreground="#888888" Margin="0,0,0,8"/>
+                                        <TextBlock Grid.Row="0" Text="{DynamicResource Library_NotesInstructions}" FontWeight="SemiBold" Foreground="#888888" Margin="0,0,0,8"/>
                                         <Border Grid.Row="1" Background="#2D2D2D" BorderThickness="0" CornerRadius="6" Padding="16">
                                             <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto">
                                                 <TextBlock Text="{Binding Readme}" Foreground="#E0E0E0" TextWrapping="Wrap" LineHeight="22"/>
@@ -336,7 +336,7 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid Grid.Row="0" Margin="0,0,0,12">
-                                                <TextBlock Text="Danh sách phiên bản đã lưu" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{DynamicResource Library_SavedVersions}" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                                 <Button Command="{Binding DataContext.AddVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                                                     HorizontalAlignment="Right" Background="#2D2D2D" Foreground="#FFFFFF" BorderThickness="0" Padding="12,8" Cursor="Hand">
                                                     <Button.Resources>
@@ -346,7 +346,7 @@
                                                     </Button.Resources>
                                                     <StackPanel Orientation="Horizontal">
                                                         <iconPacks:PackIconMaterial Kind="Plus" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#6CCB5F"/>
-                                                        <TextBlock Text="Thêm phiên bản" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{DynamicResource Library_AddVersion}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                                     </StackPanel>
                                                 </Button>
                                             </Grid>
@@ -431,7 +431,7 @@
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
                                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                                                        <Button Command="{Binding DataContext.InstallVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#0284C7" Foreground="#FFFFFF" BorderThickness="0" Padding="8" Margin="0,0,8,0" Cursor="Hand" ToolTip="Chạy / Cài đặt">
+                                                                        <Button Command="{Binding DataContext.InstallVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#0284C7" Foreground="#FFFFFF" BorderThickness="0" Padding="8" Margin="0,0,8,0" Cursor="Hand" ToolTip="{DynamicResource Library_RunInstall}">
                                                                             <Button.Resources>
                                                                                 <Style TargetType="Border">
                                                                                     <Setter Property="CornerRadius" Value="4"/>
@@ -439,7 +439,7 @@
                                                                             </Button.Resources>
                                                                             <iconPacks:PackIconMaterial Kind="Play" Width="14" Height="14"/>
                                                                         </Button>
-                                                                        <Button Command="{Binding DataContext.DeleteVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#C42B1C" Foreground="#FFFFFF" BorderThickness="0" Padding="8" Cursor="Hand" ToolTip="Xóa phiên bản">
+                                                                        <Button Command="{Binding DataContext.DeleteVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Background="#C42B1C" Foreground="#FFFFFF" BorderThickness="0" Padding="8" Cursor="Hand" ToolTip="{DynamicResource Library_DeleteVersion}">
                                                                             <Button.Resources>
                                                                                 <Style TargetType="Border">
                                                                                     <Setter Property="CornerRadius" Value="4"/>
@@ -464,7 +464,7 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid Grid.Row="0" Margin="0,0,0,12">
-                                                <TextBlock Text="Tài nguyên đính kèm" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{DynamicResource Library_AttachedResources}" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                                 <Button Command="{Binding DataContext.AttachResourceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     HorizontalAlignment="Right" Background="#2D2D2D" Foreground="#FFFFFF" BorderThickness="0" Padding="12,8" Cursor="Hand">
                                                     <Button.Resources>
@@ -474,7 +474,7 @@
                                                     </Button.Resources>
                                                     <StackPanel Orientation="Horizontal">
                                                         <iconPacks:PackIconMaterial Kind="Paperclip" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#60CDFF"/>
-                                                        <TextBlock Text="Đính kèm tài nguyên" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{DynamicResource Common_AttachResources}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                                     </StackPanel>
                                                 </Button>
                                             </Grid>
@@ -570,7 +570,7 @@
                                                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                                                             <Button Command="{Binding DataContext.OpenResourceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                                 CommandParameter="{Binding}" Background="#0284C7" Foreground="#FFFFFF" BorderThickness="0"
-                                                                                Padding="8" Margin="0,0,8,0" Cursor="Hand" ToolTip="Mở vị trí tài nguyên">
+                                                                                Padding="8" Margin="0,0,8,0" Cursor="Hand" ToolTip="{DynamicResource Library_OpenResourceLocation}">
                                                                                 <Button.Resources>
                                                                                     <Style TargetType="Border">
                                                                                         <Setter Property="CornerRadius" Value="4"/>
@@ -580,7 +580,7 @@
                                                                             </Button>
                                                                             <Button Command="{Binding DataContext.DetachResourceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                                 CommandParameter="{Binding}" Background="#C42B1C" Foreground="#FFFFFF" BorderThickness="0"
-                                                                                Padding="8" Cursor="Hand" ToolTip="Gỡ đính kèm">
+                                                                                Padding="8" Cursor="Hand" ToolTip="{DynamicResource Library_Detach}">
                                                                                 <Button.Resources>
                                                                                     <Style TargetType="Border">
                                                                                         <Setter Property="CornerRadius" Value="4"/>
@@ -608,7 +608,7 @@
                                                             </Style>
                                                         </StackPanel.Style>
                                                         <iconPacks:PackIconMaterial Kind="FileCabinet" Width="26" Height="26" Foreground="#555555" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                                                        <TextBlock Text="Chưa có tài nguyên nào được đính kèm" Foreground="#777777" FontSize="12"/>
+                                                        <TextBlock Text="{DynamicResource Library_NoResourcesAttachedYet}" Foreground="#777777" FontSize="12"/>
                                                     </StackPanel>
                                                 </Grid>
                                             </Border>
@@ -623,7 +623,7 @@
                                                 <Border x:Name="CollapseBorder" Background="#252526" CornerRadius="6" Padding="12">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                         <iconPacks:PackIconMaterial x:Name="CollapseIcon" Kind="ChevronUp" Foreground="#AAAAAA" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                                        <TextBlock x:Name="CollapseText" Text="Thu gọn chi tiết" Foreground="#AAAAAA" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                        <TextBlock x:Name="CollapseText" Text="{DynamicResource Library_CollapseDetails}" Foreground="#AAAAAA" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
                                                 <ControlTemplate.Triggers>

@@ -135,7 +135,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="THÔNG TIN TỔNG QUÁT" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextPrimary}" Margin="0,0,0,20"/>
+        <TextBlock Grid.Row="0" Text="{DynamicResource Dashboard_GENERALINFORMATION}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextPrimary}" Margin="0,0,0,20"/>
 
         <!-- ================= HÀNG 1: KPI + STORAGE ================= -->
         <Grid Grid.Row="1" Margin="0,0,0,15">
@@ -164,15 +164,15 @@
                                                     Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                                     Opacity="0.1" IsHitTestVisible="False"/>
 
-                        <TextBlock Grid.Row="0" Text="Tổng phần mềm" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="0" Text="{DynamicResource Common_TotalSoftware}" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
 
                         <TextBlock Grid.Row="1" Text="{Binding TotalSoftwares}" Foreground="White" FontSize="56" FontWeight="Bold" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10"/>
 
                         <TextBlock Grid.Row="2" Foreground="{StaticResource TextSecondary}" FontSize="12">
-                            <Run Text="Tổng phiên bản, phần mềm : "/>
+                            <Run Text="{DynamicResource Dashboard_TotalVersionsSoftware}"/>
                             <Run Text="{Binding TotalVersions}" FontWeight="Bold" Foreground="{StaticResource AccentBlue}"/>
-                            <Run Text=" File"/>
+                            <Run Text="{DynamicResource Dashboard_Files}"/>
                         </TextBlock>
                     </Grid>
                 </Border>
@@ -190,7 +190,7 @@
                                                     Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                                     Opacity="0.1" IsHitTestVisible="False"/>
 
-                        <TextBlock Grid.Row="0" Text="Cấu trúc Thư viện" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="0" Text="{DynamicResource Dashboard_LibraryStructure}" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
 
                         <TextBlock Grid.Row="1" Text="{Binding TotalCategories}" Foreground="White" FontSize="56" FontWeight="Bold" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10"/>
@@ -211,7 +211,7 @@
                         <!-- Tiêu đề -->
                         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <iconPacks:PackIconMaterial Kind="Harddisk" Foreground="#E91E63" Width="22" Height="22" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="Thông tin Ổ cứng" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Dashboard_DriveInformation}" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <!-- Model Ổ cứng (Nằm chính giữa) -->
@@ -231,13 +231,13 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Loại:" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,10,3"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Dashboard_Type}" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,10,3"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DriveType}" Foreground="{StaticResource AccentGreen}" FontSize="12" FontWeight="SemiBold"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="FW:" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,0,10,3"/>
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DriveFirmware}" Foreground="{StaticResource TextPrimary}" FontSize="12"/>
 
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Sức khỏe:" Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Dashboard_Health}" Foreground="{StaticResource TextSecondary}" FontSize="12"/>
                             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DriveHealth}" Style="{StaticResource DriveHealthStyle}"/>
                         </Grid>
                     </Grid>
@@ -251,7 +251,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Trạng Thái Lưu Trữ (Storage)" Style="{StaticResource CardTitleStyle}"/>
+                    <TextBlock Text="{DynamicResource Dashboard_StorageStatus}" Style="{StaticResource CardTitleStyle}"/>
                     <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,15,0,5">
 
                         <Grid>
@@ -279,10 +279,10 @@
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Ellipse Width="12" Height="12" Fill="{StaticResource AccentRed}" Margin="0,0,8,0"/>
-                            <TextBlock Text="Đã sử dụng" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold" Margin="0,0,25,0"/>
+                            <TextBlock Text="{DynamicResource Dashboard_Used}" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold" Margin="0,0,25,0"/>
 
                             <Ellipse Width="12" Height="12" Fill="{StaticResource AccentGreen}" Margin="0,0,8,0"/>
-                            <TextBlock Text="Còn trống" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold"/>
+                            <TextBlock Text="{DynamicResource Dashboard_Free}" Foreground="{StaticResource TextPrimary}" FontSize="14" FontWeight="SemiBold"/>
                         </StackPanel>
 
                     </StackPanel>
@@ -308,7 +308,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Phần Mềm Thêm Gần Đây" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,15"/>
+                    <TextBlock Text="{DynamicResource Dashboard_RecentlyAddedSoftware}" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,15"/>
 
                     <Grid Grid.Row="1">
                         <ListBox ItemsSource="{Binding RecentSoftwares}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -341,7 +341,7 @@
                             </ListBox.ItemContainerStyle>
                         </ListBox>
 
-                        <TextBlock Text="Chưa có phần mềm nào được thêm gần đây."
+                        <TextBlock Text="{DynamicResource Dashboard_NoSoftwareHasBeen}"
                                    Style="{StaticResource EmptyStateStyle}"
                                    Visibility="{Binding RecentSoftwares.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
                     </Grid>
@@ -356,7 +356,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Dung Lượng Danh Mục" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,15"/>
+                    <TextBlock Text="{DynamicResource Dashboard_CategorySize}" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,15"/>
 
                     <!-- Tổng dung lượng tài nguyên -->
                     <Border Grid.Row="1" Background="{StaticResource ItemBg}" CornerRadius="6" Padding="12" Margin="0,0,0,15">
@@ -367,7 +367,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <iconPacks:PackIconMaterial Kind="Database" Foreground="{StaticResource AccentOrange}" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="Tổng tài nguyên" Foreground="{StaticResource TextSecondary}" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock Text="{DynamicResource Dashboard_TotalResources}" Foreground="{StaticResource TextSecondary}" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                             </StackPanel>
                             <TextBlock Grid.Column="1" Text="{Binding TotalResourceSize}" Foreground="White" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
                         </Grid>
@@ -398,7 +398,7 @@
                             </ListBox.ItemContainerStyle>
                         </ListBox>
 
-                        <TextBlock Text="Chưa có dữ liệu dung lượng."
+                        <TextBlock Text="{DynamicResource Dashboard_NoSizeDataYet}"
                                    Style="{StaticResource EmptyStateStyle}"
                                    Visibility="{Binding CategoryStorageStats.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
                     </Grid>
@@ -413,7 +413,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Thống Kê Danh Mục" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,10"/>
+                    <TextBlock Text="{DynamicResource Dashboard_CategoryStatistics}" Style="{StaticResource CardTitleStyle}" Margin="0,0,0,10"/>
 
                     <lvc:PieChart Grid.Row="1" Series="{Binding CategoryPieSeries}"
                                   Height="210" Margin="0,0,0,10"
@@ -448,7 +448,7 @@
                             </ListBox.ItemContainerStyle>
                         </ListBox>
 
-                        <TextBlock Text="Chưa có danh mục nào."
+                        <TextBlock Text="{DynamicResource Dashboard_NoCategoriesYet}"
                                    Style="{StaticResource EmptyStateStyle}"
                                    Visibility="{Binding CategoryStats.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
                     </Grid>

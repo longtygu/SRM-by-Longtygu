@@ -93,19 +93,19 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="CÀI ĐẶT THEO GÓI TÙY CHỈNH" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+            <TextBlock Text="{DynamicResource PresetMain_INSTALLBYCUSTOMPACKAGE}" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" VerticalAlignment="Center"/>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Command="{Binding OpenIconFolderCommand}" Style="{StaticResource FluentButtonStyle}" Background="#333333" Padding="12,8" Margin="0,0,8,0" ToolTip="Mở thư mục kho Icon">
+                <Button Command="{Binding OpenIconFolderCommand}" Style="{StaticResource FluentButtonStyle}" Background="#333333" Padding="12,8" Margin="0,0,8,0" ToolTip="{DynamicResource PresetMain_OpenIconLibraryFolder}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="FolderImage" Width="15" Height="15" Margin="0,0,6,0" VerticalAlignment="Center" Foreground="#FCE100"/>
-                        <TextBlock Text="Kho Icon" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource PresetMain_IconLibrary}" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding CreatePresetCommand}" Style="{StaticResource FluentButtonStyle}" Background="#16A34A" Padding="12,8">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Plus" Width="15" Height="15" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Tạo Preset Mới" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource PresetMain_CreateNewPreset}" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -127,7 +127,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Danh sách Gói đã lưu" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="14" Margin="4,0,0,16"/>
+                    <TextBlock Text="{DynamicResource PresetMain_SavedPackages}" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="14" Margin="4,0,0,16"/>
 
                     <ListBox Grid.Row="1" ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset, Mode=TwoWay}" 
                              Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -180,11 +180,11 @@
                                     <!-- ĐÃ SỬA: Nút Sửa & Xóa Mini nay sử dụng Style mới để tránh bị ô vuông trắng -->
                                     <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
                                         <Button Command="{Binding DataContext.EditPresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                Style="{StaticResource MiniIconButtonStyle}" Foreground="#888888" Padding="8" ToolTip="Chỉnh sửa">
+                                                Style="{StaticResource MiniIconButtonStyle}" Foreground="#888888" Padding="8" ToolTip="{DynamicResource Common_Edit}">
                                             <iconPacks:PackIconMaterial Kind="Pencil" Width="16" Height="16"/>
                                         </Button>
                                         <Button Command="{Binding DataContext.DeletePresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"
-                                                Style="{StaticResource MiniIconButtonStyle}" Foreground="#C42B1C" Padding="8" ToolTip="Xóa Preset">
+                                                Style="{StaticResource MiniIconButtonStyle}" Foreground="#C42B1C" Padding="8" ToolTip="{DynamicResource PresetMain_DeletePreset}">
                                             <iconPacks:PackIconMaterial Kind="TrashCanOutline" Width="16" Height="16"/>
                                         </Button>
                                     </StackPanel>
@@ -205,7 +205,7 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <TextBlock Text="Nội dung gói: " Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource PresetMain_PackageContents}" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center"/>
                         <TextBlock Text="{Binding SelectedPreset.Name, FallbackValue='Chưa chọn'}" Foreground="#60CDFF" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="4,0,0,0"/>
                     </StackPanel>
 
@@ -261,7 +261,7 @@
                             <DataGridTemplateColumn Width="34" CanUserSort="False" CanUserResize="False" IsReadOnly="True">
                                 <DataGridTemplateColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#666666" Width="14" Height="14" ToolTip="Có tài nguyên đính kèm"/>
+                                        <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#666666" Width="14" Height="14" ToolTip="{DynamicResource Common_HasAttachedResources}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.HeaderTemplate>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -297,10 +297,10 @@
                             <StackPanel VerticalAlignment="Center">
                                 <!-- Tùy chọn tự động mở vị trí tài nguyên đính kèm - làm nổi bật thành dòng riêng -->
                                 <CheckBox IsChecked="{Binding OpenResourceAfterInstall}" Cursor="Hand" Margin="0,0,0,20"
-                                          ToolTip="Sau khi cài xong 1 phần mềm trong gói, tự động mở Explorer tới vị trí các tài nguyên (license, keygen, hướng dẫn...) đã đính kèm cho phần mềm đó">
+                                          ToolTip="{DynamicResource PresetMain_AfterEachSoftwareIn}">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#60CDFF" Width="18" Height="18" VerticalAlignment="Center" Margin="6,0,10,0"/>
-                                        <TextBlock Text="Mở tài nguyên đính kèm khi cài xong" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{DynamicResource PresetMain_OpenAttachedResourcesWhen}" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </CheckBox>
 
@@ -308,11 +308,11 @@
                                 <Border Background="#1F1F1F" CornerRadius="6" Padding="16" BorderBrush="#3E3E3E" BorderThickness="1">
                                     <StackPanel>
                                         <Grid Margin="0,0,0,12">
-                                            <TextBlock Text="Tổng số phần mềm" Foreground="#AAAAAA" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource PresetMain_TotalNumberOfSoftware}" Foreground="#AAAAAA" FontSize="13" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding SelectedPresetSoftwares.Count}" Foreground="#FFFFFF" FontWeight="Bold" FontSize="15" HorizontalAlignment="Right"/>
                                         </Grid>
                                         <Grid>
-                                            <TextBlock Text="Tổng dung lượng cài đặt" Foreground="#AAAAAA" FontSize="13" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource PresetMain_TotalInstallationSize}" Foreground="#AAAAAA" FontSize="13" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding SelectedPreset.TotalSize, FallbackValue='0 MB'}" Foreground="#FCE100" FontWeight="Bold" FontSize="15" HorizontalAlignment="Right"/>
                                         </Grid>
                                     </StackPanel>
@@ -326,7 +326,7 @@
                                 <Button Command="{Binding DeployPresetCommand}" Style="{StaticResource FluentButtonStyle}" Background="#16A34A" Padding="15" Margin="0,0,0,20">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <iconPacks:PackIconMaterial Kind="RocketLaunch" Margin="0,0,10,0" VerticalAlignment="Center" Width="20" Height="20"/>
-                                        <TextBlock FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Text="BẮT ĐẦU CÀI ĐẶT GÓI NÀY"/>
+                                        <TextBlock FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Text="{DynamicResource PresetMain_STARTINSTALLINGTHISPACKAGE}"/>
                                     </StackPanel>
                                 </Button>
 

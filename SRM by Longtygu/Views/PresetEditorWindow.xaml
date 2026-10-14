@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
-        Title="Thiết kế Gói Cài Đặt (Preset)" Height="800" Width="1280"
+        Title="{DynamicResource PresetEditor_DesignInstallPackagePreset}" Height="800" Width="1280"
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" AllowsTransparency="True" Background="Transparent" 
         FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
@@ -149,7 +149,7 @@
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
                     <iconPacks:PackIconMaterial Kind="PackageVariant" Foreground="#60CDFF" Width="14" Height="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Thiết kế Gói Cài Đặt (Preset)" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource PresetEditor_DesignInstallPackagePreset}" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Nút Đóng (X) -->
@@ -173,14 +173,14 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Command="{Binding SelectIconCommand}" Style="{StaticResource FluentButtonStyle}" Background="#333333" Width="90" Height="90" ToolTip="Click để đổi Icon">
+                        <Button Grid.Column="0" Command="{Binding SelectIconCommand}" Style="{StaticResource FluentButtonStyle}" Background="#333333" Width="90" Height="90" ToolTip="{DynamicResource PresetEditor_ClickToChangeIcon}">
                             <Grid>
                                 <iconPacks:PackIconMaterial Kind="ImagePlus" Foreground="#888888" Width="36" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 <Image Source="{Binding PresetIconPath, Converter={StaticResource ImgConverter}}" Stretch="Uniform" Width="86" Height="86"/>
                             </Grid>
                         </Button>
                         <StackPanel Grid.Column="1" Margin="24,0,0,0" VerticalAlignment="Center">
-                            <TextBlock Text="Tên Gói Cài Đặt (Preset Name)" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="14" Margin="0,0,0,8"/>
+                            <TextBlock Text="{DynamicResource PresetEditor_InstallPackageNamePreset}" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="14" Margin="0,0,0,8"/>
                             <TextBox Text="{Binding PresetName, UpdateSourceTrigger=PropertyChanged}" Background="#333333" Foreground="#FFFFFF" BorderBrush="#454545" BorderThickness="1" Padding="12" FontSize="18" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
@@ -229,7 +229,7 @@
                                 <Button Grid.Column="1" Command="{Binding ToggleViewCommand}" Style="{StaticResource FluentButtonStyle}" Background="#0284C7" Padding="16,8">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconMaterial Kind="ViewGrid" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                        <TextBlock Text="Đổi góc nhìn" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{DynamicResource PresetEditor_SwitchView}" VerticalAlignment="Center" FontWeight="SemiBold"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
@@ -271,7 +271,7 @@
                                                     <Button Command="{Binding DataContext.AddSoftwareCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
                                                             CommandParameter="{Binding}" 
                                                             Style="{StaticResource FluentButtonStyle}" 
-                                                            Background="#16A34A" Padding="8,8" Margin="0,8,0,0" Content="Thêm"/>
+                                                            Background="#16A34A" Padding="8,8" Margin="0,8,0,0" Content="{DynamicResource PresetEditor_Add}"/>
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
@@ -337,7 +337,7 @@
                                                             HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <StackPanel Orientation="Horizontal">
                                                             <iconPacks:PackIconMaterial Kind="Plus" Width="14" Height="14" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                                                            <TextBlock Text="Thêm" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                            <TextBlock Text="{DynamicResource PresetEditor_Add}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                         </StackPanel>
                                                     </Button>
                                                 </DataTemplate>
@@ -394,8 +394,8 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Margin="0,0,0,20">
-                                <TextBlock Text="Đã Thêm Vào Gói" Foreground="#60CDFF" FontWeight="Bold" FontSize="18" Margin="0,0,0,4"/>
-                                <TextBlock Text="Chọn phiên bản cụ thể cho từng phần mềm" Foreground="#AAAAAA" FontSize="13"/>
+                                <TextBlock Text="{DynamicResource PresetEditor_AddedToPackage}" Foreground="#60CDFF" FontWeight="Bold" FontSize="18" Margin="0,0,0,4"/>
+                                <TextBlock Text="{DynamicResource PresetEditor_ChooseASpecificVersion}" Foreground="#AAAAAA" FontSize="13"/>
                             </StackPanel>
 
                             <DataGrid Grid.Row="1" ItemsSource="{Binding SelectedSoftwares}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False"
@@ -511,11 +511,11 @@
 
                 <!-- FOOTER -->
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
-                    <Button Content="Hủy Bỏ" Style="{StaticResource FluentButtonStyle}" Background="#333333" Padding="24,12" Margin="0,0,12,0" Click="Cancel_Click"/>
+                    <Button Content="{DynamicResource Common_Cancel2}" Style="{StaticResource FluentButtonStyle}" Background="#333333" Padding="24,12" Margin="0,0,12,0" Click="Cancel_Click"/>
                     <Button Style="{StaticResource FluentButtonStyle}" Background="#D97706" Padding="32,12" Click="Save_Click">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="ContentSave" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                            <TextBlock Text="LƯU GÓI PRESET" FontWeight="Bold" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource PresetEditor_SAVEPRESET}" FontWeight="Bold" FontSize="15" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>

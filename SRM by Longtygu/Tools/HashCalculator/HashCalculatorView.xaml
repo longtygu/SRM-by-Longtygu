@@ -193,7 +193,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <iconPacks:PackIconMaterial Kind="CompareHorizontal" Width="15" Height="15"
                                                  Foreground="#60CDFF" VerticalAlignment="Center"/>
-                    <TextBlock Text="Đối chiếu hash" FontSize="13.5" FontWeight="SemiBold" Foreground="White"
+                    <TextBlock Text="{DynamicResource HashCalculator_CompareHash}" FontSize="13.5" FontWeight="SemiBold" Foreground="White"
                                Margin="8,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
 
@@ -204,7 +204,7 @@
                              CaretBrush="White"/>
                 </Border>
 
-                <TextBlock Text="Dán hash (MD5 / SHA1 / SHA256 / SHA512 / CRC32) cần kiểm tra vào đây — hệ thống tự so khớp với từng file bên dưới."
+                <TextBlock Text="{DynamicResource HashCalculator_PasteTheHashMD5}"
                            FontSize="10.5" Foreground="#6E6E6E" Margin="0,8,0,0" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
@@ -232,8 +232,8 @@
                                                          Foreground="#60CDFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <StackPanel Margin="12,0,0,0">
-                            <TextBlock Text="Kéo thả file vào đây để tính hash" FontSize="13.5" FontWeight="SemiBold" Foreground="White"/>
-                            <TextBlock Text="Thả nhiều file cùng lúc — file được đọc trực tiếp từ vị trí gốc, không sao chép vào máy."
+                            <TextBlock Text="{DynamicResource HashCalculator_DragAndDropFiles}" FontSize="13.5" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBlock Text="{DynamicResource HashCalculator_DropMultipleFilesAt}"
                                        FontSize="11" Foreground="#909090" Margin="0,3,0,0"/>
                         </StackPanel>
                     </StackPanel>
@@ -241,7 +241,7 @@
                     <TextBlock Grid.Column="1" Text="{Binding Items.Count, StringFormat={}{0} file}" FontSize="12"
                                Foreground="#909090" VerticalAlignment="Center" Margin="0,0,14,0"/>
 
-                    <Button Grid.Column="2" Content="Xóa tất cả" Command="{Binding ClearAllCommand}"
+                    <Button Grid.Column="2" Content="{DynamicResource HashCalculator_ClearAll}" Command="{Binding ClearAllCommand}"
                             Margin="0,0,10,0">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource FluentGhostButton}">
@@ -256,7 +256,7 @@
                     </Button>
 
                     <!-- ===== Nút Chọn file (ẩn khi đang xử lý hàng đợi) ===== -->
-                    <Button Grid.Column="3" Content="Chọn file..." Command="{Binding BrowseFilesCommand}"
+                    <Button Grid.Column="3" Content="{DynamicResource HashCalculator_ChooseFiles}" Command="{Binding BrowseFilesCommand}"
                             Width="130">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource FluentAccentButton}">
@@ -270,7 +270,7 @@
                     </Button>
 
                     <!-- ===== Nút Hủy (chỉ hiện khi đang xử lý hàng đợi) ===== -->
-                    <Button Grid.Column="3" Content="Hủy" Command="{Binding CancelCommand}"
+                    <Button Grid.Column="3" Content="{DynamicResource Common_Cancel}" Command="{Binding CancelCommand}"
                             Width="90">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource FluentDangerButton}">
@@ -302,7 +302,7 @@
                     </StackPanel.Style>
                     <iconPacks:PackIconMaterial Kind="FileSearchOutline" Width="40" Height="40" Foreground="#3A3A3A"
                                                  HorizontalAlignment="Center"/>
-                    <TextBlock Text="Chưa có file nào — kéo thả hoặc bấm &quot;Chọn file...&quot; để bắt đầu"
+                    <TextBlock Text="{DynamicResource HashCalculator_NoFilesYetDrag}"
                                FontSize="12.5" Foreground="#6E6E6E" Margin="0,10,0,0"/>
                 </StackPanel>
 
@@ -380,7 +380,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0" Text="Đang tính hash..." FontSize="11.5" Foreground="#909090"/>
+                                                <TextBlock Grid.Column="0" Text="{DynamicResource HashCalculator_CalculatingHash}" FontSize="11.5" Foreground="#909090"/>
                                                 <TextBlock Grid.Column="1" Text="{Binding ProgressPercent, StringFormat={}{0}%}"
                                                            FontSize="11.5" Foreground="#60CDFF"/>
                                             </Grid>
@@ -433,7 +433,7 @@
                                                              Background="Transparent" Foreground="#D0D0D0"
                                                              FontFamily="Cascadia Mono, Consolas" FontSize="11" Padding="8,6"/>
                                                 </Border>
-                                                <Button Grid.Column="2" Content="Copy"
+                                                <Button Grid.Column="2" Content="{DynamicResource HashCalculator_Copy}"
                                                         Command="{Binding DataContext.CopyHashCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding Md5}"
                                                         Style="{StaticResource FluentGhostButton}" Padding="8,4" FontSize="10.5"/>
@@ -454,7 +454,7 @@
                                                              Background="Transparent" Foreground="#D0D0D0"
                                                              FontFamily="Cascadia Mono, Consolas" FontSize="11" Padding="8,6"/>
                                                 </Border>
-                                                <Button Grid.Column="2" Content="Copy"
+                                                <Button Grid.Column="2" Content="{DynamicResource HashCalculator_Copy}"
                                                         Command="{Binding DataContext.CopyHashCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding Sha1}"
                                                         Style="{StaticResource FluentGhostButton}" Padding="8,4" FontSize="10.5"/>
@@ -475,7 +475,7 @@
                                                              Background="Transparent" Foreground="#D0D0D0"
                                                              FontFamily="Cascadia Mono, Consolas" FontSize="11" Padding="8,6"/>
                                                 </Border>
-                                                <Button Grid.Column="2" Content="Copy"
+                                                <Button Grid.Column="2" Content="{DynamicResource HashCalculator_Copy}"
                                                         Command="{Binding DataContext.CopyHashCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding Sha256}"
                                                         Style="{StaticResource FluentGhostButton}" Padding="8,4" FontSize="10.5"/>
@@ -496,7 +496,7 @@
                                                              Background="Transparent" Foreground="#D0D0D0"
                                                              FontFamily="Cascadia Mono, Consolas" FontSize="11" Padding="8,6"/>
                                                 </Border>
-                                                <Button Grid.Column="2" Content="Copy"
+                                                <Button Grid.Column="2" Content="{DynamicResource HashCalculator_Copy}"
                                                         Command="{Binding DataContext.CopyHashCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding Sha512}"
                                                         Style="{StaticResource FluentGhostButton}" Padding="8,4" FontSize="10.5"/>
@@ -517,7 +517,7 @@
                                                              Background="Transparent" Foreground="#D0D0D0"
                                                              FontFamily="Cascadia Mono, Consolas" FontSize="11" Padding="8,6"/>
                                                 </Border>
-                                                <Button Grid.Column="2" Content="Copy"
+                                                <Button Grid.Column="2" Content="{DynamicResource HashCalculator_Copy}"
                                                         Command="{Binding DataContext.CopyHashCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding Crc32}"
                                                         Style="{StaticResource FluentGhostButton}" Padding="8,4" FontSize="10.5"/>

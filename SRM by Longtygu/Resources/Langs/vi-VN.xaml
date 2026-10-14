@@ -144,4 +144,302 @@
     <system:String x:Key="Settings_PrefsDesc">Cấu hình nâng cao: Theme Mode, Tự động tạo Restore Point, Đường dẫn dữ liệu mặc định...</system:String>
     <system:String x:Key="Settings_LanguageNote">Lưu ý: một số màn hình vẫn đang được dịch dần.</system:String>
 
+    <!-- Màn hình: DiskHealth -->
+    <system:String x:Key="DiskHealth_QuickReadWriteSpeed">Test nhanh tốc độ đọc ghi</system:String>
+    <system:String x:Key="DiskHealth_ReadWriteSpeed">Tốc độ đọc / ghi</system:String>
+    <system:String x:Key="DiskHealth_WriteSpeed">Tốc độ ghi</system:String>
+    <system:String x:Key="DiskHealth_ReadSpeed">Tốc độ đọc</system:String>
+    <system:String x:Key="DiskHealth_ReadResultsMayBe">Kết quả đọc có thể cao hơn thực tế do cơ chế cache của Windows. Bài test mang tính tham khảo nhanh, không thay thế công cụ benchmark chuyên sâu.</system:String>
+    <system:String x:Key="DiskHealth_DiskHealthSMART">Tình trạng ổ đĩa (SMART)</system:String>
+
+    <!-- Màn hình: Common -->
+    <system:String x:Key="Common_StartTest">Bắt đầu kiểm tra</system:String>
+    <system:String x:Key="Common_Cancel">Hủy</system:String>
+    <system:String x:Key="Common_Refresh">⟳ Làm mới</system:String>
+    <system:String x:Key="Common_Delete">Xóa</system:String>
+    <system:String x:Key="Common_AddMultipleSoftwareAt">Thêm nhiều phần mềm cùng lúc</system:String>
+    <system:String x:Key="Common_EnableSilentInstallRecommend">Kích hoạt cài đặt ngầm (Khuyến cáo TẮT nếu phần mềm có kèm Adware/Quảng cáo)</system:String>
+    <system:String x:Key="Common_SoftwareName">Tên phần mềm</system:String>
+    <system:String x:Key="Common_Version">Phiên bản</system:String>
+    <system:String x:Key="Common_DeveloperPublisher">Nhà phát triển (Publisher)</system:String>
+    <system:String x:Key="Common_Category">Danh mục (Category)</system:String>
+    <system:String x:Key="Common_SilentInstallCommand">Lệnh cài đặt ngầm (Silent Install Command)</system:String>
+    <system:String x:Key="Common_SilentUninstallCommand">Lệnh gỡ cài đặt ngầm (Silent Uninstall Command)</system:String>
+    <system:String x:Key="Common_ThisIsAPortable">Đây là bản Portable (Chạy trực tiếp, không cần cài đặt)</system:String>
+    <system:String x:Key="Common_CDKeyLicenseKey">CD-Key / Giấy phép (License Key)</system:String>
+    <system:String x:Key="Common_ShortDescription">Mô tả ngắn</system:String>
+    <system:String x:Key="Common_NotesInstructionsReadme">Ghi chú / Hướng dẫn (Readme)</system:String>
+    <system:String x:Key="Common_PleaseDoNotClose">Vui lòng không tắt ứng dụng</system:String>
+    <system:String x:Key="Common_InstallerFileExeMsi">File cài đặt (*.exe, *.msi, *.zip)</system:String>
+    <system:String x:Key="Common_AdditionalInformation">Thông tin bổ sung</system:String>
+    <system:String x:Key="Common_AttachResources">Đính kèm tài nguyên</system:String>
+    <system:String x:Key="Common_ResourceName">Tên tài nguyên</system:String>
+    <system:String x:Key="Common_Category2">Danh mục</system:String>
+    <system:String x:Key="Common_Size">Dung lượng</system:String>
+    <system:String x:Key="Common_TotalSoftware">Tổng phần mềm</system:String>
+    <system:String x:Key="Common_HasAttachedResources">Có tài nguyên đính kèm</system:String>
+    <system:String x:Key="Common_Developer">Nhà phát triển</system:String>
+    <system:String x:Key="Common_Edit">Chỉnh sửa</system:String>
+    <system:String x:Key="Common_DateAdded">Ngày thêm</system:String>
+    <system:String x:Key="Common_Actions">Thao tác</system:String>
+    <system:String x:Key="Common_Type">Loại</system:String>
+    <system:String x:Key="Common_Cancel2">Hủy Bỏ</system:String>
+    <system:String x:Key="Common_Status">Trạng thái</system:String>
+
+    <!-- Màn hình: HardwareInfo -->
+    <system:String x:Key="HardwareInfo_HardwareInformation">Thông tin phần cứng</system:String>
+    <system:String x:Key="HardwareInfo_RunAgainAsAdministrator">⚠ Chạy lại với quyền Admin</system:String>
+    <system:String x:Key="HardwareInfo_Overview">Tổng quan</system:String>
+    <system:String x:Key="HardwareInfo_RealTimeMonitoring">Giám sát thời gian thực</system:String>
+    <system:String x:Key="HardwareInfo_DiskSMA">S.M.A.R.T ổ đĩa</system:String>
+    <system:String x:Key="HardwareInfo_SystemConfigurationDetails">Chi tiết cấu hình hệ thống</system:String>
+    <system:String x:Key="HardwareInfo_ExportTXTFile">Xuất file TXT</system:String>
+    <system:String x:Key="HardwareInfo_SomeSensorsCPUGPU">Một số cảm biến (nhiệt độ/xung nhịp/công suất CPU-GPU) cần quyền Administrator hoặc có thể không được driver hỗ trợ trên phần cứng đời cũ.</system:String>
+    <system:String x:Key="HardwareInfo_RealTimeLoadMonitoring">Giám sát tải theo thời gian thực (%)</system:String>
+    <system:String x:Key="HardwareInfo_SelectDrive">Chọn ổ đĩa:</system:String>
+
+    <!-- Màn hình: HashCalculator -->
+    <system:String x:Key="HashCalculator_CompareHash">Đối chiếu hash</system:String>
+    <system:String x:Key="HashCalculator_PasteTheHashMD5">Dán hash (MD5 / SHA1 / SHA256 / SHA512 / CRC32) cần kiểm tra vào đây — hệ thống tự so khớp với từng file bên dưới.</system:String>
+    <system:String x:Key="HashCalculator_DragAndDropFiles">Kéo thả file vào đây để tính hash</system:String>
+    <system:String x:Key="HashCalculator_DropMultipleFilesAt">Thả nhiều file cùng lúc — file được đọc trực tiếp từ vị trí gốc, không sao chép vào máy.</system:String>
+    <system:String x:Key="HashCalculator_ClearAll">Xóa tất cả</system:String>
+    <system:String x:Key="HashCalculator_ChooseFiles">Chọn file...</system:String>
+    <system:String x:Key="HashCalculator_NoFilesYetDrag">Chưa có file nào — kéo thả hoặc bấm "Chọn file..." để bắt đầu</system:String>
+    <system:String x:Key="HashCalculator_CalculatingHash">Đang tính hash...</system:String>
+    <system:String x:Key="HashCalculator_Copy">Sao chép</system:String>
+
+    <!-- Màn hình: RamTest -->
+    <system:String x:Key="RamTest_AllocateWriteAPattern">Cấp phát, ghi mẫu, đọc lại và xác minh CRC để phát hiện lỗi bộ nhớ</system:String>
+    <system:String x:Key="RamTest_TestSize">Dung lượng kiểm tra:</system:String>
+    <system:String x:Key="RamTest_ReadyChooseASize">Sẵn sàng — chọn dung lượng rồi bấm "Bắt đầu kiểm tra"</system:String>
+    <system:String x:Key="RamTest_Waiting">Đang chờ</system:String>
+
+    <!-- Màn hình: WindowsHealthCheck -->
+    <system:String x:Key="WindowsHealthCheck_TheAppIsRunning">Ứng dụng đang chạy không có quyền Administrator. DISM, SFC, CHKDSK và một số mục kiểm tra (BitLocker...) có thể không hoạt động đầy đủ.</system:String>
+    <system:String x:Key="WindowsHealthCheck_RunAgainAsAdministrator">Chạy lại với quyền Admin</system:String>
+    <system:String x:Key="WindowsHealthCheck_SystemStatus">Tình trạng hệ thống</system:String>
+    <system:String x:Key="WindowsHealthCheck_SystemRepairTools">Công cụ sửa lỗi hệ thống</system:String>
+    <system:String x:Key="WindowsHealthCheck_CHKDSKDrive">CHKDSK ổ:</system:String>
+    <system:String x:Key="WindowsHealthCheck_ScanReadOnly">Scan (chỉ đọc)</system:String>
+    <system:String x:Key="WindowsHealthCheck_Running" xml:space="preserve">Đang chạy: </system:String>
+    <system:String x:Key="WindowsHealthCheck_FollowTheDetailsIn">Theo dõi chi tiết trong nhật ký bên dưới. Quá trình này có thể mất vài phút.</system:String>
+    <system:String x:Key="WindowsHealthCheck_CancelTask">Hủy tác vụ</system:String>
+    <system:String x:Key="WindowsHealthCheck_TheseToolsRequireAdministrat">Các công cụ này cần quyền Administrator. CHKDSK Scan + Fix trên ổ hệ thống có thể tự lên lịch kiểm tra vào lần khởi động lại tiếp theo.</system:String>
+    <system:String x:Key="WindowsHealthCheck_Log">Nhật ký</system:String>
+
+    <!-- Màn hình: AddMultipleSoftware -->
+    <system:String x:Key="AddMultipleSoftware_SoftwareQueue">Hàng đợi phần mềm</system:String>
+    <system:String x:Key="AddMultipleSoftware_ItemsWaitingToBe" xml:space="preserve"> phần mềm đang chờ xử lý</system:String>
+    <system:String x:Key="AddMultipleSoftware_AddFiles">Thêm file...</system:String>
+    <system:String x:Key="AddMultipleSoftware_ClearTheWholeQueue">Xóa toàn bộ hàng đợi</system:String>
+    <system:String x:Key="AddMultipleSoftware_CommonCategory">Danh mục chung</system:String>
+    <system:String x:Key="AddMultipleSoftware_ApplyThisCategoryTo">Áp dụng danh mục này cho toàn bộ hàng đợi</system:String>
+    <system:String x:Key="AddMultipleSoftware_Apply">Áp dụng</system:String>
+    <system:String x:Key="AddMultipleSoftware_RemoveFromQueue">Xóa khỏi hàng đợi</system:String>
+    <system:String x:Key="AddMultipleSoftware_SaveAllProcess">Lưu tất cả &amp; Xử lý</system:String>
+    <system:String x:Key="AddMultipleSoftware_SelectASoftwareItem">Chọn 1 phần mềm trong hàng đợi để chỉnh sửa chi tiết,</system:String>
+    <system:String x:Key="AddMultipleSoftware_OrClickAddFiles">hoặc bấm "Thêm file..." để bắt đầu.</system:String>
+    <system:String x:Key="AddMultipleSoftware_SoftwareDetails">Chi tiết phần mềm</system:String>
+    <system:String x:Key="AddMultipleSoftware_InstallerFile">File cài đặt</system:String>
+    <system:String x:Key="AddMultipleSoftware_ChangeIcon">Đổi Icon...</system:String>
+    <system:String x:Key="AddMultipleSoftware_RemoveThisItemFrom">Xóa mục này khỏi hàng đợi</system:String>
+
+    <!-- Màn hình: AddSoftware -->
+    <system:String x:Key="AddSoftware_AddNewSoftware">Thêm phần mềm mới</system:String>
+    <system:String x:Key="AddSoftware_SoftwareInformation">Thông tin phần mềm</system:String>
+    <system:String x:Key="AddSoftware_Browse">Duyệt...</system:String>
+    <system:String x:Key="AddSoftware_SaveProcessFile">Lưu &amp; Xử lý File</system:String>
+    <system:String x:Key="AddSoftware_ProcessingFileCreatingClone">Đang xử lý file &amp; tạo clone...</system:String>
+
+    <!-- Màn hình: AddVersion -->
+    <system:String x:Key="AddVersion_AddNewVersion">Thêm phiên bản mới</system:String>
+    <system:String x:Key="AddVersion_AddSecondaryVersion">Thêm phiên bản phụ</system:String>
+    <system:String x:Key="AddVersion_AddingANewVersion">Đang thêm bản mới cho ứng dụng:</system:String>
+    <system:String x:Key="AddVersion_BrowseFile">Duyệt file</system:String>
+    <system:String x:Key="AddVersion_SoftwareVersion">Phiên bản phần mềm</system:String>
+    <system:String x:Key="AddVersion_ThisIsAPortable">Đây là bản Portable (Không cần cài đặt)</system:String>
+    <system:String x:Key="AddVersion_SaveData">Lưu dữ liệu</system:String>
+    <system:String x:Key="AddVersion_SaveVersion">Lưu Phiên Bản</system:String>
+    <system:String x:Key="AddVersion_ProcessingFile">Đang xử lý file...</system:String>
+
+    <!-- Màn hình: AttachResource -->
+    <system:String x:Key="AttachResource_AttachResourcesFor" xml:space="preserve">Đính kèm tài nguyên cho </system:String>
+    <system:String x:Key="AttachResource_ChooseOneOrMore">Chọn 1 hoặc nhiều tài nguyên (ISO, DLL, driver, script...) đã có trong Thư viện Tài nguyên để gắn kèm.</system:String>
+    <system:String x:Key="AttachResource_ResourcesSelected" xml:space="preserve"> tài nguyên đang được chọn</system:String>
+    <system:String x:Key="AttachResource_SelectAll">Chọn tất cả</system:String>
+    <system:String x:Key="AttachResource_Deselect">Bỏ chọn</system:String>
+    <system:String x:Key="AttachResource_NoSuitableResourcesLeft">Không còn tài nguyên nào phù hợp để đính kèm</system:String>
+    <system:String x:Key="AttachResource_AttachSelected">Đính kèm đã chọn (</system:String>
+
+    <!-- Màn hình: ConfigureUpdateSource -->
+    <system:String x:Key="ConfigureUpdateSource_UpdateCheckConfiguration">Cấu hình kiểm tra cập nhật</system:String>
+    <system:String x:Key="ConfigureUpdateSource_DetectAgain">Dò lại</system:String>
+    <system:String x:Key="ConfigureUpdateSource_SourceType">Loại nguồn</system:String>
+    <system:String x:Key="ConfigureUpdateSource_WingetPackageID">ID gói Winget</system:String>
+    <system:String x:Key="ConfigureUpdateSource_GitHubRepoOwnerRepo">Repo GitHub (dạng owner/repo)</system:String>
+    <system:String x:Key="ConfigureUpdateSource_URLOfThePage">URL trang cần quét</system:String>
+    <system:String x:Key="ConfigureUpdateSource_RegexToExtractThe">Regex lấy số phiên bản (1 capture group)</system:String>
+    <system:String x:Key="ConfigureUpdateSource_RegexToExtractThe2">Regex lấy link tải (tuỳ chọn, 1 capture group)</system:String>
+    <system:String x:Key="ConfigureUpdateSource_SaveConfiguration">Lưu cấu hình</system:String>
+    <system:String x:Key="ConfigureUpdateSource_Saving">Đang lưu...</system:String>
+
+    <!-- Màn hình: Dashboard -->
+    <system:String x:Key="Dashboard_GENERALINFORMATION">THÔNG TIN TỔNG QUÁT</system:String>
+    <system:String x:Key="Dashboard_TotalVersionsSoftware" xml:space="preserve">Tổng phiên bản, phần mềm : </system:String>
+    <system:String x:Key="Dashboard_Files" xml:space="preserve"> File</system:String>
+    <system:String x:Key="Dashboard_LibraryStructure">Cấu trúc Thư viện</system:String>
+    <system:String x:Key="Dashboard_DriveInformation">Thông tin Ổ cứng</system:String>
+    <system:String x:Key="Dashboard_Type">Loại:</system:String>
+    <system:String x:Key="Dashboard_Health">Sức khỏe:</system:String>
+    <system:String x:Key="Dashboard_StorageStatus">Trạng Thái Lưu Trữ (Storage)</system:String>
+    <system:String x:Key="Dashboard_Used">Đã sử dụng</system:String>
+    <system:String x:Key="Dashboard_Free">Còn trống</system:String>
+    <system:String x:Key="Dashboard_RecentlyAddedSoftware">Phần Mềm Thêm Gần Đây</system:String>
+    <system:String x:Key="Dashboard_NoSoftwareHasBeen">Chưa có phần mềm nào được thêm gần đây.</system:String>
+    <system:String x:Key="Dashboard_CategorySize">Dung Lượng Danh Mục</system:String>
+    <system:String x:Key="Dashboard_TotalResources">Tổng tài nguyên</system:String>
+    <system:String x:Key="Dashboard_NoSizeDataYet">Chưa có dữ liệu dung lượng.</system:String>
+    <system:String x:Key="Dashboard_CategoryStatistics">Thống Kê Danh Mục</system:String>
+    <system:String x:Key="Dashboard_NoCategoriesYet">Chưa có danh mục nào.</system:String>
+
+    <!-- Màn hình: Deployment -->
+    <system:String x:Key="Deployment_INSTALLBYSELECTION">CÀI ĐẶT THEO LỰA CHỌN</system:String>
+    <system:String x:Key="Deployment_EnterASoftwareName">Nhập tên phần mềm, nhà phát triển hoặc danh mục để tìm kiếm...</system:String>
+    <system:String x:Key="Deployment_InstallationVersion">Phiên bản cài đặt</system:String>
+    <system:String x:Key="Deployment_STARTINSTALLATION">TIẾN HÀNH CÀI ĐẶT (</system:String>
+    <system:String x:Key="Deployment_InstallPortableToAnother">Cài Portable sang phân vùng khác</system:String>
+    <system:String x:Key="Deployment_ChooseFolder">Chọn thư mục</system:String>
+    <system:String x:Key="Deployment_OpenExplorerAtThe">Mở Explorer tới vị trí các tài nguyên đính kèm</system:String>
+    <system:String x:Key="Deployment_OpenResourcesWhenInstallatio">Mở tài nguyên khi cài xong</system:String>
+    <system:String x:Key="Deployment_DeploymentLogs">Nhật ký cài đặt</system:String>
+
+    <!-- Màn hình: EditSoftware -->
+    <system:String x:Key="EditSoftware_EditSoftware">Chỉnh sửa phần mềm</system:String>
+    <system:String x:Key="EditSoftware_UpdateInformation">Cập nhật thông tin</system:String>
+    <system:String x:Key="EditSoftware_SilentInstallCommand">Lệnh cài đặt ngầm (Silent Install Cmd)</system:String>
+    <system:String x:Key="EditSoftware_SilentUninstallCommand">Lệnh gỡ cài đặt ngầm (Silent Uninstall Cmd)</system:String>
+    <system:String x:Key="EditSoftware_NotesInstallationInstruction">Ghi chú / Hướng dẫn cài đặt (Readme)</system:String>
+    <system:String x:Key="EditSoftware_SaveChanges">Lưu Cập Nhật</system:String>
+
+    <!-- Màn hình: Library -->
+    <system:String x:Key="Library_SOFTWARELIBRARY">KHO PHẦN MỀM</system:String>
+    <system:String x:Key="Library_Refresh">Làm mới</system:String>
+    <system:String x:Key="Library_CleanUpJunk">Dọn dẹp rác</system:String>
+    <system:String x:Key="Library_CleanUp">Dọn dẹp</system:String>
+    <system:String x:Key="Library_EditInfo">Sửa thông tin</system:String>
+    <system:String x:Key="Library_Remove">Xóa bỏ</system:String>
+    <system:String x:Key="Library_AddNew">Thêm mới</system:String>
+    <system:String x:Key="Library_AddSoftware">Thêm phần mềm</system:String>
+    <system:String x:Key="Library_AddMultiple">Thêm nhiều</system:String>
+    <system:String x:Key="Library_SoftwareDescription">Mô tả phần mềm</system:String>
+    <system:String x:Key="Library_LicenseCDKey">Giấy phép / CD-Key</system:String>
+    <system:String x:Key="Library_NotesInstructions">Ghi chú &amp; Hướng dẫn</system:String>
+    <system:String x:Key="Library_SavedVersions">Danh sách phiên bản đã lưu</system:String>
+    <system:String x:Key="Library_AddVersion">Thêm phiên bản</system:String>
+    <system:String x:Key="Library_VersionName">Tên phiên bản</system:String>
+    <system:String x:Key="Library_InstallType">Loại cài đặt</system:String>
+    <system:String x:Key="Library_RunInstall">Chạy / Cài đặt</system:String>
+    <system:String x:Key="Library_DeleteVersion">Xóa phiên bản</system:String>
+    <system:String x:Key="Library_AttachedResources">Tài nguyên đính kèm</system:String>
+    <system:String x:Key="Library_OpenResourceLocation">Mở vị trí tài nguyên</system:String>
+    <system:String x:Key="Library_Detach">Gỡ đính kèm</system:String>
+    <system:String x:Key="Library_NoResourcesAttachedYet">Chưa có tài nguyên nào được đính kèm</system:String>
+    <system:String x:Key="Library_CollapseDetails">Thu gọn chi tiết</system:String>
+
+    <!-- Màn hình: PresetEditor -->
+    <system:String x:Key="PresetEditor_DesignInstallPackagePreset">Thiết kế Gói Cài Đặt (Preset)</system:String>
+    <system:String x:Key="PresetEditor_ClickToChangeIcon">Click để đổi Icon</system:String>
+    <system:String x:Key="PresetEditor_InstallPackageNamePreset">Tên Gói Cài Đặt (Preset Name)</system:String>
+    <system:String x:Key="PresetEditor_SwitchView">Đổi góc nhìn</system:String>
+    <system:String x:Key="PresetEditor_Add">Thêm</system:String>
+    <system:String x:Key="PresetEditor_AddedToPackage">Đã Thêm Vào Gói</system:String>
+    <system:String x:Key="PresetEditor_ChooseASpecificVersion">Chọn phiên bản cụ thể cho từng phần mềm</system:String>
+    <system:String x:Key="PresetEditor_SAVEPRESET">LƯU GÓI PRESET</system:String>
+
+    <!-- Màn hình: PresetMain -->
+    <system:String x:Key="PresetMain_INSTALLBYCUSTOMPACKAGE">CÀI ĐẶT THEO GÓI TÙY CHỈNH</system:String>
+    <system:String x:Key="PresetMain_OpenIconLibraryFolder">Mở thư mục kho Icon</system:String>
+    <system:String x:Key="PresetMain_IconLibrary">Kho Icon</system:String>
+    <system:String x:Key="PresetMain_CreateNewPreset">Tạo Preset Mới</system:String>
+    <system:String x:Key="PresetMain_SavedPackages">Danh sách Gói đã lưu</system:String>
+    <system:String x:Key="PresetMain_DeletePreset">Xóa Preset</system:String>
+    <system:String x:Key="PresetMain_PackageContents" xml:space="preserve">Nội dung gói: </system:String>
+    <system:String x:Key="PresetMain_AfterEachSoftwareIn">Sau khi cài xong 1 phần mềm trong gói, tự động mở Explorer tới vị trí các tài nguyên (license, keygen, hướng dẫn...) đã đính kèm cho phần mềm đó</system:String>
+    <system:String x:Key="PresetMain_OpenAttachedResourcesWhen">Mở tài nguyên đính kèm khi cài xong</system:String>
+    <system:String x:Key="PresetMain_TotalNumberOfSoftware">Tổng số phần mềm</system:String>
+    <system:String x:Key="PresetMain_TotalInstallationSize">Tổng dung lượng cài đặt</system:String>
+    <system:String x:Key="PresetMain_STARTINSTALLINGTHISPACKAGE">BẮT ĐẦU CÀI ĐẶT GÓI NÀY</system:String>
+
+    <!-- Màn hình: ResourceFileEditor -->
+    <system:String x:Key="ResourceFileEditor_EditResource">Chỉnh sửa Tài nguyên</system:String>
+    <system:String x:Key="ResourceFileEditor_ResourceInformation">Thông tin Tài nguyên</system:String>
+    <system:String x:Key="ResourceFileEditor_Step1ChooseA">Bước 1: Chọn file hoặc thư mục trên thiết bị</system:String>
+    <system:String x:Key="ResourceFileEditor_TheSystemWillAutomatically">Hệ thống sẽ tự động copy vào ứng dụng, quét dung lượng và nhận diện icon</system:String>
+    <system:String x:Key="ResourceFileEditor_ChooseFile">Chọn File</system:String>
+    <system:String x:Key="ResourceFileEditor_ChooseAFolderContaining">Chọn 1 thư mục chứa nhiều file nhỏ (VD: bộ driver, bộ tool)</system:String>
+    <system:String x:Key="ResourceFileEditor_ChooseFolder">Chọn Thư Mục</system:String>
+    <system:String x:Key="ResourceFileEditor_FOLDERModeAllFiles">Đang ở chế độ THƯ MỤC — toàn bộ file bên trong sẽ được copy nguyên vẹn (kể cả thư mục con).</system:String>
+    <system:String x:Key="ResourceFileEditor_ChangeIconManually">Đổi Icon thủ công</system:String>
+    <system:String x:Key="ResourceFileEditor_RemoveCustomIconUse">Bỏ icon tự chọn, dùng icon tự động</system:String>
+    <system:String x:Key="ResourceFileEditor_DisplayNameYouCan">Tên hiển thị (Có thể sửa lại cho đẹp)</system:String>
+    <system:String x:Key="ResourceFileEditor_SizeAutomatic">Dung lượng (Tự động)</system:String>
+    <system:String x:Key="ResourceFileEditor_OriginalFileNameUpdated">Tên file gốc (Tự động cập nhật)</system:String>
+    <system:String x:Key="ResourceFileEditor_DescriptionDetailedNotes">Mô tả / Ghi chú chi tiết</system:String>
+    <system:String x:Key="ResourceFileEditor_SAVEDATA">LƯU DỮ LIỆU</system:String>
+
+    <!-- Màn hình: ResourceFileMain -->
+    <system:String x:Key="ResourceFileMain_ResourceLibraryISODLL">Thư viện Tài nguyên (ISO / DLL / Configs)</system:String>
+    <system:String x:Key="ResourceFileMain_AddNewFile">Thêm File Mới</system:String>
+    <system:String x:Key="ResourceFileMain_SelectAResourceTo">Chọn một tài nguyên để xem chi tiết</system:String>
+    <system:String x:Key="ResourceFileMain_FileName">Tên file</system:String>
+    <system:String x:Key="ResourceFileMain_DescriptionNotes">Mô tả / Ghi chú:</system:String>
+    <system:String x:Key="ResourceFileMain_OpenFolder">Mở Thư Mục</system:String>
+    <system:String x:Key="ResourceFileMain_RemoveFromLibrary">Xóa khỏi thư viện</system:String>
+
+    <!-- Màn hình: Tools -->
+    <system:String x:Key="Tools_ExtraTools">Công cụ mở rộng</system:String>
+    <system:String x:Key="Tools_AddTool">+ Thêm công cụ</system:String>
+    <system:String x:Key="Tools_NoToolsYetClick">Chưa có công cụ nào. Bấm "Thêm công cụ" để cài đặt file .dll đầu tiên.</system:String>
+    <system:String x:Key="Tools_ToolName">Tên công cụ</system:String>
+    <system:String x:Key="Tools_Export">Xuất</system:String>
+    <system:String x:Key="Tools_ThereAreNoTools">Chưa có công cụ nào để quản lý.</system:String>
+    <system:String x:Key="Tools_BackToList">← Quay lại danh sách</system:String>
+
+    <!-- Màn hình: Uninstall -->
+    <system:String x:Key="Uninstall_PersonalApps">App cá nhân</system:String>
+    <system:String x:Key="Uninstall_SupportSoftware">Phần mềm hỗ trợ</system:String>
+    <system:String x:Key="Uninstall_SystemApps">App hệ thống</system:String>
+    <system:String x:Key="Uninstall_AppName">Tên ứng dụng</system:String>
+    <system:String x:Key="Uninstall_InstallDate">Ngày cài</system:String>
+    <system:String x:Key="Uninstall_SelectedList">Danh sách đã chọn</system:String>
+    <system:String x:Key="Uninstall_Uninstall">Gỡ cài đặt</system:String>
+    <system:String x:Key="Uninstall_Items">phần mềm</system:String>
+
+    <!-- Màn hình: UpdateCenter -->
+    <system:String x:Key="UpdateCenter_ViewUserGuide">Xem hướng dẫn sử dụng</system:String>
+    <system:String x:Key="UpdateCenter_AutomaticallyDetectAndApply">Tự động dò và áp cấu hình gợi ý sẵn cho toàn bộ phần mềm chưa cấu hình</system:String>
+    <system:String x:Key="UpdateCenter_AutoConfigure">Tự động cấu hình</system:String>
+    <system:String x:Key="UpdateCenter_DownloadAllAvailableUpdates">Tải tất cả bản cập nhật đang có về thư viện (Data/), không đụng gì tới máy này</system:String>
+    <system:String x:Key="UpdateCenter_ScanAllSoftwareThat">Quét toàn bộ phần mềm đã cấu hình nguồn cập nhật</system:String>
+    <system:String x:Key="UpdateCenter_SourceConfigured">Đã cấu hình nguồn</system:String>
+    <system:String x:Key="UpdateCenter_UpdateAvailable">Có bản cập nhật</system:String>
+    <system:String x:Key="UpdateCenter_NotConfigured">Chưa cấu hình</system:String>
+    <system:String x:Key="UpdateCenter_All">Tất cả</system:String>
+    <system:String x:Key="UpdateCenter_NewVersionAvailable">Có bản mới</system:String>
+    <system:String x:Key="UpdateCenter_Configured">Đã cấu hình</system:String>
+    <system:String x:Key="UpdateCenter_GroupByCategory">Nhóm theo danh mục</system:String>
+    <system:String x:Key="UpdateCenter_SOFTWARE">PHẦN MỀM</system:String>
+    <system:String x:Key="UpdateCenter_VERSION">PHIÊN BẢN</system:String>
+    <system:String x:Key="UpdateCenter_UPDATESTATUS">TRẠNG THÁI CẬP NHẬT</system:String>
+    <system:String x:Key="UpdateCenter_ACTIONS">THAO TÁC</system:String>
+    <system:String x:Key="UpdateCenter_ConfigureUpdateCheckSource">Cấu hình nguồn kiểm tra cập nhật</system:String>
+    <system:String x:Key="UpdateCenter_ScanThisSoftwareOnly">Quét riêng phần mềm này</system:String>
+    <system:String x:Key="UpdateCenter_DownloadTheNewVersion">Tải bản mới về và thêm vào thư viện (không cài lên máy)</system:String>
+    <system:String x:Key="UpdateCenter_Download">Tải về</system:String>
+    <system:String x:Key="UpdateCenter_DownloadTheNewVersion2">Tải bản mới, thêm vào thư viện, rồi cài luôn lên máy này</system:String>
+    <system:String x:Key="UpdateCenter_InstallNow">Cài ngay</system:String>
+    <system:String x:Key="UpdateCenter_ProcessingViaWinget">Đang xử lý qua Winget...</system:String>
+    <system:String x:Key="UpdateCenter_TheLibraryHasNo">Thư viện chưa có phần mềm nào</system:String>
+
 </ResourceDictionary>

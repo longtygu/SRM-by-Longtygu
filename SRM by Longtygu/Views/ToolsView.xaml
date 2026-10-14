@@ -122,7 +122,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Công cụ mở rộng" FontSize="24" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="{DynamicResource Tools_ExtraTools}" FontSize="24" FontWeight="Bold" Foreground="White"/>
                     <TextBlock FontSize="13" Foreground="#A0A0A0" Margin="0,4,0,0" TextWrapping="Wrap">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -142,7 +142,7 @@
                             Background="#3A3A3A" Foreground="White" FontWeight="SemiBold"
                             Padding="16,8" BorderThickness="0" Cursor="Hand" Margin="0,0,10,0"/>
 
-                    <Button Content="+ Thêm công cụ" Command="{Binding AddToolCommand}"
+                    <Button Content="{DynamicResource Tools_AddTool}" Command="{Binding AddToolCommand}"
                             Background="#60CDFF" Foreground="#202020" FontWeight="SemiBold"
                             Padding="16,8" BorderThickness="0" Cursor="Hand"/>
                 </StackPanel>
@@ -182,7 +182,7 @@
                     </ScrollViewer>
 
                     <!-- Thông báo khi chưa có tool nào -->
-                    <TextBlock Text="Chưa có công cụ nào. Bấm &quot;Thêm công cụ&quot; để cài đặt file .dll đầu tiên."
+                    <TextBlock Text="{DynamicResource Tools_NoToolsYetClick}"
                                Foreground="#666666" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Visibility="Collapsed">
                         <TextBlock.Style>
@@ -222,10 +222,10 @@
                                     <ColumnDefinition Width="110"/>
                                     <ColumnDefinition Width="180"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="1" Text="Tên công cụ" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
-                                <TextBlock Grid.Column="2" Text="Version" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
-                                <TextBlock Grid.Column="3" Text="Trạng thái" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
-                                <TextBlock Grid.Column="4" Text="Thao tác" FontSize="12" Foreground="#808080" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                                <TextBlock Grid.Column="1" Text="{DynamicResource Tools_ToolName}" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="2" Text="{DynamicResource Common_Version}" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="3" Text="{DynamicResource Common_Status}" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="4" Text="{DynamicResource Common_Actions}" FontSize="12" Foreground="#808080" FontWeight="SemiBold" HorizontalAlignment="Right"/>
                             </Grid>
 
                             <ItemsControl ItemsSource="{Binding AvailableTools}">
@@ -279,12 +279,12 @@
 
                                                 <!-- Thao tác: Xuất / Xóa -->
                                                 <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                                    <Button Content="Xuất" Style="{StaticResource RowActionButtonStyle}"
+                                                    <Button Content="{DynamicResource Tools_Export}" Style="{StaticResource RowActionButtonStyle}"
                                                             Background="#3A6FA0" Foreground="White"
                                                             Visibility="{Binding Id, Converter={StaticResource NotBuiltInToVisibilityConverter}}"
                                                             Command="{Binding DataContext.ExportToolCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                             CommandParameter="{Binding}"/>
-                                                    <Button Content="Xóa" Style="{StaticResource RowActionButtonStyle}"
+                                                    <Button Content="{DynamicResource Common_Delete}" Style="{StaticResource RowActionButtonStyle}"
                                                             Background="#B02A37" Foreground="White"
                                                             Visibility="{Binding Id, Converter={StaticResource NotBuiltInToVisibilityConverter}}"
                                                             Command="{Binding DataContext.DeleteToolCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -300,7 +300,7 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <TextBlock Text="Chưa có công cụ nào để quản lý."
+                    <TextBlock Text="{DynamicResource Tools_ThereAreNoTools}"
                                Foreground="#666666" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Visibility="Collapsed">
                         <TextBlock.Style>
@@ -336,7 +336,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="← Quay lại danh sách" Command="{Binding BackToListCommand}"
+            <Button Grid.Row="0" Content="{DynamicResource Tools_BackToList}" Command="{Binding BackToListCommand}"
                     Background="Transparent" Foreground="#60CDFF" BorderThickness="0"
                     HorizontalAlignment="Left" Margin="0,0,0,16" Cursor="Hand"/>
 

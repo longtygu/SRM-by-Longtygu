@@ -138,7 +138,7 @@
         </Grid.RowDefinitions>
 
         <!-- TIÊU ĐỀ -->
-        <TextBlock Grid.Row="0" Text="GỠ CÀI ĐẶT TÙY CHỌN" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,24"/>
+        <TextBlock Grid.Row="0" Text="{DynamicResource Menu_Uninstall}" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,24"/>
 
         <!-- HÀNG TÌM KIẾM & BỘ LỌC -->
         <Grid Grid.Row="1" Margin="0,0,0,24">
@@ -158,9 +158,9 @@
             <!-- Các công tắc Filter -->
             <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowUserApps}" Content="App cá nhân"/>
-                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowComponentApps}" Content="Phần mềm hỗ trợ"/>
-                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowSystemApps}" Content="App hệ thống"/>
+                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowUserApps}" Content="{DynamicResource Uninstall_PersonalApps}"/>
+                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowComponentApps}" Content="{DynamicResource Uninstall_SupportSoftware}"/>
+                    <CheckBox Style="{StaticResource FluentToggleStyle}" IsChecked="{Binding ShowSystemApps}" Content="{DynamicResource Uninstall_SystemApps}"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
@@ -298,7 +298,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Danh sách đã chọn" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16"/>
+                        <TextBlock Text="{DynamicResource Uninstall_SelectedList}" Foreground="#FFFFFF" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16"/>
 
                         <ListBox Grid.Row="1" ItemsSource="{Binding SelectedApps}" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListBox.ItemContainerStyle>
@@ -362,9 +362,9 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <iconPacks:PackIconMaterial Kind="Delete" Margin="0,0,8,0" VerticalAlignment="Center" Width="18" Height="18"/>
                                 <TextBlock FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center">
-                                    <Run Text="Gỡ cài đặt"/>
+                                    <Run Text="{DynamicResource Uninstall_Uninstall}"/>
                                     <Run Text="{Binding SelectedCount, Mode=OneWay}"/>
-                                    <Run Text="phần mềm"/>
+                                    <Run Text="{DynamicResource Uninstall_Items}"/>
                                 </TextBlock>
                             </StackPanel>
                         </Button>

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:converters="clr-namespace:SRM_by_Longtygu.Converters"
-        Title="Cấu hình kiểm tra cập nhật" Height="760" Width="560"
+        Title="{DynamicResource ConfigureUpdateSource_UpdateCheckConfiguration}" Height="760" Width="560"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
@@ -196,7 +196,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
                     <iconPacks:PackIconMaterial Kind="CloudSyncOutline" Foreground="#60CDFF" Width="14" Height="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Cấu hình kiểm tra cập nhật" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource ConfigureUpdateSource_UpdateCheckConfiguration}" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                 </StackPanel>
                 <Button Grid.Column="1" Style="{StaticResource CloseButtonStyle}" Width="45" Click="CloseButton_Click">
                     <iconPacks:PackIconMaterial Kind="WindowClose" Width="12" Height="12"/>
@@ -220,16 +220,16 @@
                                 <iconPacks:PackIconMaterial Kind="AutoFix" Width="16" Height="16" Foreground="#60CDFF" Margin="0,0,10,0" VerticalAlignment="Top"/>
                                 <TextBlock Grid.Column="1" Text="{Binding SuggestionMessage}" Foreground="#CCCCCC" FontSize="12" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                 <Button Grid.Column="2" Command="{Binding AutoSuggestCommand}" Background="Transparent" BorderThickness="0"
-                                        Foreground="#60CDFF" FontSize="11" FontWeight="SemiBold" Cursor="Hand" Padding="8,0,0,0" Content="Dò lại"/>
+                                        Foreground="#60CDFF" FontSize="11" FontWeight="SemiBold" Cursor="Hand" Padding="8,0,0,0" Content="{DynamicResource ConfigureUpdateSource_DetectAgain}"/>
                             </Grid>
                         </Border>
 
-                        <TextBlock Text="Loại nguồn" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                        <TextBlock Text="{DynamicResource ConfigureUpdateSource_SourceType}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
                         <ComboBox ItemsSource="{Binding SourceOptions}" SelectedItem="{Binding SelectedSourceOption}" Margin="0,0,0,20"/>
 
                         <!-- Chế độ Winget -->
                         <StackPanel Visibility="{Binding IsWingetMode, Converter={StaticResource BoolToVis}}">
-                            <TextBlock Text="ID gói Winget" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource ConfigureUpdateSource_WingetPackageID}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
                             <TextBox Text="{Binding UpdateSourceUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" FontFamily="Consolas"/>
                             <TextBlock Foreground="#777777" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,20">
                                 VD: VideoLAN.VLC — mở CMD gõ "winget search &lt;tên phần mềm&gt;" để tra đúng ID (cột Id).
@@ -239,21 +239,21 @@
 
                         <!-- Chế độ GitHub -->
                         <StackPanel Visibility="{Binding IsGitHubMode, Converter={StaticResource BoolToVis}}">
-                            <TextBlock Text="Repo GitHub (dạng owner/repo)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource ConfigureUpdateSource_GitHubRepoOwnerRepo}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
                             <TextBox Text="{Binding UpdateSourceUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8"/>
                             <TextBlock Text="VD: videolan/vlc — app sẽ gọi GitHub Releases API để lấy tag_name mới nhất." Foreground="#777777" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,20"/>
                         </StackPanel>
 
                         <!-- Chế độ Regex trang web -->
                         <StackPanel Visibility="{Binding IsRegexMode, Converter={StaticResource BoolToVis}}">
-                            <TextBlock Text="URL trang cần quét" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource ConfigureUpdateSource_URLOfThePage}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
                             <TextBox Text="{Binding UpdateSourceUrl, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,14"/>
 
-                            <TextBlock Text="Regex lấy số phiên bản (1 capture group)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource ConfigureUpdateSource_RegexToExtractThe}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
                             <TextBox Text="{Binding UpdateVersionPattern, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" FontFamily="Consolas"/>
                             <TextBlock Text="VD: Phi.n b.n[^\d]*(\d+(?:\.\d+)+)" Foreground="#777777" FontSize="11" Margin="0,0,0,14"/>
 
-                            <TextBlock Text="Regex lấy link tải (tuỳ chọn, 1 capture group)" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource ConfigureUpdateSource_RegexToExtractThe2}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
                             <TextBox Text="{Binding UpdateDownloadPattern, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,8" FontFamily="Consolas"/>
                             <TextBlock Text="VD: href=&quot;([^&quot;]+\.exe)&quot;. Để trống nếu chỉ muốn báo có bản mới, không tự tải." Foreground="#777777" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,20"/>
                         </StackPanel>
@@ -264,12 +264,12 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" Command="{Binding CancelCommand}" Style="{StaticResource SecondaryButtonStyle}" Padding="15,12" Margin="0,0,8,0">
-                                <TextBlock Text="Huỷ" FontWeight="SemiBold"/>
+                                <TextBlock Text="{DynamicResource Common_Cancel}" FontWeight="SemiBold"/>
                             </Button>
                             <Button Grid.Column="1" Command="{Binding SaveCommand}" Style="{StaticResource FluentButtonStyle}" Background="#16A34A" Padding="15,12" Margin="8,0,0,0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <iconPacks:PackIconMaterial Kind="ContentSave" Margin="0,0,10,0" VerticalAlignment="Center" Width="16" Height="16"/>
-                                    <TextBlock Text="Lưu cấu hình" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource ConfigureUpdateSource_SaveConfiguration}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -292,7 +292,7 @@
                                 <RotateTransform CenterX="20" CenterY="20"/>
                             </iconPacks:PackIconMaterial.RenderTransform>
                         </iconPacks:PackIconMaterial>
-                        <TextBlock Text="Đang lưu..." Foreground="#FFFFFF" FontSize="15" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource ConfigureUpdateSource_Saving}" Foreground="#FFFFFF" FontSize="15" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
             </Grid>

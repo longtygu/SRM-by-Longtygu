@@ -224,7 +224,7 @@
 
         <!-- ============ TIÊU ĐỀ ============ -->
         <StackPanel Grid.Row="0" Margin="0,0,0,22">
-            <TextBlock Text="Test nhanh tốc độ đọc ghi" FontSize="24" FontWeight="Bold" Foreground="White"/>
+            <TextBlock Text="{DynamicResource DiskHealth_QuickReadWriteSpeed}" FontSize="24" FontWeight="Bold" Foreground="White"/>
             <TextBlock Text="{Binding StatusText}" FontSize="12.5" Foreground="#60CDFF" Margin="0,6,0,0"/>
         </StackPanel>
 
@@ -238,7 +238,7 @@
                                                      Foreground="#60CDFF"
                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <TextBlock Text="Tốc độ đọc / ghi" FontSize="15" FontWeight="SemiBold" Foreground="White"
+                    <TextBlock Text="{DynamicResource DiskHealth_ReadWriteSpeed}" FontSize="15" FontWeight="SemiBold" Foreground="White"
                                VerticalAlignment="Center" Margin="10,0,0,0"/>
                 </StackPanel>
 
@@ -247,7 +247,7 @@
                               ItemsSource="{Binding AvailableDrives}" SelectedItem="{Binding SelectedDrive}"
                               Width="110" Margin="0,0,12,0"/>
 
-                    <Button Content="Bắt đầu kiểm tra" Command="{Binding RunBenchmarkCommand}" Margin="0,0,8,0">
+                    <Button Content="{DynamicResource Common_StartTest}" Command="{Binding RunBenchmarkCommand}" Margin="0,0,8,0">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource FluentAccentButton}">
                                 <Style.Triggers>
@@ -259,7 +259,7 @@
                         </Button.Style>
                     </Button>
 
-                    <Button Content="Hủy" Command="{Binding CancelBenchmarkCommand}">
+                    <Button Content="{DynamicResource Common_Cancel}" Command="{Binding CancelBenchmarkCommand}">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource FluentDangerButton}">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -282,7 +282,7 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="TrayArrowDown" Width="13" Height="13" Foreground="#6CCB5F"/>
-                                <TextBlock Text="Tốc độ ghi" FontSize="11" Foreground="#A0A0A0" Margin="6,0,0,0"/>
+                                <TextBlock Text="{DynamicResource DiskHealth_WriteSpeed}" FontSize="11" Foreground="#A0A0A0" Margin="6,0,0,0"/>
                             </StackPanel>
                             <TextBlock Text="{Binding WriteSpeedResult}" FontSize="22" FontWeight="Bold"
                                        Foreground="#6CCB5F" Margin="0,6,0,0"/>
@@ -293,7 +293,7 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <iconPacks:PackIconMaterial Kind="TrayArrowUp" Width="13" Height="13" Foreground="#60CDFF"/>
-                                <TextBlock Text="Tốc độ đọc" FontSize="11" Foreground="#A0A0A0" Margin="6,0,0,0"/>
+                                <TextBlock Text="{DynamicResource DiskHealth_ReadSpeed}" FontSize="11" Foreground="#A0A0A0" Margin="6,0,0,0"/>
                             </StackPanel>
                             <TextBlock Text="{Binding ReadSpeedResult}" FontSize="22" FontWeight="Bold"
                                        Foreground="#60CDFF" Margin="0,6,0,0"/>
@@ -304,7 +304,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
                     <iconPacks:PackIconMaterial Kind="InformationOutline" Width="13" Height="13" Foreground="#6E6E6E"
                                                  VerticalAlignment="Top" Margin="0,2,6,0"/>
-                    <TextBlock Text="Kết quả đọc có thể cao hơn thực tế do cơ chế cache của Windows. Bài test mang tính tham khảo nhanh, không thay thế công cụ benchmark chuyên sâu."
+                    <TextBlock Text="{DynamicResource DiskHealth_ReadResultsMayBe}"
                                FontSize="10.5" Foreground="#6E6E6E" TextWrapping="Wrap" Width="480"/>
                 </StackPanel>
 
@@ -331,11 +331,11 @@
                                                          Foreground="#60CDFF"
                                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <TextBlock Text="Tình trạng ổ đĩa (SMART)" FontSize="15" FontWeight="SemiBold"
+                        <TextBlock Text="{DynamicResource DiskHealth_DiskHealthSMART}" FontSize="15" FontWeight="SemiBold"
                                    Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
 
-                    <Button Grid.Column="1" Content="⟳ Làm mới" Command="{Binding RefreshHealthCommand}"
+                    <Button Grid.Column="1" Content="{DynamicResource Common_Refresh}" Command="{Binding RefreshHealthCommand}"
                             Style="{StaticResource FluentGhostButton}"/>
                 </Grid>
 

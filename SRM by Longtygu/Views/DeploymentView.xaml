@@ -190,7 +190,7 @@
         </Grid.RowDefinitions>
 
         <!-- DÒNG 0: TIÊU ĐỀ -->
-        <TextBlock Grid.Row="0" Text="CÀI ĐẶT THEO LỰA CHỌN" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,24"/>
+        <TextBlock Grid.Row="0" Text="{DynamicResource Deployment_INSTALLBYSELECTION}" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,24"/>
 
         <!-- DÒNG 1: THANH TÌM KIẾM -->
         <Border Grid.Row="1" Background="#2D2D2D" CornerRadius="6" Padding="12,8" Margin="0,0,0,24" BorderBrush="#454545" BorderThickness="1">
@@ -205,7 +205,7 @@
                          Background="Transparent" Foreground="#FFFFFF" BorderThickness="0" CaretBrush="#FFFFFF"
                          VerticalContentAlignment="Center" FontSize="14"/>
 
-                <TextBlock Grid.Column="1" Text="Nhập tên phần mềm, nhà phát triển hoặc danh mục để tìm kiếm..." 
+                <TextBlock Grid.Column="1" Text="{DynamicResource Deployment_EnterASoftwareName}" 
                            Foreground="#888888" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="14">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -378,7 +378,7 @@
                             </DataGridTemplateColumn.CellStyle>
                             <DataGridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#666666" Width="14" Height="14" ToolTip="Có tài nguyên đính kèm"/>
+                                    <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#666666" Width="14" Height="14" ToolTip="{DynamicResource Common_HasAttachedResources}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.HeaderTemplate>
                             <DataGridTemplateColumn.CellTemplate>
@@ -465,7 +465,7 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <iconPacks:PackIconMaterial Kind="RocketLaunch" Margin="0,0,8,0" VerticalAlignment="Center" Width="18" Height="18"/>
                                 <TextBlock FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center">
-                                    <Run Text="TIẾN HÀNH CÀI ĐẶT ("/>
+                                    <Run Text="{DynamicResource Deployment_STARTINSTALLATION}"/>
                                     <Run Text="{Binding SelectedCount, Mode=OneWay}"/> 
                                     <Run Text=")"/>
                                 </TextBlock>
@@ -475,7 +475,7 @@
                         <Border Background="#2D2D2D" CornerRadius="6" Padding="12" Margin="0,0,0,15" BorderBrush="#3E3E3E" BorderThickness="1">
                             <StackPanel>
                                 <CheckBox IsChecked="{Binding IsCustomPathEnabled}" Cursor="Hand">
-                                    <TextBlock Text="Cài Portable sang phân vùng khác" Foreground="#CCCCCC" FontWeight="SemiBold" FontSize="12" Margin="5,0,0,0" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{DynamicResource Deployment_InstallPortableToAnother}" Foreground="#CCCCCC" FontWeight="SemiBold" FontSize="12" Margin="5,0,0,0" TextWrapping="Wrap"/>
                                 </CheckBox>
 
                                 <Grid Margin="0,12,0,0" IsEnabled="{Binding IsCustomPathEnabled}">
@@ -493,7 +493,7 @@
                                         </TextBox.Resources>
                                     </TextBox>
 
-                                    <Button Grid.Column="1" Command="{Binding SelectInstallFolderCommand}" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Padding="10,0" Margin="8,0,0,0" Cursor="Hand" ToolTip="Chọn thư mục">
+                                    <Button Grid.Column="1" Command="{Binding SelectInstallFolderCommand}" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Padding="10,0" Margin="8,0,0,0" Cursor="Hand" ToolTip="{DynamicResource Deployment_ChooseFolder}">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="4"/>
@@ -506,10 +506,10 @@
                                 <Border Height="1" Background="#3E3E3E" Margin="0,12,0,12"/>
 
                                 <CheckBox IsChecked="{Binding OpenResourceAfterInstall}" Cursor="Hand"
-                                          ToolTip="Mở Explorer tới vị trí các tài nguyên đính kèm">
+                                          ToolTip="{DynamicResource Deployment_OpenExplorerAtThe}">
                                     <StackPanel Orientation="Horizontal">
                                         <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#60CDFF" Width="12" Height="12" VerticalAlignment="Center" Margin="5,0,6,0"/>
-                                        <TextBlock Text="Mở tài nguyên khi cài xong" Foreground="#CCCCCC" FontWeight="SemiBold" FontSize="12" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{DynamicResource Deployment_OpenResourcesWhenInstallatio}" Foreground="#CCCCCC" FontWeight="SemiBold" FontSize="12" TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </CheckBox>
                             </StackPanel>
@@ -531,7 +531,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,12">
                             <iconPacks:PackIconMaterial Kind="ConsoleLine" Foreground="#6CCB5F" VerticalAlignment="Center" Margin="0,0,8,0" Width="14" Height="14"/>
-                            <TextBlock Text="Deployment Logs" Foreground="#888888" FontWeight="SemiBold" FontSize="12"/>
+                            <TextBlock Text="{DynamicResource Deployment_DeploymentLogs}" Foreground="#888888" FontWeight="SemiBold" FontSize="12"/>
                         </StackPanel>
                         <ListBox Grid.Row="1" ItemsSource="{Binding LiveLogs}" Background="Transparent" BorderThickness="0" Foreground="#6CCB5F" FontFamily="Consolas" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListBox.ItemContainerStyle>

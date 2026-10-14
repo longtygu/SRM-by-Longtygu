@@ -184,7 +184,7 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                 <iconPacks:PackIconMaterial Kind="CloudSyncOutline" Width="28" Height="28" Foreground="#7C3AED" Margin="0,0,12,0" VerticalAlignment="Center"/>
                 <StackPanel>
-                    <TextBlock Text="TRUNG TÂM CẬP NHẬT" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF"/>
+                    <TextBlock Text="{DynamicResource Menu_UpdateCenter}" FontSize="28" FontWeight="SemiBold" Foreground="#FFFFFF"/>
                     <TextBlock Text="{Binding LastScanDisplayText}" Foreground="#888888" FontSize="12" Margin="0,2,0,0"/>
                 </StackPanel>
             </StackPanel>
@@ -192,7 +192,7 @@
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
                 <!-- MỚI: Nút hướng dẫn - luôn có thể bấm lại xem bất cứ lúc nào -->
                 <Button Command="{Binding ShowGuideCommand}" Background="#333333" BorderThickness="0" Cursor="Hand"
-                        Width="42" Height="42" Margin="0,0,10,0" ToolTip="Xem hướng dẫn sử dụng">
+                        Width="42" Height="42" Margin="0,0,10,0" ToolTip="{DynamicResource UpdateCenter_ViewUserGuide}">
                     <Button.Resources>
                         <Style TargetType="Border"><Setter Property="CornerRadius" Value="21"/></Style>
                     </Button.Resources>
@@ -202,17 +202,17 @@
                 <!-- MỚI: Tự động áp catalog gợi ý cho toàn bộ phần mềm chưa cấu hình, đỡ phải setup tay từng cái -->
                 <Button Command="{Binding AutoConfigureAllCommand}" Style="{StaticResource FluentActionButton}"
                         Background="#0284C7" VerticalAlignment="Center" Padding="16,12"
-                        ToolTip="Tự động dò và áp cấu hình gợi ý sẵn cho toàn bộ phần mềm chưa cấu hình">
+                        ToolTip="{DynamicResource UpdateCenter_AutomaticallyDetectAndApply}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="AutoFix" Margin="0,0,10,0" VerticalAlignment="Center" Width="18" Height="18"/>
-                        <TextBlock Text="Tự động cấu hình" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource UpdateCenter_AutoConfigure}" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
                 <!-- MỚI: Tải toàn bộ bản cập nhật đang có về thư viện cùng lúc -->
                 <Button Command="{Binding UpdateAllCommand}" Style="{StaticResource FluentActionButton}"
                         Background="#0284C7" VerticalAlignment="Center" Padding="18,12" Margin="10,0,0,0"
-                        ToolTip="Tải tất cả bản cập nhật đang có về thư viện (Data/), không đụng gì tới máy này">
+                        ToolTip="{DynamicResource UpdateCenter_DownloadAllAvailableUpdates}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="TrayArrowDown" Margin="0,0,10,0" VerticalAlignment="Center" Width="18" Height="18"/>
                         <TextBlock FontWeight="SemiBold" FontSize="14">
@@ -231,7 +231,7 @@
                 </Button>
 
                 <Button Command="{Binding CheckAllUpdatesCommand}" Style="{StaticResource FluentActionButton}"
-                        Background="#7C3AED" VerticalAlignment="Center" Padding="18,12" Margin="10,0,0,0" ToolTip="Quét toàn bộ phần mềm đã cấu hình nguồn cập nhật">
+                        Background="#7C3AED" VerticalAlignment="Center" Padding="18,12" Margin="10,0,0,0" ToolTip="{DynamicResource UpdateCenter_ScanAllSoftwareThat}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="Radar" Margin="0,0,10,0" VerticalAlignment="Center" Width="18" Height="18"/>
                         <TextBlock FontWeight="SemiBold" FontSize="14">
@@ -266,25 +266,25 @@
             <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
                 <StackPanel>
                     <TextBlock Text="{Binding TotalSoftwareCount}" FontSize="26" FontWeight="Bold" Foreground="#FFFFFF"/>
-                    <TextBlock Text="Tổng phần mềm" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
+                    <TextBlock Text="{DynamicResource Common_TotalSoftware}" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="2" Style="{StaticResource StatCardStyle}">
                 <StackPanel>
                     <TextBlock Text="{Binding ConfiguredCount}" FontSize="26" FontWeight="Bold" Foreground="#60CDFF"/>
-                    <TextBlock Text="Đã cấu hình nguồn" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
+                    <TextBlock Text="{DynamicResource UpdateCenter_SourceConfigured}" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="4" Style="{StaticResource StatCardStyle}">
                 <StackPanel>
                     <TextBlock Text="{Binding UpdateAvailableCount}" FontSize="26" FontWeight="Bold" Foreground="#16A34A"/>
-                    <TextBlock Text="Có bản cập nhật" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
+                    <TextBlock Text="{DynamicResource UpdateCenter_UpdateAvailable}" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="6" Style="{StaticResource StatCardStyle}">
                 <StackPanel>
                     <TextBlock Text="{Binding NotConfiguredCount}" FontSize="26" FontWeight="Bold" Foreground="#888888"/>
-                    <TextBlock Text="Chưa cấu hình" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
+                    <TextBlock Text="{DynamicResource UpdateCenter_NotConfigured}" Foreground="#888888" FontSize="12" Margin="0,4,0,0"/>
                 </StackPanel>
             </Border>
         </Grid>
@@ -299,18 +299,18 @@
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <RadioButton GroupName="FilterGroup" Style="{StaticResource FilterChipStyle}" IsChecked="True"
-                             Command="{Binding SetFilterCommand}" CommandParameter="All" Content="Tất cả"/>
+                             Command="{Binding SetFilterCommand}" CommandParameter="All" Content="{DynamicResource UpdateCenter_All}"/>
                 <RadioButton GroupName="FilterGroup" Style="{StaticResource FilterChipStyle}"
-                             Command="{Binding SetFilterCommand}" CommandParameter="UpdateAvailable" Content="Có bản mới"/>
+                             Command="{Binding SetFilterCommand}" CommandParameter="UpdateAvailable" Content="{DynamicResource UpdateCenter_NewVersionAvailable}"/>
                 <RadioButton GroupName="FilterGroup" Style="{StaticResource FilterChipStyle}"
-                             Command="{Binding SetFilterCommand}" CommandParameter="Configured" Content="Đã cấu hình"/>
+                             Command="{Binding SetFilterCommand}" CommandParameter="Configured" Content="{DynamicResource UpdateCenter_Configured}"/>
                 <RadioButton GroupName="FilterGroup" Style="{StaticResource FilterChipStyle}"
-                             Command="{Binding SetFilterCommand}" CommandParameter="NotConfigured" Content="Chưa cấu hình"/>
+                             Command="{Binding SetFilterCommand}" CommandParameter="NotConfigured" Content="{DynamicResource UpdateCenter_NotConfigured}"/>
             </StackPanel>
 
             <!-- MỚI: Bật/tắt nhóm theo danh mục -->
             <CheckBox Grid.Column="2" Style="{StaticResource ToggleCheckStyle}" IsChecked="{Binding GroupByCategory}"
-                      Content="Nhóm theo danh mục" Margin="0,0,16,0" VerticalAlignment="Center"/>
+                      Content="{DynamicResource UpdateCenter_GroupByCategory}" Margin="0,0,16,0" VerticalAlignment="Center"/>
 
             <Border Grid.Column="1" Background="#2D2D2D" CornerRadius="6" BorderBrush="#454545" BorderThickness="1"
                     Padding="12,8" HorizontalAlignment="Right" Width="300" Margin="0,0,16,0">
@@ -344,13 +344,13 @@
                         <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="Auto" SharedSizeGroup="colActions"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="2" Text="PHẦN MỀM" FontSize="11" FontWeight="Bold" Foreground="#777777"/>
+                    <TextBlock Grid.Column="2" Text="{DynamicResource UpdateCenter_SOFTWARE}" FontSize="11" FontWeight="Bold" Foreground="#777777"/>
                     <Border Grid.Column="3" Width="1" Background="#3A3A3A"/>
-                    <TextBlock Grid.Column="4" Text="PHIÊN BẢN" FontSize="11" FontWeight="Bold" Foreground="#777777"/>
+                    <TextBlock Grid.Column="4" Text="{DynamicResource UpdateCenter_VERSION}" FontSize="11" FontWeight="Bold" Foreground="#777777"/>
                     <Border Grid.Column="5" Width="1" Background="#3A3A3A"/>
-                    <TextBlock Grid.Column="6" Text="TRẠNG THÁI CẬP NHẬT" FontSize="11" FontWeight="Bold" Foreground="#777777"/>
+                    <TextBlock Grid.Column="6" Text="{DynamicResource UpdateCenter_UPDATESTATUS}" FontSize="11" FontWeight="Bold" Foreground="#777777"/>
                     <Border Grid.Column="7" Width="1" Background="#3A3A3A"/>
-                    <TextBlock Grid.Column="8" Text="THAO TÁC" FontSize="11" FontWeight="Bold" Foreground="#777777" Margin="0,0,8,0"/>
+                    <TextBlock Grid.Column="8" Text="{DynamicResource UpdateCenter_ACTIONS}" FontSize="11" FontWeight="Bold" Foreground="#777777" Margin="0,0,8,0"/>
                 </Grid>
             </Border>
 
@@ -429,7 +429,7 @@
                                             <!-- Trạng thái cập nhật -->
                                             <StackPanel Grid.Column="6" VerticalAlignment="Center">
                                                 <Border Style="{StaticResource NotConfiguredBadgeStyle}" Background="#333333" CornerRadius="4" Padding="8,4" HorizontalAlignment="Left">
-                                                    <TextBlock Text="Chưa cấu hình" FontSize="11" Foreground="#999999" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{DynamicResource UpdateCenter_NotConfigured}" FontSize="11" Foreground="#999999" FontWeight="SemiBold"/>
                                                 </Border>
 
                                                 <StackPanel Visibility="{Binding HasUpdateSourceConfigured, Converter={StaticResource BoolToVis}}">
@@ -448,14 +448,14 @@
                                             <StackPanel Grid.Column="8" Orientation="Horizontal" VerticalAlignment="Center">
                                                 <Button Command="{Binding DataContext.ConfigureUpdateSourceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}" Style="{StaticResource RowActionButtonStyle}"
-                                                        Background="Transparent" Padding="8" ToolTip="Cấu hình nguồn kiểm tra cập nhật" Margin="0,0,4,0"
+                                                        Background="Transparent" Padding="8" ToolTip="{DynamicResource UpdateCenter_ConfigureUpdateCheckSource}" Margin="0,0,4,0"
                                                         IsEnabled="{Binding IsDownloadingUpdate, Converter={StaticResource InverseBoolConverter}}">
                                                     <iconPacks:PackIconMaterial Kind="Cog" Width="16" Height="16" Foreground="#AAAAAA"/>
                                                 </Button>
 
                                                 <Button Command="{Binding DataContext.CheckOneUpdateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}" Style="{StaticResource RowActionButtonStyle}"
-                                                        Background="#333333" Padding="10,7" Margin="0,0,6,0" ToolTip="Quét riêng phần mềm này"
+                                                        Background="#333333" Padding="10,7" Margin="0,0,6,0" ToolTip="{DynamicResource UpdateCenter_ScanThisSoftwareOnly}"
                                                         Visibility="{Binding HasUpdateSourceConfigured, Converter={StaticResource BoolToVis}}"
                                                         IsEnabled="{Binding IsDownloadingUpdate, Converter={StaticResource InverseBoolConverter}}">
                                                     <iconPacks:PackIconMaterial Kind="Refresh" Width="14" Height="14"/>
@@ -463,23 +463,23 @@
 
                                                 <Button Command="{Binding DataContext.DownloadUpdateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}" Style="{StaticResource RowActionButtonStyle}"
-                                                        Background="#0284C7" Padding="10,7" Margin="0,0,6,0" ToolTip="Tải bản mới về và thêm vào thư viện (không cài lên máy)"
+                                                        Background="#0284C7" Padding="10,7" Margin="0,0,6,0" ToolTip="{DynamicResource UpdateCenter_DownloadTheNewVersion}"
                                                         Visibility="{Binding HasUpdateAvailable, Converter={StaticResource BoolToVis}}"
                                                         IsEnabled="{Binding IsDownloadingUpdate, Converter={StaticResource InverseBoolConverter}}">
                                                     <StackPanel Orientation="Horizontal">
                                                         <iconPacks:PackIconMaterial Kind="TrayArrowDown" Width="14" Height="14" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                                                        <TextBlock Text="Tải về" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="{DynamicResource UpdateCenter_Download}" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
 
                                                 <Button Command="{Binding DataContext.InstallUpdateNowCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}" Style="{StaticResource RowActionButtonStyle}"
-                                                        Background="#16A34A" Padding="10,7" ToolTip="Tải bản mới, thêm vào thư viện, rồi cài luôn lên máy này"
+                                                        Background="#16A34A" Padding="10,7" ToolTip="{DynamicResource UpdateCenter_DownloadTheNewVersion2}"
                                                         Visibility="{Binding HasUpdateAvailable, Converter={StaticResource BoolToVis}}"
                                                         IsEnabled="{Binding IsDownloadingUpdate, Converter={StaticResource InverseBoolConverter}}">
                                                     <StackPanel Orientation="Horizontal">
                                                         <iconPacks:PackIconMaterial Kind="Rocket" Width="14" Height="14" Margin="0,0,6,0" VerticalAlignment="Center"/>
-                                                        <TextBlock Text="Cài ngay" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="{DynamicResource UpdateCenter_InstallNow}" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Button>
                                             </StackPanel>
@@ -531,7 +531,7 @@
                                                                 </EventTrigger>
                                                             </iconPacks:PackIconMaterial.Triggers>
                                                         </iconPacks:PackIconMaterial>
-                                                        <TextBlock Text="Đang xử lý qua Winget..." FontSize="11" Foreground="#888888"/>
+                                                        <TextBlock Text="{DynamicResource UpdateCenter_ProcessingViaWinget}" FontSize="11" Foreground="#888888"/>
                                                     </StackPanel>
 
                                                     <TextBlock Grid.Column="1" Margin="10,0,0,0" FontSize="11" Foreground="#888888" VerticalAlignment="Center"
@@ -570,7 +570,7 @@
                             </Style>
                         </StackPanel.Style>
                         <iconPacks:PackIconMaterial Kind="CloudOffOutline" Width="32" Height="32" Foreground="#555555" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                        <TextBlock Text="Thư viện chưa có phần mềm nào" Foreground="#777777" FontSize="13"/>
+                        <TextBlock Text="{DynamicResource UpdateCenter_TheLibraryHasNo}" Foreground="#777777" FontSize="13"/>
                     </StackPanel>
                 </Grid>
             </Border>

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
-        Title="Đính kèm tài nguyên" Height="680" Width="820"
+        Title="{DynamicResource Common_AttachResources}" Height="680" Width="820"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
@@ -230,7 +230,7 @@
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
                     <iconPacks:PackIconMaterial Kind="Paperclip" Foreground="#60CDFF" Width="14" Height="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Đính kèm tài nguyên" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource Common_AttachResources}" Foreground="#AAAAAA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <Button Grid.Column="1" Style="{StaticResource CloseButtonStyle}" Width="45" Click="CloseButton_Click">
@@ -251,11 +251,11 @@
                 <!-- Tiêu đề -->
                 <StackPanel Grid.Row="0" Margin="0,0,0,16">
                     <TextBlock FontSize="22" FontWeight="SemiBold" Foreground="#FFFFFF">
-                        <Run Text="Đính kèm tài nguyên cho "/>
+                        <Run Text="{DynamicResource AttachResource_AttachResourcesFor}"/>
                         <Run Text="{Binding SoftwareName, Mode=OneWay}" Foreground="#60CDFF"/>
                     </TextBlock>
                     <TextBlock Foreground="#AAAAAA" FontSize="12" Margin="0,4,0,0"
-                               Text="Chọn 1 hoặc nhiều tài nguyên (ISO, DLL, driver, script...) đã có trong Thư viện Tài nguyên để gắn kèm."/>
+                               Text="{DynamicResource AttachResource_ChooseOneOrMore}"/>
                 </StackPanel>
 
                 <!-- Thanh tìm kiếm -->
@@ -280,11 +280,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Foreground="#888888" FontSize="12" VerticalAlignment="Center">
                         <Run Text="{Binding SelectedCount, Mode=OneWay}" Foreground="#60CDFF" FontWeight="Bold"/>
-                        <Run Text=" tài nguyên đang được chọn"/>
+                        <Run Text="{DynamicResource AttachResource_ResourcesSelected}"/>
                     </TextBlock>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <Button Command="{Binding SelectAllCommand}" Content="Chọn tất cả" Style="{StaticResource FluentButtonStyle}" Background="#3E3E3E" Padding="12,6" Margin="0,0,8,0" FontSize="12"/>
-                        <Button Command="{Binding ClearSelectionCommand}" Content="Bỏ chọn" Style="{StaticResource FluentButtonStyle}" Background="#3E3E3E" Padding="12,6" FontSize="12"/>
+                        <Button Command="{Binding SelectAllCommand}" Content="{DynamicResource AttachResource_SelectAll}" Style="{StaticResource FluentButtonStyle}" Background="#3E3E3E" Padding="12,6" Margin="0,0,8,0" FontSize="12"/>
+                        <Button Command="{Binding ClearSelectionCommand}" Content="{DynamicResource AttachResource_Deselect}" Style="{StaticResource FluentButtonStyle}" Background="#3E3E3E" Padding="12,6" FontSize="12"/>
                     </StackPanel>
                 </Grid>
 
@@ -361,7 +361,7 @@
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                                     Visibility="{Binding ItemsView.IsEmpty, Converter={StaticResource BoolToVis}, FallbackValue=Collapsed}">
                             <iconPacks:PackIconMaterial Kind="FileCabinet" Width="36" Height="36" Foreground="#555555" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                            <TextBlock Text="Không còn tài nguyên nào phù hợp để đính kèm" Foreground="#888888" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource AttachResource_NoSuitableResourcesLeft}" Foreground="#888888" FontSize="13"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -373,12 +373,12 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="1" Command="{Binding CancelCommand}" Content="Hủy" Style="{StaticResource FluentButtonStyle}" Background="#3E3E3E" Padding="20,12" Margin="0,0,10,0"/>
+                    <Button Grid.Column="1" Command="{Binding CancelCommand}" Content="{DynamicResource Common_Cancel}" Style="{StaticResource FluentButtonStyle}" Background="#3E3E3E" Padding="20,12" Margin="0,0,10,0"/>
                     <Button Grid.Column="2" Command="{Binding AttachSelectedCommand}" Style="{StaticResource FluentButtonStyle}" Background="#16A34A" Padding="20,12">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterial Kind="Paperclip" Margin="0,0,8,0" VerticalAlignment="Center" Width="16" Height="16"/>
                             <TextBlock FontWeight="SemiBold">
-                                <Run Text="Đính kèm đã chọn ("/>
+                                <Run Text="{DynamicResource AttachResource_AttachSelected}"/>
                                 <Run Text="{Binding SelectedCount, Mode=OneWay}"/>
                                 <Run Text=")"/>
                             </TextBlock>

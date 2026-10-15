@@ -498,4 +498,35 @@ Thanks to this mechanism, SRM automatically distinguishes Inno Setup installers 
     <system:String x:Key="About_Date">Date:</system:String>
     <system:String x:Key="About_OpenLogFolder">Open Log folder</system:String>
 
+    <!-- Màn hình: UpdateCenterGuide -->
+    <system:String x:Key="UpdateCenterGuide_UpdateCenterGuide">Update Center guide</system:String>
+    <system:String x:Key="UpdateCenterGuide_UpdateCenterUserGuide">Update Center user guide</system:String>
+    <system:String x:Key="UpdateCenterGuide_ThisPageHelpsYou">This page helps you check whether the software in your library has a newer version, and automatically download/install it.</system:String>
+    <system:String x:Key="UpdateCenterGuide_1ThreeTypesOf">1. Three types of update check sources</system:String>
+    <system:String x:Key="UpdateCenterGuide_WingetRecommendedFirst">Winget (recommended first)</system:String>
+    <system:String x:Key="UpdateCenterGuide_UsesTheReadyMade">Uses the ready-made community catalog of Windows Package Manager. You only need the exact 'package ID' (e.g. VideoLAN.VLC), no need to look up links yourself. Covers most popular software. Requires Winget installed and an internet connection while scanning.</system:String>
+    <system:String x:Key="UpdateCenterGuide_ForOpenSourceSoftware">For open-source software with a GitHub repo (VLC, Notepad++, OBS...). Just enter 'owner/repo'. The app calls the GitHub API itself to get the latest version + download link.</system:String>
+    <system:String x:Key="UpdateCenterGuide_WebPageScanRegex">Web page scan + Regex</system:String>
+    <system:String x:Key="UpdateCenterGuide_ALastResortWhen">A last resort when the two methods above are unavailable (software of unknown origin, not on Winget). You need to write your own regex to extract the version number from the download page's HTML — fragile when the page changes its layout, use only when really necessary.</system:String>
+    <system:String x:Key="UpdateCenterGuide_2AutoConfigureNo">2. Auto-configure, no need to set up each app by hand</system:String>
+    <system:String x:Key="UpdateCenterGuide_3RowActionButtons">3. Row action buttons</system:String>
+    <system:String x:Key="UpdateCenterGuide_ConfigureTheUpdateCheck">Configure the update check source for this software only.</system:String>
+    <system:String x:Key="UpdateCenterGuide_ScanThisSoftwareRight">Scan this software right now (no need to wait for a scan of the whole library).</system:String>
+    <system:String x:Key="UpdateCenterGuide_4FilteringAndGrouping">4. Filtering and grouping the list</system:String>
+    <system:String x:Key="UpdateCenterGuide_UseTheChipsAll">Use the chips 'All / New version available / Configured / Not configured' to filter quickly. Turn 'Group by category' on or off to group software by Category, which is easier to read when the library has many apps.</system:String>
+    <system:String x:Key="UpdateCenterGuide_5NotesWhenUsing">5. Notes when using a portable USB drive</system:String>
+    <system:String x:Key="UpdateCenterGuide_TheAppItselfDoes">The app itself does not need the internet to run. You only need the internet at the moment you click 'Scan' or 'Download/Install'. If the computer with the USB drive has no internet or no Winget, these actions will report a clear error instead of hanging — you can skip them and do it later on another computer.</system:String>
+    <system:String x:Key="UpdateCenterGuide_GotIt">Got it</system:String>
+    <system:String x:Key="UpdateCenterGuide_The" xml:space="preserve">The </system:String>
+    <system:String x:Key="UpdateCenterGuide_AutoConfigure">"Auto-configure"</system:String>
+    <system:String x:Key="UpdateCenterGuide_ButtonOnTheToolbar" xml:space="preserve"> button on the toolbar scans the names of all unconfigured software, matches them against a built-in suggestion list (VLC, Chrome, Zalo, Notepad++, Discord...) and saves the configuration for every matching app — no need to open a dialog for each one. Apps that are not in the suggestion list still need to be configured by hand via the ⚙ icon.</system:String>
+    <system:String x:Key="UpdateCenterGuide_Download">Download:</system:String>
+    <system:String x:Key="UpdateCenterGuide_DownloadsTheNewVersion" xml:space="preserve"> downloads the new version and </system:String>
+    <system:String x:Key="UpdateCenterGuide_AddsItToThe">adds it to the library</system:String>
+    <system:String x:Key="UpdateCenterGuide_DataFolderDBWITHOUT" xml:space="preserve"> (Data/ folder + DB), WITHOUT touching the computer running the app.</system:String>
+    <system:String x:Key="UpdateCenterGuide_InstallNow">Install now:</system:String>
+    <system:String x:Key="UpdateCenterGuide_DownloadsTheNewVersion2" xml:space="preserve"> downloads the new version, adds it to the library, then </system:String>
+    <system:String x:Key="UpdateCenterGuide_InstallsItOnThis">installs it on this computer right away</system:String>
+    <system:String x:Key="UpdateCenterGuide_WithAWingetSource">. With a Winget source, the install step uses the Winget command directly (it cannot be added to the Data/ library, because Winget manages its own cache).</system:String>
+
 </ResourceDictionary>

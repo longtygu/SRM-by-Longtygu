@@ -498,4 +498,35 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="About_Date">Ngày:</system:String>
     <system:String x:Key="About_OpenLogFolder">Mở thư mục Log</system:String>
 
+    <!-- Màn hình: UpdateCenterGuide -->
+    <system:String x:Key="UpdateCenterGuide_UpdateCenterGuide">Hướng dẫn Trung tâm cập nhật</system:String>
+    <system:String x:Key="UpdateCenterGuide_UpdateCenterUserGuide">Hướng dẫn sử dụng Trung tâm cập nhật</system:String>
+    <system:String x:Key="UpdateCenterGuide_ThisPageHelpsYou">Trang này giúp bạn kiểm tra xem phần mềm trong thư viện có bản mới hay không, và tự động tải/cài bản mới đó.</system:String>
+    <system:String x:Key="UpdateCenterGuide_1ThreeTypesOf">1. Ba loại nguồn kiểm tra cập nhật</system:String>
+    <system:String x:Key="UpdateCenterGuide_WingetRecommendedFirst">Winget (khuyên dùng trước tiên)</system:String>
+    <system:String x:Key="UpdateCenterGuide_UsesTheReadyMade">Dùng catalog cộng đồng có sẵn của Windows Package Manager. Chỉ cần biết đúng 1 'ID gói' (VD: VideoLAN.VLC), không cần tự tra link. Phủ hầu hết phần mềm phổ biến. Cần máy có cài Winget + có mạng lúc quét.</system:String>
+    <system:String x:Key="UpdateCenterGuide_ForOpenSourceSoftware">Dùng cho phần mềm mã nguồn mở có repo GitHub (VLC, Notepad++, OBS...). Chỉ cần nhập 'owner/repo'. App tự gọi GitHub API để lấy phiên bản + link tải mới nhất.</system:String>
+    <system:String x:Key="UpdateCenterGuide_WebPageScanRegex">Quét trang web + Regex</system:String>
+    <system:String x:Key="UpdateCenterGuide_ALastResortWhen">Cách chữa cháy khi 2 cách trên không có (phần mềm không rõ nguồn gốc, không có trên Winget). Cần tự viết regex trích số phiên bản từ HTML trang download — dễ vỡ khi trang đổi giao diện, chỉ nên dùng khi thật sự cần.</system:String>
+    <system:String x:Key="UpdateCenterGuide_2AutoConfigureNo">2. Tự động cấu hình, đỡ phải setup tay từng app</system:String>
+    <system:String x:Key="UpdateCenterGuide_3RowActionButtons">3. Các nút thao tác trên từng dòng</system:String>
+    <system:String x:Key="UpdateCenterGuide_ConfigureTheUpdateCheck">Cấu hình nguồn kiểm tra cập nhật cho riêng phần mềm này.</system:String>
+    <system:String x:Key="UpdateCenterGuide_ScanThisSoftwareRight">Quét riêng phần mềm này ngay (không cần chờ quét cả thư viện).</system:String>
+    <system:String x:Key="UpdateCenterGuide_4FilteringAndGrouping">4. Lọc và nhóm danh sách</system:String>
+    <system:String x:Key="UpdateCenterGuide_UseTheChipsAll">Dùng các chip 'Tất cả / Có bản mới / Đã cấu hình / Chưa cấu hình' để lọc nhanh. Bật/tắt 'Nhóm theo danh mục' để gom phần mềm theo Category, dễ nhìn hơn khi thư viện có nhiều app.</system:String>
+    <system:String x:Key="UpdateCenterGuide_5NotesWhenUsing">5. Lưu ý khi dùng USB portable</system:String>
+    <system:String x:Key="UpdateCenterGuide_TheAppItselfDoes">Bản thân app không cần mạng để chạy. Chỉ cần mạng đúng lúc bấm 'Quét' hoặc 'Tải/Cài'. Nếu máy đang cắm USB không có mạng hoặc không có Winget, các thao tác này sẽ báo lỗi rõ ràng thay vì bị treo — bạn có thể bỏ qua và làm sau trên máy khác.</system:String>
+    <system:String x:Key="UpdateCenterGuide_GotIt">Đã hiểu</system:String>
+    <system:String x:Key="UpdateCenterGuide_The" xml:space="preserve">Nút </system:String>
+    <system:String x:Key="UpdateCenterGuide_AutoConfigure">"Tự động cấu hình"</system:String>
+    <system:String x:Key="UpdateCenterGuide_ButtonOnTheToolbar" xml:space="preserve"> trên toolbar sẽ quét tên toàn bộ phần mềm chưa cấu hình, so khớp với 1 danh sách gợi ý sẵn (VLC, Chrome, Zalo, Notepad++, Discord...) và tự lưu cấu hình cho những app khớp được — không cần mở dialog từng cái. App nào không có trong danh sách gợi ý thì vẫn cần cấu hình tay qua icon ⚙.</system:String>
+    <system:String x:Key="UpdateCenterGuide_Download">Tải về:</system:String>
+    <system:String x:Key="UpdateCenterGuide_DownloadsTheNewVersion" xml:space="preserve"> tải bản mới và </system:String>
+    <system:String x:Key="UpdateCenterGuide_AddsItToThe">thêm vào thư viện</system:String>
+    <system:String x:Key="UpdateCenterGuide_DataFolderDBWITHOUT" xml:space="preserve"> (thư mục Data/ + DB), KHÔNG đụng gì tới máy đang chạy app.</system:String>
+    <system:String x:Key="UpdateCenterGuide_InstallNow">Cài ngay:</system:String>
+    <system:String x:Key="UpdateCenterGuide_DownloadsTheNewVersion2" xml:space="preserve"> tải bản mới, thêm vào thư viện, rồi </system:String>
+    <system:String x:Key="UpdateCenterGuide_InstallsItOnThis">cài luôn lên máy này</system:String>
+    <system:String x:Key="UpdateCenterGuide_WithAWingetSource">. Với nguồn Winget, bước cài dùng thẳng lệnh Winget (không thêm được vào thư viện Data/, vì Winget tự quản lý cache riêng).</system:String>
+
 </ResourceDictionary>

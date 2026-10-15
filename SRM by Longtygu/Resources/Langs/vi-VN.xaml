@@ -529,4 +529,91 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="UpdateCenterGuide_InstallsItOnThis">cài luôn lên máy này</system:String>
     <system:String x:Key="UpdateCenterGuide_WithAWingetSource">. Với nguồn Winget, bước cài dùng thẳng lệnh Winget (không thêm được vào thư viện Data/, vì Winget tự quản lý cache riêng).</system:String>
 
+    <!-- Cập nhật ứng dụng (AppUpdate: kiểm tra, tải, cài đặt) -->
+    <system:String x:Key="AppUpdate_GitHubErrorCode">GitHub trả về mã lỗi {0}. Vui lòng thử lại sau.</system:String>
+    <system:String x:Key="AppUpdate_BadGitHubResponse">Phản hồi từ GitHub không đúng định dạng.</system:String>
+    <system:String x:Key="AppUpdate_NoValidRelease">Không tìm thấy bản phát hành hợp lệ nào trên GitHub.</system:String>
+    <system:String x:Key="AppUpdate_CheckCancelled">Đã hủy kiểm tra cập nhật.</system:String>
+    <system:String x:Key="AppUpdate_GitHubTimeout">Hết thời gian chờ khi kết nối tới GitHub. Hãy kiểm tra mạng rồi thử lại.</system:String>
+    <system:String x:Key="AppUpdate_GitHubUnreachable">Không kết nối được tới GitHub. Hãy kiểm tra mạng rồi thử lại.</system:String>
+    <system:String x:Key="AppUpdate_GitHubBadData">Dữ liệu từ GitHub không đọc được (định dạng lạ).</system:String>
+    <system:String x:Key="AppUpdate_CheckUnexpectedError">Đã xảy ra lỗi không mong muốn khi kiểm tra cập nhật.</system:String>
+    <system:String x:Key="AppUpdate_RateLimitedShort">GitHub đang tạm giới hạn số lần kiểm tra. Vui lòng thử lại sau ít phút.</system:String>
+    <system:String x:Key="AppUpdate_RateLimitedUntil">GitHub đang tạm giới hạn số lần kiểm tra. Hãy thử lại sau {0:HH:mm dd/MM/yyyy}.</system:String>
+    <system:String x:Key="AppUpdate_NoAutoDownload">Bản phát hành này không hỗ trợ tự tải (thiếu file gói hoặc mã kiểm tra SHA256). Hãy dùng nút "Xem trang tải về".</system:String>
+    <system:String x:Key="AppUpdate_DownloadCancelled">Đã hủy tải bản cập nhật.</system:String>
+    <system:String x:Key="AppUpdate_ServerUnreachable">Không kết nối được tới máy chủ tải file. Hãy kiểm tra mạng rồi thử lại.</system:String>
+    <system:String x:Key="AppUpdate_DiskFullTemp">Ổ đĩa đã đầy khi ghi file tạm. Hãy giải phóng dung lượng rồi thử lại.</system:String>
+    <system:String x:Key="AppUpdate_NoWriteTemp">Không có quyền ghi vào thư mục tạm của Windows.</system:String>
+    <system:String x:Key="AppUpdate_NotValidZip">File tải về không phải gói zip hợp lệ.</system:String>
+    <system:String x:Key="AppUpdate_PrepareUnexpectedError">Đã xảy ra lỗi không mong muốn khi chuẩn bị gói cập nhật.</system:String>
+    <system:String x:Key="AppUpdate_ServerTimeout">Hết thời gian chờ máy chủ tải file. Hãy kiểm tra mạng rồi thử lại.</system:String>
+    <system:String x:Key="AppUpdate_ServerErrorCode">Máy chủ trả về mã lỗi {0} khi tải file.</system:String>
+    <system:String x:Key="AppUpdate_ConnectionLost">Mất kết nối khi đang tải. Hãy kiểm tra mạng rồi thử lại.</system:String>
+    <system:String x:Key="AppUpdate_ConnectionInterrupted">Kết nối bị ngắt giữa chừng khi đang tải. Hãy kiểm tra mạng rồi thử lại. (Đã hủy và xóa file tạm.)</system:String>
+    <system:String x:Key="AppUpdate_SizeMismatch">File tải về bị thiếu dữ liệu (kích thước không khớp với GitHub). Đã hủy.</system:String>
+    <system:String x:Key="AppUpdate_Sha256Mismatch">Mã SHA256 của file tải về KHÔNG khớp với mã GitHub công bố (file có thể bị hỏng hoặc bị can thiệp). Đã hủy và xóa file.</system:String>
+    <system:String x:Key="AppUpdate_NetworkLostDuring">Máy tính đã mất kết nối mạng khi đang tải. Hãy kết nối lại rồi thử lại. (Đã hủy và xóa file tạm.)</system:String>
+    <system:String x:Key="AppUpdate_StalledDownload">Mất kết nối khi đang tải: không nhận được dữ liệu trong {0} giây. Hãy kiểm tra mạng rồi thử lại. (Đã hủy và xóa file tạm.)</system:String>
+    <system:String x:Key="AppUpdate_PackageEmpty">Gói cập nhật rỗng.</system:String>
+    <system:String x:Key="AppUpdate_UnsafePath">Gói cập nhật chứa đường dẫn không an toàn. Đã hủy.</system:String>
+    <system:String x:Key="AppUpdate_PathOutsideExtract">Gói cập nhật chứa đường dẫn nằm ngoài thư mục giải nén. Đã hủy.</system:String>
+    <system:String x:Key="AppUpdate_MissingMainExe">Gói cập nhật không chứa file chương trình "{0}".</system:String>
+    <system:String x:Key="AppUpdate_VersionMismatch">Phiên bản trong gói ({0}) không khớp với bản phát hành ({1}). Đã hủy để tránh cài nhầm.</system:String>
+    <system:String x:Key="AppUpdate_StagingNoSpace">Ổ đĩa chứa thư mục tạm không đủ dung lượng trống (cần khoảng {0} MB, còn {1} MB).</system:String>
+    <system:String x:Key="AppUpdate_NoWriteInstallFolder">Không có quyền ghi vào thư mục cài đặt của ứng dụng:</system:String>
+    <system:String x:Key="AppUpdate_PlaceInNormalFolder" xml:space="preserve">Hãy đặt ứng dụng ở thư mục thường (ví dụ Desktop hoặc D:\Apps), không đặt trong C:\Program Files, </system:String>
+    <system:String x:Key="AppUpdate_OrUseDownloadPage">hoặc dùng nút "Xem trang tải về" để cập nhật thủ công.</system:String>
+    <system:String x:Key="AppUpdate_ExtractedNotFound">Không tìm thấy gói cập nhật đã giải nén.</system:String>
+    <system:String x:Key="AppUpdate_PathOutsideInstall">Gói cập nhật chứa đường dẫn nằm ngoài thư mục cài đặt. Đã hủy.</system:String>
+    <system:String x:Key="AppUpdate_InstallCancelled">Đã hủy cài đặt.</system:String>
+    <system:String x:Key="AppUpdate_InstallFailedPrefix" xml:space="preserve">Không cài đặt được bản cập nhật: </system:String>
+    <system:String x:Key="AppUpdate_NoFileChanged" xml:space="preserve"> (Chưa có file nào bị thay đổi.)</system:String>
+    <system:String x:Key="AppUpdate_RolledBack" xml:space="preserve"> Đã hoàn tác: ứng dụng vẫn ở bản cũ, dữ liệu không bị ảnh hưởng.</system:String>
+    <system:String x:Key="AppUpdate_RollbackIncompletePre" xml:space="preserve"> Hoàn tác chưa trọn vẹn với </system:String>
+    <system:String x:Key="AppUpdate_RollbackIncompletePost" xml:space="preserve"> file (xem nhật ký). Dữ liệu của bạn vẫn an toàn; nếu ứng dụng không mở được, hãy giải nén lại bản phát hành mới đè lên thư mục cũ.</system:String>
+    <system:String x:Key="AppUpdate_DbBackupFailedPost" xml:space="preserve"> Đã hủy để đảm bảo an toàn.</system:String>
+    <system:String x:Key="AppUpdate_DbBackupFailedPre" xml:space="preserve">Không sao lưu được file cơ sở dữ liệu (library.db) trước khi cập nhật: </system:String>
+    <system:String x:Key="AppUpdate_InstallNoSpace">Ổ đĩa chứa ứng dụng không đủ dung lượng trống để cài (cần khoảng {0} MB, còn {1} MB). Chưa có file nào bị thay đổi.</system:String>
+    <system:String x:Key="AppUpdate_NeverChecked">Chưa kiểm tra lần nào</system:String>
+    <system:String x:Key="AppUpdate_ClickCheckToSee">Nhấn "Kiểm tra cập nhật" để xem có bản mới hay không.</system:String>
+    <system:String x:Key="AppUpdate_CheckButton">Kiểm tra cập nhật</system:String>
+    <system:String x:Key="AppUpdate_Checking">Đang kiểm tra...</system:String>
+    <system:String x:Key="AppUpdate_DownloadInstallButton">Tải về và cài đặt</system:String>
+    <system:String x:Key="AppUpdate_Updating">Đang cập nhật...</system:String>
+    <system:String x:Key="AppUpdate_CheckingForUpdates">Đang kiểm tra cập nhật...</system:String>
+    <system:String x:Key="AppUpdate_LastChecked">Lần kiểm tra gần nhất: {0:HH:mm dd/MM/yyyy}</system:String>
+    <system:String x:Key="AppUpdate_NewerThanLatest">Bản đang chạy (v{0}) mới hơn bản phát hành mới nhất trên GitHub (v{1}). Có thể đây là bản đang phát triển.</system:String>
+    <system:String x:Key="AppUpdate_UsingLatest">Bạn đang dùng bản mới nhất (v{0}).</system:String>
+    <system:String x:Key="AppUpdate_NewVersionAvailable">Có bản mới: v{0}{1}. Bạn đang dùng v{2}.</system:String>
+    <system:String x:Key="AppUpdate_CheckFailed">Không kiểm tra được cập nhật. Vui lòng thử lại sau.</system:String>
+    <system:String x:Key="AppUpdate_CannotSelfUpdate">Không thể tự cập nhật</system:String>
+    <system:String x:Key="AppUpdate_ConfirmTitleLine">Cập nhật ứng dụng lên v{0}?</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep1">1. Tải gói cập nhật ({0}) về thư mục tạm và kiểm tra mã SHA256.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep2">2. Sao lưu file cơ sở dữ liệu (library.db) vào thư mục Backups.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep3">3. Thay các file chương trình. Dữ liệu của bạn (Database, Data, Library, Backups, Logs, cài đặt) KHÔNG bị đụng tới.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep4">4. Xóa file đã tải và tự khởi động lại ứng dụng.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmFooter">Nếu có lỗi, ứng dụng tự hoàn tác về bản cũ. Trong lúc cập nhật, vui lòng KHÔNG thao tác và KHÔNG tắt ứng dụng. Tiếp tục?</system:String>
+    <system:String x:Key="AppUpdate_UpdateApp">Cập nhật ứng dụng</system:String>
+    <system:String x:Key="AppUpdate_PreparingDownload">Đang chuẩn bị tải...</system:String>
+    <system:String x:Key="AppUpdate_DownloadingTo" xml:space="preserve">Tải về thư mục tạm: </system:String>
+    <system:String x:Key="AppUpdate_DownloadFailed">Không tải được bản cập nhật.</system:String>
+    <system:String x:Key="AppUpdate_InstallFailed">Cài đặt bản cập nhật thất bại.</system:String>
+    <system:String x:Key="AppUpdate_UpdateSuccess" xml:space="preserve">Cập nhật thành công lên v{0}! (thay {1} file, thêm {2}, giữ nguyên {3}; dữ liệu của bạn không bị đụng tới). </system:String>
+    <system:String x:Key="AppUpdate_WillRestart">Ứng dụng sẽ tự khởi động lại sau vài giây, vui lòng chờ...</system:String>
+    <system:String x:Key="AppUpdate_UpdateUnexpectedError">Đã xảy ra lỗi không mong muốn khi cập nhật ứng dụng.</system:String>
+    <system:String x:Key="AppUpdate_StagingNotCleaned" xml:space="preserve">Lưu ý: chưa xóa hết được thư mục tạm, bạn có thể tự xóa: </system:String>
+    <system:String x:Key="AppUpdate_StagingCleaned" xml:space="preserve">Đã xóa file tải về và thư mục tạm: </system:String>
+    <system:String x:Key="AppUpdate_NoExeToReopen">Cập nhật xong nhưng không tìm thấy file chương trình để mở lại. Hãy đóng và tự mở lại ứng dụng.</system:String>
+    <system:String x:Key="AppUpdate_CannotRestart">Cập nhật xong nhưng không tự mở lại được. Hãy đóng và mở lại ứng dụng để dùng bản mới.</system:String>
+    <system:String x:Key="AppUpdate_StalledProgress">Đã {0}% - không nhận được dữ liệu từ máy chủ trong {1} giây. Hãy kiểm tra kết nối mạng. Tự hủy sau {2} giây nếu vẫn không có dữ liệu...</system:String>
+    <system:String x:Key="AppUpdate_DownloadProgress">Đang tải: {0}%  ({1} / {2})  -  {3}</system:String>
+    <system:String x:Key="AppUpdate_VerifyingSha256">Đang kiểm tra mã SHA256 của file đã tải...</system:String>
+    <system:String x:Key="AppUpdate_Extracting">Đang giải nén và kiểm tra gói: {0}%</system:String>
+    <system:String x:Key="AppUpdate_BackingUpDb">Đang sao lưu file cơ sở dữ liệu (library.db) vào thư mục Backups...</system:String>
+    <system:String x:Key="AppUpdate_Installing">Đang cài đặt bản mới: {0}% ({1}/{2} file). Vui lòng KHÔNG tắt ứng dụng...</system:String>
+    <system:String x:Key="Common_Notice">Thông báo</system:String>
+    <system:String x:Key="AppUpdate_NoValidLink">Không có đường dẫn hợp lệ để mở trang tải về.</system:String>
+    <system:String x:Key="AppUpdate_CannotOpenBrowser">Không mở được trình duyệt. Bạn có thể tự mở đường dẫn sau:</system:String>
+
 </ResourceDictionary>

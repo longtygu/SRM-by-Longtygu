@@ -529,4 +529,91 @@ Thanks to this mechanism, SRM automatically distinguishes Inno Setup installers 
     <system:String x:Key="UpdateCenterGuide_InstallsItOnThis">installs it on this computer right away</system:String>
     <system:String x:Key="UpdateCenterGuide_WithAWingetSource">. With a Winget source, the install step uses the Winget command directly (it cannot be added to the Data/ library, because Winget manages its own cache).</system:String>
 
+    <!-- Cập nhật ứng dụng (AppUpdate: kiểm tra, tải, cài đặt) -->
+    <system:String x:Key="AppUpdate_GitHubErrorCode">GitHub returned error code {0}. Please try again later.</system:String>
+    <system:String x:Key="AppUpdate_BadGitHubResponse">The response from GitHub is not in the expected format.</system:String>
+    <system:String x:Key="AppUpdate_NoValidRelease">No valid release was found on GitHub.</system:String>
+    <system:String x:Key="AppUpdate_CheckCancelled">Update check cancelled.</system:String>
+    <system:String x:Key="AppUpdate_GitHubTimeout">Timed out while connecting to GitHub. Check your network and try again.</system:String>
+    <system:String x:Key="AppUpdate_GitHubUnreachable">Could not connect to GitHub. Check your network and try again.</system:String>
+    <system:String x:Key="AppUpdate_GitHubBadData">The data from GitHub could not be read (unknown format).</system:String>
+    <system:String x:Key="AppUpdate_CheckUnexpectedError">An unexpected error occurred while checking for updates.</system:String>
+    <system:String x:Key="AppUpdate_RateLimitedShort">GitHub is temporarily limiting the number of checks. Please try again in a few minutes.</system:String>
+    <system:String x:Key="AppUpdate_RateLimitedUntil">GitHub is temporarily limiting the number of checks. Please try again after {0:HH:mm dd/MM/yyyy}.</system:String>
+    <system:String x:Key="AppUpdate_NoAutoDownload">This release does not support automatic download (missing package file or SHA256 checksum). Use the "View download page" button.</system:String>
+    <system:String x:Key="AppUpdate_DownloadCancelled">Update download cancelled.</system:String>
+    <system:String x:Key="AppUpdate_ServerUnreachable">Could not connect to the download server. Check your network and try again.</system:String>
+    <system:String x:Key="AppUpdate_DiskFullTemp">The disk became full while writing the temporary file. Free up some space and try again.</system:String>
+    <system:String x:Key="AppUpdate_NoWriteTemp">No permission to write to the Windows temporary folder.</system:String>
+    <system:String x:Key="AppUpdate_NotValidZip">The downloaded file is not a valid zip package.</system:String>
+    <system:String x:Key="AppUpdate_PrepareUnexpectedError">An unexpected error occurred while preparing the update package.</system:String>
+    <system:String x:Key="AppUpdate_ServerTimeout">Timed out waiting for the download server. Check your network and try again.</system:String>
+    <system:String x:Key="AppUpdate_ServerErrorCode">The server returned error code {0} while downloading the file.</system:String>
+    <system:String x:Key="AppUpdate_ConnectionLost">Connection lost while downloading. Check your network and try again.</system:String>
+    <system:String x:Key="AppUpdate_ConnectionInterrupted">The connection was interrupted during the download. Check your network and try again. (Cancelled and temporary file deleted.)</system:String>
+    <system:String x:Key="AppUpdate_SizeMismatch">The downloaded file is incomplete (size does not match GitHub). Cancelled.</system:String>
+    <system:String x:Key="AppUpdate_Sha256Mismatch">The SHA256 checksum of the downloaded file does NOT match the one published by GitHub (the file may be corrupted or tampered with). Cancelled and file deleted.</system:String>
+    <system:String x:Key="AppUpdate_NetworkLostDuring">The computer lost its network connection while downloading. Reconnect and try again. (Cancelled and temporary file deleted.)</system:String>
+    <system:String x:Key="AppUpdate_StalledDownload">Connection lost while downloading: no data received for {0} seconds. Check your network and try again. (Cancelled and temporary file deleted.)</system:String>
+    <system:String x:Key="AppUpdate_PackageEmpty">The update package is empty.</system:String>
+    <system:String x:Key="AppUpdate_UnsafePath">The update package contains an unsafe path. Cancelled.</system:String>
+    <system:String x:Key="AppUpdate_PathOutsideExtract">The update package contains a path outside the extraction folder. Cancelled.</system:String>
+    <system:String x:Key="AppUpdate_MissingMainExe">The update package does not contain the program file "{0}".</system:String>
+    <system:String x:Key="AppUpdate_VersionMismatch">The version in the package ({0}) does not match the release ({1}). Cancelled to avoid installing the wrong one.</system:String>
+    <system:String x:Key="AppUpdate_StagingNoSpace">The drive holding the temporary folder does not have enough free space (about {0} MB needed, {1} MB available).</system:String>
+    <system:String x:Key="AppUpdate_NoWriteInstallFolder">No permission to write to the application install folder:</system:String>
+    <system:String x:Key="AppUpdate_PlaceInNormalFolder" xml:space="preserve">Place the app in a normal folder (for example Desktop or D:\Apps), not in C:\Program Files, </system:String>
+    <system:String x:Key="AppUpdate_OrUseDownloadPage">or use the "View download page" button to update manually.</system:String>
+    <system:String x:Key="AppUpdate_ExtractedNotFound">The extracted update package was not found.</system:String>
+    <system:String x:Key="AppUpdate_PathOutsideInstall">The update package contains a path outside the install folder. Cancelled.</system:String>
+    <system:String x:Key="AppUpdate_InstallCancelled">Installation cancelled.</system:String>
+    <system:String x:Key="AppUpdate_InstallFailedPrefix" xml:space="preserve">Could not install the update: </system:String>
+    <system:String x:Key="AppUpdate_NoFileChanged" xml:space="preserve"> (No files have been changed.)</system:String>
+    <system:String x:Key="AppUpdate_RolledBack" xml:space="preserve"> Rolled back: the app is still on the old version and your data is not affected.</system:String>
+    <system:String x:Key="AppUpdate_RollbackIncompletePre" xml:space="preserve"> The rollback was incomplete for </system:String>
+    <system:String x:Key="AppUpdate_RollbackIncompletePost" xml:space="preserve"> files (see the log). Your data is still safe; if the app cannot start, extract the new release again over the old folder.</system:String>
+    <system:String x:Key="AppUpdate_DbBackupFailedPost" xml:space="preserve"> Cancelled for safety.</system:String>
+    <system:String x:Key="AppUpdate_DbBackupFailedPre" xml:space="preserve">Could not back up the database file (library.db) before updating: </system:String>
+    <system:String x:Key="AppUpdate_InstallNoSpace">The drive holding the app does not have enough free space to install (about {0} MB needed, {1} MB available). No files have been changed.</system:String>
+    <system:String x:Key="AppUpdate_NeverChecked">Never checked</system:String>
+    <system:String x:Key="AppUpdate_ClickCheckToSee">Click "Check for updates" to see whether a new version is available.</system:String>
+    <system:String x:Key="AppUpdate_CheckButton">Check for updates</system:String>
+    <system:String x:Key="AppUpdate_Checking">Checking...</system:String>
+    <system:String x:Key="AppUpdate_DownloadInstallButton">Download and install</system:String>
+    <system:String x:Key="AppUpdate_Updating">Updating...</system:String>
+    <system:String x:Key="AppUpdate_CheckingForUpdates">Checking for updates...</system:String>
+    <system:String x:Key="AppUpdate_LastChecked">Last checked: {0:HH:mm dd/MM/yyyy}</system:String>
+    <system:String x:Key="AppUpdate_NewerThanLatest">The running version (v{0}) is newer than the latest release on GitHub (v{1}). This may be a development build.</system:String>
+    <system:String x:Key="AppUpdate_UsingLatest">You are using the latest version (v{0}).</system:String>
+    <system:String x:Key="AppUpdate_NewVersionAvailable">New version available: v{0}{1}. You are using v{2}.</system:String>
+    <system:String x:Key="AppUpdate_CheckFailed">Could not check for updates. Please try again later.</system:String>
+    <system:String x:Key="AppUpdate_CannotSelfUpdate">Cannot self-update</system:String>
+    <system:String x:Key="AppUpdate_ConfirmTitleLine">Update the app to v{0}?</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep1">1. Download the update package ({0}) to a temporary folder and verify the SHA256 checksum.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep2">2. Back up the database file (library.db) to the Backups folder.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep3">3. Replace the program files. Your data (Database, Data, Library, Backups, Logs, settings) is NOT touched.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmStep4">4. Delete the downloaded files and restart the app automatically.</system:String>
+    <system:String x:Key="AppUpdate_ConfirmFooter">If an error occurs, the app rolls back to the old version automatically. While updating, please DO NOT interact with the app and DO NOT close it. Continue?</system:String>
+    <system:String x:Key="AppUpdate_UpdateApp">Update app</system:String>
+    <system:String x:Key="AppUpdate_PreparingDownload">Preparing to download...</system:String>
+    <system:String x:Key="AppUpdate_DownloadingTo" xml:space="preserve">Downloading to temporary folder: </system:String>
+    <system:String x:Key="AppUpdate_DownloadFailed">Could not download the update.</system:String>
+    <system:String x:Key="AppUpdate_InstallFailed">Installing the update failed.</system:String>
+    <system:String x:Key="AppUpdate_UpdateSuccess" xml:space="preserve">Successfully updated to v{0}! (replaced {1} files, added {2}, unchanged {3}; your data was not touched). </system:String>
+    <system:String x:Key="AppUpdate_WillRestart">The app will restart automatically in a few seconds, please wait...</system:String>
+    <system:String x:Key="AppUpdate_UpdateUnexpectedError">An unexpected error occurred while updating the app.</system:String>
+    <system:String x:Key="AppUpdate_StagingNotCleaned" xml:space="preserve">Note: the temporary folder could not be fully deleted, you can delete it yourself: </system:String>
+    <system:String x:Key="AppUpdate_StagingCleaned" xml:space="preserve">Downloaded files and temporary folder deleted: </system:String>
+    <system:String x:Key="AppUpdate_NoExeToReopen">Update finished but the program file to reopen was not found. Close and reopen the app yourself.</system:String>
+    <system:String x:Key="AppUpdate_CannotRestart">Update finished but the app could not restart itself. Close and reopen the app to use the new version.</system:String>
+    <system:String x:Key="AppUpdate_StalledProgress">{0}% done - no data received from the server for {1} seconds. Check your network connection. Automatic cancel after {2} seconds if there is still no data...</system:String>
+    <system:String x:Key="AppUpdate_DownloadProgress">Downloading: {0}%  ({1} / {2})  -  {3}</system:String>
+    <system:String x:Key="AppUpdate_VerifyingSha256">Verifying the SHA256 checksum of the downloaded file...</system:String>
+    <system:String x:Key="AppUpdate_Extracting">Extracting and verifying the package: {0}%</system:String>
+    <system:String x:Key="AppUpdate_BackingUpDb">Backing up the database file (library.db) to the Backups folder...</system:String>
+    <system:String x:Key="AppUpdate_Installing">Installing the new version: {0}% ({1}/{2} files). Please DO NOT close the app...</system:String>
+    <system:String x:Key="Common_Notice">Notice</system:String>
+    <system:String x:Key="AppUpdate_NoValidLink">There is no valid link to open the download page.</system:String>
+    <system:String x:Key="AppUpdate_CannotOpenBrowser">Could not open the browser. You can open this link yourself:</system:String>
+
 </ResourceDictionary>

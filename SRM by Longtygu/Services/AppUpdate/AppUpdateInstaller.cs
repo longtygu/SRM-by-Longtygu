@@ -50,9 +50,9 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             catch (Exception ex)
             {
                 SafeLogWarning("[Cập nhật SRM] Không ghi được vào thư mục cài đặt: " + ex.Message);
-                return "Không có quyền ghi vào thư mục cài đặt của ứng dụng:\n" + _installFolder +
-                       "\n\nHãy đặt ứng dụng ở thư mục thường (ví dụ Desktop hoặc D:\\Apps), không đặt trong C:\\Program Files, " +
-                       "hoặc dùng nút \"Xem trang tải về\" để cập nhật thủ công.";
+                return Loc.T("AppUpdate_NoWriteInstallFolder") + "\n" + _installFolder +
+                       "\n\n" + Loc.T("AppUpdate_PlaceInNormalFolder") +
+                       Loc.T("AppUpdate_OrUseDownloadPage");
             }
         }
 
@@ -75,7 +75,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             {
                 if (string.IsNullOrWhiteSpace(stagedFolder) || !Directory.Exists(stagedFolder))
                 {
-                    return Fail("Không tìm thấy gói cập nhật đã giải nén.", false);
+                    return Fail(Loc.T("AppUpdate_ExtractedNotFound"), false);
                 }
 
                 char sep = Path.DirectorySeparatorChar;
@@ -97,7 +97,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                     string dest = Path.GetFullPath(Path.Combine(_installFolder, rel.Replace('/', sep)));
                     if (!dest.StartsWith(installFull, StringComparison.OrdinalIgnoreCase))
                     {
-                        throw new InstallException("Gói cập nhật chứa đường dẫn nằm ngoài thư mục cài đặt. Đã hủy.");
+                        throw new InstallException(Loc.T("AppUpdate_PathOutsideInstall"));
                     }
 
                     long size = new FileInfo(file).Length;
@@ -167,7 +167,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             }
             catch (OperationCanceledException)
             {
-                return FailWithRollback("Đã hủy cài đặt.", journal, null);
+                return FailWithRollback(Loc.T("AppUpdate_InstallCancelled"), journal, null);
             }
             catch (InstallException ex)
             {
@@ -175,7 +175,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             }
             catch (Exception ex)
             {
-                return FailWithRollback("Không cài đặt được bản cập nhật: " + ex.Message, journal, ex);
+                return FailWithRollback(Loc.T("AppUpdate_InstallFailedPrefix") + ex.Message, journal, ex);
             }
         }
 
@@ -243,18 +243,18 @@ namespace SRM_by_Longtygu.Services.AppUpdate
 
             if (journal.Count == 0)
             {
-                return Fail(message + " (Chưa có file nào bị thay đổi.)", false);
+                return Fail(message + Loc.T("AppUpdate_NoFileChanged"), false);
             }
 
             var problems = Rollback(journal);
             if (problems.Count == 0)
             {
-                return Fail(message + " Đã hoàn tác: ứng dụng vẫn ở bản cũ, dữ liệu không bị ảnh hưởng.", true);
+                return Fail(message + Loc.T("AppUpdate_RolledBack"), true);
             }
 
             SafeLogError("[Cập nhật SRM] Hoàn tác KHÔNG trọn vẹn: " + string.Join("; ", problems), null);
-            return Fail(message + " Hoàn tác chưa trọn vẹn với " + problems.Count +
-                        " file (xem nhật ký). Dữ liệu của bạn vẫn an toàn; nếu ứng dụng không mở được, hãy giải nén lại bản phát hành mới đè lên thư mục cũ.", false);
+            return Fail(message + Loc.T("AppUpdate_RollbackIncompletePre") + problems.Count +
+                        Loc.T("AppUpdate_RollbackIncompletePost"), false);
         }
 
         private List<string> Rollback(List<JournalEntry> journal)
@@ -311,7 +311,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             catch (Exception ex)
             {
                 // Chưa đổi file nào nên dừng ở đây là an toàn tuyệt đối
-                throw new InstallException("Không sao lưu được file cơ sở dữ liệu (library.db) trước khi cập nhật: " + ex.Message + " Đã hủy để đảm bảo an toàn.");
+                throw new InstallException(Loc.T("AppUpdate_DbBackupFailedPre") + ex.Message + Loc.T("AppUpdate_DbBackupFailedPost"));
             }
         }
 
@@ -325,7 +325,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 long free = new DriveInfo(root).AvailableFreeSpace;
                 if (free < need)
                 {
-                    throw new InstallException($"Ổ đĩa chứa ứng dụng không đủ dung lượng trống để cài (cần khoảng {need / 1048576} MB, còn {free / 1048576} MB). Chưa có file nào bị thay đổi.");
+                    throw new InstallException(Loc.F("AppUpdate_InstallNoSpace", need / 1048576, free / 1048576));
                 }
             }
             catch (InstallException)

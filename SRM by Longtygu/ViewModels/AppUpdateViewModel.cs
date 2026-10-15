@@ -20,7 +20,6 @@ namespace SRM_by_Longtygu.ViewModels
     public class AppUpdateViewModel : ViewModelBase
     {
         private const int MaxNotesLength = 500;
-        private static readonly CultureInfo Vi = CultureInfo.GetCultureInfo("vi-VN");
 
         private static readonly Brush NeutralBrush = CreateBrush(0xAA, 0xAA, 0xAA);
         private static readonly Brush OkBrush = CreateBrush(0x6C, 0xCB, 0x5F);
@@ -43,10 +42,13 @@ namespace SRM_by_Longtygu.ViewModels
         // ================= THUỘC TÍNH HIỂN THỊ: KIỂM TRA =================
         public string CurrentVersionText { get; }
 
-        private string _lastCheckedText = "Chưa kiểm tra lần nào";
+        private bool _lastCheckedIsDefault = true; // true = đang hiện chữ mặc định (được dịch lại khi đổi ngôn ngữ)
+        private bool _statusIsDefault = true;
+
+        private string _lastCheckedText = Loc.T("AppUpdate_NeverChecked");
         public string LastCheckedText { get => _lastCheckedText; private set => SetProperty(ref _lastCheckedText, value); }
 
-        private string _statusText = "Nhấn \"Kiểm tra cập nhật\" để xem có bản mới hay không.";
+        private string _statusText = Loc.T("AppUpdate_ClickCheckToSee");
         public string StatusText { get => _statusText; private set => SetProperty(ref _statusText, value); }
 
         private Brush _statusBrush = NeutralBrush;
@@ -63,7 +65,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
         }
 
-        public string CheckButtonText => IsChecking ? "Đang kiểm tra..." : "Kiểm tra cập nhật";
+        public string CheckButtonText => IsChecking ? Loc.T("AppUpdate_Checking") : Loc.T("AppUpdate_CheckButton");
 
         private bool _hasUpdate;
         public bool HasUpdate
@@ -105,7 +107,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
         }
 
-        public string DownloadButtonText => IsDownloading ? "Đang cập nhật..." : "Tải về và cài đặt";
+        public string DownloadButtonText => IsDownloading ? Loc.T("AppUpdate_Updating") : Loc.T("AppUpdate_DownloadInstallButton");
 
         private bool _showDownloadPanel;
         public bool ShowDownloadPanel { get => _showDownloadPanel; private set => SetProperty(ref _showDownloadPanel, value); }
@@ -142,6 +144,12 @@ namespace SRM_by_Longtygu.ViewModels
             _dialogService = dialogService;
             _busy = busyService;
 
+            // MỚI: khi đổi ngôn ngữ, dịch lại chữ mặc định và hai nút
+            if (LocalizationService.Instance != null)
+            {
+                LocalizationService.Instance.LanguageChanged += OnLanguageChanged;
+            }
+
             CurrentVersionText = "v" + FormatVersion(_checker.GetCurrentVersion());
 
             CheckForUpdateCommand = new RelayCommand(async _ => await CheckAsync(), _ => !IsChecking && !IsDownloading);
@@ -162,7 +170,7 @@ namespace SRM_by_Longtygu.ViewModels
             _releaseUrl = null;
             ShowDownloadPanel = false;
             DownloadStatusText = string.Empty;
-            SetStatus("Đang kiểm tra cập nhật...", NeutralBrush);
+            SetStatus(Loc.T("AppUpdate_CheckingForUpdates"), NeutralBrush);
 
             try
             {
@@ -172,7 +180,7 @@ namespace SRM_by_Longtygu.ViewModels
             catch (Exception ex) // service không ném lỗi, đây chỉ là lưới an toàn
             {
                 _logService.LogError("[Cập nhật SRM] Lỗi không mong muốn trong AppUpdateViewModel.", ex);
-                SetStatus("Đã xảy ra lỗi không mong muốn khi kiểm tra cập nhật.", ErrorBrush);
+                SetStatus(Loc.T("AppUpdate_CheckUnexpectedError"), ErrorBrush);
             }
             finally
             {
@@ -185,7 +193,8 @@ namespace SRM_by_Longtygu.ViewModels
         {
             if (result.Status != AppUpdateStatus.Cancelled)
             {
-                LastCheckedText = $"Lần kiểm tra gần nhất: {result.CheckedAt:HH:mm dd/MM/yyyy}";
+                _lastCheckedIsDefault = false;
+                LastCheckedText = Loc.F("AppUpdate_LastChecked", result.CheckedAt);
             }
 
             switch (result.Status)
@@ -193,18 +202,18 @@ namespace SRM_by_Longtygu.ViewModels
                 case AppUpdateStatus.UpToDate:
                     if (result.LatestVersion != null && result.LatestVersion.CompareTo(result.CurrentVersion) < 0)
                     {
-                        SetStatus($"Bản đang chạy (v{FormatVersion(result.CurrentVersion)}) mới hơn bản phát hành mới nhất trên GitHub (v{FormatVersion(result.LatestVersion)}). Có thể đây là bản đang phát triển.", OkBrush);
+                        SetStatus(Loc.F("AppUpdate_NewerThanLatest", FormatVersion(result.CurrentVersion), FormatVersion(result.LatestVersion)), OkBrush);
                     }
                     else
                     {
-                        SetStatus($"Bạn đang dùng bản mới nhất (v{FormatVersion(result.CurrentVersion)}).", OkBrush);
+                        SetStatus(Loc.F("AppUpdate_UsingLatest", FormatVersion(result.CurrentVersion)), OkBrush);
                     }
                     break;
 
                 case AppUpdateStatus.UpdateAvailable:
                     string latest = result.LatestVersion != null ? FormatVersion(result.LatestVersion) : (result.LatestTag ?? "?");
                     string preTag = result.IsPreRelease ? " (pre-release)" : string.Empty;
-                    SetStatus($"Có bản mới: v{latest}{preTag}. Bạn đang dùng v{FormatVersion(result.CurrentVersion)}.", UpdateBrush);
+                    SetStatus(Loc.F("AppUpdate_NewVersionAvailable", latest, preTag, FormatVersion(result.CurrentVersion)), UpdateBrush);
                     _releaseUrl = result.ReleaseUrl;
                     _lastResult = result;
                     ReleaseNotesPreview = BuildNotesPreview(result.ReleaseNotes);
@@ -213,11 +222,11 @@ namespace SRM_by_Longtygu.ViewModels
                     break;
 
                 case AppUpdateStatus.Cancelled:
-                    SetStatus(result.ErrorMessage ?? "Đã hủy kiểm tra cập nhật.", NeutralBrush);
+                    SetStatus(result.ErrorMessage ?? Loc.T("AppUpdate_CheckCancelled"), NeutralBrush);
                     break;
 
                 default: // NetworkError, RateLimited, InvalidResponse
-                    SetStatus(result.ErrorMessage ?? "Không kiểm tra được cập nhật. Vui lòng thử lại sau.", ErrorBrush);
+                    SetStatus(result.ErrorMessage ?? Loc.T("AppUpdate_CheckFailed"), ErrorBrush);
                     break;
             }
         }
@@ -232,20 +241,20 @@ namespace SRM_by_Longtygu.ViewModels
             string? writableError = _installer.CheckInstallFolderWritable();
             if (writableError != null)
             {
-                MessageBox.Show(writableError, "Không thể tự cập nhật", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
+                MessageBox.Show(writableError, Loc.T("AppUpdate_CannotSelfUpdate"), MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                 return;
             }
 
             string latest = update.LatestVersion != null ? FormatVersion(update.LatestVersion) : (update.LatestTag ?? "?");
 
             var confirm = MessageBox.Show(
-                $"Cập nhật ứng dụng lên v{latest}?\n\n" +
-                $"1. Tải gói cập nhật ({FormatMb(update.AssetSize)}) về thư mục tạm và kiểm tra mã SHA256.\n" +
-                "2. Sao lưu file cơ sở dữ liệu (library.db) vào thư mục Backups.\n" +
-                "3. Thay các file chương trình. Dữ liệu của bạn (Database, Data, Library, Backups, Logs, cài đặt) KHÔNG bị đụng tới.\n" +
-                "4. Xóa file đã tải và tự khởi động lại ứng dụng.\n\n" +
-                "Nếu có lỗi, ứng dụng tự hoàn tác về bản cũ. Trong lúc cập nhật, vui lòng KHÔNG thao tác và KHÔNG tắt ứng dụng. Tiếp tục?",
-                "Cập nhật ứng dụng",
+                Loc.F("AppUpdate_ConfirmTitleLine", latest) + "\n\n" +
+                Loc.F("AppUpdate_ConfirmStep1", FormatMb(update.AssetSize)) + "\n" +
+                Loc.T("AppUpdate_ConfirmStep2") + "\n" +
+                Loc.T("AppUpdate_ConfirmStep3") + "\n" +
+                Loc.T("AppUpdate_ConfirmStep4") + "\n\n" +
+                Loc.T("AppUpdate_ConfirmFooter"),
+                Loc.T("AppUpdate_UpdateApp"),
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question,
                 MessageBoxResult.No);
@@ -255,10 +264,10 @@ namespace SRM_by_Longtygu.ViewModels
             IsDownloading = true;
             ShowDownloadPanel = true;
             DownloadProgressValue = 0;
-            SetDownloadStatus("Đang chuẩn bị tải...", NeutralBrush);
-            DownloadLocationText = "Tải về thư mục tạm: " + _downloader.StagingFolderPath;
+            SetDownloadStatus(Loc.T("AppUpdate_PreparingDownload"), NeutralBrush);
+            DownloadLocationText = Loc.T("AppUpdate_DownloadingTo") + _downloader.StagingFolderPath;
 
-            var lease = _busy.Begin("Cập nhật ứng dụng");
+            var lease = _busy.Begin(Loc.T("AppUpdate_UpdateApp"));
             bool restart = false;
             try
             {
@@ -270,7 +279,7 @@ namespace SRM_by_Longtygu.ViewModels
                 if (!staged.Success || string.IsNullOrEmpty(staged.StagedFolder))
                 {
                     _acceptProgress = false;
-                    SetDownloadStatus(staged.ErrorMessage ?? "Không tải được bản cập nhật.", ErrorBrush);
+                    SetDownloadStatus(staged.ErrorMessage ?? Loc.T("AppUpdate_DownloadFailed"), ErrorBrush);
                     return;
                 }
 
@@ -279,22 +288,22 @@ namespace SRM_by_Longtygu.ViewModels
                 if (!install.Success)
                 {
                     _acceptProgress = false;
-                    SetDownloadStatus(install.ErrorMessage ?? "Cài đặt bản cập nhật thất bại.", ErrorBrush);
+                    SetDownloadStatus(install.ErrorMessage ?? Loc.T("AppUpdate_InstallFailed"), ErrorBrush);
                     return;
                 }
 
                 _acceptProgress = false;
                 DownloadProgressValue = 100;
                 SetDownloadStatus(
-                    $"Cập nhật thành công lên v{latest}! (thay {install.FilesReplaced} file, thêm {install.FilesAdded}, giữ nguyên {install.FilesUnchanged}; dữ liệu của bạn không bị đụng tới). " +
-                    "Ứng dụng sẽ tự khởi động lại sau vài giây, vui lòng chờ...", OkBrush);
+                    Loc.F("AppUpdate_UpdateSuccess", latest, install.FilesReplaced, install.FilesAdded, install.FilesUnchanged) +
+                    Loc.T("AppUpdate_WillRestart"), OkBrush);
                 restart = true;
             }
             catch (Exception ex) // các dịch vụ không ném lỗi, đây chỉ là lưới an toàn
             {
                 _acceptProgress = false;
                 _logService.LogError("[Cập nhật SRM] Lỗi không mong muốn khi cập nhật ứng dụng.", ex);
-                SetDownloadStatus("Đã xảy ra lỗi không mong muốn khi cập nhật ứng dụng.", ErrorBrush);
+                SetDownloadStatus(Loc.T("AppUpdate_UpdateUnexpectedError"), ErrorBrush);
             }
             finally
             {
@@ -305,8 +314,8 @@ namespace SRM_by_Longtygu.ViewModels
 
                 string staging = _downloader.StagingFolderPath;
                 DownloadLocationText = Directory.Exists(staging)
-                    ? "Lưu ý: chưa xóa hết được thư mục tạm, bạn có thể tự xóa: " + staging
-                    : "Đã xóa file tải về và thư mục tạm: " + staging;
+                    ? Loc.T("AppUpdate_StagingNotCleaned") + staging
+                    : Loc.T("AppUpdate_StagingCleaned") + staging;
 
                 if (!restart)
                 {
@@ -332,7 +341,7 @@ namespace SRM_by_Longtygu.ViewModels
                 string exe = _installer.MainExePath;
                 if (!File.Exists(exe))
                 {
-                    SetDownloadStatus("Cập nhật xong nhưng không tìm thấy file chương trình để mở lại. Hãy đóng và tự mở lại ứng dụng.", UpdateBrush);
+                    SetDownloadStatus(Loc.T("AppUpdate_NoExeToReopen"), UpdateBrush);
                     IsDownloading = false;
                     return;
                 }
@@ -344,14 +353,14 @@ namespace SRM_by_Longtygu.ViewModels
             catch (Exception ex)
             {
                 _logService.LogError("[Cập nhật SRM] Không tự mở lại được ứng dụng sau khi cập nhật.", ex);
-                SetDownloadStatus("Cập nhật xong nhưng không tự mở lại được. Hãy đóng và mở lại ứng dụng để dùng bản mới.", UpdateBrush);
+                SetDownloadStatus(Loc.T("AppUpdate_CannotRestart"), UpdateBrush);
                 IsDownloading = false;
             }
         }
 
         private void OnDownloadProgress(AppUpdateProgress p)
         {
-            string percent = p.Percent.ToString("0", Vi);
+            string percent = p.Percent.ToString("0", Loc.Culture);
 
             switch (p.Phase)
             {
@@ -361,33 +370,33 @@ namespace SRM_by_Longtygu.ViewModels
                     {
                         // Không nhận được dữ liệu: báo rõ và đếm giây cho tới khi tự hủy
                         DownloadStatusBrush = UpdateBrush;
-                        DownloadStatusText = $"Đã {percent}% - không nhận được dữ liệu từ máy chủ trong {p.StalledSeconds} giây. Hãy kiểm tra kết nối mạng. Tự hủy sau {p.StallLimitSeconds} giây nếu vẫn không có dữ liệu...";
+                        DownloadStatusText = Loc.F("AppUpdate_StalledProgress", percent, p.StalledSeconds, p.StallLimitSeconds);
                     }
                     else
                     {
                         DownloadStatusBrush = NeutralBrush;
-                        DownloadStatusText = $"Đang tải: {percent}%  ({FormatMb(p.BytesDone)} / {FormatMb(p.BytesTotal)})  -  {FormatSpeed(p.BytesPerSecond)}";
+                        DownloadStatusText = Loc.F("AppUpdate_DownloadProgress", percent, FormatMb(p.BytesDone), FormatMb(p.BytesTotal), FormatSpeed(p.BytesPerSecond));
                     }
                     break;
 
                 case AppUpdatePhase.Verifying:
                     DownloadProgressValue = 100;
-                    DownloadStatusText = "Đang kiểm tra mã SHA256 của file đã tải...";
+                    DownloadStatusText = Loc.T("AppUpdate_VerifyingSha256");
                     break;
 
                 case AppUpdatePhase.Extracting:
                     DownloadProgressValue = p.Percent;
-                    DownloadStatusText = $"Đang giải nén và kiểm tra gói: {percent}%";
+                    DownloadStatusText = Loc.F("AppUpdate_Extracting", percent);
                     break;
 
                 case AppUpdatePhase.BackingUp:
                     DownloadProgressValue = 0;
-                    DownloadStatusText = "Đang sao lưu file cơ sở dữ liệu (library.db) vào thư mục Backups...";
+                    DownloadStatusText = Loc.T("AppUpdate_BackingUpDb");
                     break;
 
                 case AppUpdatePhase.Installing:
                     DownloadProgressValue = p.Percent;
-                    DownloadStatusText = $"Đang cài đặt bản mới: {percent}% ({p.BytesDone}/{p.BytesTotal} file). Vui lòng KHÔNG tắt ứng dụng...";
+                    DownloadStatusText = Loc.F("AppUpdate_Installing", percent, p.BytesDone, p.BytesTotal);
                     break;
             }
         }
@@ -400,7 +409,7 @@ namespace SRM_by_Longtygu.ViewModels
             // Chỉ mở link thuộc repo SRM trên github.com
             if (!AppSelfUpdateChecker.IsTrustedReleaseUrl(url))
             {
-                _dialogService.ShowMessage("Không có đường dẫn hợp lệ để mở trang tải về.", "Thông báo");
+                _dialogService.ShowMessage(Loc.T("AppUpdate_NoValidLink"), Loc.T("Common_Notice"));
                 return;
             }
 
@@ -411,13 +420,22 @@ namespace SRM_by_Longtygu.ViewModels
             catch (Exception ex)
             {
                 _logService.LogError("[Cập nhật SRM] Không mở được trang Release.", ex);
-                _dialogService.ShowMessage($"Không mở được trình duyệt. Bạn có thể tự mở đường dẫn sau:\n{url}", "Thông báo");
+                _dialogService.ShowMessage(Loc.T("AppUpdate_CannotOpenBrowser") + "\n" + url, Loc.T("Common_Notice"));
             }
         }
 
         // ================= HÀM HỖ TRỢ =================
+        private void OnLanguageChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(CheckButtonText));
+            OnPropertyChanged(nameof(DownloadButtonText));
+            if (_lastCheckedIsDefault) LastCheckedText = Loc.T("AppUpdate_NeverChecked");
+            if (_statusIsDefault) StatusText = Loc.T("AppUpdate_ClickCheckToSee");
+        }
+
         private void SetStatus(string text, Brush brush)
         {
+            _statusIsDefault = false;
             StatusText = text;
             StatusBrush = brush;
         }
@@ -436,15 +454,15 @@ namespace SRM_by_Longtygu.ViewModels
 
         private static string FormatMb(long bytes)
         {
-            return (bytes / 1048576.0).ToString("0.0", Vi) + " MB";
+            return (bytes / 1048576.0).ToString("0.0", Loc.Culture) + " MB";
         }
 
         private static string FormatSpeed(double bytesPerSecond)
         {
             if (bytesPerSecond >= 1048576.0)
-                return (bytesPerSecond / 1048576.0).ToString("0.0", Vi) + " MB/s";
+                return (bytesPerSecond / 1048576.0).ToString("0.0", Loc.Culture) + " MB/s";
 
-            return (bytesPerSecond / 1024.0).ToString("0", Vi) + " KB/s";
+            return (bytesPerSecond / 1024.0).ToString("0", Loc.Culture) + " KB/s";
         }
 
         // Ghi chú phát hành: thuần văn bản, cắt khoảng 500 ký tự, không render Markdown

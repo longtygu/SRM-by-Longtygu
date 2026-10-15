@@ -306,5 +306,8 @@ namespace SRM_by_Longtygu.Services
         public static string T(string key) => LocalizationService.Instance?.GetString(key) ?? key;
 
         public static string F(string key, params object[] args) => LocalizationService.Instance?.Format(key, args) ?? key;
+
+        /// <summary>Culture của ngôn ngữ đang chọn, dùng để định dạng số/ngày khi hiển thị.</summary>
+        public static CultureInfo Culture => LocalizationService.Instance?.Culture ?? CultureInfo.CurrentCulture;
     }
 }

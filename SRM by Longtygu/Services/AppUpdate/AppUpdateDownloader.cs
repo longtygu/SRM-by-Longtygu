@@ -86,7 +86,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             if (update == null || !update.CanDownloadAutomatically
                 || !AppSelfUpdateChecker.IsTrustedDownloadUrl(update.AssetDownloadUrl))
             {
-                return Fail("Bản phát hành này không hỗ trợ tự tải (thiếu file gói hoặc mã kiểm tra SHA256). Hãy dùng nút \"Xem trang tải về\".");
+                return Fail(Loc.T("AppUpdate_NoAutoDownload"));
             }
 
             try
@@ -118,37 +118,37 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             catch (OperationCanceledException)
             {
                 CleanupStaging();
-                return new AppUpdateStageResult { Cancelled = true, ErrorMessage = "Đã hủy tải bản cập nhật." };
+                return new AppUpdateStageResult { Cancelled = true, ErrorMessage = Loc.T("AppUpdate_DownloadCancelled") };
             }
             catch (HttpRequestException ex)
             {
                 CleanupStaging();
                 SafeLogError("[Cập nhật SRM] Lỗi mạng khi tải gói cập nhật.", ex);
-                return Fail("Không kết nối được tới máy chủ tải file. Hãy kiểm tra mạng rồi thử lại.");
+                return Fail(Loc.T("AppUpdate_ServerUnreachable"));
             }
             catch (IOException ex) when (IsDiskFull(ex))
             {
                 CleanupStaging();
                 SafeLogError("[Cập nhật SRM] Hết dung lượng ổ đĩa khi tải gói cập nhật.", ex);
-                return Fail("Ổ đĩa đã đầy khi ghi file tạm. Hãy giải phóng dung lượng rồi thử lại.");
+                return Fail(Loc.T("AppUpdate_DiskFullTemp"));
             }
             catch (UnauthorizedAccessException ex)
             {
                 CleanupStaging();
                 SafeLogError("[Cập nhật SRM] Không có quyền ghi vào thư mục tạm.", ex);
-                return Fail("Không có quyền ghi vào thư mục tạm của Windows.");
+                return Fail(Loc.T("AppUpdate_NoWriteTemp"));
             }
             catch (InvalidDataException ex)
             {
                 CleanupStaging();
                 SafeLogError("[Cập nhật SRM] File tải về không phải zip hợp lệ.", ex);
-                return Fail("File tải về không phải gói zip hợp lệ.");
+                return Fail(Loc.T("AppUpdate_NotValidZip"));
             }
             catch (Exception ex)
             {
                 CleanupStaging();
                 SafeLogError("[Cập nhật SRM] Lỗi không xác định khi chuẩn bị gói cập nhật.", ex);
-                return Fail("Đã xảy ra lỗi không mong muốn khi chuẩn bị gói cập nhật.");
+                return Fail(Loc.T("AppUpdate_PrepareUnexpectedError"));
             }
         }
 
@@ -186,7 +186,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             }
             catch (OperationCanceledException) when (!ct.IsCancellationRequested)
             {
-                throw new UpdateException("Hết thời gian chờ máy chủ tải file. Hãy kiểm tra mạng rồi thử lại.");
+                throw new UpdateException(Loc.T("AppUpdate_ServerTimeout"));
             }
 
             var state = new StallState();
@@ -199,7 +199,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 {
                     if (!response.IsSuccessStatusCode)
                     {
-                        throw new UpdateException($"Máy chủ trả về mã lỗi {(int)response.StatusCode} khi tải file.");
+                        throw new UpdateException(Loc.F("AppUpdate_ServerErrorCode", (int)response.StatusCode));
                     }
 
                     long total = response.Content.Headers.ContentLength ?? update.AssetSize;
@@ -259,13 +259,13 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                             }
                             catch (OperationCanceledException) when (!ct.IsCancellationRequested)
                             {
-                                throw new UpdateException("Mất kết nối khi đang tải. Hãy kiểm tra mạng rồi thử lại.");
+                                throw new UpdateException(Loc.T("AppUpdate_ConnectionLost"));
                             }
                             catch (IOException ex)
                             {
                                 // Chỉ việc ĐỌC từ mạng nằm trong khối này (ghi đĩa nằm bên ngoài) nên đây là kết nối bị ngắt
                                 SafeLogError("[Cập nhật SRM] Kết nối bị ngắt giữa chừng khi đang tải.", ex);
-                                throw new UpdateException("Kết nối bị ngắt giữa chừng khi đang tải. Hãy kiểm tra mạng rồi thử lại. (Đã hủy và xóa file tạm.)");
+                                throw new UpdateException(Loc.T("AppUpdate_ConnectionInterrupted"));
                             }
 
                             if (read == 0) break;
@@ -319,14 +319,14 @@ namespace SRM_by_Longtygu.Services.AppUpdate
 
                     if (update.AssetSize > 0 && done != update.AssetSize)
                     {
-                        throw new UpdateException("File tải về bị thiếu dữ liệu (kích thước không khớp với GitHub). Đã hủy.");
+                        throw new UpdateException(Loc.T("AppUpdate_SizeMismatch"));
                     }
 
                     string actual = Convert.ToHexString(hasher.GetHashAndReset());
                     if (!string.Equals(actual, update.AssetSha256, StringComparison.OrdinalIgnoreCase))
                     {
                         SafeLogError($"[Cập nhật SRM] SHA256 KHÔNG khớp. Mong đợi {update.AssetSha256}, thực tế {actual}", null);
-                        throw new UpdateException("Mã SHA256 của file tải về KHÔNG khớp với mã GitHub công bố (file có thể bị hỏng hoặc bị can thiệp). Đã hủy và xóa file.");
+                        throw new UpdateException(Loc.T("AppUpdate_Sha256Mismatch"));
                     }
                 }
             }
@@ -393,11 +393,11 @@ namespace SRM_by_Longtygu.Services.AppUpdate
         {
             if (state.NetworkLost)
             {
-                return new UpdateException("Máy tính đã mất kết nối mạng khi đang tải. Hãy kết nối lại rồi thử lại. (Đã hủy và xóa file tạm.)");
+                return new UpdateException(Loc.T("AppUpdate_NetworkLostDuring"));
             }
 
             return new UpdateException(
-                $"Mất kết nối khi đang tải: không nhận được dữ liệu trong {(int)StallTimeout.TotalSeconds} giây. Hãy kiểm tra mạng rồi thử lại. (Đã hủy và xóa file tạm.)");
+                Loc.F("AppUpdate_StalledDownload", (int)StallTimeout.TotalSeconds));
         }
 
         // ====================================================================
@@ -423,7 +423,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
 
             if (files.Count == 0)
             {
-                throw new UpdateException("Gói cập nhật rỗng.");
+                throw new UpdateException(Loc.T("AppUpdate_PackageEmpty"));
             }
 
             // Bỏ thư mục gốc chung (ví dụ "SRM-by-Longtygu-v1.0.0/"), không gán cứng tên
@@ -468,14 +468,14 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 {
                     if (segment == ".." || segment == "." || segment.Contains(':'))
                     {
-                        throw new UpdateException("Gói cập nhật chứa đường dẫn không an toàn. Đã hủy.");
+                        throw new UpdateException(Loc.T("AppUpdate_UnsafePath"));
                     }
                 }
 
                 string destination = Path.GetFullPath(Path.Combine(extractDir, relative.Replace('/', Path.DirectorySeparatorChar)));
                 if (!destination.StartsWith(extractFull, StringComparison.OrdinalIgnoreCase))
                 {
-                    throw new UpdateException("Gói cập nhật chứa đường dẫn nằm ngoài thư mục giải nén. Đã hủy.");
+                    throw new UpdateException(Loc.T("AppUpdate_PathOutsideExtract"));
                 }
 
                 Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
@@ -503,7 +503,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             string stagedExe = Path.Combine(extractDir, MainExeName);
             if (!File.Exists(stagedExe))
             {
-                throw new UpdateException($"Gói cập nhật không chứa file chương trình \"{MainExeName}\".");
+                throw new UpdateException(Loc.F("AppUpdate_MissingMainExe", MainExeName));
             }
 
             if (update.LatestVersion == null) return;
@@ -527,7 +527,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 if (normalized.CompareTo(update.LatestVersion) != 0)
                 {
                     throw new UpdateException(
-                        $"Phiên bản trong gói ({normalized}) không khớp với bản phát hành ({update.LatestVersion}). Đã hủy để tránh cài nhầm.");
+                        Loc.F("AppUpdate_VersionMismatch", normalized, update.LatestVersion));
                 }
             }
             catch (UpdateException)
@@ -555,7 +555,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 if (free < need)
                 {
                     throw new UpdateException(
-                        $"Ổ đĩa chứa thư mục tạm không đủ dung lượng trống (cần khoảng {need / 1048576} MB, còn {free / 1048576} MB).");
+                        Loc.F("AppUpdate_StagingNoSpace", need / 1048576, free / 1048576));
                 }
             }
             catch (UpdateException)

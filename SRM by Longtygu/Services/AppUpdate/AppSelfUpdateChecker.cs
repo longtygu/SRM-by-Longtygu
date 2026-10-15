@@ -69,7 +69,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 {
                     SafeLogWarning($"[Cập nhật SRM] GitHub trả về mã lỗi {(int)response.StatusCode}.");
                     return Fail(AppUpdateStatus.InvalidResponse, current,
-                        $"GitHub trả về mã lỗi {(int)response.StatusCode}. Vui lòng thử lại sau.");
+                        Loc.F("AppUpdate_GitHubErrorCode", (int)response.StatusCode));
                 }
 
                 string json = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
 
                 if (releases == null)
                 {
-                    return Fail(AppUpdateStatus.InvalidResponse, current, "Phản hồi từ GitHub không đúng định dạng.");
+                    return Fail(AppUpdateStatus.InvalidResponse, current, Loc.T("AppUpdate_BadGitHubResponse"));
                 }
 
                 // Chọn bản có version CAO NHẤT (không phụ thuộc thứ tự GitHub trả về), bỏ draft.
@@ -104,7 +104,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                 if (best == null || bestVersion == null)
                 {
                     SafeLogWarning("[Cập nhật SRM] Không tìm thấy bản phát hành hợp lệ nào trên GitHub.");
-                    return Fail(AppUpdateStatus.InvalidResponse, current, "Không tìm thấy bản phát hành hợp lệ nào trên GitHub.");
+                    return Fail(AppUpdateStatus.InvalidResponse, current, Loc.T("AppUpdate_NoValidRelease"));
                 }
 
                 bool hasUpdate = bestVersion.CompareTo(current) > 0;
@@ -135,27 +135,27 @@ namespace SRM_by_Longtygu.Services.AppUpdate
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-                return Fail(AppUpdateStatus.Cancelled, current, "Đã hủy kiểm tra cập nhật.");
+                return Fail(AppUpdateStatus.Cancelled, current, Loc.T("AppUpdate_CheckCancelled"));
             }
             catch (OperationCanceledException ex) // không phải do người dùng hủy => hết thời gian chờ (timeout)
             {
                 SafeLogError("[Cập nhật SRM] Hết thời gian chờ khi gọi GitHub.", ex);
-                return Fail(AppUpdateStatus.NetworkError, current, "Hết thời gian chờ khi kết nối tới GitHub. Hãy kiểm tra mạng rồi thử lại.");
+                return Fail(AppUpdateStatus.NetworkError, current, Loc.T("AppUpdate_GitHubTimeout"));
             }
             catch (HttpRequestException ex) // offline, DNS lỗi, bị chặn...
             {
                 SafeLogError("[Cập nhật SRM] Không kết nối được tới GitHub.", ex);
-                return Fail(AppUpdateStatus.NetworkError, current, "Không kết nối được tới GitHub. Hãy kiểm tra mạng rồi thử lại.");
+                return Fail(AppUpdateStatus.NetworkError, current, Loc.T("AppUpdate_GitHubUnreachable"));
             }
             catch (JsonException ex) // JSON lạ
             {
                 SafeLogError("[Cập nhật SRM] JSON từ GitHub không hợp lệ.", ex);
-                return Fail(AppUpdateStatus.InvalidResponse, current, "Dữ liệu từ GitHub không đọc được (định dạng lạ).");
+                return Fail(AppUpdateStatus.InvalidResponse, current, Loc.T("AppUpdate_GitHubBadData"));
             }
             catch (Exception ex) // lưới an toàn cuối cùng: không bao giờ ném lỗi ra UI
             {
                 SafeLogError("[Cập nhật SRM] Lỗi không xác định khi kiểm tra cập nhật.", ex);
-                return Fail(AppUpdateStatus.InvalidResponse, current, "Đã xảy ra lỗi không mong muốn khi kiểm tra cập nhật.");
+                return Fail(AppUpdateStatus.InvalidResponse, current, Loc.T("AppUpdate_CheckUnexpectedError"));
             }
         }
 
@@ -164,7 +164,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
         // ====================================================================
         private AppUpdateResult HandleRateLimit(HttpResponseMessage response, Version current)
         {
-            string message = "GitHub đang tạm giới hạn số lần kiểm tra. Vui lòng thử lại sau ít phút.";
+            string message = Loc.T("AppUpdate_RateLimitedShort");
 
             // Header X-RateLimit-Reset = thời điểm reset (giây Unix, UTC)
             if (response.Headers.TryGetValues("X-RateLimit-Reset", out var resetValues))
@@ -174,7 +174,7 @@ namespace SRM_by_Longtygu.Services.AppUpdate
                     if (long.TryParse(raw, out long epoch))
                     {
                         var resetLocal = DateTimeOffset.FromUnixTimeSeconds(epoch).ToLocalTime();
-                        message = $"GitHub đang tạm giới hạn số lần kiểm tra. Hãy thử lại sau {resetLocal:HH:mm dd/MM/yyyy}.";
+                        message = Loc.F("AppUpdate_RateLimitedUntil", resetLocal);
                     }
                     break;
                 }

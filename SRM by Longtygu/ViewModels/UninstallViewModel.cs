@@ -127,8 +127,8 @@ namespace SRM_by_Longtygu.ViewModels
             // Lấy danh sách từ giỏ hàng thay vì duyệt DataGrid
             var appsToUninstall = SelectedApps.ToList();
 
-            var result = MessageBox.Show($"Bạn đang yêu cầu gỡ cài đặt {appsToUninstall.Count} phần mềm khỏi hệ thống.\n\nChú ý: Một số bộ gỡ cài đặt có thể yêu cầu bạn xác nhận xóa Cache/Data trên màn hình.\nBạn có muốn tiếp tục?",
-                                         "CẢNH BÁO", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show(Loc.F("Uninstall_RequestUninstall", appsToUninstall.Count) + "\n\n" + Loc.T("Uninstall_UninstallerMayAsk") + "\n" + Loc.T("Uninstall_WantToContinue"),
+                                         Loc.T("Uninstall_WARNING"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.No) return;
 
             IsUninstalling = true;

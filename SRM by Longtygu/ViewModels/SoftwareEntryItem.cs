@@ -113,7 +113,7 @@ namespace SRM_by_Longtygu.ViewModels
         // Lý do trùng lặp / lỗi (nếu có) để hiển thị cho người dùng biết cách xử lý
         public string StatusMessage { get => _statusMessage; set => SetProperty(ref _statusMessage, value); }
 
-        private string _statusLabel = "Chờ xử lý";
+        private string _statusLabel = Loc.T("Entry_Pending");
         public string StatusLabel { get => _statusLabel; private set => SetProperty(ref _statusLabel, value); }
 
         private Brush _statusBrush = new SolidColorBrush(Color.FromRgb(0x8A, 0x8A, 0x8A));
@@ -170,11 +170,11 @@ namespace SRM_by_Longtygu.ViewModels
         {
             switch (status)
             {
-                case EntryStatus.Pending: return "Chờ xử lý";
-                case EntryStatus.Processing: return "Đang xử lý...";
-                case EntryStatus.Success: return "Thành công";
-                case EntryStatus.Duplicate: return "Trùng lặp";
-                case EntryStatus.Error: return "Lỗi";
+                case EntryStatus.Pending: return Loc.T("Entry_Pending");
+                case EntryStatus.Processing: return Loc.T("Status_Processing");
+                case EntryStatus.Success: return Loc.T("PresetMain_Success");
+                case EntryStatus.Duplicate: return Loc.T("Entry_Duplicate");
+                case EntryStatus.Error: return Loc.T("Common_Error");
                 default: return "";
             }
         }

@@ -79,7 +79,7 @@ namespace SRM_by_Longtygu.Services
                                 string dateStr = subkey.GetValue("InstallDate") as string;
                                 if (!string.IsNullOrEmpty(dateStr) && dateStr.Length == 8)
                                     dateStr = $"{dateStr.Substring(6, 2)}/{dateStr.Substring(4, 2)}/{dateStr.Substring(0, 4)}";
-                                else dateStr = "Không rõ";
+                                else dateStr = Loc.T("Uninstall_Unknown");
 
                                 apps.Add(new InstalledApp
                                 {

@@ -262,19 +262,19 @@
                         <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding EstimatedSize}" Width="1*" IsReadOnly="True" Foreground="#CCCCCC"/>
                         <DataGridTextColumn Header="{Binding [Uninstall_InstallDate], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding InstallDate}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
 
-                        <DataGridTextColumn Header="{Binding [Common_Status], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Status}" Width="1*" IsReadOnly="True" FontWeight="SemiBold">
+                        <DataGridTextColumn Header="{Binding [Common_Status], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Status, Converter={x:Static srmloc:StatusTextConverter.Instance}}" Width="1*" IsReadOnly="True" FontWeight="SemiBold">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
-                                        <Trigger Property="Text" Value="Đã gỡ">
+                                        <DataTrigger Binding="{Binding Status}" Value="Đã gỡ">
                                             <Setter Property="Foreground" Value="#6CCB5F"/>
-                                        </Trigger>
-                                        <Trigger Property="Text" Value="Lỗi / Hủy">
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Lỗi / Hủy">
                                             <Setter Property="Foreground" Value="#FF99A4"/>
-                                        </Trigger>
-                                        <Trigger Property="Text" Value="Đang gỡ...">
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Đang gỡ...">
                                             <Setter Property="Foreground" Value="#FCE100"/>
-                                        </Trigger>
+                                        </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>

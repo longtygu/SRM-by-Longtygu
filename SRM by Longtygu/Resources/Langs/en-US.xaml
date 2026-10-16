@@ -668,4 +668,107 @@ Thanks to this mechanism, SRM automatically distinguishes Inno Setup installers 
     <system:String x:Key="Library_ResourceLocationNotFound">Resource location not found on disk!</system:String>
     <system:String x:Key="Library_PathLabel">Path: {0}</system:String>
 
+    <!-- Trung tâm cập nhật (chuỗi do C# sinh ra), Gỡ cài đặt, gợi ý trong Style -->
+    <system:String x:Key="UpdateCenter_LastScan0Dd">Last scan: {0:dd/MM/yyyy HH:mm}</system:String>
+    <system:String x:Key="UpdateCenter_NeverScanned">Never scanned</system:String>
+    <system:String x:Key="UpdateCenter_NoSoftwareHasAn">No software has an update check source configured yet.</system:String>
+    <system:String x:Key="UpdateCenter_ClickTheIconOn">Click the ⚙ icon on a software item to set up a source (GitHub Releases or web page scan).</system:String>
+    <system:String x:Key="UpdateCenter_NothingToScan">Nothing to scan</system:String>
+    <system:String x:Key="UpdateCenter_FinishedChecking0Software">Finished checking {0} software ({1} scanned successfully).</system:String>
+    <system:String x:Key="UpdateCenter_Found0SoftwareWith">Found {0} software with a new update available.</system:String>
+    <system:String x:Key="UpdateCenter_AllSoftwareIsOn">All software is on the latest version.</system:String>
+    <system:String x:Key="UpdateCenter_UpdateCheckComplete">Update check complete</system:String>
+    <system:String x:Key="UpdateCenter_MissingConfiguration">Missing configuration</system:String>
+    <system:String x:Key="UpdateCenter_ThisSoftwareHasNo">This software has no update check source configured yet.</system:String>
+    <system:String x:Key="UpdateCenter_0TheLatestVersion">'{0}': the latest version found is {1}.</system:String>
+    <system:String x:Key="UpdateCenter_CheckOf0Failed">Check of '{0}' failed: {1}</system:String>
+    <system:String x:Key="UpdateCenter_CheckResult">Check result</system:String>
+    <system:String x:Key="UpdateCenter_UpdateCheckFailed0">Update check failed: {0}</system:String>
+    <system:String x:Key="UpdateCenter_FoundVersion0Via" xml:space="preserve">Found version {0} via Winget, but Winget does not expose a direct download link for this package </system:String>
+    <system:String x:Key="UpdateCenter_UsuallyBecauseItWas" xml:space="preserve">(usually because it was installed via MSIX/Store). Use the 'Install now' button so Winget downloads and installs it straight onto this computer </system:String>
+    <system:String x:Key="UpdateCenter_ThisVersionWillNOT">(this version will NOT be added to the Data/ library).</system:String>
+    <system:String x:Key="UpdateCenter_FoundVersion0But">Found version {0} but this source does not provide a direct download link.</system:String>
+    <system:String x:Key="UpdateCenter_DownloadItManuallyThen">Download it manually, then add it with the 'Add version' button in the Software Library.</system:String>
+    <system:String x:Key="UpdateCenter_NoAutomaticDownloadLink">No automatic download link</system:String>
+    <system:String x:Key="UpdateCenter_DownloadedAndAddedVersion">Downloaded and added version {0} of '{1}' to the library.</system:String>
+    <system:String x:Key="UpdateCenter_DownloadingOrAddingThe">Downloading or adding the new version failed. See details in the Activity log.</system:String>
+    <system:String x:Key="UpdateCenter_Installed0Version1">Installed {0} version {1} on this computer via Winget.</system:String>
+    <system:String x:Key="UpdateCenter_NoteThisVersionWas">(Note: this version was NOT added to the Data/ library because Winget manages its own installer cache.)</system:String>
+    <system:String x:Key="UpdateCenter_InstallingViaWingetFailed">Installing via Winget failed. Check that Winget is installed and you have a network connection, or try again.</system:String>
+    <system:String x:Key="UpdateCenter_InstallationSuccessful">Installation successful</system:String>
+    <system:String x:Key="UpdateCenter_DownloadingTheUpdateFailed">Downloading the update failed, so it cannot be installed.</system:String>
+    <system:String x:Key="UpdateCenter_AddedToTheLibrary">Added to the library but could not find the version just downloaded to install it.</system:String>
+    <system:String x:Key="UpdateCenter_Installed0Version12">Installed {0} version {1} on this computer.</system:String>
+    <system:String x:Key="UpdateCenter_AddedVersion0To" xml:space="preserve">Added version {0} to the library, but the automatic installation failed </system:String>
+    <system:String x:Key="UpdateCenter_PossiblyBecauseTheSilent">(possibly because the silent-install switch is missing). You can install it manually from the Software Library.</system:String>
+    <system:String x:Key="UpdateCenter_ManualInstallationNeeded">Manual installation needed</system:String>
+    <system:String x:Key="UpdateCenter_NothingToUpdate">Nothing to update</system:String>
+    <system:String x:Key="UpdateCenter_NoSoftwareHasA">No software has a new update available.</system:String>
+    <system:String x:Key="UpdateCenter_ThisDoesNOTTouch">This does NOT touch any software running on this computer. Continue?</system:String>
+    <system:String x:Key="UpdateCenter_ConfirmUpdateAll">Confirm update all</system:String>
+    <system:String x:Key="UpdateCenter_Updating00">Updating... 0/{0}</system:String>
+    <system:String x:Key="UpdateCenter_0NoAutomaticDownload">{0} (no automatic download link)</system:String>
+    <system:String x:Key="UpdateCenter_Updating01">Updating... {0}/{1}</system:String>
+    <system:String x:Key="UpdateCenter_SuccessfullyDownloaded01">Successfully downloaded {0}/{1} updates into the library.</system:String>
+    <system:String x:Key="UpdateCenter_CompleteWithErrors">Complete (with errors)</system:String>
+    <system:String x:Key="UpdateCenter_UpdateAllComplete">Update all complete</system:String>
+    <system:String x:Key="UpdateCenter_NothingToApply">Nothing to apply</system:String>
+    <system:String x:Key="UpdateCenter_AllSoftwareAlreadyHas">All software already has an update source configured.</system:String>
+    <system:String x:Key="UpdateCenter_AutomaticallyConfigured01">Automatically configured {0}/{1} software based on the built-in suggestion catalog.</system:String>
+    <system:String x:Key="UpdateCenter_0SoftwareDidNot">{0} software did not match the catalog and need to be configured by hand (click the ⚙ icon on each row).</system:String>
+    <system:String x:Key="UpdateCenter_AllUnconfiguredSoftwareWas">All unconfigured software was applied automatically!</system:String>
+    <system:String x:Key="UpdateCenter_NoneOfThe0">None of the {0} unconfigured software matched the built-in suggestion catalog.</system:String>
+    <system:String x:Key="UpdateCenter_ConfigureByHandVia">Configure by hand via the ⚙ icon, or add them to KnownAppsCatalog.cs yourself.</system:String>
+    <system:String x:Key="UpdateCenter_AutoConfigureResult">Auto-configure result</system:String>
+    <system:String x:Key="Uninstall_WARNING">WARNING</system:String>
+    <system:String x:Key="UpdateCenter_NoAutoLink">Could not get an automatic download link: {0}</system:String>
+    <system:String x:Key="UpdateCenter_SourceNoDirectLink">The source does not provide a direct download link.</system:String>
+    <system:String x:Key="UpdateCenter_AndMoreSoftware">... and {0} more software</system:String>
+    <system:String x:Key="UpdateCenter_ConfirmUpdateAllIntro">The latest version will be downloaded to the LIBRARY (Data/ folder) for the following {0} software:</system:String>
+    <system:String x:Key="UpdateCenter_FailedSoftwareList">{0} software failed:</system:String>
+    <system:String x:Key="Uninstall_RequestUninstall">You are asking to uninstall {0} software from the system.</system:String>
+    <system:String x:Key="Uninstall_UninstallerMayAsk">Note: some uninstallers may ask you to confirm deleting Cache/Data on screen.</system:String>
+    <system:String x:Key="Uninstall_WantToContinue">Do you want to continue?</system:String>
+    <system:String x:Key="AttachResource_SearchByNameCategory">Search by name, category, file name...</system:String>
+    <system:String x:Key="Tools_HoverOverATool">Hover over a tool to see its description, click "Add tool" to install a new version</system:String>
+    <system:String x:Key="Tools_ExportAToolTo">Export a tool to back it up or share it, or delete tools you no longer use. Built-in tools cannot be exported or deleted.</system:String>
+    <system:String x:Key="UpdateCenter_UpdateAll">Update all</system:String>
+    <system:String x:Key="UpdateCenter_ScanAll">Scan all</system:String>
+
+    <!-- Trạng thái (Status_*), Cài đặt tùy chọn (Deployment), nhãn mô hình dữ liệu -->
+    <system:String x:Key="Status_Processing">Processing...</system:String>
+    <system:String x:Key="Status_Uninstalling">Uninstalling...</system:String>
+    <system:String x:Key="Status_Uninstalled">Uninstalled</system:String>
+    <system:String x:Key="Status_ErrorCancelled">Error / Cancelled</system:String>
+    <system:String x:Key="Deployment_SelectTheSoftwareYou">Select the software you want to install</system:String>
+    <system:String x:Key="Deployment_ChooseTheSoftwareInstallatio">Choose the software installation folder</system:String>
+    <system:String x:Key="Deployment_WARNINGCouldNotFind">[WARNING] Could not find the location of resource '{0}' on disk.</system:String>
+    <system:String x:Key="Deployment_WARNINGErrorOpeningThe">[WARNING] Error opening the location of resource '{0}': {1}</system:String>
+    <system:String x:Key="Deployment_DuplicateWarning">Duplicate warning</system:String>
+    <system:String x:Key="Deployment_DEPLOYMENTCYCLESTARTED">=== DEPLOYMENT CYCLE STARTED ===</system:String>
+    <system:String x:Key="Deployment_CreatingRestorePoint">Creating Restore Point...</system:String>
+    <system:String x:Key="Deployment_InitializingSystemRestorePoi">Initializing System Restore Point (waiting for Admin permission)...</system:String>
+    <system:String x:Key="Deployment_WarningCouldNotCreate">Warning: Could not create a Restore Point.</system:String>
+    <system:String x:Key="Deployment_RestorePointCreatedSuccessfu">Restore Point created successfully. The system is safe.</system:String>
+    <system:String x:Key="Deployment_PreparingData00">-&gt; Preparing data: {0} [0%]</system:String>
+    <system:String x:Key="Deployment_ExtractingPortablePackage0">-&gt; Extracting Portable package: {0}...</system:String>
+    <system:String x:Key="Deployment_CopyingPortableFiles0">-&gt; Copying Portable files: {0}...</system:String>
+    <system:String x:Key="Deployment_CreatingDesktopShortcut">-&gt; Creating Desktop Shortcut...</system:String>
+    <system:String x:Key="Deployment_OKPortableDeploymentFinished">[OK] Portable deployment finished: {0}</system:String>
+    <system:String x:Key="Deployment_OpeningTheLocationOf">-&gt; Opening the location of {0} attached resources of {1}...</system:String>
+    <system:String x:Key="Deployment_ERRORPortableError0">[ERROR] Portable error {0}: {1}</system:String>
+    <system:String x:Key="Deployment_CustomPathCommandTo" xml:space="preserve">   [Custom path] Command to run: {0}</system:String>
+    <system:String x:Key="Deployment_ExtractingAndRunning0">-&gt; Extracting and running: {0} [{1}%]</system:String>
+    <system:String x:Key="Deployment_OKInstallationFinished0">[OK] Installation finished: {0}</system:String>
+    <system:String x:Key="Deployment_ERRORInstallError0">[ERROR] Install error: {0}</system:String>
+    <system:String x:Key="Deployment_FinishedProcessing0Software">Finished processing {0} software!</system:String>
+    <system:String x:Key="Deployment_ALLCYCLESFINISHED">=== ALL CYCLES FINISHED ===</system:String>
+    <system:String x:Key="Deployment_TheFollowingSoftwareWas">The following software was already installed successfully before:</system:String>
+    <system:String x:Key="Deployment_AreYouSureYou">Are you sure you want to force a reinstall?</system:String>
+    <system:String x:Key="Entry_Pending">Pending</system:String>
+    <system:String x:Key="Entry_Duplicate">Duplicate</system:String>
+    <system:String x:Key="Software_ScannedAt0">Scanned at: {0}</system:String>
+    <system:String x:Key="Software_Uncategorized">Uncategorized</system:String>
+    <system:String x:Key="Uninstall_Unknown">Unknown</system:String>
+
 </ResourceDictionary>

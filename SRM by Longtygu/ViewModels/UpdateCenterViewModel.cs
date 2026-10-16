@@ -88,8 +88,8 @@ namespace SRM_by_Longtygu.ViewModels
 
         // Chuỗi hiển thị sẵn cho header, tránh phải viết converter riêng trong XAML
         public string LastScanDisplayText => _lastScanTime.HasValue
-            ? $"Lần quét gần nhất: {_lastScanTime:dd/MM/yyyy HH:mm}"
-            : "Chưa quét lần nào";
+            ? Loc.F("UpdateCenter_LastScan0Dd", _lastScanTime)
+            : Loc.T("UpdateCenter_NeverScanned");
 
         // ===== Thẻ thống kê hiển thị trên đầu trang =====
         public int TotalSoftwareCount => Softwares.Count;
@@ -228,9 +228,9 @@ namespace SRM_by_Longtygu.ViewModels
             if (candidates.Count == 0)
             {
                 _dialogService.ShowMessage(
-                    "Chưa có phần mềm nào được cấu hình nguồn kiểm tra cập nhật.\n" +
-                    "Bấm icon ⚙ trên từng phần mềm để thiết lập nguồn (GitHub Releases hoặc quét trang web).",
-                    "Chưa có gì để quét");
+                    Loc.T("UpdateCenter_NoSoftwareHasAn") + "\n" +
+                    Loc.T("UpdateCenter_ClickTheIconOn"),
+                    Loc.T("UpdateCenter_NothingToScan"));
                 return;
             }
 
@@ -254,11 +254,11 @@ namespace SRM_by_Longtygu.ViewModels
 
                 int updatesAvailable = Softwares.Count(s => s.HasUpdateAvailable);
                 _dialogService.ShowMessage(
-                    $"Đã kiểm tra xong {candidates.Count} phần mềm ({foundCount} quét thành công).\n" +
+                    Loc.F("UpdateCenter_FinishedChecking0Software", candidates.Count, foundCount) + "\n" +
                     (updatesAvailable > 0
-                        ? $"Tìm thấy {updatesAvailable} phần mềm có bản cập nhật mới."
-                        : "Tất cả phần mềm đều đang ở phiên bản mới nhất."),
-                    "Hoàn tất kiểm tra cập nhật");
+                        ? Loc.F("UpdateCenter_Found0SoftwareWith", updatesAvailable)
+                        : Loc.T("UpdateCenter_AllSoftwareIsOn")),
+                    Loc.T("UpdateCenter_UpdateCheckComplete"));
             }
             finally
             {
@@ -273,7 +273,7 @@ namespace SRM_by_Longtygu.ViewModels
             if (software == null) return;
             if (!software.HasUpdateSourceConfigured)
             {
-                _dialogService.ShowMessage("Phần mềm này chưa được cấu hình nguồn kiểm tra cập nhật.", "Thiếu cấu hình");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_ThisSoftwareHasNo"), Loc.T("UpdateCenter_MissingConfiguration"));
                 return;
             }
 
@@ -282,9 +282,9 @@ namespace SRM_by_Longtygu.ViewModels
 
             _dialogService.ShowMessage(
                 result.Success
-                    ? $"'{software.Name}': phiên bản mới nhất tìm thấy là {result.LatestVersion}."
-                    : $"Kiểm tra '{software.Name}' thất bại: {result.ErrorMessage}",
-                result.Success ? "Kết quả kiểm tra" : "Lỗi");
+                    ? Loc.F("UpdateCenter_0TheLatestVersion", software.Name, result.LatestVersion)
+                    : Loc.F("UpdateCenter_CheckOf0Failed", software.Name, result.ErrorMessage),
+                result.Success ? Loc.T("UpdateCenter_CheckResult") : Loc.T("Common_Error"));
         }
 
         private void ExecuteConfigureUpdateSource(object parameter)
@@ -301,26 +301,26 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (!software.HasUpdateSourceConfigured)
             {
-                _dialogService.ShowMessage("Phần mềm này chưa được cấu hình nguồn kiểm tra cập nhật.", "Thiếu cấu hình");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_ThisSoftwareHasNo"), Loc.T("UpdateCenter_MissingConfiguration"));
                 return;
             }
 
             var checkResult = await _updateCheckService.CheckOneAsync(software);
             if (!checkResult.Success)
             {
-                _dialogService.ShowMessage($"Kiểm tra cập nhật thất bại: {checkResult.ErrorMessage}", "Lỗi");
+                _dialogService.ShowMessage(Loc.F("UpdateCenter_UpdateCheckFailed0", checkResult.ErrorMessage), Loc.T("Common_Error"));
                 return;
             }
             if (string.IsNullOrWhiteSpace(checkResult.DownloadUrl))
             {
                 string reason = software.UpdateSourceType == "Winget"
-                    ? $"Tìm thấy phiên bản {checkResult.LatestVersion} qua Winget, nhưng Winget không lộ link tải trực tiếp cho gói này " +
-                      "(thường do cài qua MSIX/Store). Dùng nút 'Cài ngay' để Winget tự tải+cài thẳng lên máy " +
-                      "(sẽ KHÔNG thêm được bản này vào thư viện Data/)."
-                    : $"Tìm thấy phiên bản {checkResult.LatestVersion} nhưng nguồn này không cung cấp link tải trực tiếp.\n" +
-                      "Hãy tải thủ công rồi thêm bằng nút 'Thêm phiên bản' trong Kho phần mềm.";
+                    ? Loc.F("UpdateCenter_FoundVersion0Via", checkResult.LatestVersion) +
+                      Loc.T("UpdateCenter_UsuallyBecauseItWas") +
+                      Loc.T("UpdateCenter_ThisVersionWillNOT")
+                    : Loc.F("UpdateCenter_FoundVersion0But", checkResult.LatestVersion) + "\n" +
+                      Loc.T("UpdateCenter_DownloadItManuallyThen");
 
-                _dialogService.ShowMessage(reason, "Không có link tải tự động");
+                _dialogService.ShowMessage(reason, Loc.T("UpdateCenter_NoAutomaticDownloadLink"));
                 return;
             }
 
@@ -346,9 +346,9 @@ namespace SRM_by_Longtygu.ViewModels
                 await LoadDataAsync();
 
                 _dialogService.ShowMessage(
-                    ok ? $"Đã tải và thêm phiên bản {checkResult.LatestVersion} của '{software.Name}' vào thư viện."
-                       : "Tải hoặc thêm phiên bản mới thất bại. Xem chi tiết trong Nhật ký hoạt động.",
-                    ok ? "Thành công" : "Lỗi");
+                    ok ? Loc.F("UpdateCenter_DownloadedAndAddedVersion", checkResult.LatestVersion, software.Name)
+                       : Loc.T("UpdateCenter_DownloadingOrAddingThe"),
+                    ok ? Loc.T("PresetMain_Success") : Loc.T("Common_Error"));
             }
             finally
             {
@@ -367,7 +367,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (!software.HasUpdateSourceConfigured)
             {
-                _dialogService.ShowMessage("Phần mềm này chưa được cấu hình nguồn kiểm tra cập nhật.", "Thiếu cấu hình");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_ThisSoftwareHasNo"), Loc.T("UpdateCenter_MissingConfiguration"));
                 return;
             }
 
@@ -378,7 +378,7 @@ namespace SRM_by_Longtygu.ViewModels
                 var wingetCheck = await _updateCheckService.CheckOneAsync(software);
                 if (!wingetCheck.Success)
                 {
-                    _dialogService.ShowMessage($"Kiểm tra cập nhật thất bại: {wingetCheck.ErrorMessage}", "Lỗi");
+                    _dialogService.ShowMessage(Loc.F("UpdateCenter_UpdateCheckFailed0", wingetCheck.ErrorMessage), Loc.T("Common_Error"));
                     return;
                 }
 
@@ -391,10 +391,10 @@ namespace SRM_by_Longtygu.ViewModels
                     bool wingetOk = await WingetSource.UpgradeNowAsync(software.UpdateSourceUrl);
                     _dialogService.ShowMessage(
                         wingetOk
-                            ? $"Đã cài đặt {software.Name} phiên bản {wingetCheck.LatestVersion} lên máy này qua Winget.\n" +
-                              "(Lưu ý: bản này KHÔNG được thêm vào thư viện Data/ vì Winget tự quản lý cache installer riêng.)"
-                            : "Cài đặt qua Winget thất bại. Kiểm tra máy đã cài Winget và có kết nối mạng, hoặc thử lại.",
-                        wingetOk ? "Cài đặt thành công" : "Lỗi");
+                            ? Loc.F("UpdateCenter_Installed0Version1", software.Name, wingetCheck.LatestVersion) + "\n" +
+                              Loc.T("UpdateCenter_NoteThisVersionWas")
+                            : Loc.T("UpdateCenter_InstallingViaWingetFailed"),
+                        wingetOk ? Loc.T("UpdateCenter_InstallationSuccessful") : Loc.T("Common_Error"));
                 }
                 finally
                 {
@@ -408,8 +408,8 @@ namespace SRM_by_Longtygu.ViewModels
             if (!checkResult.Success || string.IsNullOrWhiteSpace(checkResult.DownloadUrl))
             {
                 _dialogService.ShowMessage(
-                    $"Không lấy được link tải tự động: {checkResult.ErrorMessage ?? "Nguồn không cung cấp link tải trực tiếp."}",
-                    "Lỗi");
+                    Loc.F("UpdateCenter_NoAutoLink", checkResult.ErrorMessage ?? Loc.T("UpdateCenter_SourceNoDirectLink")),
+                    Loc.T("Common_Error"));
                 return;
             }
 
@@ -441,7 +441,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (!added)
             {
-                _dialogService.ShowMessage("Tải bản cập nhật thất bại, không thể cài đặt.", "Lỗi");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_DownloadingTheUpdateFailed"), Loc.T("Common_Error"));
                 return;
             }
 
@@ -451,7 +451,7 @@ namespace SRM_by_Longtygu.ViewModels
             var newVersion = refreshedSoftware?.Versions.OrderByDescending(v => v.Id).FirstOrDefault();
             if (newVersion == null)
             {
-                _dialogService.ShowMessage("Đã thêm vào thư viện nhưng không tìm lại được phiên bản vừa tải để cài.", "Lỗi");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_AddedToTheLibrary"), Loc.T("Common_Error"));
                 return;
             }
 
@@ -459,10 +459,10 @@ namespace SRM_by_Longtygu.ViewModels
 
             _dialogService.ShowMessage(
                 installOk
-                    ? $"Đã cài đặt {software.Name} phiên bản {newVersion.Version} lên máy."
-                    : $"Đã thêm phiên bản {newVersion.Version} vào thư viện, nhưng cài đặt tự động thất bại " +
-                      "(có thể do thiếu switch silent-install). Bạn có thể cài thủ công từ Kho phần mềm.",
-                installOk ? "Cài đặt thành công" : "Cần cài thủ công");
+                    ? Loc.F("UpdateCenter_Installed0Version12", software.Name, newVersion.Version)
+                    : Loc.F("UpdateCenter_AddedVersion0To", newVersion.Version) +
+                      Loc.T("UpdateCenter_PossiblyBecauseTheSilent"),
+                installOk ? Loc.T("UpdateCenter_InstallationSuccessful") : Loc.T("UpdateCenter_ManualInstallationNeeded"));
         }
         // MỚI: Tải TẤT CẢ bản cập nhật đang có (HasUpdateAvailable) về thư viện cùng lúc.
         // Chỉ thêm vào Data/ + DB, KHÔNG đụng gì tới máy đang chạy app (giống hệt "Tải về" của từng dòng,
@@ -472,18 +472,18 @@ namespace SRM_by_Longtygu.ViewModels
             var candidates = Softwares.Where(s => s.HasUpdateAvailable).ToList();
             if (candidates.Count == 0)
             {
-                _dialogService.ShowMessage("Không có phần mềm nào đang có bản cập nhật mới.", "Không có gì để cập nhật");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_NoSoftwareHasA"), Loc.T("UpdateCenter_NothingToUpdate"));
                 return;
             }
 
             var previewNames = candidates.Take(10).Select(s => $"• {s.Name} → {s.LatestKnownVersion}");
             string previewText = string.Join("\n", previewNames);
-            if (candidates.Count > 10) previewText += $"\n... và {candidates.Count - 10} phần mềm khác";
+            if (candidates.Count > 10) previewText += "\n" + Loc.F("UpdateCenter_AndMoreSoftware", candidates.Count - 10);
 
             var confirm = MessageBox.Show(
-                $"Sẽ tải bản mới nhất về THƯ VIỆN (thư mục Data/) cho {candidates.Count} phần mềm sau:\n\n{previewText}\n\n" +
-                "KHÔNG đụng gì tới các phần mềm đang chạy trên máy này. Tiếp tục?",
-                "Xác nhận cập nhật toàn bộ",
+                Loc.F("UpdateCenter_ConfirmUpdateAllIntro", candidates.Count) + "\n\n" + previewText + "\n\n" +
+                Loc.T("UpdateCenter_ThisDoesNOTTouch"),
+                Loc.T("UpdateCenter_ConfirmUpdateAll"),
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (confirm != MessageBoxResult.Yes) return;
@@ -494,7 +494,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             // Giới hạn tải tối đa 2 phần mềm cùng lúc, tránh nghẽn mạng/đĩa khi thư viện có nhiều app cần cập nhật
             var throttle = new SemaphoreSlim(2);
-            UpdateAllStatusText = $"Đang cập nhật... 0/{candidates.Count}";
+            UpdateAllStatusText = Loc.F("UpdateCenter_Updating00", candidates.Count);
 
             try
             {
@@ -507,7 +507,7 @@ namespace SRM_by_Longtygu.ViewModels
                         if (!checkResult.Success || string.IsNullOrWhiteSpace(checkResult.DownloadUrl))
                         {
                             Interlocked.Increment(ref failedCount);
-                            lock (failedNames) failedNames.Add($"{software.Name} (không có link tải tự động)");
+                            lock (failedNames) failedNames.Add(Loc.F("UpdateCenter_0NoAutomaticDownload", software.Name));
                             return;
                         }
 
@@ -548,7 +548,7 @@ namespace SRM_by_Longtygu.ViewModels
                     {
                         int completed = Interlocked.Increment(ref done);
                         Application.Current.Dispatcher.Invoke(() =>
-                            UpdateAllStatusText = $"Đang cập nhật... {completed}/{candidates.Count}");
+                            UpdateAllStatusText = Loc.F("UpdateCenter_Updating01", completed, candidates.Count));
                         throttle.Release();
                     }
                 });
@@ -556,11 +556,11 @@ namespace SRM_by_Longtygu.ViewModels
                 await Task.WhenAll(tasks);
                 await LoadDataAsync();
 
-                string summary = $"Đã tải thành công {successCount}/{candidates.Count} bản cập nhật vào thư viện.";
+                string summary = Loc.F("UpdateCenter_SuccessfullyDownloaded01", successCount, candidates.Count);
                 if (failedCount > 0)
-                    summary += $"\n\n{failedCount} phần mềm thất bại:\n{string.Join("\n", failedNames)}";
+                    summary += "\n\n" + Loc.F("UpdateCenter_FailedSoftwareList", failedCount) + "\n" + string.Join("\n", failedNames);
 
-                _dialogService.ShowMessage(summary, failedCount == 0 ? "Hoàn tất cập nhật toàn bộ" : "Hoàn tất (có lỗi)");
+                _dialogService.ShowMessage(summary, failedCount == 0 ? Loc.T("UpdateCenter_UpdateAllComplete") : Loc.T("UpdateCenter_CompleteWithErrors"));
             }
             finally
             {
@@ -576,7 +576,7 @@ namespace SRM_by_Longtygu.ViewModels
             var candidates = Softwares.Where(s => !s.HasUpdateSourceConfigured).ToList();
             if (candidates.Count == 0)
             {
-                _dialogService.ShowMessage("Tất cả phần mềm đều đã được cấu hình nguồn cập nhật rồi.", "Không có gì để áp dụng");
+                _dialogService.ShowMessage(Loc.T("UpdateCenter_AllSoftwareAlreadyHas"), Loc.T("UpdateCenter_NothingToApply"));
                 return;
             }
 
@@ -598,13 +598,13 @@ namespace SRM_by_Longtygu.ViewModels
 
             _dialogService.ShowMessage(
                 matched > 0
-                    ? $"Đã tự động cấu hình cho {matched}/{candidates.Count} phần mềm dựa theo catalog gợi ý sẵn.\n" +
+                    ? Loc.F("UpdateCenter_AutomaticallyConfigured01", matched, candidates.Count) + "\n" +
                       (candidates.Count - matched > 0
-                          ? $"Còn {candidates.Count - matched} phần mềm không khớp catalog, cần cấu hình tay (bấm icon ⚙ trên từng dòng)."
-                          : "Toàn bộ phần mềm chưa cấu hình đều đã được áp dụng tự động!")
-                    : $"Không có phần mềm nào trong {candidates.Count} phần mềm chưa cấu hình khớp với catalog gợi ý sẵn.\n" +
-                      "Cần cấu hình tay qua icon ⚙, hoặc tự bổ sung thêm vào KnownAppsCatalog.cs.",
-                "Kết quả tự động cấu hình");
+                          ? Loc.F("UpdateCenter_0SoftwareDidNot", candidates.Count - matched)
+                          : Loc.T("UpdateCenter_AllUnconfiguredSoftwareWas"))
+                    : Loc.F("UpdateCenter_NoneOfThe0", candidates.Count) + "\n" +
+                      Loc.T("UpdateCenter_ConfigureByHandVia"),
+                Loc.T("UpdateCenter_AutoConfigureResult"));
         }
 
         // MỚI: Gọi từ code-behind của View (sự kiện Loaded) - tự hiện hướng dẫn đúng 1 lần duy nhất

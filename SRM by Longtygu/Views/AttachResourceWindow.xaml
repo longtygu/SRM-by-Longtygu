@@ -268,7 +268,7 @@
                         <iconPacks:PackIconMaterial Grid.Column="0" Kind="Magnify" Foreground="#CCCCCC" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <TextBox Grid.Column="1" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                                  Background="Transparent" Foreground="#FFFFFF" BorderThickness="0" CaretBrush="#FFFFFF"
-                                 VerticalAlignment="Center" FontSize="14" Tag="Tìm theo tên, danh mục, tên file..."/>
+                                 VerticalAlignment="Center" FontSize="14" Tag="{DynamicResource AttachResource_SearchByNameCategory}"/>
                     </Grid>
                 </Border>
 

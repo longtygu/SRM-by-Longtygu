@@ -59,7 +59,7 @@ namespace SRM_by_Longtygu.ViewModels
         private int _progressValue;
         public int ProgressValue { get => _progressValue; set => SetProperty(ref _progressValue, value); }
 
-        private string _globalStatus = "Hãy chọn các phần mềm cần cài đặt";
+        private string _globalStatus = Loc.T("Deployment_SelectTheSoftwareYou");
         public string GlobalStatus { get => _globalStatus; set => SetProperty(ref _globalStatus, value); }
 
         private string _currentSortColumn = string.Empty;
@@ -116,7 +116,7 @@ namespace SRM_by_Longtygu.ViewModels
 
                 var dialog = new Microsoft.Win32.OpenFolderDialog
                 {
-                    Title = "Chọn thư mục cài đặt phần mềm",
+                    Title = Loc.T("Deployment_ChooseTheSoftwareInstallatio"),
                     InitialDirectory = initDir
                 };
 
@@ -265,12 +265,12 @@ namespace SRM_by_Longtygu.ViewModels
                     }
                     else
                     {
-                        WriteLog($"[CẢNH BÁO] Không tìm thấy vị trí tài nguyên '{resource.Name}' trên ổ cứng.");
+                        WriteLog(Loc.F("Deployment_WARNINGCouldNotFind", resource.Name));
                     }
                 }
                 catch (Exception ex)
                 {
-                    WriteLog($"[CẢNH BÁO] Lỗi mở vị trí tài nguyên '{resource.Name}': {ex.Message}");
+                    WriteLog(Loc.F("Deployment_WARNINGErrorOpeningThe", resource.Name, ex.Message));
                 }
             }
         }
@@ -293,31 +293,31 @@ namespace SRM_by_Longtygu.ViewModels
             if (alreadyInstalled.Any())
             {
                 string names = string.Join("\n- ", alreadyInstalled.Select(x => x.Software.Name));
-                var result = MessageBox.Show($"Các phần mềm sau đã được cài đặt thành công trước đó:\n- {names}\n\nBạn có chắc chắn muốn ép cài đặt lại không?",
-                                             "Cảnh báo trùng lặp", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show(Loc.T("Deployment_TheFollowingSoftwareWas") + "\n- " + names + "\n\n" + Loc.T("Deployment_AreYouSureYou"),
+                                             Loc.T("Deployment_DuplicateWarning"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.No) return;
             }
 
             IsDeploying = true;
             ProgressValue = 0;
             LiveLogs.Clear();
-            WriteLog("=== BẮT ĐẦU CHU TRÌNH DEPLOYMENT ===");
+            WriteLog(Loc.T("Deployment_DEPLOYMENTCYCLESTARTED"));
 
-            GlobalStatus = "Đang tạo Restore Point...";
-            WriteLog("Đang khởi tạo System Restore Point (Chờ cấp quyền Admin)...");
+            GlobalStatus = Loc.T("Deployment_CreatingRestorePoint");
+            WriteLog(Loc.T("Deployment_InitializingSystemRestorePoi"));
 
             bool rpCreated = await _deployService.CreateRestorePointAsync($"SRM Auto Backup {DateTime.Now:dd-MM-yyyy}");
-            if (!rpCreated) WriteLog("Cảnh báo: Không thể tạo Restore Point.");
-            else WriteLog("Tạo Restore Point thành công. Hệ thống an toàn.");
+            if (!rpCreated) WriteLog(Loc.T("Deployment_WarningCouldNotCreate"));
+            else WriteLog(Loc.T("Deployment_RestorePointCreatedSuccessfu"));
 
             int total = selectedItems.Count;
             int current = 0;
 
             foreach (var item in selectedItems)
             {
-                GlobalStatus = $"Đang cài đặt {item.Software.Name} ({current + 1}/{total})...";
+                GlobalStatus = Loc.F("PresetMain_Installing012", item.Software.Name, current + 1, total);
                 item.Status = "Đang xử lý...";
-                WriteLog($"-> Đang chuẩn bị dữ liệu: {item.Software.Name} [0%]");
+                WriteLog(Loc.F("Deployment_PreparingData00", item.Software.Name));
 
                 // ==============================================================
                 // TÁCH LUỒNG 1: XỬ LÝ PHẦN MỀM PORTABLE
@@ -338,7 +338,7 @@ namespace SRM_by_Longtygu.ViewModels
                         {
                             if (fileExt == ".zip")
                             {
-                                UpdateLastLog($"-> Đang giải nén bộ cài Portable: {item.Software.Name}...");
+                                UpdateLastLog(Loc.F("Deployment_ExtractingPortablePackage0", item.Software.Name));
                                 ZipFile.ExtractToDirectory(item.SelectedVersion.FilePath, destFolder, true); // True = Ghi đè
 
                                 // Tìm file .exe chạy chính trong thư mục vừa giải nén
@@ -347,7 +347,7 @@ namespace SRM_by_Longtygu.ViewModels
                             }
                             else
                             {
-                                UpdateLastLog($"-> Đang copy tệp Portable: {item.Software.Name}...");
+                                UpdateLastLog(Loc.F("Deployment_CopyingPortableFiles0", item.Software.Name));
                                 targetExe = Path.Combine(destFolder, Path.GetFileName(item.SelectedVersion.FilePath));
                                 File.Copy(item.SelectedVersion.FilePath, targetExe, true);
                             }
@@ -356,17 +356,17 @@ namespace SRM_by_Longtygu.ViewModels
                         // Tạo Shortcut ngay lập tức
                         if (!string.IsNullOrEmpty(targetExe))
                         {
-                            UpdateLastLog($"-> Đang tạo Desktop Shortcut...");
+                            UpdateLastLog(Loc.T("Deployment_CreatingDesktopShortcut"));
                             CreateDesktopShortcut(targetExe, item.Software.Name);
                         }
 
                         item.Status = "Thành công";
-                        WriteLog($"[OK] Hoàn tất triển khai Portable: {item.Software.Name}");
+                        WriteLog(Loc.F("Deployment_OKPortableDeploymentFinished", item.Software.Name));
 
                         // MỚI: Mở vị trí tài nguyên đính kèm (nếu người dùng bật tùy chọn)
                         if (OpenResourceAfterInstall && item.Software.AttachedResources?.Count > 0)
                         {
-                            WriteLog($"-> Đang mở vị trí {item.Software.AttachedResources.Count} tài nguyên đính kèm của {item.Software.Name}...");
+                            WriteLog(Loc.F("Deployment_OpeningTheLocationOf", item.Software.AttachedResources.Count, item.Software.Name));
                             OpenAllResourceLocations(item.Software);
                         }
 
@@ -375,7 +375,7 @@ namespace SRM_by_Longtygu.ViewModels
                     catch (Exception ex)
                     {
                         item.Status = "Lỗi";
-                        WriteLog($"[ERROR] Lỗi Portable {item.Software.Name}: {ex.Message}");
+                        WriteLog(Loc.F("Deployment_ERRORPortableError0", item.Software.Name, ex.Message));
                     }
                 }
                 // ==============================================================
@@ -384,38 +384,38 @@ namespace SRM_by_Longtygu.ViewModels
                 else
                 {
                     string finalCommand = BuildFinalInstallCommand(item.Software.SilentInstallCommand, item.SelectedVersion.FilePath);
-                    if (IsCustomPathEnabled) WriteLog($"   [Tùy chỉnh đường dẫn] Lệnh thực thi: {finalCommand}");
+                    if (IsCustomPathEnabled) WriteLog(Loc.F("Deployment_CustomPathCommandTo", finalCommand));
 
                     bool success = await _deployService.RunSilentInstallAsync(
                         item.SelectedVersion.FilePath,
                         finalCommand,
                         (percent) => {
-                            UpdateLastLog($"-> Đang giải nén và thực thi: {item.Software.Name} [{percent}%]");
+                            UpdateLastLog(Loc.F("Deployment_ExtractingAndRunning0", item.Software.Name, percent));
                         });
 
                     item.Status = success ? "Thành công" : "Lỗi";
                     if (success)
                     {
-                        WriteLog($"[OK] Hoàn tất cài đặt: {item.Software.Name}");
+                        WriteLog(Loc.F("Deployment_OKInstallationFinished0", item.Software.Name));
 
                         // MỚI: Mở vị trí tài nguyên đính kèm (nếu người dùng bật tùy chọn)
                         if (OpenResourceAfterInstall && item.Software.AttachedResources?.Count > 0)
                         {
-                            WriteLog($"-> Đang mở vị trí {item.Software.AttachedResources.Count} tài nguyên đính kèm của {item.Software.Name}...");
+                            WriteLog(Loc.F("Deployment_OpeningTheLocationOf", item.Software.AttachedResources.Count, item.Software.Name));
                             OpenAllResourceLocations(item.Software);
                         }
 
                         item.IsSelected = false;
                     }
-                    else WriteLog($"[ERROR] Lỗi cài đặt: {item.Software.Name}");
+                    else WriteLog(Loc.F("Deployment_ERRORInstallError0", item.Software.Name));
                 }
 
                 current++;
                 ProgressValue = (current * 100) / total;
             }
 
-            GlobalStatus = $"Hoàn tất xử lý {total} phần mềm!";
-            WriteLog("=== TẤT CẢ CHU TRÌNH ĐÃ KẾT THÚC ===");
+            GlobalStatus = Loc.F("Deployment_FinishedProcessing0Software", total);
+            WriteLog(Loc.T("Deployment_ALLCYCLESFINISHED"));
             IsDeploying = false;
         }
 

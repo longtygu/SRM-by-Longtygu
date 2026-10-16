@@ -77,11 +77,11 @@ namespace SRM_by_Longtygu.Models
 
         // Chuỗi hiển thị sẵn cho UI, tránh phải viết converter riêng trong XAML
         public string LastCheckedDisplay => string.IsNullOrWhiteSpace(LastCheckedDate)
-            ? "Chưa quét lần nào"
-            : $"Quét lúc: {LastCheckedDate}";
+            ? Loc.T("UpdateCenter_NeverScanned")
+            : Loc.F("Software_ScannedAt0", LastCheckedDate);
 
         // Dùng để NHÓM trong danh sách (tránh nhóm "trống tên" khi phần mềm chưa gán danh mục)
-        public string CategoryDisplay => string.IsNullOrWhiteSpace(Category) ? "Chưa phân loại" : Category;
+        public string CategoryDisplay => string.IsNullOrWhiteSpace(Category) ? Loc.T("Software_Uncategorized") : Category;
 
         // ===== MỚI: THEO DÕI TIẾN TRÌNH TẢI CẬP NHẬT (transient, không lưu DB) =====
         private bool _isDownloadingUpdate;

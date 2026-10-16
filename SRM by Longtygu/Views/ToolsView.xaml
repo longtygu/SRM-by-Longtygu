@@ -126,10 +126,10 @@
                     <TextBlock FontSize="13" Foreground="#A0A0A0" Margin="0,4,0,0" TextWrapping="Wrap">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
-                                <Setter Property="Text" Value="Di chuột vào công cụ để xem mô tả, bấm &quot;Thêm công cụ&quot; để cài đặt bản mới"/>
+                                <Setter Property="Text" Value="{DynamicResource Tools_HoverOverATool}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsManageMode}" Value="True">
-                                        <Setter Property="Text" Value="Xuất công cụ để backup/chia sẻ, hoặc xóa công cụ không còn dùng. Công cụ tích hợp sẵn không thể xuất/xóa."/>
+                                        <Setter Property="Text" Value="{DynamicResource Tools_ExportAToolTo}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

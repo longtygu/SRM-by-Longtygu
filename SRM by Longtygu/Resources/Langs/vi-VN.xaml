@@ -668,4 +668,107 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="Library_ResourceLocationNotFound">Không tìm thấy vị trí tài nguyên trên ổ cứng!</system:String>
     <system:String x:Key="Library_PathLabel">Đường dẫn: {0}</system:String>
 
+    <!-- Trung tâm cập nhật (chuỗi do C# sinh ra), Gỡ cài đặt, gợi ý trong Style -->
+    <system:String x:Key="UpdateCenter_LastScan0Dd">Lần quét gần nhất: {0:dd/MM/yyyy HH:mm}</system:String>
+    <system:String x:Key="UpdateCenter_NeverScanned">Chưa quét lần nào</system:String>
+    <system:String x:Key="UpdateCenter_NoSoftwareHasAn">Chưa có phần mềm nào được cấu hình nguồn kiểm tra cập nhật.</system:String>
+    <system:String x:Key="UpdateCenter_ClickTheIconOn">Bấm icon ⚙ trên từng phần mềm để thiết lập nguồn (GitHub Releases hoặc quét trang web).</system:String>
+    <system:String x:Key="UpdateCenter_NothingToScan">Chưa có gì để quét</system:String>
+    <system:String x:Key="UpdateCenter_FinishedChecking0Software">Đã kiểm tra xong {0} phần mềm ({1} quét thành công).</system:String>
+    <system:String x:Key="UpdateCenter_Found0SoftwareWith">Tìm thấy {0} phần mềm có bản cập nhật mới.</system:String>
+    <system:String x:Key="UpdateCenter_AllSoftwareIsOn">Tất cả phần mềm đều đang ở phiên bản mới nhất.</system:String>
+    <system:String x:Key="UpdateCenter_UpdateCheckComplete">Hoàn tất kiểm tra cập nhật</system:String>
+    <system:String x:Key="UpdateCenter_MissingConfiguration">Thiếu cấu hình</system:String>
+    <system:String x:Key="UpdateCenter_ThisSoftwareHasNo">Phần mềm này chưa được cấu hình nguồn kiểm tra cập nhật.</system:String>
+    <system:String x:Key="UpdateCenter_0TheLatestVersion">'{0}': phiên bản mới nhất tìm thấy là {1}.</system:String>
+    <system:String x:Key="UpdateCenter_CheckOf0Failed">Kiểm tra '{0}' thất bại: {1}</system:String>
+    <system:String x:Key="UpdateCenter_CheckResult">Kết quả kiểm tra</system:String>
+    <system:String x:Key="UpdateCenter_UpdateCheckFailed0">Kiểm tra cập nhật thất bại: {0}</system:String>
+    <system:String x:Key="UpdateCenter_FoundVersion0Via" xml:space="preserve">Tìm thấy phiên bản {0} qua Winget, nhưng Winget không lộ link tải trực tiếp cho gói này </system:String>
+    <system:String x:Key="UpdateCenter_UsuallyBecauseItWas" xml:space="preserve">(thường do cài qua MSIX/Store). Dùng nút 'Cài ngay' để Winget tự tải+cài thẳng lên máy </system:String>
+    <system:String x:Key="UpdateCenter_ThisVersionWillNOT">(sẽ KHÔNG thêm được bản này vào thư viện Data/).</system:String>
+    <system:String x:Key="UpdateCenter_FoundVersion0But">Tìm thấy phiên bản {0} nhưng nguồn này không cung cấp link tải trực tiếp.</system:String>
+    <system:String x:Key="UpdateCenter_DownloadItManuallyThen">Hãy tải thủ công rồi thêm bằng nút 'Thêm phiên bản' trong Kho phần mềm.</system:String>
+    <system:String x:Key="UpdateCenter_NoAutomaticDownloadLink">Không có link tải tự động</system:String>
+    <system:String x:Key="UpdateCenter_DownloadedAndAddedVersion">Đã tải và thêm phiên bản {0} của '{1}' vào thư viện.</system:String>
+    <system:String x:Key="UpdateCenter_DownloadingOrAddingThe">Tải hoặc thêm phiên bản mới thất bại. Xem chi tiết trong Nhật ký hoạt động.</system:String>
+    <system:String x:Key="UpdateCenter_Installed0Version1">Đã cài đặt {0} phiên bản {1} lên máy này qua Winget.</system:String>
+    <system:String x:Key="UpdateCenter_NoteThisVersionWas">(Lưu ý: bản này KHÔNG được thêm vào thư viện Data/ vì Winget tự quản lý cache installer riêng.)</system:String>
+    <system:String x:Key="UpdateCenter_InstallingViaWingetFailed">Cài đặt qua Winget thất bại. Kiểm tra máy đã cài Winget và có kết nối mạng, hoặc thử lại.</system:String>
+    <system:String x:Key="UpdateCenter_InstallationSuccessful">Cài đặt thành công</system:String>
+    <system:String x:Key="UpdateCenter_DownloadingTheUpdateFailed">Tải bản cập nhật thất bại, không thể cài đặt.</system:String>
+    <system:String x:Key="UpdateCenter_AddedToTheLibrary">Đã thêm vào thư viện nhưng không tìm lại được phiên bản vừa tải để cài.</system:String>
+    <system:String x:Key="UpdateCenter_Installed0Version12">Đã cài đặt {0} phiên bản {1} lên máy.</system:String>
+    <system:String x:Key="UpdateCenter_AddedVersion0To" xml:space="preserve">Đã thêm phiên bản {0} vào thư viện, nhưng cài đặt tự động thất bại </system:String>
+    <system:String x:Key="UpdateCenter_PossiblyBecauseTheSilent">(có thể do thiếu switch silent-install). Bạn có thể cài thủ công từ Kho phần mềm.</system:String>
+    <system:String x:Key="UpdateCenter_ManualInstallationNeeded">Cần cài thủ công</system:String>
+    <system:String x:Key="UpdateCenter_NothingToUpdate">Không có gì để cập nhật</system:String>
+    <system:String x:Key="UpdateCenter_NoSoftwareHasA">Không có phần mềm nào đang có bản cập nhật mới.</system:String>
+    <system:String x:Key="UpdateCenter_ThisDoesNOTTouch">KHÔNG đụng gì tới các phần mềm đang chạy trên máy này. Tiếp tục?</system:String>
+    <system:String x:Key="UpdateCenter_ConfirmUpdateAll">Xác nhận cập nhật toàn bộ</system:String>
+    <system:String x:Key="UpdateCenter_Updating00">Đang cập nhật... 0/{0}</system:String>
+    <system:String x:Key="UpdateCenter_0NoAutomaticDownload">{0} (không có link tải tự động)</system:String>
+    <system:String x:Key="UpdateCenter_Updating01">Đang cập nhật... {0}/{1}</system:String>
+    <system:String x:Key="UpdateCenter_SuccessfullyDownloaded01">Đã tải thành công {0}/{1} bản cập nhật vào thư viện.</system:String>
+    <system:String x:Key="UpdateCenter_CompleteWithErrors">Hoàn tất (có lỗi)</system:String>
+    <system:String x:Key="UpdateCenter_UpdateAllComplete">Hoàn tất cập nhật toàn bộ</system:String>
+    <system:String x:Key="UpdateCenter_NothingToApply">Không có gì để áp dụng</system:String>
+    <system:String x:Key="UpdateCenter_AllSoftwareAlreadyHas">Tất cả phần mềm đều đã được cấu hình nguồn cập nhật rồi.</system:String>
+    <system:String x:Key="UpdateCenter_AutomaticallyConfigured01">Đã tự động cấu hình cho {0}/{1} phần mềm dựa theo catalog gợi ý sẵn.</system:String>
+    <system:String x:Key="UpdateCenter_0SoftwareDidNot">Còn {0} phần mềm không khớp catalog, cần cấu hình tay (bấm icon ⚙ trên từng dòng).</system:String>
+    <system:String x:Key="UpdateCenter_AllUnconfiguredSoftwareWas">Toàn bộ phần mềm chưa cấu hình đều đã được áp dụng tự động!</system:String>
+    <system:String x:Key="UpdateCenter_NoneOfThe0">Không có phần mềm nào trong {0} phần mềm chưa cấu hình khớp với catalog gợi ý sẵn.</system:String>
+    <system:String x:Key="UpdateCenter_ConfigureByHandVia">Cần cấu hình tay qua icon ⚙, hoặc tự bổ sung thêm vào KnownAppsCatalog.cs.</system:String>
+    <system:String x:Key="UpdateCenter_AutoConfigureResult">Kết quả tự động cấu hình</system:String>
+    <system:String x:Key="Uninstall_WARNING">CẢNH BÁO</system:String>
+    <system:String x:Key="UpdateCenter_NoAutoLink">Không lấy được link tải tự động: {0}</system:String>
+    <system:String x:Key="UpdateCenter_SourceNoDirectLink">Nguồn không cung cấp link tải trực tiếp.</system:String>
+    <system:String x:Key="UpdateCenter_AndMoreSoftware">... và {0} phần mềm khác</system:String>
+    <system:String x:Key="UpdateCenter_ConfirmUpdateAllIntro">Sẽ tải bản mới nhất về THƯ VIỆN (thư mục Data/) cho {0} phần mềm sau:</system:String>
+    <system:String x:Key="UpdateCenter_FailedSoftwareList">{0} phần mềm thất bại:</system:String>
+    <system:String x:Key="Uninstall_RequestUninstall">Bạn đang yêu cầu gỡ cài đặt {0} phần mềm khỏi hệ thống.</system:String>
+    <system:String x:Key="Uninstall_UninstallerMayAsk">Chú ý: Một số bộ gỡ cài đặt có thể yêu cầu bạn xác nhận xóa Cache/Data trên màn hình.</system:String>
+    <system:String x:Key="Uninstall_WantToContinue">Bạn có muốn tiếp tục?</system:String>
+    <system:String x:Key="AttachResource_SearchByNameCategory">Tìm theo tên, danh mục, tên file...</system:String>
+    <system:String x:Key="Tools_HoverOverATool">Di chuột vào công cụ để xem mô tả, bấm "Thêm công cụ" để cài đặt bản mới</system:String>
+    <system:String x:Key="Tools_ExportAToolTo">Xuất công cụ để backup/chia sẻ, hoặc xóa công cụ không còn dùng. Công cụ tích hợp sẵn không thể xuất/xóa.</system:String>
+    <system:String x:Key="UpdateCenter_UpdateAll">Cập nhật toàn bộ</system:String>
+    <system:String x:Key="UpdateCenter_ScanAll">Quét toàn bộ</system:String>
+
+    <!-- Trạng thái (Status_*), Cài đặt tùy chọn (Deployment), nhãn mô hình dữ liệu -->
+    <system:String x:Key="Status_Processing">Đang xử lý...</system:String>
+    <system:String x:Key="Status_Uninstalling">Đang gỡ...</system:String>
+    <system:String x:Key="Status_Uninstalled">Đã gỡ</system:String>
+    <system:String x:Key="Status_ErrorCancelled">Lỗi / Hủy</system:String>
+    <system:String x:Key="Deployment_SelectTheSoftwareYou">Hãy chọn các phần mềm cần cài đặt</system:String>
+    <system:String x:Key="Deployment_ChooseTheSoftwareInstallatio">Chọn thư mục cài đặt phần mềm</system:String>
+    <system:String x:Key="Deployment_WARNINGCouldNotFind">[CẢNH BÁO] Không tìm thấy vị trí tài nguyên '{0}' trên ổ cứng.</system:String>
+    <system:String x:Key="Deployment_WARNINGErrorOpeningThe">[CẢNH BÁO] Lỗi mở vị trí tài nguyên '{0}': {1}</system:String>
+    <system:String x:Key="Deployment_DuplicateWarning">Cảnh báo trùng lặp</system:String>
+    <system:String x:Key="Deployment_DEPLOYMENTCYCLESTARTED">=== BẮT ĐẦU CHU TRÌNH DEPLOYMENT ===</system:String>
+    <system:String x:Key="Deployment_CreatingRestorePoint">Đang tạo Restore Point...</system:String>
+    <system:String x:Key="Deployment_InitializingSystemRestorePoi">Đang khởi tạo System Restore Point (Chờ cấp quyền Admin)...</system:String>
+    <system:String x:Key="Deployment_WarningCouldNotCreate">Cảnh báo: Không thể tạo Restore Point.</system:String>
+    <system:String x:Key="Deployment_RestorePointCreatedSuccessfu">Tạo Restore Point thành công. Hệ thống an toàn.</system:String>
+    <system:String x:Key="Deployment_PreparingData00">-&gt; Đang chuẩn bị dữ liệu: {0} [0%]</system:String>
+    <system:String x:Key="Deployment_ExtractingPortablePackage0">-&gt; Đang giải nén bộ cài Portable: {0}...</system:String>
+    <system:String x:Key="Deployment_CopyingPortableFiles0">-&gt; Đang copy tệp Portable: {0}...</system:String>
+    <system:String x:Key="Deployment_CreatingDesktopShortcut">-&gt; Đang tạo Desktop Shortcut...</system:String>
+    <system:String x:Key="Deployment_OKPortableDeploymentFinished">[OK] Hoàn tất triển khai Portable: {0}</system:String>
+    <system:String x:Key="Deployment_OpeningTheLocationOf">-&gt; Đang mở vị trí {0} tài nguyên đính kèm của {1}...</system:String>
+    <system:String x:Key="Deployment_ERRORPortableError0">[ERROR] Lỗi Portable {0}: {1}</system:String>
+    <system:String x:Key="Deployment_CustomPathCommandTo" xml:space="preserve">   [Tùy chỉnh đường dẫn] Lệnh thực thi: {0}</system:String>
+    <system:String x:Key="Deployment_ExtractingAndRunning0">-&gt; Đang giải nén và thực thi: {0} [{1}%]</system:String>
+    <system:String x:Key="Deployment_OKInstallationFinished0">[OK] Hoàn tất cài đặt: {0}</system:String>
+    <system:String x:Key="Deployment_ERRORInstallError0">[ERROR] Lỗi cài đặt: {0}</system:String>
+    <system:String x:Key="Deployment_FinishedProcessing0Software">Hoàn tất xử lý {0} phần mềm!</system:String>
+    <system:String x:Key="Deployment_ALLCYCLESFINISHED">=== TẤT CẢ CHU TRÌNH ĐÃ KẾT THÚC ===</system:String>
+    <system:String x:Key="Deployment_TheFollowingSoftwareWas">Các phần mềm sau đã được cài đặt thành công trước đó:</system:String>
+    <system:String x:Key="Deployment_AreYouSureYou">Bạn có chắc chắn muốn ép cài đặt lại không?</system:String>
+    <system:String x:Key="Entry_Pending">Chờ xử lý</system:String>
+    <system:String x:Key="Entry_Duplicate">Trùng lặp</system:String>
+    <system:String x:Key="Software_ScannedAt0">Quét lúc: {0}</system:String>
+    <system:String x:Key="Software_Uncategorized">Chưa phân loại</system:String>
+    <system:String x:Key="Uninstall_Unknown">Không rõ</system:String>
+
 </ResourceDictionary>

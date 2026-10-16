@@ -218,7 +218,7 @@
                         <TextBlock FontWeight="SemiBold" FontSize="14">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Text" Value="Cập nhật toàn bộ"/>
+                                    <Setter Property="Text" Value="{DynamicResource UpdateCenter_UpdateAll}"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsUpdatingAll}" Value="True">
                                             <Setter Property="Text" Value="{Binding UpdateAllStatusText}"/>
@@ -237,7 +237,7 @@
                         <TextBlock FontWeight="SemiBold" FontSize="14">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Text" Value="Quét toàn bộ"/>
+                                    <Setter Property="Text" Value="{DynamicResource UpdateCenter_ScanAll}"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsCheckingUpdates}" Value="True">
                                             <Setter Property="Text" Value="{Binding UpdateCheckProgress, StringFormat='Đang quét... {0}%'}"/>

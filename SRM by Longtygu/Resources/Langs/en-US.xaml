@@ -616,4 +616,56 @@ Thanks to this mechanism, SRM automatically distinguishes Inno Setup installers 
     <system:String x:Key="AppUpdate_NoValidLink">There is no valid link to open the download page.</system:String>
     <system:String x:Key="AppUpdate_CannotOpenBrowser">Could not open the browser. You can open this link yourself:</system:String>
 
+    <!-- Thông báo và nhãn do C# sinh ra: Dashboard, Thư viện, Preset, About, Gỡ cài đặt -->
+    <system:String x:Key="Dashboard_Other">Other</system:String>
+    <system:String x:Key="Dashboard_0Software1Categories">{0} software / {1} categories</system:String>
+    <system:String x:Key="Dashboard_LibraryIsEmpty">Library is empty</system:String>
+    <system:String x:Key="Dashboard_Free0GB">(Free: {0} GB)</system:String>
+    <system:String x:Key="Dashboard_ErrorLoadingDashboard0">Error loading Dashboard: {0}</system:String>
+    <system:String x:Key="Dashboard_ScanningHardware">Scanning hardware...</system:String>
+    <system:String x:Key="Dashboard_NoDriveFound">No drive found</system:String>
+    <system:String x:Key="Dashboard_WarningDataError">Warning (data error)</system:String>
+    <system:String x:Key="Dashboard_GoodSMA">Good (S.M.A.R.T OK)</system:String>
+    <system:String x:Key="Dashboard_HardwareAccessPermissionErro">Hardware access permission error</system:String>
+    <system:String x:Key="Dashboard_RequiresRunAsAdmin">Requires Run as Admin</system:String>
+    <system:String x:Key="Library_AreYouSureYou">Are you sure you want to delete '{0}' and DELETE ALL installer files from the disk?</system:String>
+    <system:String x:Key="Library_ConfirmPermanentDeletion">Confirm permanent deletion</system:String>
+    <system:String x:Key="Library_TheSystemWillScan">The system will scan and delete all junk files and junk data in the system. Do you want to continue?</system:String>
+    <system:String x:Key="Library_CleanUpStorage">Clean up storage</system:String>
+    <system:String x:Key="Library_CleanupSuccessfulDataAnd">Cleanup successful! Data and disk are fully synchronized.</system:String>
+    <system:String x:Key="Library_InstallerFileNotFound">Installer file not found on disk!</system:String>
+    <system:String x:Key="Library_ErrorRunningFile0">Error running file: {0}</system:String>
+    <system:String x:Key="Library_Confirm">Confirm</system:String>
+    <system:String x:Key="Library_AreYouSureYou2">Are you sure you want to permanently delete version {0}?</system:String>
+    <system:String x:Key="Library_DeleteError0">Delete error: {0}</system:String>
+    <system:String x:Key="Library_ConfirmDetach">Confirm detach</system:String>
+    <system:String x:Key="Library_DetachError0">Detach error: {0}</system:String>
+    <system:String x:Key="Library_ErrorOpeningResourceLocation">Error opening resource location: {0}</system:String>
+    <system:String x:Key="PresetMain_SelectAPresetPackage">Select a Preset package to get started...</system:String>
+    <system:String x:Key="PresetMain_ConfirmDeletion">Confirm deletion</system:String>
+    <system:String x:Key="PresetMain_AreYouSureYou">Are you sure you want to permanently delete package '{0}'?</system:String>
+    <system:String x:Key="PresetMain_NotCalculated">Not calculated</system:String>
+    <system:String x:Key="PresetMain_Success">Success</system:String>
+    <system:String x:Key="PresetMain_Package0WasSaved">Package {0} was saved to the database successfully!</system:String>
+    <system:String x:Key="PresetMain_Package0WasUpdated">Package {0} was updated successfully!</system:String>
+    <system:String x:Key="PresetMain_ReadyToInstallPackage">Ready to install package: {0} ({1} software)</system:String>
+    <system:String x:Key="PresetMain_Installing012">Installing {0} ({1}/{2})...</system:String>
+    <system:String x:Key="PresetMain_InstallError">Install error</system:String>
+    <system:String x:Key="PresetMain_ErrorInstalling01">Error installing {0}: {1}</system:String>
+    <system:String x:Key="PresetMain_GreatPackage0Was">Great! Package {0} was installed successfully.</system:String>
+    <system:String x:Key="PresetMain_ErrorLoadingPresetData">Error loading Preset data: {0}</system:String>
+    <system:String x:Key="About_DataNotLoadedYet">Data not loaded yet.</system:String>
+    <system:String x:Key="About_NoLogDataHas">No log data has been recorded yet.</system:String>
+    <system:String x:Key="About_NoActivityWasRecorded">No activity was recorded on this day.</system:String>
+    <system:String x:Key="About_0ActivityEntriesUpdated">{0} activity entries — updated at {1:HH:mm:ss}</system:String>
+    <system:String x:Key="Uninstall_LoadingSystemData">Loading system data...</system:String>
+    <system:String x:Key="Uninstall_ReadyFound0Apps">Ready. Found {0} apps on the system.</system:String>
+    <system:String x:Key="Uninstall_ErrorReadingTheRegistry">Error reading the Registry.</system:String>
+    <system:String x:Key="Uninstall_CallingUninstaller01">Calling uninstaller: {0} ({1}/{2})...</system:String>
+    <system:String x:Key="Uninstall_DoneFinishedProcessing0">Done! Finished processing {0} software. Refreshing data...</system:String>
+    <system:String x:Key="Library_ConfirmDetach2">Detach resource '{0}' from software '{1}'?</system:String>
+    <system:String x:Key="Library_ResourceKeptInLibrary">(The resource is kept in the Resource Library)</system:String>
+    <system:String x:Key="Library_ResourceLocationNotFound">Resource location not found on disk!</system:String>
+    <system:String x:Key="Library_PathLabel">Path: {0}</system:String>
+
 </ResourceDictionary>

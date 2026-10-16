@@ -296,18 +296,21 @@ namespace SRM_by_Longtygu.Services
             return XmlLanguage.GetLanguage(string.IsNullOrEmpty(tag) ? BaseLanguage : tag);
         }
     }
+}
 
+namespace SRM_by_Longtygu
+{
     /// <summary>
     /// Cách gọi ngắn để lấy chuỗi đa ngôn ngữ từ BẤT KỲ lớp nào (không cần tiêm DI):
     /// Loc.T("Khoa") và Loc.F("Khoa", thamSo1, thamSo2). Thiếu khóa thì trả về chính tên khóa.
     /// </summary>
     public static class Loc
     {
-        public static string T(string key) => LocalizationService.Instance?.GetString(key) ?? key;
+        public static string T(string key) => Services.LocalizationService.Instance?.GetString(key) ?? key;
 
-        public static string F(string key, params object[] args) => LocalizationService.Instance?.Format(key, args) ?? key;
+        public static string F(string key, params object[] args) => Services.LocalizationService.Instance?.Format(key, args) ?? key;
 
         /// <summary>Culture của ngôn ngữ đang chọn, dùng để định dạng số/ngày khi hiển thị.</summary>
-        public static CultureInfo Culture => LocalizationService.Instance?.Culture ?? CultureInfo.CurrentCulture;
+        public static CultureInfo Culture => Services.LocalizationService.Instance?.Culture ?? CultureInfo.CurrentCulture;
     }
 }

@@ -44,7 +44,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
         }
 
-        private string _deploymentStatus = "Vui lòng chọn một gói Preset để bắt đầu...";
+        private string _deploymentStatus = Loc.T("PresetMain_SelectAPresetPackage");
         public string DeploymentStatus { get => _deploymentStatus; set => SetProperty(ref _deploymentStatus, value); }
 
         private double _deploymentProgress = 0;
@@ -83,7 +83,7 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 if (param is Preset p)
                 {
-                    var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa gói '{p.Name}' vĩnh viễn không?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBox.Show(Loc.F("PresetMain_AreYouSureYou", p.Name), Loc.T("PresetMain_ConfirmDeletion"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     if (result == MessageBoxResult.Yes)
                     {
                         using (var connection = _dbFactory.CreateConnection())
@@ -111,14 +111,14 @@ namespace SRM_by_Longtygu.ViewModels
                     {
                         Name = editorVM.PresetName,
                         IconPath = editorVM.PresetIconPath,
-                        TotalSize = "Chưa tính"
+                        TotalSize = Loc.T("PresetMain_NotCalculated")
                     };
 
                     var softwareVersionSelections = editorVM.SelectedSoftwares
                         .ToDictionary(s => s.Id, s => (int?)s.SelectedVersion?.Id);
                     await _presetRepo.AddPresetAsync(newPreset, softwareVersionSelections);
                     _ = LoadDataAsync();
-                    MessageBox.Show($"Đã lưu gói {editorVM.PresetName} vào cơ sở dữ liệu thành công!", "Thành công");
+                    MessageBox.Show(Loc.F("PresetMain_Package0WasSaved", editorVM.PresetName), Loc.T("PresetMain_Success"));
                 }
             });
 
@@ -156,7 +156,7 @@ namespace SRM_by_Longtygu.ViewModels
                 if (modal.ShowDialog() == true)
                 {
                     await UpdatePresetInDatabaseAsync(editorVM);
-                    MessageBox.Show($"Đã cập nhật gói {editorVM.PresetName} thành công!", "Thành công");
+                    MessageBox.Show(Loc.F("PresetMain_Package0WasUpdated", editorVM.PresetName), Loc.T("PresetMain_Success"));
                 }
             }, _ => SelectedPreset != null);
 
@@ -191,7 +191,7 @@ namespace SRM_by_Longtygu.ViewModels
                 SelectedPresetSoftwares.Add(sw);
             }
 
-            DeploymentStatus = $"Sẵn sàng cài đặt gói: {preset.Name} ({preset.Softwares.Count} phần mềm)";
+            DeploymentStatus = Loc.F("PresetMain_ReadyToInstallPackage", preset.Name, preset.Softwares.Count);
         }
 
         private async Task ExecuteDeployPresetAsync()
@@ -204,7 +204,7 @@ namespace SRM_by_Longtygu.ViewModels
             foreach (var sw in SelectedPresetSoftwares)
             {
                 current++;
-                DeploymentStatus = $"Đang cài đặt {sw.Name} ({current}/{total})...";
+                DeploymentStatus = Loc.F("PresetMain_Installing012", sw.Name, current, total);
 
                 try
                 {
@@ -237,12 +237,12 @@ namespace SRM_by_Longtygu.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Lỗi khi cài đặt {sw.Name}: {ex.Message}", "Lỗi Cài Đặt", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Loc.F("PresetMain_ErrorInstalling01", sw.Name, ex.Message), Loc.T("PresetMain_InstallError"), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
             DeploymentProgress = 100;
-            DeploymentStatus = $"Tuyệt vời! Đã cài đặt hoàn tất gói {SelectedPreset.Name}.";
+            DeploymentStatus = Loc.F("PresetMain_GreatPackage0Was", SelectedPreset.Name);
             IsDeploying = false;
             System.Windows.Input.CommandManager.InvalidateRequerySuggested();
         }
@@ -300,7 +300,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
             catch (Exception ex)
             {
-                DeploymentStatus = $"Lỗi tải dữ liệu Preset: {ex.Message}";
+                DeploymentStatus = Loc.F("PresetMain_ErrorLoadingPresetData", ex.Message);
             }
         }
     }

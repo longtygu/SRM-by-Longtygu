@@ -57,7 +57,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
         }
 
-        private string _logStatusText = "Chưa tải dữ liệu.";
+        private string _logStatusText = Loc.T("About_DataNotLoadedYet");
         public string LogStatusText
         {
             get => _logStatusText;
@@ -117,7 +117,7 @@ namespace SRM_by_Longtygu.ViewModels
             else
             {
                 LogEntries.Clear();
-                LogStatusText = "Chưa có dữ liệu log nào được ghi nhận.";
+                LogStatusText = Loc.T("About_NoLogDataHas");
             }
         }
 
@@ -133,8 +133,8 @@ namespace SRM_by_Longtygu.ViewModels
             }
 
             LogStatusText = entries.Count == 0
-                ? "Không có hoạt động nào được ghi nhận trong ngày này."
-                : $"{entries.Count} mục hoạt động — cập nhật lúc {DateTime.Now:HH:mm:ss}";
+                ? Loc.T("About_NoActivityWasRecorded")
+                : Loc.F("About_0ActivityEntriesUpdated", entries.Count, DateTime.Now);
         }
     }
 }

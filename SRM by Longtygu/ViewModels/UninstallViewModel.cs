@@ -48,7 +48,7 @@ namespace SRM_by_Longtygu.ViewModels
         private bool _isUninstalling;
         public bool IsUninstalling { get => _isUninstalling; set => SetProperty(ref _isUninstalling, value); }
 
-        private string _globalStatus = "Đang tải dữ liệu hệ thống...";
+        private string _globalStatus = Loc.T("Uninstall_LoadingSystemData");
         public string GlobalStatus { get => _globalStatus; set => SetProperty(ref _globalStatus, value); }
 
         public ICommand StartUninstallCommand { get; }
@@ -114,10 +114,10 @@ namespace SRM_by_Longtygu.ViewModels
                         };
                         AppList.Add(app);
                     }
-                    GlobalStatus = $"Sẵn sàng. Đã quét thấy {AppList.Count} ứng dụng trên hệ thống.";
+                    GlobalStatus = Loc.F("Uninstall_ReadyFound0Apps", AppList.Count);
                 });
             }
-            catch { GlobalStatus = "Lỗi khi đọc Registry."; }
+            catch { GlobalStatus = Loc.T("Uninstall_ErrorReadingTheRegistry"); }
         }
 
         private bool CanUninstall() => !IsUninstalling && SelectedCount > 0;
@@ -137,7 +137,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             foreach (var app in appsToUninstall)
             {
-                GlobalStatus = $"Đang gọi bộ gỡ cài đặt: {app.Name} ({current + 1}/{total})...";
+                GlobalStatus = Loc.F("Uninstall_CallingUninstaller01", app.Name, current + 1, total);
                 app.Status = "Đang gỡ...";
 
                 bool success = await _uninstallService.RunUninstallAsync(app.UninstallString);
@@ -151,7 +151,7 @@ namespace SRM_by_Longtygu.ViewModels
                 current++;
             }
 
-            GlobalStatus = $"Hoàn tất! Đã xử lý xong {total} phần mềm. Đang làm mới dữ liệu...";
+            GlobalStatus = Loc.F("Uninstall_DoneFinishedProcessing0", total);
             IsUninstalling = false;
 
             // Tải lại danh sách sau khi gỡ

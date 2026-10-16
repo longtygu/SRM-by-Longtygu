@@ -616,4 +616,56 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="AppUpdate_NoValidLink">Không có đường dẫn hợp lệ để mở trang tải về.</system:String>
     <system:String x:Key="AppUpdate_CannotOpenBrowser">Không mở được trình duyệt. Bạn có thể tự mở đường dẫn sau:</system:String>
 
+    <!-- Thông báo và nhãn do C# sinh ra: Dashboard, Thư viện, Preset, About, Gỡ cài đặt -->
+    <system:String x:Key="Dashboard_Other">Khác</system:String>
+    <system:String x:Key="Dashboard_0Software1Categories">{0} phần mềm / {1} danh mục</system:String>
+    <system:String x:Key="Dashboard_LibraryIsEmpty">Thư viện đang trống</system:String>
+    <system:String x:Key="Dashboard_Free0GB">(Còn trống: {0} GB)</system:String>
+    <system:String x:Key="Dashboard_ErrorLoadingDashboard0">Lỗi tải Dashboard: {0}</system:String>
+    <system:String x:Key="Dashboard_ScanningHardware">Đang quét phần cứng...</system:String>
+    <system:String x:Key="Dashboard_NoDriveFound">Không tìm thấy ổ đĩa</system:String>
+    <system:String x:Key="Dashboard_WarningDataError">Cảnh báo (Dữ liệu lỗi)</system:String>
+    <system:String x:Key="Dashboard_GoodSMA">Tốt (S.M.A.R.T OK)</system:String>
+    <system:String x:Key="Dashboard_HardwareAccessPermissionErro">Lỗi quyền truy cập phần cứng</system:String>
+    <system:String x:Key="Dashboard_RequiresRunAsAdmin">Cần Run as Admin</system:String>
+    <system:String x:Key="Library_AreYouSureYou">Bạn có chắc muốn xóa '{0}' và XÓA TOÀN BỘ file bộ cài khỏi ổ cứng không?</system:String>
+    <system:String x:Key="Library_ConfirmPermanentDeletion">Xác nhận xóa vĩnh viễn</system:String>
+    <system:String x:Key="Library_TheSystemWillScan">Hệ thống sẽ quét và xóa toàn bộ các file rác vật lý và dữ liệu rác trong hệ thống. Bạn có muốn tiếp tục?</system:String>
+    <system:String x:Key="Library_CleanUpStorage">Dọn dẹp bộ nhớ</system:String>
+    <system:String x:Key="Library_CleanupSuccessfulDataAnd">Dọn dẹp thành công! Dữ liệu và ổ cứng đã được đồng bộ hoàn toàn.</system:String>
+    <system:String x:Key="Library_InstallerFileNotFound">Không tìm thấy file cài đặt trên ổ cứng!</system:String>
+    <system:String x:Key="Library_ErrorRunningFile0">Lỗi chạy file: {0}</system:String>
+    <system:String x:Key="Library_Confirm">Xác nhận</system:String>
+    <system:String x:Key="Library_AreYouSureYou2">Bạn có chắc muốn xóa vĩnh viễn phiên bản {0}?</system:String>
+    <system:String x:Key="Library_DeleteError0">Lỗi xóa: {0}</system:String>
+    <system:String x:Key="Library_ConfirmDetach">Xác nhận gỡ đính kèm</system:String>
+    <system:String x:Key="Library_DetachError0">Lỗi gỡ đính kèm: {0}</system:String>
+    <system:String x:Key="Library_ErrorOpeningResourceLocation">Lỗi mở vị trí tài nguyên: {0}</system:String>
+    <system:String x:Key="PresetMain_SelectAPresetPackage">Vui lòng chọn một gói Preset để bắt đầu...</system:String>
+    <system:String x:Key="PresetMain_ConfirmDeletion">Xác nhận xóa</system:String>
+    <system:String x:Key="PresetMain_AreYouSureYou">Bạn có chắc chắn muốn xóa gói '{0}' vĩnh viễn không?</system:String>
+    <system:String x:Key="PresetMain_NotCalculated">Chưa tính</system:String>
+    <system:String x:Key="PresetMain_Success">Thành công</system:String>
+    <system:String x:Key="PresetMain_Package0WasSaved">Đã lưu gói {0} vào cơ sở dữ liệu thành công!</system:String>
+    <system:String x:Key="PresetMain_Package0WasUpdated">Đã cập nhật gói {0} thành công!</system:String>
+    <system:String x:Key="PresetMain_ReadyToInstallPackage">Sẵn sàng cài đặt gói: {0} ({1} phần mềm)</system:String>
+    <system:String x:Key="PresetMain_Installing012">Đang cài đặt {0} ({1}/{2})...</system:String>
+    <system:String x:Key="PresetMain_InstallError">Lỗi Cài Đặt</system:String>
+    <system:String x:Key="PresetMain_ErrorInstalling01">Lỗi khi cài đặt {0}: {1}</system:String>
+    <system:String x:Key="PresetMain_GreatPackage0Was">Tuyệt vời! Đã cài đặt hoàn tất gói {0}.</system:String>
+    <system:String x:Key="PresetMain_ErrorLoadingPresetData">Lỗi tải dữ liệu Preset: {0}</system:String>
+    <system:String x:Key="About_DataNotLoadedYet">Chưa tải dữ liệu.</system:String>
+    <system:String x:Key="About_NoLogDataHas">Chưa có dữ liệu log nào được ghi nhận.</system:String>
+    <system:String x:Key="About_NoActivityWasRecorded">Không có hoạt động nào được ghi nhận trong ngày này.</system:String>
+    <system:String x:Key="About_0ActivityEntriesUpdated">{0} mục hoạt động — cập nhật lúc {1:HH:mm:ss}</system:String>
+    <system:String x:Key="Uninstall_LoadingSystemData">Đang tải dữ liệu hệ thống...</system:String>
+    <system:String x:Key="Uninstall_ReadyFound0Apps">Sẵn sàng. Đã quét thấy {0} ứng dụng trên hệ thống.</system:String>
+    <system:String x:Key="Uninstall_ErrorReadingTheRegistry">Lỗi khi đọc Registry.</system:String>
+    <system:String x:Key="Uninstall_CallingUninstaller01">Đang gọi bộ gỡ cài đặt: {0} ({1}/{2})...</system:String>
+    <system:String x:Key="Uninstall_DoneFinishedProcessing0">Hoàn tất! Đã xử lý xong {0} phần mềm. Đang làm mới dữ liệu...</system:String>
+    <system:String x:Key="Library_ConfirmDetach2">Gỡ liên kết tài nguyên '{0}' khỏi phần mềm '{1}'?</system:String>
+    <system:String x:Key="Library_ResourceKeptInLibrary">(Tài nguyên vẫn được giữ nguyên trong Thư viện Tài nguyên)</system:String>
+    <system:String x:Key="Library_ResourceLocationNotFound">Không tìm thấy vị trí tài nguyên trên ổ cứng!</system:String>
+    <system:String x:Key="Library_PathLabel">Đường dẫn: {0}</system:String>
+
 </ResourceDictionary>

@@ -171,8 +171,8 @@ namespace SRM_by_Longtygu.ViewModels
         {
             if (SelectedSoftware != null)
             {
-                var result = MessageBox.Show($"Bạn có chắc muốn xóa '{SelectedSoftware.Name}' và XÓA TOÀN BỘ file bộ cài khỏi ổ cứng không?",
-                                             "Xác nhận xóa vĩnh viễn", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show(Loc.F("Library_AreYouSureYou", SelectedSoftware.Name),
+                                             Loc.T("Library_ConfirmPermanentDeletion"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
                     await _fileService.DeleteSoftwareFolderAsync(SelectedSoftware.Name);
@@ -197,15 +197,15 @@ namespace SRM_by_Longtygu.ViewModels
 
         private async Task ExecuteCleanUpAsync()
         {
-            var result = MessageBox.Show("Hệ thống sẽ quét và xóa toàn bộ các file rác vật lý và dữ liệu rác trong hệ thống. Bạn có muốn tiếp tục?",
-                                         "Dọn dẹp bộ nhớ", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            var result = MessageBox.Show(Loc.T("Library_TheSystemWillScan"),
+                                         Loc.T("Library_CleanUpStorage"), MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (result == MessageBoxResult.Yes)
             {
                 await _repository.CleanUpOrphanedDataAsync();
                 var softwares = await _repository.GetAllAsync();
                 var validNames = System.Linq.Enumerable.Select(softwares, s => s.Name);
                 await _fileService.CleanUpOrphanedFilesAsync(validNames);
-                _dialogService.ShowMessage("Dọn dẹp thành công! Dữ liệu và ổ cứng đã được đồng bộ hoàn toàn.", "Hoàn tất");
+                _dialogService.ShowMessage(Loc.T("Library_CleanupSuccessfulDataAnd"), Loc.T("Common_Done"));
             }
         }
 
@@ -260,9 +260,9 @@ namespace SRM_by_Longtygu.ViewModels
                             UseShellExecute = true // Tự động mở file .exe
                         });
                     }
-                    else MessageBox.Show("Không tìm thấy file cài đặt trên ổ cứng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    else MessageBox.Show(Loc.T("Library_InstallerFileNotFound"), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                catch (Exception ex) { MessageBox.Show($"Lỗi chạy file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error); }
+                catch (Exception ex) { MessageBox.Show(Loc.F("Library_ErrorRunningFile0", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error); }
             }
         }
 
@@ -270,7 +270,7 @@ namespace SRM_by_Longtygu.ViewModels
         {
             if (parameter is SoftwareVersion version)
             {
-                if (MessageBox.Show($"Bạn có chắc muốn xóa vĩnh viễn phiên bản {version.Version}?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if (MessageBox.Show(Loc.F("Library_AreYouSureYou2", version.Version), Loc.T("Library_Confirm"), MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     try
                     {
@@ -284,7 +284,7 @@ namespace SRM_by_Longtygu.ViewModels
                         // Nếu xóa hết phiên bản, cảnh báo (Tùy chọn)
                         _ = LoadDataAsync();
                     }
-                    catch (Exception ex) { MessageBox.Show($"Lỗi xóa: {ex.Message}"); }
+                    catch (Exception ex) { MessageBox.Show(Loc.F("Library_DeleteError0", ex.Message)); }
                 }
             }
         }
@@ -304,8 +304,8 @@ namespace SRM_by_Longtygu.ViewModels
         {
             if (parameter is ResourceFile resource && SelectedSoftware != null)
             {
-                var result = MessageBox.Show($"Gỡ liên kết tài nguyên '{resource.Name}' khỏi phần mềm '{SelectedSoftware.Name}'?\n(Tài nguyên vẫn được giữ nguyên trong Thư viện Tài nguyên)",
-                                             "Xác nhận gỡ đính kèm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show(Loc.F("Library_ConfirmDetach2", resource.Name, SelectedSoftware.Name) + "\n" + Loc.T("Library_ResourceKeptInLibrary"),
+                                             Loc.T("Library_ConfirmDetach"), MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     try
@@ -313,7 +313,7 @@ namespace SRM_by_Longtygu.ViewModels
                         await _resourceMappingRepo.DetachAsync(SelectedSoftware.Id, resource.Id);
                         _ = LoadDataAsync();
                     }
-                    catch (Exception ex) { MessageBox.Show($"Lỗi gỡ đính kèm: {ex.Message}"); }
+                    catch (Exception ex) { MessageBox.Show(Loc.F("Library_DetachError0", ex.Message)); }
                 }
             }
         }
@@ -342,10 +342,10 @@ namespace SRM_by_Longtygu.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show($"Không tìm thấy vị trí tài nguyên trên ổ cứng!\nĐường dẫn: {fullPath}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Loc.T("Library_ResourceLocationNotFound") + "\n" + Loc.F("Library_PathLabel", fullPath), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                catch (Exception ex) { MessageBox.Show($"Lỗi mở vị trí tài nguyên: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error); }
+                catch (Exception ex) { MessageBox.Show(Loc.F("Library_ErrorOpeningResourceLocation", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error); }
             }
         }
 

@@ -119,7 +119,7 @@ namespace SRM_by_Longtygu.ViewModels
 
                     if (softwares != null && softwares.Any())
                     {
-                        var grouped = softwares.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? "Khác" : s.Category);
+                        var grouped = softwares.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? Loc.T("Dashboard_Other") : s.Category);
 
                         foreach (var group in grouped)
                         {
@@ -172,7 +172,7 @@ namespace SRM_by_Longtygu.ViewModels
                         TotalVersions = versions?.Count() ?? 0;
                         TotalCategories = softwares?.Where(s => !string.IsNullOrWhiteSpace(s.Category)).Select(s => s.Category).Distinct().Count() ?? 0;
 
-                        CategorySubtitle = $"{TotalSoftwares} phần mềm / {TotalCategories} danh mục";
+                        CategorySubtitle = Loc.F("Dashboard_0Software1Categories", TotalSoftwares, TotalCategories);
                         TotalResourceSize = FormatSize(totalResourceBytes);
 
                         RecentSoftwares.Clear();
@@ -185,11 +185,11 @@ namespace SRM_by_Longtygu.ViewModels
                         CategoryStats.Clear();
                         if (softwares != null && softwares.Any())
                         {
-                            var grouped = softwares.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? "Khác" : s.Category);
+                            var grouped = softwares.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? Loc.T("Dashboard_Other") : s.Category);
                             foreach (var group in grouped)
                                 CategoryStats.Add(new CategoryStat { CategoryName = group.Key, Count = group.Count() });
                         }
-                        else CategoryStats.Add(new CategoryStat { CategoryName = "Thư viện đang trống", Count = 0 });
+                        else CategoryStats.Add(new CategoryStat { CategoryName = Loc.T("Dashboard_LibraryIsEmpty"), Count = 0 });
 
                         CategoryStorageStats.Clear();
                         foreach (var item in categoryStorageTemp)
@@ -209,7 +209,7 @@ namespace SRM_by_Longtygu.ViewModels
 
                             UsedStorageText = $"{Math.Round(usedGb, 1)} GB";
                             TotalStorageText = $"/ {Math.Round(totalGb, 1)} GB";
-                            FreeStorageText = $"(Còn trống: {Math.Round(freeGb, 1)} GB)";
+                            FreeStorageText = Loc.F("Dashboard_Free0GB", Math.Round(freeGb, 1));
                             UsedPercentage = (usedGb / totalGb) * 100;
                         }
                     });
@@ -219,7 +219,7 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show($"Lỗi tải Dashboard: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Loc.F("Dashboard_ErrorLoadingDashboard0", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 });
             }
         }
@@ -240,7 +240,7 @@ namespace SRM_by_Longtygu.ViewModels
         }
 
         // ================= BIẾN GIAO DIỆN PHẦN CỨNG =================
-        private string _driveModel = "Đang quét phần cứng...";
+        private string _driveModel = Loc.T("Dashboard_ScanningHardware");
         public string DriveModel { get => _driveModel; set => SetProperty(ref _driveModel, value); }
 
         private string _driveType = "N/A";
@@ -256,7 +256,7 @@ namespace SRM_by_Longtygu.ViewModels
         {
             try
             {
-                string tModel = "Không tìm thấy ổ đĩa", tType = "N/A", tFw = "N/A", tHealth = "N/A";
+                string tModel = Loc.T("Dashboard_NoDriveFound"), tType = "N/A", tFw = "N/A", tHealth = "N/A";
 
                 await Task.Run(() =>
                 {
@@ -297,7 +297,7 @@ namespace SRM_by_Longtygu.ViewModels
                                         tFw = disk["FirmwareRevision"]?.ToString() ?? "N/A";
 
                                         string status = disk["Status"]?.ToString() ?? "OK";
-                                        tHealth = (status == "OK") ? "Tốt (S.M.A.R.T OK)" : "Cảnh báo (Dữ liệu lỗi)";
+                                        tHealth = (status == "OK") ? Loc.T("Dashboard_GoodSMA") : Loc.T("Dashboard_WarningDataError");
 
                                         break; // chỉ lấy ổ vật lý đầu tiên khớp với partition này
                                     }
@@ -319,8 +319,8 @@ namespace SRM_by_Longtygu.ViewModels
             }
             catch
             {
-                DriveModel = "Lỗi quyền truy cập phần cứng";
-                DriveType = "Cần Run as Admin";
+                DriveModel = Loc.T("Dashboard_HardwareAccessPermissionErro");
+                DriveType = Loc.T("Dashboard_RequiresRunAsAdmin");
             }
         }
     }

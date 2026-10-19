@@ -68,7 +68,7 @@ namespace SRM_by_Longtygu.ViewModels
         }
 
         // Nhãn nút "Quản lý công cụ" đổi thành "Xong" khi đang ở chế độ quản lý
-        public string ManageButtonLabel => IsManageMode ? "✓ Xong" : "Quản lý công cụ";
+        public string ManageButtonLabel => IsManageMode ? Loc.T("Tools_Done") : Loc.T("Tools_ManageTools");
 
         public ICommand OpenToolCommand { get; }
         public ICommand BackToListCommand { get; }
@@ -126,14 +126,14 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (tool.Id != null && tool.Id.StartsWith(BuiltInIdPrefix, StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("Không thể xóa công cụ tích hợp sẵn của ứng dụng.", "Không thể xóa",
+                MessageBox.Show(Loc.T("Tools_BuiltInToolsOf"), Loc.T("Tools_CannotDelete"),
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             var confirm = MessageBox.Show(
-                $"Bạn có chắc muốn xóa công cụ \"{tool.Name}\"?\nHành động này không thể hoàn tác.",
-                "Xác nhận xóa công cụ",
+                Loc.F("Tools_AreYouSureYou", tool.Name) + "\n" + Loc.T("Tools_ThisActionCannotBe"),
+                Loc.T("Tools_ConfirmToolDeletion"),
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (confirm != MessageBoxResult.Yes) return;
@@ -152,13 +152,13 @@ namespace SRM_by_Longtygu.ViewModels
                 if (error == "PENDING_RESTART")
                 {
                     MessageBox.Show(
-                        "Công cụ đã được gỡ khỏi danh sách. File sẽ được xóa hoàn toàn sau khi bạn khởi động lại ứng dụng.",
-                        "Đã gỡ công cụ", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Loc.T("Tools_TheToolWasRemoved"),
+                        Loc.T("Tools_ToolRemoved"), MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show($"Không thể xóa công cụ:\n{error}", "Lỗi",
+                MessageBox.Show(Loc.T("Tools_CouldNotDeleteThe") + "\n" + error, Loc.T("Common_Error"),
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -170,8 +170,8 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (tool.Id != null && tool.Id.StartsWith(BuiltInIdPrefix, StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("Công cụ tích hợp sẵn nằm trong chính ứng dụng, không thể xuất ra file riêng.",
-                    "Không thể xuất", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Loc.T("Tools_BuiltInToolsAre"),
+                    Loc.T("Tools_CannotExport"), MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -179,8 +179,8 @@ namespace SRM_by_Longtygu.ViewModels
 
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
-                Title = $"Xuất công cụ \"{tool.Name}\"",
-                Filter = "Thư viện công cụ (*.dll)|*.dll",
+                Title = Loc.F("Tools_ExportTool0", tool.Name),
+                Filter = Loc.T("Tools_ToolLibrariesDllDll"),
                 FileName = suggestedFileName ?? (tool.Name + ".dll")
             };
 
@@ -188,12 +188,12 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (_pluginService.ExportTool(tool.Id, dialog.FileName, out var error))
             {
-                MessageBox.Show($"Đã xuất công cụ \"{tool.Name}\" thành công.", "Xuất công cụ",
+                MessageBox.Show(Loc.F("Tools_Tool0ExportedSuccessfully", tool.Name), Loc.T("Tools_ExportTool"),
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"Không thể xuất công cụ:\n{error}", "Lỗi",
+                MessageBox.Show(Loc.T("Tools_CouldNotExportThe") + "\n" + error, Loc.T("Common_Error"),
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -203,8 +203,8 @@ namespace SRM_by_Longtygu.ViewModels
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
-                Title = "Chọn file công cụ (.dll)",
-                Filter = "Thư viện công cụ (*.dll)|*.dll"
+                Title = Loc.T("Tools_ChooseAToolFile"),
+                Filter = Loc.T("Tools_ToolLibrariesDllDll")
             };
 
             if (dialog.ShowDialog() == true)
@@ -212,12 +212,12 @@ namespace SRM_by_Longtygu.ViewModels
                 if (_pluginService.InstallToolFromFile(dialog.FileName, out var error))
                 {
                     LoadAllTools();
-                    MessageBox.Show("Đã cài đặt công cụ thành công.", "Thành công",
+                    MessageBox.Show(Loc.T("Tools_ToolInstalledSuccessfully"), Loc.T("PresetMain_Success"),
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show($"Không thể cài đặt công cụ:\n{error}", "Lỗi",
+                    MessageBox.Show(Loc.T("Tools_CouldNotInstallThe") + "\n" + error, Loc.T("Common_Error"),
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

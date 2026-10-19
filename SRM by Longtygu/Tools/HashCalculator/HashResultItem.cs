@@ -115,7 +115,7 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
             if (IsProcessing)
             {
                 HasMatchResult = true;
-                MatchLabel = "Đang tính...";
+                MatchLabel = Loc.T("HashCalculator_Calculating");
                 MatchColor = "#909090";
                 MatchChipBackground = "#1A909090";
                 MatchIconKind = "TimerSandEmpty";
@@ -128,14 +128,14 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
             HasMatchResult = true;
             if (matched)
             {
-                MatchLabel = "Khớp";
+                MatchLabel = Loc.T("HashCalculator_Match");
                 MatchColor = "#6CCB5F";
                 MatchChipBackground = "#1A6CCB5F";
                 MatchIconKind = "CheckCircleOutline";
             }
             else
             {
-                MatchLabel = "Không khớp";
+                MatchLabel = Loc.T("HashCalculator_NoMatch");
                 MatchColor = "#E06C75";
                 MatchChipBackground = "#1AE06C75";
                 MatchIconKind = "CloseCircleOutline";

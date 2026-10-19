@@ -64,7 +64,7 @@ namespace SRM_by_Longtygu.ViewModels
             _originalSoftware.SilentInstallCommand = SilentInstallCommand?.Trim();
             _originalSoftware.SilentUninstallCommand = SilentUninstallCommand?.Trim();
             await _softwareRepo.UpdateAsync(_originalSoftware);
-            _dialogService.ShowMessage("Cập nhật thông tin phần mềm thành công!", "Thành công");
+            _dialogService.ShowMessage(Loc.T("EditSoftware_SoftwareInformationUpdatedSu"), Loc.T("PresetMain_Success"));
             RequestClose?.Invoke();
         }
     }

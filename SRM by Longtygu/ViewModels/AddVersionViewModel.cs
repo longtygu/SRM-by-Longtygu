@@ -44,7 +44,7 @@ namespace SRM_by_Longtygu.ViewModels
 
         private void SelectFile()
         {
-            var dialog = new OpenFileDialog { Filter = "Tệp cài đặt (*.exe;*.msi;*.zip)|*.exe;*.msi;*.zip|Tất cả các tệp (*.*)|*.*" };
+            var dialog = new OpenFileDialog { Filter = Loc.T("AddMultiple_InstallerFilesExeMsi") };
             if (dialog.ShowDialog() == true)
             {
                 FilePath = dialog.FileName;
@@ -74,7 +74,7 @@ namespace SRM_by_Longtygu.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Version) || string.IsNullOrWhiteSpace(FilePath))
             {
-                MessageBox.Show("Vui lòng kiểm tra lại Phiên bản và File cài đặt!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("AddVersion_PleaseCheckTheVersion"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -115,14 +115,14 @@ namespace SRM_by_Longtygu.ViewModels
 
                 Application.Current.Dispatcher.Invoke(() => {
                     CloseWindow?.Invoke();
-                    MessageBox.Show("Đã thêm phiên bản mới thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Loc.T("AddVersion_NewVersionAddedSuccessfully"), Loc.T("Common_Notice"), MessageBoxButton.OK, MessageBoxImage.Information);
                 });
             }
             catch (Exception ex)
             {
                 Application.Current.Dispatcher.Invoke(() => {
                     IsSaving = false;
-                    MessageBox.Show($"Lỗi xử lý: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Loc.F("AddVersion_ProcessingError0", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 });
             }
         }

@@ -22,7 +22,7 @@ namespace SRM_by_Longtygu.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không mở được trình duyệt.\nHãy truy cập thủ công: {FacebookUrl}\n\n{ex.Message}",
+                MessageBox.Show(Loc.T("About_CouldNotOpenThe") + "\n" + Loc.F("About_VisitManually0", FacebookUrl) + "\n\n" + ex.Message,
                                 "SRM by Longtygu", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }

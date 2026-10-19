@@ -91,8 +91,8 @@ namespace SRM_by_Longtygu.ViewModels
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "Tệp cài đặt (*.exe;*.msi;*.zip)|*.exe;*.msi;*.zip|Tất cả các tệp (*.*)|*.*",
-                Title = "Chọn nhiều file cài đặt",
+                Filter = Loc.T("AddMultiple_InstallerFilesExeMsi"),
+                Title = Loc.T("AddMultiple_ChooseMultipleInstallerFiles"),
                 Multiselect = true
             };
             if (dialog.ShowDialog() != true) return;
@@ -127,7 +127,7 @@ namespace SRM_by_Longtygu.ViewModels
         private void SelectIconForSelected()
         {
             if (SelectedEntry == null) return;
-            var dialog = new OpenFileDialog { Filter = "Tệp hình ảnh (*.png;*.jpg;*.ico)|*.png;*.jpg;*.ico" };
+            var dialog = new OpenFileDialog { Filter = Loc.T("AddMultiple_ImageFilesPngJpg") };
             if (dialog.ShowDialog() == true) SelectedEntry.IconPath = dialog.FileName;
         }
 
@@ -158,17 +158,17 @@ namespace SRM_by_Longtygu.ViewModels
 
                 try
                 {
-                    if (string.IsNullOrWhiteSpace(entry.Name)) throw new InvalidOperationException("Thiếu tên phần mềm");
-                    if (string.IsNullOrWhiteSpace(entry.Version)) throw new InvalidOperationException("Thiếu phiên bản");
-                    if (string.IsNullOrWhiteSpace(entry.Category)) throw new InvalidOperationException("Thiếu danh mục");
+                    if (string.IsNullOrWhiteSpace(entry.Name)) throw new InvalidOperationException(Loc.T("AddMultiple_MissingSoftwareName"));
+                    if (string.IsNullOrWhiteSpace(entry.Version)) throw new InvalidOperationException(Loc.T("AddMultiple_MissingVersion"));
+                    if (string.IsNullOrWhiteSpace(entry.Category)) throw new InvalidOperationException(Loc.T("AddMultiple_MissingCategory"));
                     if (string.IsNullOrWhiteSpace(entry.FilePath) || !File.Exists(entry.FilePath))
-                        throw new InvalidOperationException("File cài đặt không còn tồn tại trên ổ cứng");
+                        throw new InvalidOperationException(Loc.T("AddMultiple_TheInstallerFileNo"));
 
                     var existingSoftware = await _softwareRepo.GetByNameAsync(entry.Name.Trim());
                     if (existingSoftware != null)
                     {
                         entry.Status = EntryStatus.Duplicate;
-                        entry.StatusMessage = $"'{entry.Name}' đã tồn tại trong thư viện. Hãy đổi tên hoặc dùng chức năng [Thêm phiên bản].";
+                        entry.StatusMessage = Loc.F("AddMultiple_0AlreadyExistsIn", entry.Name);
                         duplicateCount++;
                         continue;
                     }
@@ -176,7 +176,7 @@ namespace SRM_by_Longtygu.ViewModels
                     await ProcessSingleEntryAsync(entry);
 
                     entry.Status = EntryStatus.Success;
-                    entry.StatusMessage = "Đã thêm thành công";
+                    entry.StatusMessage = Loc.T("AddMultiple_AddedSuccessfully");
                     successCount++;
                 }
                 catch (Exception ex)
@@ -204,11 +204,11 @@ namespace SRM_by_Longtygu.ViewModels
             Application.Current.Dispatcher.Invoke(() =>
             {
                 MessageBox.Show(
-                    $"Hoàn tất xử lý {successCount + duplicateCount + errorCount} phần mềm:\n" +
-                    $"✔ Thành công: {successCount}\n" +
-                    $"⚠ Trùng lặp: {duplicateCount}\n" +
-                    $"✘ Lỗi: {errorCount}",
-                    "Kết quả thêm phần mềm hàng loạt",
+                    Loc.F("AddMultiple_FinishedProcessing0Software", successCount + duplicateCount + errorCount) + "\n" +
+                    Loc.F("AddMultiple_Success0", successCount) + "\n" +
+                    Loc.F("AddMultiple_Duplicate0", duplicateCount) + "\n" +
+                    Loc.F("AddMultiple_Errors0", errorCount),
+                    Loc.T("AddMultiple_BulkAddSoftwareResult"),
                     MessageBoxButton.OK,
                     (errorCount > 0 || duplicateCount > 0) ? MessageBoxImage.Warning : MessageBoxImage.Information);
             });

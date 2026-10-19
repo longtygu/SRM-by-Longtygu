@@ -20,7 +20,7 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
 
         public ObservableCollection<HashResultItem> Items { get; } = new ObservableCollection<HashResultItem>();
 
-        private string _statusText = "Kéo thả file vào đây — chỉ đọc trực tiếp, không lưu trữ file nội bộ";
+        private string _statusText = Loc.T("HashCalculator_DragAndDropFiles2");
         public string StatusText
         {
             get => _statusText;
@@ -61,7 +61,7 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
                 _cts?.Cancel();
                 _pendingQueue.Clear();
                 Items.Clear();
-                StatusText = "Kéo thả file vào đây — chỉ đọc trực tiếp, không lưu trữ file nội bộ";
+                StatusText = Loc.T("HashCalculator_DragAndDropFiles2");
             });
 
             CancelCommand = new RelayCommand(_ => _cts?.Cancel());
@@ -85,7 +85,7 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
             var dialog = new OpenFileDialog
             {
                 Multiselect = true,
-                Title = "Chọn file để tính hash"
+                Title = Loc.T("HashCalculator_ChooseFilesToCalculate")
             };
 
             if (dialog.ShowDialog() == true)
@@ -146,7 +146,7 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
                         {
                             var skipped = _pendingQueue.Dequeue();
                             skipped.IsProcessing = false;
-                            skipped.SetError("Đã hủy");
+                            skipped.SetError(Loc.T("HashCalculator_Cancelled"));
                         }
                         break;
                     }
@@ -159,7 +159,7 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
                     catch (OperationCanceledException)
                     {
                         item.IsProcessing = false;
-                        item.SetError("Đã hủy");
+                        item.SetError(Loc.T("HashCalculator_Cancelled"));
                     }
                 }
             }
@@ -168,8 +168,8 @@ namespace SRM_by_Longtygu.Tools.HashCalculator
                 _isWorkerRunning = false;
                 IsProcessingQueue = false;
                 StatusText = Items.Count > 0
-                    ? $"Hoàn tất — {Items.Count} file"
-                    : "Kéo thả file vào đây — chỉ đọc trực tiếp, không lưu trữ file nội bộ";
+                    ? Loc.F("HashCalculator_Finished0Files", Items.Count)
+                    : Loc.T("HashCalculator_DragAndDropFiles2");
             }
         }
     }

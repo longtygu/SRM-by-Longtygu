@@ -83,7 +83,7 @@ namespace SRM_by_Longtygu.ViewModels
                 {
                     if (SelectedSoftwares.Any(x => x.Id == sw.Id))
                     {
-                        MessageBox.Show($"Phần mềm '{sw.Name}' đã tồn tại trong gói này!", "Cảnh báo trùng lặp", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show(Loc.F("PresetEditor_Software0AlreadyExists", sw.Name), Loc.T("Deployment_DuplicateWarning"), MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
                     SelectedSoftwares.Add(sw);
@@ -126,7 +126,7 @@ namespace SRM_by_Longtygu.ViewModels
             string initDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "PresetIcons");
             if (!Directory.Exists(initDir)) Directory.CreateDirectory(initDir);
 
-            OpenFileDialog dialog = new OpenFileDialog { Title = "Chọn Icon", Filter = "Image Files|*.png;*.jpg;*.jpeg;*.ico", InitialDirectory = initDir };
+            OpenFileDialog dialog = new OpenFileDialog { Title = Loc.T("PresetEditor_ChooseIcon"), Filter = "Image Files|*.png;*.jpg;*.jpeg;*.ico", InitialDirectory = initDir };
             if (dialog.ShowDialog() == true) PresetIconPath = dialog.FileName;
         }
     }

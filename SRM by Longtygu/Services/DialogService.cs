@@ -26,7 +26,7 @@ namespace SRM_by_Longtygu.Services
     {
         public string OpenFileDialog(string filter)
         {
-            var dialog = new OpenFileDialog { Filter = filter, Title = "Chọn file bộ cài đặt" };
+            var dialog = new OpenFileDialog { Filter = filter, Title = Loc.T("Dialog_ChooseInstallerFile") };
             return dialog.ShowDialog() == true ? dialog.FileName : string.Empty;
         }
 

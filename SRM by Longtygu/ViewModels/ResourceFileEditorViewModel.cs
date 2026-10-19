@@ -99,7 +99,7 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 var dialog = new Microsoft.Win32.OpenFileDialog
                 {
-                    Title = "Chọn file tài nguyên (ISO, DLL, exe...)",
+                    Title = Loc.T("ResourceEditor_ChooseAResourceFile"),
                     Filter = "All Files (*.*)|*.*"
                 };
 
@@ -124,7 +124,7 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 var dialog = new Microsoft.Win32.OpenFolderDialog
                 {
-                    Title = "Chọn thư mục chứa nhiều file tài nguyên",
+                    Title = Loc.T("ResourceEditor_ChooseAFolderContaining"),
                     Multiselect = false
                 };
 

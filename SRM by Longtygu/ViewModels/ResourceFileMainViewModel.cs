@@ -60,7 +60,7 @@ namespace SRM_by_Longtygu.ViewModels
                     if (!string.IsNullOrEmpty(validPath) && Directory.Exists(validPath))
                         Process.Start("explorer.exe", validPath);
                     else
-                        MessageBox.Show($"Không tìm thấy thư mục cục bộ của file này!\nĐường dẫn tìm kiếm: {validPath}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Loc.T("ResourceFile_TheLocalFolderOf") + "\n" + Loc.F("ResourceFile_SearchPath0", validPath), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
 
@@ -68,7 +68,7 @@ namespace SRM_by_Longtygu.ViewModels
             {
                 if (param is ResourceFile file)
                 {
-                    var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa '{file.Name}'?", "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBox.Show(Loc.F("ResourceFile_AreYouSureYou", file.Name), Loc.T("PresetMain_ConfirmDeletion"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     if (result == MessageBoxResult.Yes)
                     {
                         _repository.Delete(file.Id);
@@ -115,7 +115,7 @@ namespace SRM_by_Longtygu.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Lỗi: " + ex.Message, "Lỗi Copy", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Loc.T("ResourceFile_Error") + ex.Message, Loc.T("ResourceFile_CopyError"), MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     finally
                     {
@@ -157,7 +157,7 @@ namespace SRM_by_Longtygu.ViewModels
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi Copy", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(Loc.T("ResourceFile_Error") + ex.Message, Loc.T("ResourceFile_CopyError"), MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         finally
                         {
@@ -189,14 +189,14 @@ namespace SRM_by_Longtygu.ViewModels
             if (editorVM.IsSourceFolder)
             {
                 if (!Directory.Exists(editorVM.SourceFilePath))
-                    throw new DirectoryNotFoundException("Không tìm thấy thư mục nguồn: " + editorVM.SourceFilePath);
+                    throw new DirectoryNotFoundException(Loc.T("ResourceFile_SourceFolderNotFound") + editorVM.SourceFilePath);
 
                 await Task.Run(() => CopyDirectoryRecursive(editorVM.SourceFilePath, localFolderPath));
             }
             else
             {
                 if (!File.Exists(editorVM.SourceFilePath))
-                    throw new FileNotFoundException("Không tìm thấy file nguồn: " + editorVM.SourceFilePath);
+                    throw new FileNotFoundException(Loc.T("ResourceFile_SourceFileNotFound") + editorVM.SourceFilePath);
 
                 string destFile = Path.Combine(localFolderPath, editorVM.FileName);
                 await Task.Run(() => File.Copy(editorVM.SourceFilePath, destFile, true));

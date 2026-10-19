@@ -24,7 +24,7 @@ namespace SRM_by_Longtygu.Tools.DiskHealth
             set => SetProperty(ref _selectedDrive, value);
         }
 
-        private string _statusText = "Sẵn sàng";
+        private string _statusText = Loc.T("Settings_Ready");
         public string StatusText
         {
             get => _statusText;
@@ -99,18 +99,18 @@ namespace SRM_by_Longtygu.Tools.DiskHealth
 
             if (result.Cancelled)
             {
-                StatusText = "Đã hủy kiểm tra";
+                StatusText = Loc.T("DiskHealth_CheckCancelled");
             }
             else if (result.Success)
             {
                 WriteSpeedResult = $"{result.WriteSpeedMBps:F1} MB/s";
                 ReadSpeedResult = $"{result.ReadSpeedMBps:F1} MB/s";
-                StatusText = "Hoàn tất kiểm tra tốc độ";
+                StatusText = Loc.T("DiskHealth_SpeedTestComplete");
                 BenchmarkPercent = 100;
             }
             else
             {
-                StatusText = $"Lỗi: {result.ErrorMessage}";
+                StatusText = Loc.F("DiskHealth_Error0", result.ErrorMessage);
             }
 
             IsBenchmarking = false;
@@ -122,13 +122,13 @@ namespace SRM_by_Longtygu.Tools.DiskHealth
             if (_isBusy) return;
             _isBusy = true;
 
-            StatusText = "Đang đọc thông tin ổ đĩa...";
+            StatusText = Loc.T("DiskHealth_ReadingDriveInformation");
             PhysicalDisks.Clear();
 
             var disks = await Task.Run(() => DiskInfoHelper.GetPhysicalDisksHealth());
             foreach (var d in disks) PhysicalDisks.Add(d);
 
-            StatusText = "Sẵn sàng";
+            StatusText = Loc.T("Settings_Ready");
             _isBusy = false;
         }
     }

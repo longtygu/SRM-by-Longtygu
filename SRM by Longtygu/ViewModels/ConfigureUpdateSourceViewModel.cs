@@ -29,10 +29,10 @@ namespace SRM_by_Longtygu.ViewModels
 
         public ObservableCollection<UpdateSourceOption> SourceOptions { get; } = new ObservableCollection<UpdateSourceOption>
         {
-            new UpdateSourceOption { Key = "None", DisplayName = "Không kiểm tra cập nhật" },
-            new UpdateSourceOption { Key = "Winget", DisplayName = "Winget (khuyên dùng - phủ hầu hết app phổ biến, không cần tự tra URL)" },
-            new UpdateSourceOption { Key = "GitHubReleases", DisplayName = "GitHub Releases (dành cho phần mềm mã nguồn mở)" },
-            new UpdateSourceOption { Key = "RegexPage", DisplayName = "Quét trang web + Regex (dùng khi 2 cách trên không có)" },
+            new UpdateSourceOption { Key = "None", DisplayName = Loc.T("ConfigureSource_DoNotCheckFor") },
+            new UpdateSourceOption { Key = "Winget", DisplayName = Loc.T("ConfigureSource_WingetRecommendedCoversMost") },
+            new UpdateSourceOption { Key = "GitHubReleases", DisplayName = Loc.T("ConfigureSource_GitHubReleasesForOpen") },
+            new UpdateSourceOption { Key = "RegexPage", DisplayName = Loc.T("ConfigureSource_WebPageScanRegex") },
         };
 
         private UpdateSourceOption _selectedSourceOption;
@@ -114,13 +114,13 @@ namespace SRM_by_Longtygu.ViewModels
 
                     bool saved = await TrySaveSilentlyAsync();
                     SuggestionMessage = saved
-                        ? $"✓ Đã tự động tìm và LƯU cấu hình gợi ý cho '{_software.Name}'. Có thể chỉnh lại rồi bấm Lưu nếu muốn đổi."
-                        : $"Đã tìm thấy gợi ý cho '{_software.Name}' nhưng lưu tự động thất bại — hãy tự bấm Lưu bên dưới.";
+                        ? Loc.F("ConfigureSource_AutomaticallyFoundAndSAVED", _software.Name)
+                        : Loc.F("ConfigureSource_FoundASuggestionFor", _software.Name);
                     return;
                 }
             }
 
-            SuggestionMessage = $"Không tìm thấy cấu hình gợi ý sẵn cho '{_software.Name}'. Hãy tự chọn nguồn và cấu hình bên dưới.";
+            SuggestionMessage = Loc.F("ConfigureSource_NoBuiltInSuggested", _software.Name);
         }
 
         // Lưu ngầm (không đóng dialog, không hiện thông báo lỗi popup) - dùng riêng cho luồng tự động gợi ý
@@ -147,17 +147,17 @@ namespace SRM_by_Longtygu.ViewModels
 
             if (IsGitHubMode && string.IsNullOrWhiteSpace(UpdateSourceUrl))
             {
-                MessageBox.Show("Vui lòng nhập 'owner/repo' của GitHub (VD: videolan/vlc).", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("ConfigureSource_PleaseEnterTheGitHub"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (IsWingetMode && string.IsNullOrWhiteSpace(UpdateSourceUrl))
             {
-                MessageBox.Show("Vui lòng nhập ID gói Winget (VD: VideoLAN.VLC). Chạy 'winget search <tên>' trong CMD để tra đúng ID.", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("ConfigureSource_PleaseEnterTheWinget"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (IsRegexMode && (string.IsNullOrWhiteSpace(UpdateSourceUrl) || string.IsNullOrWhiteSpace(UpdateVersionPattern)))
             {
-                MessageBox.Show("Vui lòng nhập URL trang cần quét và mẫu regex lấy phiên bản.", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("ConfigureSource_PleaseEnterTheURL"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -174,7 +174,7 @@ namespace SRM_by_Longtygu.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lưu cấu hình: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Loc.F("ConfigureSource_ErrorSavingTheConfiguration", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

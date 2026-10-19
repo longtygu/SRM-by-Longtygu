@@ -92,7 +92,7 @@ namespace SRM_by_Longtygu.ViewModels
 
         private void SelectFile()
         {
-            var dialog = new OpenFileDialog { Filter = "Tệp cài đặt (*.exe;*.msi;*.zip)|*.exe;*.msi;*.zip|Tất cả các tệp (*.*)|*.*" };
+            var dialog = new OpenFileDialog { Filter = Loc.T("AddMultiple_InstallerFilesExeMsi") };
             if (dialog.ShowDialog() == true)
             {
                 FilePath = dialog.FileName;
@@ -102,7 +102,7 @@ namespace SRM_by_Longtygu.ViewModels
 
         private void SelectIcon()
         {
-            var dialog = new OpenFileDialog { Filter = "Tệp hình ảnh (*.png;*.jpg;*.ico)|*.png;*.jpg;*.ico" };
+            var dialog = new OpenFileDialog { Filter = Loc.T("AddMultiple_ImageFilesPngJpg") };
             if (dialog.ShowDialog() == true) IconPath = dialog.FileName;
         }
 
@@ -143,22 +143,22 @@ namespace SRM_by_Longtygu.ViewModels
         {
             if (string.IsNullOrWhiteSpace(FilePath))
             {
-                MessageBox.Show("Vui lòng chọn File cài đặt trước!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("AddSoftware_PleaseChooseTheInstaller"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (string.IsNullOrWhiteSpace(Name))
             {
-                MessageBox.Show("Vui lòng nhập Tên phần mềm!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("AddSoftware_PleaseEnterTheSoftware"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (string.IsNullOrWhiteSpace(Version))
             {
-                MessageBox.Show("Vui lòng nhập Phiên bản!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("AddSoftware_PleaseEnterTheVersion"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (string.IsNullOrWhiteSpace(Category))
             {
-                MessageBox.Show("Vui lòng chọn Danh mục cho phần mềm!", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Loc.T("AddSoftware_PleaseChooseACategory"), Loc.T("AddSoftware_MissingInformation"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -166,7 +166,7 @@ namespace SRM_by_Longtygu.ViewModels
             var existingSoftware = await _softwareRepo.GetByNameAsync(Name.Trim());
             if (existingSoftware != null)
             {
-                MessageBox.Show($"Phần mềm '{Name}' đã tồn tại trong thư viện.\nVui lòng sử dụng tính năng [Thêm phiên bản] ở tab Quản lý bộ cài.", "Trùng lặp", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Loc.F("AddSoftware_Software0AlreadyExists", Name) + "\n" + Loc.T("AddSoftware_PleaseUseTheAdd"), Loc.T("Entry_Duplicate"), MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -278,14 +278,14 @@ namespace SRM_by_Longtygu.ViewModels
                 });
 
                 Application.Current.Dispatcher.Invoke(() => {
-                    MessageBox.Show("Thêm phần mềm mới thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Loc.T("AddSoftware_SoftwareAddedSuccessfully"), Loc.T("Common_Notice"), MessageBoxButton.OK, MessageBoxImage.Information);
                     CloseWindow?.Invoke();
                 });
             }
             catch (Exception ex)
             {
                 Application.Current.Dispatcher.Invoke(() => {
-                    MessageBox.Show($"Lỗi xử lý file: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Loc.F("AddSoftware_ErrorProcessingFile0", ex.Message), Loc.T("Common_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
                 });
             }
             finally

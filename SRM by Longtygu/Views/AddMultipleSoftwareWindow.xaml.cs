@@ -37,8 +37,8 @@ namespace SRM_by_Longtygu.Views
             if (DataContext is AddMultipleSoftwareViewModel vm && vm.Queue.Count > 0 && !vm.IsSaving)
             {
                 var result = MessageBox.Show(
-                    $"Bạn còn {vm.Queue.Count} phần mềm chưa được lưu trong hàng đợi.\nBạn có chắc muốn đóng và bỏ qua không?",
-                    "Còn phần mềm chưa lưu",
+                    Loc.F("AddMultiple_YouStillHave0", vm.Queue.Count) + "\n" + Loc.T("AddMultiple_AreYouSureYou"),
+                    Loc.T("AddMultiple_UnsavedSoftwareRemaining"),
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 

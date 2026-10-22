@@ -9,6 +9,46 @@
         <converters:IsBuiltInConverter x:Key="IsBuiltInConverter"/>
         <converters:NotBuiltInToVisibilityConverter x:Key="NotBuiltInToVisibilityConverter"/>
         <converters:BuiltInStatusTextConverter x:Key="BuiltInStatusTextConverter"/>
+        <!-- ============ NÚT ĐỔI KIỂU HIỂN THỊ (ô lớn / danh sách) ============ -->
+        <Style x:Key="ViewModeButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#383838"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ViewModeGridButtonStyle" TargetType="Button" BasedOn="{StaticResource ViewModeButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsGridMode}" Value="True">
+                    <Setter Property="Background" Value="#3F3F3F"/>
+                    <Setter Property="Foreground" Value="#60CDFF"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ViewModeListButtonStyle" TargetType="Button" BasedOn="{StaticResource ViewModeButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsListMode}" Value="True">
+                    <Setter Property="Background" Value="#3F3F3F"/>
+                    <Setter Property="Foreground" Value="#60CDFF"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
         <!-- ============ CARD CÔNG CỤ (chế độ duyệt): icon phóng to, hover hiện tên + mô tả ============ -->
         <Style x:Key="ToolCardStyle" TargetType="Button">
@@ -128,6 +168,9 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="Text" Value="{DynamicResource Tools_HoverOverATool}"/>
                                 <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsListMode}" Value="True">
+                                        <Setter Property="Text" Value="{DynamicResource Tools_ListHint}"/>
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding IsManageMode}" Value="True">
                                         <Setter Property="Text" Value="{DynamicResource Tools_ExportAToolTo}"/>
                                     </DataTrigger>
@@ -138,6 +181,18 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border Background="#2D2D2D" CornerRadius="7" Padding="3" Margin="0,0,10,0" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource ViewModeGridButtonStyle}" Command="{Binding SetViewModeCommand}" CommandParameter="Grid"
+                                    ToolTip="{DynamicResource Tools_ViewGridTip}">
+                                <iconPacks:PackIconMaterial Kind="ViewGrid" Width="16" Height="16"/>
+                            </Button>
+                            <Button Style="{StaticResource ViewModeListButtonStyle}" Command="{Binding SetViewModeCommand}" CommandParameter="List"
+                                    ToolTip="{DynamicResource Tools_ViewListTip}">
+                                <iconPacks:PackIconMaterial Kind="ViewList" Width="16" Height="16"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
                     <Button Content="{Binding ManageButtonLabel}" Command="{Binding ToggleManageModeCommand}"
                             Background="#3A3A3A" Foreground="White" FontWeight="SemiBold"
                             Padding="16,8" BorderThickness="0" Cursor="Hand" Margin="0,0,10,0"/>
@@ -158,6 +213,9 @@
                             <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsManageMode}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsListMode}" Value="True">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -197,6 +255,83 @@
                     </TextBlock>
                 </Grid>
 
+                <!-- ===== CHẾ ĐỘ DUYỆT DẠNG DANH SÁCH: icon / tên / mô tả / nút chạy ===== -->
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsListMode}" Value="True"/>
+                                        <Condition Binding="{Binding IsManageMode}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Grid Margin="14,0,14,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition Width="240"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1" Text="{DynamicResource Tools_ToolName}" FontSize="12" Foreground="#808080" FontWeight="SemiBold" Margin="12,0,0,0"/>
+                                <TextBlock Grid.Column="2" Text="{DynamicResource Tools_ColDescription}" FontSize="12" Foreground="#808080" FontWeight="SemiBold"/>
+                            </Grid>
+                            <ItemsControl ItemsSource="{Binding AvailableTools}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#282828" CornerRadius="8" Padding="14,12" Margin="0,0,0,8">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="48"/>
+                                                    <ColumnDefinition Width="240"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Background="#333333" Width="36" Height="36" CornerRadius="8" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                    <iconPacks:PackIconMaterial Kind="{Binding IconKind}" Width="18" Height="18" Foreground="#60CDFF"
+                                                                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Grid.Column="1" Text="{Binding Name}" FontSize="14" FontWeight="SemiBold" Foreground="White"
+                                                           TextWrapping="Wrap" VerticalAlignment="Center" Margin="12,0,16,0"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding Description}" FontSize="12.5" Foreground="#B0B0B0"
+                                                           TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                                                <Button Grid.Column="3" Style="{StaticResource RowActionButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                        Background="#60CDFF" Foreground="#202020" Padding="14,7"
+                                                        Command="{Binding DataContext.OpenToolCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <iconPacks:PackIconMaterial Kind="Play" Width="12" Height="12" VerticalAlignment="Center" Margin="0,0,7,0"/>
+                                                        <TextBlock Text="{DynamicResource Tools_Launch}" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <TextBlock Text="{DynamicResource Tools_NoToolsYetClick}"
+                               Foreground="#666666" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="Collapsed">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasNoTools}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
                 <!-- ===== CHẾ ĐỘ QUẢN LÝ: bảng danh sách với Xuất / Xóa ===== -->
                 <Grid>
                     <Grid.Style>
@@ -273,7 +408,7 @@
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Border.Style>
-                                                    <TextBlock Text="{Binding Id, Converter={StaticResource BuiltInStatusTextConverter}}"
+                                                    <TextBlock Text="{Binding StatusText}"
                                                                FontSize="10.5" Foreground="White"/>
                                                 </Border>
 

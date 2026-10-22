@@ -859,4 +859,21 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="DiskHealth_Error0">Lỗi: {0}</system:String>
     <system:String x:Key="DiskHealth_ReadingDriveInformation">Đang đọc thông tin ổ đĩa...</system:String>
 
+    <system:String x:Key="Tool_DiskHealth_Name">Test nhanh tốc độ đọc ghi</system:String>
+    <system:String x:Key="Tool_DiskHealth_Desc">Đo tốc độ đọc/ghi và xem tình trạng SMART của ổ đĩa</system:String>
+    <system:String x:Key="Tool_RamTest_Name">RAM Test</system:String>
+    <system:String x:Key="Tool_RamTest_Desc">Cấp phát, ghi mẫu, đọc lại và xác minh CRC để phát hiện lỗi bộ nhớ RAM</system:String>
+    <system:String x:Key="Tool_HardwareInfo_Name">Thông tin phần cứng</system:String>
+    <system:String x:Key="Tool_HardwareInfo_Desc">Xem chi tiết CPU/GPU/RAM/Mainboard, giám sát nhiệt độ thời gian thực và S.M.A.R.T ổ đĩa</system:String>
+    <system:String x:Key="Tool_WindowsHealthCheck_Name">Windows Health Check</system:String>
+    <system:String x:Key="Tool_WindowsHealthCheck_Desc">Kiểm tra tình trạng hệ thống (kích hoạt, bảo mật, TPM, BitLocker...) và sửa lỗi Windows nhanh (DISM, SFC, CHKDSK, mạng, Windows Update)</system:String>
+    <system:String x:Key="Tool_HashCalculator_Name">Hash Calculator</system:String>
+    <system:String x:Key="Tool_HashCalculator_Desc">Tính mã băm MD5, SHA1, SHA256, SHA512, CRC32 của file — kéo thả nhiều file, đối chiếu hash nhanh, không lưu trữ file nội bộ</system:String>
+    <system:String x:Key="Tools_BuiltInBadge">Tích hợp sẵn</system:String>
+    <system:String x:Key="Tools_PluginBadge">Plugin</system:String>
+    <system:String x:Key="Tools_ViewGridTip">Xem dạng ô lớn</system:String>
+    <system:String x:Key="Tools_ViewListTip">Xem dạng danh sách</system:String>
+    <system:String x:Key="Tools_Launch">Chạy</system:String>
+    <system:String x:Key="Tools_ColDescription">Mô tả</system:String>
+    <system:String x:Key="Tools_ListHint">Bấm Chạy để mở công cụ.</system:String>
 </ResourceDictionary>

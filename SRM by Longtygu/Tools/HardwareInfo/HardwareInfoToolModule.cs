@@ -8,8 +8,8 @@ namespace SRM_by_Longtygu.Tools.HardwareInfo
     public class HardwareInfoToolModule : IToolModule
     {
         public string Id => "builtin.hardware-info";
-        public string Name => "Thông tin phần cứng";
-        public string Description => "Xem chi tiết CPU/GPU/RAM/Mainboard, giám sát nhiệt độ thời gian thực và S.M.A.R.T ổ đĩa";
+        public string Name => "Hardware Information";
+        public string Description => "View detailed CPU/GPU/RAM/Mainboard info, monitor real-time temperatures and drive S.M.A.R.T.";
         public string Version => "1.0.0";
         public string IconKind => "Chip";
 

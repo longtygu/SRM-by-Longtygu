@@ -8,6 +8,103 @@
         <!-- BỔ SUNG: Converter để chuyển đổi True/False thành Ẩn/Hiện -->
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
+        <!-- ===== COMBOBOX NGÔN NGỮ: nền tối, viền accent khi mở, danh sách bo góc ===== -->
+        <Style x:Key="LangComboToggleStyle" TargetType="ToggleButton">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="ClickMode" Value="Press"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Bd" Background="#2D2D2D" BorderBrush="#454545" BorderThickness="1" CornerRadius="8">
+                            <iconPacks:PackIconMaterial Kind="ChevronDown" Width="11" Height="11" Foreground="#AAAAAA"
+                                                         HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#383838"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#5A5A5A"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#60CDFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LangComboItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="6" Padding="12,9" Margin="0,1" SnapsToDevicePixels="True">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter VerticalAlignment="Center"/>
+                                <iconPacks:PackIconMaterial x:Name="Tick" Grid.Column="1" Kind="Check" Width="14" Height="14"
+                                                             Foreground="#60CDFF" VerticalAlignment="Center" Margin="14,0,0,0" Visibility="Collapsed"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#383838"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2A4A63"/>
+                                <Setter TargetName="Tick" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LangComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="MinWidth" Value="230"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource LangComboItemStyle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Style="{StaticResource LangComboToggleStyle}" Focusable="False"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ContentPresenter IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              Margin="14,0,40,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <Popup x:Name="PART_Popup" Placement="Bottom" VerticalOffset="4" AllowsTransparency="True" Focusable="False"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}" PopupAnimation="Fade">
+                                <Border MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        Background="#2B2B2B" BorderBrush="#454545" BorderThickness="1" CornerRadius="8" Padding="5">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="LangComboItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="Translate" Width="15" Height="15" Foreground="#60CDFF" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding NativeName}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Code}" FontSize="11.5" Foreground="#888888" VerticalAlignment="Center" Margin="10,1,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+
         <Style TargetType="Button" x:Key="FluentSettingsButton">
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -112,9 +209,9 @@
                             <TextBlock Text="{DynamicResource Settings_LanguageNote}" FontSize="12" Foreground="#888888" TextWrapping="Wrap" Margin="0,6,0,0"/>
                         </StackPanel>
 
-                        <ComboBox Grid.Column="1" MinWidth="180" Padding="10,6" FontSize="14" VerticalAlignment="Center"
-                                  ItemsSource="{Binding SupportedLanguages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-                                  DisplayMemberPath="NativeName"/>
+                        <ComboBox Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource LangComboBoxStyle}"
+                                  ItemTemplate="{StaticResource LangComboItemTemplate}"
+                                  ItemsSource="{Binding SupportedLanguages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"/>
                     </Grid>
                 </Border>
 

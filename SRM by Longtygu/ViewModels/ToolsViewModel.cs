@@ -1,4 +1,5 @@
 ﻿using SRM_by_Longtygu.Commands;
+using SRM_by_Longtygu.Helpers;
 using SRM_by_Longtygu.Plugins;
 using SRM_by_Longtygu.Services;
 using SRM_by_Longtygu.Tools.DiskHealth;
@@ -19,19 +20,46 @@ namespace SRM_by_Longtygu.ViewModels
         private readonly IPluginService _pluginService;
         private readonly IServiceProvider _serviceProvider;
 
-        public ObservableCollection<IToolModule> AvailableTools { get; } = new ObservableCollection<IToolModule>();
+        public ObservableCollection<ToolItem> AvailableTools { get; } = new ObservableCollection<ToolItem>();
 
         public bool HasNoTools => AvailableTools.Count == 0;
 
-        private IToolModule _selectedTool;
-        public IToolModule SelectedTool
+        // ===== Kiểu hiển thị danh sách công cụ: lưu trong settings.json (AppConfig.ToolsViewMode) =====
+        public const string ViewModeGrid = "Grid";
+        public const string ViewModeList = "List";
+        private string _viewMode = ViewModeGrid;
+        public bool IsListMode => _viewMode == ViewModeList;
+        public bool IsGridMode => !IsListMode;
+        public ICommand SetViewModeCommand { get; }
+
+        private void SetViewMode(string mode)
+        {
+            string target = string.Equals(mode, ViewModeList, StringComparison.OrdinalIgnoreCase) ? ViewModeList : ViewModeGrid;
+            if (target == _viewMode) return;
+            _viewMode = target;
+            OnPropertyChanged(nameof(IsListMode));
+            OnPropertyChanged(nameof(IsGridMode));
+            try
+            {
+                var cfg = SettingsManager.LoadSettings();
+                cfg.ToolsViewMode = target;
+                SettingsManager.SaveSettings(cfg);
+            }
+            catch
+            {
+                // Không lưu được thì thôi, vẫn đổi kiểu hiển thị trong phiên này
+            }
+        }
+
+        private ToolItem _selectedTool;
+        public ToolItem SelectedTool
         {
             get => _selectedTool;
             set
             {
                 if (SetProperty(ref _selectedTool, value) && value != null)
                 {
-                    ActiveToolView = value.CreateView(_serviceProvider);
+                    ActiveToolView = value.Module.CreateView(_serviceProvider);
                 }
             }
         }
@@ -81,12 +109,22 @@ namespace SRM_by_Longtygu.ViewModels
         {
             _pluginService = pluginService;
             _serviceProvider = serviceProvider;
+            try
+            {
+                var cfg = SettingsManager.LoadSettings();
+                _viewMode = string.Equals(cfg.ToolsViewMode, ViewModeList, StringComparison.OrdinalIgnoreCase) ? ViewModeList : ViewModeGrid;
+            }
+            catch
+            {
+                _viewMode = ViewModeGrid;
+            }
+            SetViewModeCommand = new RelayCommand(p => SetViewMode(p as string));
 
             LoadAllTools();
 
             // Khu vực duyệt (card) và khu vực quản lý (bảng) hiển thị tách biệt theo IsManageMode,
             // nên card duyệt luôn mở tool bình thường khi được click.
-            OpenToolCommand = new RelayCommand(t => SelectedTool = t as IToolModule);
+            OpenToolCommand = new RelayCommand(t => SelectedTool = t as ToolItem);
             BackToListCommand = new RelayCommand(_ =>
             {
                 SelectedTool = null;
@@ -94,8 +132,8 @@ namespace SRM_by_Longtygu.ViewModels
             });
             AddToolCommand = new RelayCommand(_ => AddToolFromFile());
             ToggleManageModeCommand = new RelayCommand(_ => IsManageMode = !IsManageMode);
-            DeleteToolCommand = new RelayCommand(t => DeleteTool(t as IToolModule));
-            ExportToolCommand = new RelayCommand(t => ExportTool(t as IToolModule));
+            DeleteToolCommand = new RelayCommand(t => DeleteTool(t as ToolItem));
+            ExportToolCommand = new RelayCommand(t => ExportTool(t as ToolItem));
         }
 
         // Nạp lại danh sách: công cụ tích hợp sẵn (built-in) + công cụ nạp động từ thư mục Plugins
@@ -104,23 +142,23 @@ namespace SRM_by_Longtygu.ViewModels
             AvailableTools.Clear();
 
             // Công cụ tích hợp sẵn, không cần thả file .dll
-            AvailableTools.Add(new DiskHealthToolModule());
-            AvailableTools.Add(new RamTestToolModule());
-            AvailableTools.Add(new HardwareInfoToolModule());
-            AvailableTools.Add(new WindowsHealthCheckToolModule());
-            AvailableTools.Add(new HashCalculatorToolModule());
+            AvailableTools.Add(new ToolItem(new DiskHealthToolModule()));
+            AvailableTools.Add(new ToolItem(new RamTestToolModule()));
+            AvailableTools.Add(new ToolItem(new HardwareInfoToolModule()));
+            AvailableTools.Add(new ToolItem(new WindowsHealthCheckToolModule()));
+            AvailableTools.Add(new ToolItem(new HashCalculatorToolModule()));
 
             // Công cụ nạp động (thả tay hoặc cài qua nút "Thêm công cụ")
             foreach (var tool in _pluginService.LoadTools())
             {
-                AvailableTools.Add(tool);
+                AvailableTools.Add(new ToolItem(tool));
             }
 
             OnPropertyChanged(nameof(HasNoTools));
         }
 
         // Xóa 1 công cụ (chỉ áp dụng cho công cụ cài từ file .dll, không áp dụng cho tool tích hợp sẵn)
-        private void DeleteTool(IToolModule tool)
+        private void DeleteTool(ToolItem tool)
         {
             if (tool == null) return;
 
@@ -164,7 +202,7 @@ namespace SRM_by_Longtygu.ViewModels
         }
 
         // Xuất (copy) file .dll của công cụ ra vị trí người dùng chọn — dùng để backup/chia sẻ giữa các máy
-        private void ExportTool(IToolModule tool)
+        private void ExportTool(ToolItem tool)
         {
             if (tool == null) return;
 

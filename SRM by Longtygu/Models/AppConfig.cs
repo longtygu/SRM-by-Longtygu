@@ -7,6 +7,8 @@ namespace SRM_by_Longtygu.Models
         public string DefaultDataFolder { get; set; } = "Data\\";
         public string DefaultBackupFolder { get; set; } = "Backup\\";
         public string Language { get; set; } = "vi-VN";
+        // Kiểu hiển thị danh sách Công cụ mở rộng: "Grid" (ô lớn) hoặc "List" (danh sách). Thiếu khóa/giá trị lạ -> "Grid".
+        public string ToolsViewMode { get; set; } = "Grid";
 
         // MỚI: Đã xem hướng dẫn Trung tâm cập nhật lần đầu chưa - dùng để tự động hiện popup
         // hướng dẫn đúng 1 lần duy nhất khi người dùng mở trang này lần đầu tiên.

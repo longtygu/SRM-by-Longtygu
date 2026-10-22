@@ -2,12 +2,62 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"  
+             xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers" xmlns:srmconv="clr-namespace:SRM_by_Longtygu.Converters"  
              Background="Transparent" Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial" xmlns:srmloc="clr-namespace:SRM_by_Longtygu.Services">
 
     <UserControl.Resources>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
         <helpers:CustomOrAutoIconConverter x:Key="AutoIconConverter"/>
+        <srmconv:VersionDateConverter x:Key="VersionDateConverter"/>
+
+        <!-- STYLE TAB CON (Phiên bản / Tài nguyên): gạch chân accent ở tab đang chọn -->
+        <Style x:Key="DetailTabControlStyle" TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid KeyboardNavigation.TabNavigation="Local">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderBrush="#333333" BorderThickness="0,0,0,1">
+                                <TabPanel IsItemsHost="True" Background="Transparent"/>
+                            </Border>
+                            <ContentPresenter Grid.Row="1" ContentSource="SelectedContent"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DetailTabItemStyle" TargetType="TabItem">
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Bd" Background="Transparent" BorderBrush="Transparent" BorderThickness="0,0,0,2"
+                                Padding="16,10" Margin="0,0,6,-1">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#2A2A2A"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#60CDFF"/>
+                                <Setter TargetName="Bd" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!-- BIẾN MÀU THEME -->
         <SolidColorBrush x:Key="ThemeSelectionBrush" Color="#2A4B6E"/>
@@ -321,23 +371,27 @@
                                     </Grid>
 
                                     <!-- Hàng dưới: Bảng quản lý phiên bản (trái) + Bảng tài nguyên đính kèm (phải), 2 cột bằng nhau -->
-                                    <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,24,0,0" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="24"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                                    <TabControl Grid.Row="1" Grid.ColumnSpan="2" Margin="0,24,0,0" HorizontalAlignment="Stretch" Style="{StaticResource DetailTabControlStyle}">
+                                        <TabItem Style="{StaticResource DetailTabItemStyle}">
+                                            <TabItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconMaterial Kind="History" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                                    <TextBlock Text="{DynamicResource Library_SavedVersions}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                    <Border Background="#333333" CornerRadius="9" Padding="7,1" Margin="8,0,0,0" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Versions.Count}" FontSize="11" Foreground="#CCCCCC"/>
+                                                    </Border>
+                                                </StackPanel>
+                                            </TabItem.Header>
 
                                         <!-- ===== CỘT TRÁI: DANH SÁCH PHIÊN BẢN ===== -->
-                                        <Grid Grid.Column="0" HorizontalAlignment="Stretch">
+                                        <Grid HorizontalAlignment="Stretch" Margin="0,16,0,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
 
                                             <Grid Grid.Row="0" Margin="0,0,0,12">
-                                                <TextBlock Text="{DynamicResource Library_SavedVersions}" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
-                                                <Button Command="{Binding DataContext.AddVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                                                <Button Command="{Binding DataContext.AddVersionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                                                     HorizontalAlignment="Right" Background="#2D2D2D" Foreground="#FFFFFF" BorderThickness="0" Padding="12,8" Cursor="Hand">
                                                     <Button.Resources>
                                                         <Style TargetType="Border">
@@ -408,6 +462,15 @@
                                                             </DataGridTextColumn.ElementStyle>
                                                         </DataGridTextColumn>
 
+                                                        <DataGridTextColumn Header="{Binding [Common_DateAdded], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding CreatedDate, Mode=OneWay, Converter={StaticResource VersionDateConverter}}" Width="1.2*" IsReadOnly="True">
+                                                            <DataGridTextColumn.ElementStyle>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Foreground" Value="#CCCCCC"/>
+                                                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                </Style>
+                                                            </DataGridTextColumn.ElementStyle>
+                                                        </DataGridTextColumn>
+
                                                         <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding DisplaySize}" Width="1*" IsReadOnly="True">
                                                             <DataGridTextColumn.ElementStyle>
                                                                 <Style TargetType="TextBlock">
@@ -455,17 +518,27 @@
                                                 </DataGrid>
                                             </Border>
                                         </Grid>
+                                        </TabItem>
 
-                                        <!-- ===== CỘT PHẢI: TÀI NGUYÊN ĐÍNH KÈM ===== -->
-                                        <Grid Grid.Column="2" HorizontalAlignment="Stretch">
+                                        <!-- ===== TAB 2: TÀI NGUYÊN ĐÍNH KÈM ===== -->
+                                        <TabItem Style="{StaticResource DetailTabItemStyle}">
+                                            <TabItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconMaterial Kind="Paperclip" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                                    <TextBlock Text="{DynamicResource Library_AttachedResources}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                    <Border Background="#333333" CornerRadius="9" Padding="7,1" Margin="8,0,0,0" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding AttachedResources.Count}" FontSize="11" Foreground="#CCCCCC"/>
+                                                    </Border>
+                                                </StackPanel>
+                                            </TabItem.Header>
+                                        <Grid HorizontalAlignment="Stretch" Margin="0,16,0,0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
 
                                             <Grid Grid.Row="0" Margin="0,0,0,12">
-                                                <TextBlock Text="{DynamicResource Library_AttachedResources}" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
-                                                <Button Command="{Binding DataContext.AttachResourceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                                                <Button Command="{Binding DataContext.AttachResourceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     HorizontalAlignment="Right" Background="#2D2D2D" Foreground="#FFFFFF" BorderThickness="0" Padding="12,8" Cursor="Hand">
                                                     <Button.Resources>
                                                         <Style TargetType="Border">
@@ -613,7 +686,8 @@
                                                 </Grid>
                                             </Border>
                                         </Grid>
-                                    </Grid>
+                                        </TabItem>
+                                    </TabControl>
 
                                     <!-- Nút thu gọn chi tiết -->
                                     <Button Grid.Row="2" Grid.ColumnSpan="2" Margin="0,20,0,0" Cursor="Hand"

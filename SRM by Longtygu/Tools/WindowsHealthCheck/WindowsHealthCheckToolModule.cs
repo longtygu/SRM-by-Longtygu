@@ -9,7 +9,7 @@ namespace SRM_by_Longtygu.Tools.WindowsHealthCheck
     {
         public string Id => "builtin.windows-health-check";
         public string Name => "Windows Health Check";
-        public string Description => "Kiểm tra tình trạng hệ thống (kích hoạt, bảo mật, TPM, BitLocker...) và sửa lỗi Windows nhanh (DISM, SFC, CHKDSK, mạng, Windows Update)";
+        public string Description => "Check system health (activation, security, TPM, BitLocker...) and quickly fix Windows issues (DISM, SFC, CHKDSK, network, Windows Update)";
         public string Version => "1.0.0";
         public string IconKind => "ShieldCheckOutline";
 

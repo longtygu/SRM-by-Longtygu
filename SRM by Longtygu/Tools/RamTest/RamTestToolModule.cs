@@ -9,7 +9,7 @@ namespace SRM_by_Longtygu.Tools.RamTest
     {
         public string Id => "builtin.ram-test";
         public string Name => "RAM Test";
-        public string Description => "Cấp phát, ghi mẫu, đọc lại và xác minh CRC để phát hiện lỗi bộ nhớ RAM";
+        public string Description => "Allocate, write test patterns, read back and verify CRC to detect RAM errors";
         public string Version => "1.0.0";
         public string IconKind => "Memory";
 

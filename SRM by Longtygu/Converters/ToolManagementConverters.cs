@@ -44,7 +44,7 @@ namespace SRM_by_Longtygu.Converters
         {
             var id = value as string;
             bool isBuiltIn = !string.IsNullOrEmpty(id) && id.StartsWith("builtin.", StringComparison.OrdinalIgnoreCase);
-            return isBuiltIn ? "Tích hợp sẵn" : "Plugin";
+            return isBuiltIn ? Loc.T("Tools_BuiltInBadge") : Loc.T("Tools_PluginBadge");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

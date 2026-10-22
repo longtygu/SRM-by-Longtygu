@@ -28,4 +28,13 @@ namespace SRM_by_Longtygu.Plugins
         // serviceProvider cho phép tool GetService<T>() lấy Repository/Service của app NẾU cần dùng tới.
         UserControl CreateView(IServiceProvider serviceProvider);
     }
+
+    // TÙY CHỌN: tool nạp từ DLL có thể implement thêm interface này để tự cung cấp tên/mô tả theo ngôn ngữ.
+    // cultureCode dạng "vi-VN", "en-US"... Trả về null/rỗng nếu không có bản dịch (app dùng Name/Description gốc).
+    // IToolModule giữ nguyên nên các DLL cũ vẫn chạy bình thường.
+    public interface ILocalizedToolModule : IToolModule
+    {
+        string GetName(string cultureCode);
+        string GetDescription(string cultureCode);
+    }
 }

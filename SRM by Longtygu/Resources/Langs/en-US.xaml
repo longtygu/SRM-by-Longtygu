@@ -859,4 +859,21 @@ Thanks to this mechanism, SRM automatically distinguishes Inno Setup installers 
     <system:String x:Key="DiskHealth_Error0">Error: {0}</system:String>
     <system:String x:Key="DiskHealth_ReadingDriveInformation">Reading drive information...</system:String>
 
+    <system:String x:Key="Tool_DiskHealth_Name">Quick Read/Write Speed Test</system:String>
+    <system:String x:Key="Tool_DiskHealth_Desc">Measure disk read/write speed and check drive SMART health</system:String>
+    <system:String x:Key="Tool_RamTest_Name">RAM Test</system:String>
+    <system:String x:Key="Tool_RamTest_Desc">Allocate, write test patterns, read back and verify CRC to detect RAM errors</system:String>
+    <system:String x:Key="Tool_HardwareInfo_Name">Hardware Information</system:String>
+    <system:String x:Key="Tool_HardwareInfo_Desc">View detailed CPU/GPU/RAM/Mainboard info, monitor real-time temperatures and drive S.M.A.R.T.</system:String>
+    <system:String x:Key="Tool_WindowsHealthCheck_Name">Windows Health Check</system:String>
+    <system:String x:Key="Tool_WindowsHealthCheck_Desc">Check system health (activation, security, TPM, BitLocker...) and quickly fix Windows issues (DISM, SFC, CHKDSK, network, Windows Update)</system:String>
+    <system:String x:Key="Tool_HashCalculator_Name">Hash Calculator</system:String>
+    <system:String x:Key="Tool_HashCalculator_Desc">Calculate MD5, SHA1, SHA256, SHA512 and CRC32 hashes of files - drag and drop multiple files, compare hashes quickly, no files are stored internally</system:String>
+    <system:String x:Key="Tools_BuiltInBadge">Built-in</system:String>
+    <system:String x:Key="Tools_PluginBadge">Plugin</system:String>
+    <system:String x:Key="Tools_ViewGridTip">Tile view</system:String>
+    <system:String x:Key="Tools_ViewListTip">List view</system:String>
+    <system:String x:Key="Tools_Launch">Run</system:String>
+    <system:String x:Key="Tools_ColDescription">Description</system:String>
+    <system:String x:Key="Tools_ListHint">Click Run to open a tool.</system:String>
 </ResourceDictionary>

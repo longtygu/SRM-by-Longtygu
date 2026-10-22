@@ -1,6 +1,7 @@
 # SRM by Longtygu [ VIETNAMESE ]
 
 Bộ công cụ thư viện phần mềm, quản lý triển khai ứng dụng và bộ công cụ / tài nguyên phần mềm tệp tin đính kèm siêu đơn giản, có thể chạy cục bộ trên USB / ổ cứng rời !
+<img width="1452" height="804" alt="image" src="https://github.com/user-attachments/assets/0993500f-4d1e-4b6f-897c-092ebf9df4fb" />
 
 ## Tính năng
 
@@ -46,6 +47,7 @@ Phần mềm được phát hành theo giấy phép MIT. Xem chi tiết tại [L
 # SRM by Longtygu [ ENGLISH ]
 
 A lightweight software library, deployment manager, and toolkit for managing software resources and file attachments. Designed to run locally from a USB drive or external hard drive, with a simple and portable workflow!
+
 
 ## Features
 

@@ -261,7 +261,9 @@ namespace SRM_by_Longtygu.ViewModels
                     string newFileName = $"{Guid.NewGuid()}{fileExt}";
                     string destFilePath = Path.Combine(installersDir, newFileName);
 
-                    File.Copy(captureFile, destFilePath, true);
+                    SRM_by_Longtygu.Helpers.DiskSpaceGuard.EnsureCanStore(installersDir, new FileInfo(captureFile).Length);
+                    try { SRM_by_Longtygu.Helpers.SafeFileCopy.Copy(captureFile, destFilePath, true); }
+                    catch { try { if (File.Exists(destFilePath)) File.Delete(destFilePath); } catch { } throw; }
 
                     // LƯU DATABASE
                     int newSoftwareId = await _softwareRepo.InsertAsync(sw);

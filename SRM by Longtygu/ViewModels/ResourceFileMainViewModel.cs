@@ -1,4 +1,5 @@
 ﻿using SRM_by_Longtygu.Commands;
+using SRM_by_Longtygu.Helpers;
 using SRM_by_Longtygu.Models;
 using SRM_by_Longtygu.Repositories;
 using System;
@@ -186,20 +187,31 @@ namespace SRM_by_Longtygu.ViewModels
             string localFolderPath = Path.Combine(baseDir, uniqueFolder);
             Directory.CreateDirectory(localFolderPath);
 
-            if (editorVM.IsSourceFolder)
+            try
             {
-                if (!Directory.Exists(editorVM.SourceFilePath))
-                    throw new DirectoryNotFoundException(Loc.T("ResourceFile_SourceFolderNotFound") + editorVM.SourceFilePath);
+                if (editorVM.IsSourceFolder)
+                {
+                    if (!Directory.Exists(editorVM.SourceFilePath))
+                        throw new DirectoryNotFoundException(Loc.T("ResourceFile_SourceFolderNotFound") + editorVM.SourceFilePath);
 
-                await Task.Run(() => CopyDirectoryRecursive(editorVM.SourceFilePath, localFolderPath));
+                    DiskSpaceGuard.EnsureCanStoreFolder(editorVM.SourceFilePath, localFolderPath);
+                    await Task.Run(() => CopyDirectoryRecursive(editorVM.SourceFilePath, localFolderPath));
+                }
+                else
+                {
+                    if (!File.Exists(editorVM.SourceFilePath))
+                        throw new FileNotFoundException(Loc.T("ResourceFile_SourceFileNotFound") + editorVM.SourceFilePath);
+
+                    DiskSpaceGuard.EnsureCanStore(localFolderPath, new FileInfo(editorVM.SourceFilePath).Length);
+                    string destFile = Path.Combine(localFolderPath, editorVM.FileName);
+                    await Task.Run(() => SafeFileCopy.Copy(editorVM.SourceFilePath, destFile, true));
+                }
             }
-            else
+            catch
             {
-                if (!File.Exists(editorVM.SourceFilePath))
-                    throw new FileNotFoundException(Loc.T("ResourceFile_SourceFileNotFound") + editorVM.SourceFilePath);
-
-                string destFile = Path.Combine(localFolderPath, editorVM.FileName);
-                await Task.Run(() => File.Copy(editorVM.SourceFilePath, destFile, true));
+                // Chép lỗi giữa chừng: xóa thư mục vừa tạo để không để lại file dở dang chiếm dung lượng
+                try { if (Directory.Exists(localFolderPath)) Directory.Delete(localFolderPath, true); } catch { }
+                throw;
             }
 
             return localFolderPath;
@@ -212,7 +224,7 @@ namespace SRM_by_Longtygu.ViewModels
             foreach (string filePath in Directory.GetFiles(sourceDir))
             {
                 string destFile = Path.Combine(destDir, Path.GetFileName(filePath));
-                File.Copy(filePath, destFile, true);
+                SafeFileCopy.Copy(filePath, destFile, true);
             }
 
             foreach (string subDir in Directory.GetDirectories(sourceDir))

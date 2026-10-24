@@ -891,4 +891,6 @@ Thanks to this mechanism, SRM automatically distinguishes Inno Setup installers 
     <system:String x:Key="Category_Drivers">Drivers</system:String>
     <system:String x:Key="Category_ScriptsConfigs">Scripts &amp; Configs</system:String>
     <system:String x:Key="Category_ToolsRes">Tools</system:String>
+    <system:String x:Key="ResourceFile_Fat32TooLarge">Drive "{0}" uses the {1} file system, which cannot store files larger than 4 GB (this file is {2}). Run SRM from an NTFS or exFAT drive.</system:String>
+    <system:String x:Key="ResourceFile_NotEnoughSpace">Not enough free space on drive "{0}": {1} needed, {2} available.</system:String>
 </ResourceDictionary>

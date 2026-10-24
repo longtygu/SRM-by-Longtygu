@@ -891,4 +891,6 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="Category_Drivers">Drivers</system:String>
     <system:String x:Key="Category_ScriptsConfigs">Scripts &amp; Configs</system:String>
     <system:String x:Key="Category_ToolsRes">Công cụ (Tools)</system:String>
+    <system:String x:Key="ResourceFile_Fat32TooLarge">Ổ đĩa "{0}" đang dùng định dạng {1}, không lưu được file lớn hơn 4 GB (file này {2}). Hãy chạy SRM từ ổ định dạng NTFS hoặc exFAT.</system:String>
+    <system:String x:Key="ResourceFile_NotEnoughSpace">Không đủ dung lượng trống trên ổ "{0}": cần {1}, còn {2}.</system:String>
 </ResourceDictionary>

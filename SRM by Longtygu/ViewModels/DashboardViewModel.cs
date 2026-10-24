@@ -119,7 +119,7 @@ namespace SRM_by_Longtygu.ViewModels
 
                     if (softwares != null && softwares.Any())
                     {
-                        var grouped = softwares.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? Loc.T("Dashboard_Other") : s.Category);
+                        var grouped = softwares.GroupBy(s => SRM_by_Longtygu.Services.CategoryCatalog.Display(string.IsNullOrWhiteSpace(s.Category) ? SRM_by_Longtygu.Services.CategoryCatalog.OtherStored : s.Category));
 
                         foreach (var group in grouped)
                         {
@@ -185,7 +185,7 @@ namespace SRM_by_Longtygu.ViewModels
                         CategoryStats.Clear();
                         if (softwares != null && softwares.Any())
                         {
-                            var grouped = softwares.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? Loc.T("Dashboard_Other") : s.Category);
+                            var grouped = softwares.GroupBy(s => SRM_by_Longtygu.Services.CategoryCatalog.Display(string.IsNullOrWhiteSpace(s.Category) ? SRM_by_Longtygu.Services.CategoryCatalog.OtherStored : s.Category));
                             foreach (var group in grouped)
                                 CategoryStats.Add(new CategoryStat { CategoryName = group.Key, Count = group.Count() });
                         }

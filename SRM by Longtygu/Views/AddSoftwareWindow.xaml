@@ -1,6 +1,6 @@
 ﻿<Window x:Class="SRM_by_Longtygu.Views.AddSoftwareWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:srmconv="clr-namespace:SRM_by_Longtygu.Converters"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="{DynamicResource AddSoftware_AddNewSoftware}" Height="686" Width="1000"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
@@ -8,6 +8,8 @@
         Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
 
     <Window.Resources>
+        <srmconv:CategoryDisplayConverter x:Key="CategoryDisplayConverter"/>
+        <DataTemplate x:Key="CategoryItemTemplate"><TextBlock Text="{Binding Converter={StaticResource CategoryDisplayConverter}}"/></DataTemplate>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
         <!-- 0. STYLE NÚT ĐÓNG (CLOSE BUTTON) -->
@@ -327,7 +329,7 @@
                             </StackPanel>
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="{DynamicResource Common_Category}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
-                                <ComboBox ItemsSource="{Binding ExistingCategories}" 
+                                <ComboBox ItemTemplate="{StaticResource CategoryItemTemplate}" ItemsSource="{Binding ExistingCategories}" 
                                           SelectedItem="{Binding Category, UpdateSourceTrigger=PropertyChanged}" 
                                           Style="{StaticResource FluentComboBoxStyle}" Height="40"/>
                             </StackPanel>

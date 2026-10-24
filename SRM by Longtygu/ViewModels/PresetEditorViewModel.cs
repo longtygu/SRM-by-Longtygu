@@ -70,7 +70,7 @@ namespace SRM_by_Longtygu.ViewModels
                 if (string.IsNullOrWhiteSpace(SearchText)) return true;
                 var sw = item as Software;
                 return sw != null && (sw.Name.ToLower().Contains(SearchText.ToLower()) ||
-                                      sw.Category.ToLower().Contains(SearchText.ToLower()));
+                                      SRM_by_Longtygu.Services.CategoryCatalog.Matches(sw.Category, SearchText));
             };
 
             ToggleViewCommand = new RelayCommand(_ => IsGridView = !IsGridView);

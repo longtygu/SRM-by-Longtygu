@@ -1,6 +1,6 @@
 ﻿<Window x:Class="SRM_by_Longtygu.Views.ResourceFileEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:srmconv="clr-namespace:SRM_by_Longtygu.Converters"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:helpers="clr-namespace:SRM_by_Longtygu.Helpers"
         Title="{DynamicResource ResourceFileEditor_EditResource}" Height="730" Width="680"
@@ -9,6 +9,8 @@
         FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
 
     <Window.Resources>
+        <srmconv:CategoryDisplayConverter x:Key="CategoryDisplayConverter"/>
+        <DataTemplate x:Key="CategoryItemTemplate"><TextBlock Text="{Binding Converter={StaticResource CategoryDisplayConverter}}"/></DataTemplate>
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
         <helpers:EditorIconPreviewConverter x:Key="IconPreviewConverter"/>
         <helpers:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
@@ -265,7 +267,7 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="{DynamicResource Common_Category}" Foreground="#AAAAAA" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding Category, Mode=TwoWay}" Style="{StaticResource FluentComboBoxStyle}"/>
+                            <ComboBox ItemTemplate="{StaticResource CategoryItemTemplate}" ItemsSource="{Binding Categories}" SelectedItem="{Binding Category, Mode=TwoWay}" Style="{StaticResource FluentComboBoxStyle}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">

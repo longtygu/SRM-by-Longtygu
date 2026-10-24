@@ -81,7 +81,7 @@ namespace SRM_by_Longtygu.Models
             : Loc.F("Software_ScannedAt0", LastCheckedDate);
 
         // Dùng để NHÓM trong danh sách (tránh nhóm "trống tên" khi phần mềm chưa gán danh mục)
-        public string CategoryDisplay => string.IsNullOrWhiteSpace(Category) ? Loc.T("Software_Uncategorized") : Category;
+        public string CategoryDisplay => SRM_by_Longtygu.Services.CategoryCatalog.Display(Category);
 
         // ===== MỚI: THEO DÕI TIẾN TRÌNH TẢI CẬP NHẬT (transient, không lưu DB) =====
         private bool _isDownloadingUpdate;

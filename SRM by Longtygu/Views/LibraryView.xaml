@@ -9,6 +9,7 @@
         <helpers:ImagePathConverter x:Key="ImgConverter"/>
         <helpers:CustomOrAutoIconConverter x:Key="AutoIconConverter"/>
         <srmconv:VersionDateConverter x:Key="VersionDateConverter"/>
+        <srmconv:CategoryDisplayConverter x:Key="CategoryDisplayConverter"/>
 
         <!-- STYLE TAB CON (Phiên bản / Tài nguyên): gạch chân accent ở tab đang chọn -->
         <Style x:Key="DetailTabControlStyle" TargetType="TabControl">
@@ -282,7 +283,7 @@
                                                 <Expander.Header>
                                                     <StackPanel Orientation="Horizontal" Margin="5,10">
                                                         <iconPacks:PackIconMaterial Kind="FolderOpen" Foreground="#60CDFF" VerticalAlignment="Center" Margin="0,0,12,0"/>
-                                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="{Binding Name, Converter={StaticResource CategoryDisplayConverter}}" FontWeight="SemiBold" FontSize="15" Foreground="#FFFFFF" VerticalAlignment="Center"/>
                                                         <TextBlock Text="{Binding ItemCount, StringFormat=' ({0})'}" Foreground="#888888" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"/>
                                                     </StackPanel>
                                                 </Expander.Header>
@@ -312,7 +313,7 @@
 
                     <DataGridTextColumn Header="{Binding [Common_SoftwareName], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Name}" Width="1.5*" IsReadOnly="True" FontWeight="SemiBold"/>
                     <DataGridTextColumn Header="{Binding [Common_Developer], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Publisher}" Width="2*" IsReadOnly="True" Foreground="#CCCCCC"/>
-                    <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
+                    <DataGridTextColumn Header="{Binding [Common_Category2], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category, Converter={StaticResource CategoryDisplayConverter}}" Width="1.5*" IsReadOnly="True" Foreground="#CCCCCC"/>
                     <DataGridTextColumn Header="{Binding [Common_Size], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding DisplaySize}" Width="100" Foreground="#888888"/>
                     <DataGridTextColumn Header="{Binding [Common_DateAdded], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding CreatedDate}" Width="1.5*" IsReadOnly="True" Foreground="#888888"/>
                 </DataGrid.Columns>
@@ -627,7 +628,7 @@
                                                                 </DataGridTextColumn.ElementStyle>
                                                             </DataGridTextColumn>
 
-                                                            <DataGridTextColumn Header="{Binding [Common_Type], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category}" Width="1.35*" IsReadOnly="True">
+                                                            <DataGridTextColumn Header="{Binding [Common_Type], Source={x:Static srmloc:LocProxy.Instance}}" Binding="{Binding Category, Converter={StaticResource CategoryDisplayConverter}}" Width="1.35*" IsReadOnly="True">
                                                                 <DataGridTextColumn.ElementStyle>
                                                                     <Style TargetType="TextBlock">
                                                                         <Setter Property="Foreground" Value="#CCCCCC"/>

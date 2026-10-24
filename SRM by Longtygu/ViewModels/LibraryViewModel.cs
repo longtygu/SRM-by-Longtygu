@@ -114,6 +114,11 @@ namespace SRM_by_Longtygu.ViewModels
             }
 
             var data = await _repository.SearchAsync(SearchText);
+            // MỚI: bổ sung kết quả khớp theo tên danh mục ĐÃ DỊCH (vd gõ "browser"); DB vẫn lưu tiếng Việt
+            var all = await _repository.GetAllAsync();
+            data = data.Concat(all.Where(x => SRM_by_Longtygu.Services.CategoryCatalog.Matches(x.Category, SearchText)))
+                       .GroupBy(x => x.Id).Select(g => g.First())
+                       .OrderBy(x => x.Name).ToList();
             Application.Current.Dispatcher.Invoke(() => Softwares.Clear());
 
             foreach (var item in data)

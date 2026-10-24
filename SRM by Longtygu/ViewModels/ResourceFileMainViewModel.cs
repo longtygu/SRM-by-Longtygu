@@ -232,6 +232,7 @@ namespace SRM_by_Longtygu.ViewModels
             return Contains(file.Name, keyword)
                 || Contains(file.FileName, keyword)
                 || Contains(file.Category, keyword)
+                || SRM_by_Longtygu.Services.CategoryCatalog.Matches(file.Category, keyword)
                 || Contains(file.Description, keyword);
         }
 

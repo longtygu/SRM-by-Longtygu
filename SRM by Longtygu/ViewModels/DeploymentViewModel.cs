@@ -197,7 +197,7 @@ namespace SRM_by_Longtygu.ViewModels
 
             bool matchName = item.Software.Name?.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0;
             bool matchPublisher = item.Software.Publisher?.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0;
-            bool matchCategory = item.Software.Category?.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0;
+            bool matchCategory = SRM_by_Longtygu.Services.CategoryCatalog.Matches(item.Software.Category, keyword);
 
             return matchName || matchPublisher || matchCategory;
         }

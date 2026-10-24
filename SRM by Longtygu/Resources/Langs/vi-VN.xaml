@@ -876,4 +876,19 @@ Nhờ cơ chế này, SRM tự động phân biệt được bộ cài Inno Setu
     <system:String x:Key="Tools_Launch">Chạy</system:String>
     <system:String x:Key="Tools_ColDescription">Mô tả</system:String>
     <system:String x:Key="Tools_ListHint">Bấm Chạy để mở công cụ.</system:String>
+    <system:String x:Key="Category_Browser">Trình duyệt Web</system:String>
+    <system:String x:Key="Category_SystemUtilities">Tiện ích hệ thống</system:String>
+    <system:String x:Key="Category_Office">Văn phòng &amp; Công việc</system:String>
+    <system:String x:Key="Category_Design">Thiết kế &amp; Đồ họa</system:String>
+    <system:String x:Key="Category_Media">Đa phương tiện (Media)</system:String>
+    <system:String x:Key="Category_Dev">Lập trình &amp; IT</system:String>
+    <system:String x:Key="Category_Security">Bảo mật &amp; Diệt Virus</system:String>
+    <system:String x:Key="Category_Games">Trò chơi (Games)</system:String>
+    <system:String x:Key="Category_Other">Khác</system:String>
+    <system:String x:Key="Category_WindowsIso">Windows ISO</system:String>
+    <system:String x:Key="Category_OfficeIso">Office ISO</system:String>
+    <system:String x:Key="Category_SystemComponents">System Components (DLL, C++)</system:String>
+    <system:String x:Key="Category_Drivers">Drivers</system:String>
+    <system:String x:Key="Category_ScriptsConfigs">Scripts &amp; Configs</system:String>
+    <system:String x:Key="Category_ToolsRes">Công cụ (Tools)</system:String>
 </ResourceDictionary>

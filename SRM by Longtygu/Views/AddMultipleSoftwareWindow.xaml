@@ -1,6 +1,6 @@
 ﻿<Window x:Class="SRM_by_Longtygu.Views.AddMultipleSoftwareWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:srmconv="clr-namespace:SRM_by_Longtygu.Converters"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="{DynamicResource Common_AddMultipleSoftwareAt}" Height="720" Width="1150"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
@@ -8,6 +8,8 @@
         Foreground="#FFFFFF" FontFamily="Segoe UI Variable Display, Segoe UI, Arial">
 
     <Window.Resources>
+        <srmconv:CategoryDisplayConverter x:Key="CategoryDisplayConverter"/>
+        <DataTemplate x:Key="CategoryItemTemplate"><TextBlock Text="{Binding Converter={StaticResource CategoryDisplayConverter}}"/></DataTemplate>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
         <!-- 0. STYLE NÚT ĐÓNG (CLOSE BUTTON) -->
@@ -346,7 +348,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <ComboBox Grid.Column="0" ItemsSource="{Binding ExistingCategories}"
+                            <ComboBox Grid.Column="0" ItemTemplate="{StaticResource CategoryItemTemplate}" ItemsSource="{Binding ExistingCategories}"
                                       SelectedItem="{Binding SharedCategory, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{StaticResource FluentComboBoxStyle}" Height="38" Margin="0,0,8,0"
                                       ToolTip="{DynamicResource AddMultipleSoftware_CommonCategory}"/>
@@ -376,7 +378,7 @@
                                                 <TextBlock Foreground="#AAAAAA" FontSize="11" Margin="0,2,0,0">
                                                     <Run Text="{Binding Version, Mode=OneWay}"/>
                                                     <Run Text=" • "/>
-                                                    <Run Text="{Binding Category, Mode=OneWay}"/>
+                                                    <Run Text="{Binding Category, Mode=OneWay, Converter={StaticResource CategoryDisplayConverter}}"/>
                                                     <Run Text=" • "/>
                                                     <Run Text="{Binding FileSizeDisplay, Mode=OneWay}"/>
                                                 </TextBlock>
@@ -494,7 +496,7 @@
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
                                             <TextBlock Text="{DynamicResource Common_Category}" Foreground="#AAAAAA" Margin="0,0,0,6" FontWeight="SemiBold" FontSize="13"/>
-                                            <ComboBox ItemsSource="{Binding ExistingCategories}"
+                                            <ComboBox ItemTemplate="{StaticResource CategoryItemTemplate}" ItemsSource="{Binding ExistingCategories}"
                                                       SelectedItem="{Binding SelectedEntry.Category, UpdateSourceTrigger=PropertyChanged}"
                                                       Style="{StaticResource FluentComboBoxStyle}" Height="40"/>
                                         </StackPanel>

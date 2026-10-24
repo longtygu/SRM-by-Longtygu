@@ -446,7 +446,7 @@
     <system:String x:Key="About_ApplicationInformation">Thông tin Ứng dụng</system:String>
     <system:String x:Key="About_HowItWorks">Nguyên lý hoạt động</system:String>
     <system:String x:Key="About_ActivityLog">Nhật ký hoạt động</system:String>
-    <system:String x:Key="About_VersionLabel">Phiên bản 1.0.2 ( Test )</system:String>
+    <system:String x:Key="About_VersionLabel">Phiên bản 1.0.3 ( Test )</system:String>
     <system:String x:Key="About_Author">Tác giả</system:String>
     <system:String x:Key="About_SoftwareRepositoryManagerSRM">Software Repository Manager (SRM) chưa đến mức để coi là dự án mà là 1 sản phẩm cá nhân LÀM CHO VUI, xuất phát từ nhu cầu cần quản lý các bộ cài với yêu cầu phải đơn giản, nhẹ và đặc biệt có thể chạy độc lập và portable trên các thiết bị ngoại vi như usb, ổ cứng rời mà không cần phải sửa đổi quá nhiều.</system:String>
     <system:String x:Key="About_About70OfThe">70% code tạo ra bởi AI, cá nhân tôi chỉ mang tính định hướng, prom tính năng, fix các lỗi liên quan đến cấu trúc và tên biến, các lỗi có lượng văn bản lớn mà AI không thể đọc hết trong 1 phiên, testing, đóng gói cũng như publish công khai nên mã nguồn phần mềm đều được share cho bất kỳ ai muốn sửa đổi cũng như phát triển riêng dựa trên khung phần mềm này, tất nhiên yêu cầu khai báo tên phiên bản gốc :) .</system:String>
